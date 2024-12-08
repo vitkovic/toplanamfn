@@ -1,0 +1,26 @@
+{
+  "toplanaApp": {
+    "opomena": {
+      "home": {
+        "title": "Opomenas",
+        "createLabel": "Kreiraj novi Opomena",
+        "createOrEditLabel": "Kreirajte ili izmenite Opomena",
+        "notFound": "No Opomenas found"
+      },
+      "created": "Kreiran je novi Opomena pod nazivom {{ param }}",
+      "updated": "Opomena pod nazivom {{ param }} je ažuriran",
+      "deleted": "Opomena pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Opomena pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Opomena"
+      },
+      "datumOpomene": "Datum Opomene",
+      "zakljucniDatum": "Zakljucni Datum",
+      "iznos": "Iznos",
+      "datumIzmirenja": "Datum Izmirenja",
+      "stan": "Stan"
+    }
+  }
+}

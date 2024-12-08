@@ -1,0 +1,25 @@
+{
+  "toplanaApp": {
+    "ceneStare": {
+      "home": {
+        "title": "Cene Stares",
+        "createLabel": "Kreiraj novi Cene Stare",
+        "createOrEditLabel": "Kreirajte ili izmenite Cene Stare",
+        "notFound": "No Cene Stares found"
+      },
+      "created": "Kreiran je novi Cene Stare pod nazivom {{ param }}",
+      "updated": "Cene Stare pod nazivom {{ param }} je ažuriran",
+      "deleted": "Cene Stare pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Cene Stare pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Cene Stare"
+      },
+      "kwh": "Kwh",
+      "fix": "Fix",
+      "odrzavanje": "Odrzavanje",
+      "ostalo": "Ostalo"
+    }
+  }
+}

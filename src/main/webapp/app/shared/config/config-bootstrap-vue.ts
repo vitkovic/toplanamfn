@@ -24,6 +24,13 @@ import {
   BFormDatepicker,
   BInputGroup,
   BInputGroupPrepend,
+  BFormFile,
+  BFormCheckboxGroup,
+  BTable,
+  BPaginationNav,
+  BRow,
+  BCol,
+  BContainer,
 } from 'bootstrap-vue';
 
 export function initBootstrapVue(vue) {
@@ -53,4 +60,11 @@ export function initBootstrapVue(vue) {
   vue.component('b-form-datepicker', BFormDatepicker);
   vue.component('b-input-group', BInputGroup);
   vue.component('b-input-group-prepend', BInputGroupPrepend);
+  vue.component('b-form-file', BFormFile);
+  vue.component('b-form-checkbox-group', BFormCheckboxGroup);
+  vue.component('b-table', BTable);
+  vue.component('b-pagination-nav', BPaginationNav);
+  vue.component('b-row', BRow);
+  vue.component('b-col', BCol);
+  vue.component('b-container', BContainer;
 }

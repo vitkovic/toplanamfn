@@ -1,0 +1,52 @@
+{
+  "name": "Racun",
+  "fields": [
+    {
+      "fieldName": "datumRacuna",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "period",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "utrosakVarijabilni",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "utrosakFiksni",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "utrosakOdrzavanje",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "stan",
+      "otherEntityRelationshipName": "racun",
+      "relationshipName": "stan",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "nacrtRacuna",
+      "otherEntityRelationshipName": "racun",
+      "relationshipName": "nacrtRacuna",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20230423092051",
+  "entityTableName": "racun",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

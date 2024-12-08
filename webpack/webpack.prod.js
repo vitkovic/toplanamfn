@@ -19,18 +19,18 @@ const webpackConfig = merge(baseWebpackConfig, {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
       extract: true,
-      usePostCSS: true,
-    }),
+      usePostCSS: true
+    })
   },
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   entry: {
     global: './src/main/webapp/content/scss/global.scss',
-    main: './src/main/webapp/app/main',
+    main: './src/main/webapp/app/main'
   },
   output: {
     path: jhiUtils.root('target/classes/static/'),
     filename: 'app/[name].[hash].bundle.js',
-    chunkFilename: 'app/[id].[hash].chunk.js',
+    chunkFilename: 'app/[id].[hash].chunk.js'
   },
   optimization: {
     splitChunks: {
@@ -38,15 +38,15 @@ const webpackConfig = merge(baseWebpackConfig, {
         commons: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
-          chunks: 'all',
-        },
-      },
-    },
+          chunks: 'all'
+        }
+      }
+    }
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
-      'process.env': env,
+      'process.env': env
     }),
     new TerserPlugin({
       terserOptions: {
@@ -73,11 +73,11 @@ const webpackConfig = merge(baseWebpackConfig, {
           unused: true,
           conditionals: true,
           dead_code: true,
-          evaluate: true,
+          evaluate: true
         },
         mangle: {
-          safari10: true,
-        },
+          safari10: true
+        }
       },
       cache: true,
       parallel: true,
@@ -87,7 +87,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // extract css into its own file
     new MiniCssExtractPlugin({
       filename: 'content/[name].[contenthash].css',
-      chunkFilename: 'content/[id].css',
+      chunkFilename: 'content/[id].css'
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
@@ -104,23 +104,25 @@ const webpackConfig = merge(baseWebpackConfig, {
       minify: {
         removeComments: true,
         collapseWhitespace: true,
-        removeAttributeQuotes: true,
+        removeAttributeQuotes: true
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
-    new ForkTsCheckerWebpackPlugin({
-      vue: {
-        enabled: true,
-        compiler: 'vue-template-compiler',
-      },
-      tslint: false,
-      formatter: 'codeframe',
-      checkSyntacticErrors: false,
-    }),
-  ],
+    new ForkTsCheckerWebpackPlugin(
+      {
+        vue: {
+          enabled: true,
+          compiler: 'vue-template-compiler'
+        },
+        tslint: false,
+        formatter: 'codeframe',
+        checkSyntacticErrors: false
+      }
+    )
+  ]
 });
 
 if (config.build.productionGzip) {
@@ -132,7 +134,7 @@ if (config.build.productionGzip) {
       algorithm: 'gzip',
       test: new RegExp('\\.(' + config.build.productionGzipExtensions.join('|') + ')$'),
       threshold: 10240,
-      minRatio: 0.8,
+      minRatio: 0.8
     })
   );
 }

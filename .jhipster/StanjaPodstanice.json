@@ -1,0 +1,39 @@
+{
+  "name": "StanjaPodstanice",
+  "fields": [
+    {
+      "fieldName": "stanje",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "datumOcitavanja",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "podstanica",
+      "otherEntityRelationshipName": "stanjePodstanice",
+      "relationshipName": "podstanica",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20230423091351",
+  "entityTableName": "stanja_podstanice",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

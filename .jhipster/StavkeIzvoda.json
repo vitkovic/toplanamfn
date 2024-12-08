@@ -1,0 +1,65 @@
+{
+  "name": "StavkeIzvoda",
+  "fields": [
+    {
+      "fieldName": "rasporedjena",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "datum",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "iznos",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "sifra",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "opis",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "transakcija",
+      "otherEntityRelationshipName": "stavkaIzvoda",
+      "relationshipName": "transakcija",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "transakcijaStara",
+      "otherEntityRelationshipName": "stavkaIzvoda",
+      "relationshipName": "transakcijaStara",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "izvod",
+      "otherEntityRelationshipName": "stavkaIzvoda",
+      "relationshipName": "izvod",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20230423092251",
+  "entityTableName": "stavke_izvoda",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

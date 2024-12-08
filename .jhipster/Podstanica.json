@@ -1,0 +1,41 @@
+{
+  "name": "Podstanica",
+  "fields": [
+    {
+      "fieldName": "naziv",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "nacrtRacuna",
+      "otherEntityRelationshipName": "podstanica",
+      "relationshipName": "nacrtRacuna"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "stan",
+      "otherEntityRelationshipName": "podstanica",
+      "relationshipName": "stan"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "stanjaPodstanice",
+      "otherEntityRelationshipName": "podstanica",
+      "relationshipName": "stanjePodstanice"
+    }
+  ],
+  "changelogDate": "20230423091251",
+  "javadoc": "not an ignored comment",
+  "entityTableName": "podstanica",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

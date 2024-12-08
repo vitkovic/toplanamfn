@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity Stan.
+    -->
+    <changeSet id="20230423090951-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="tip_potrosaca_id"
+                                 baseTableName="stan"
+                                 constraintName="fk_stan_tip_potrosaca_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tip_potrosaca"/>
+
+        <addForeignKeyConstraint baseColumnNames="podstanica_id"
+                                 baseTableName="stan"
+                                 constraintName="fk_stan_podstanica_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="podstanica"/>
+
+        <addForeignKeyConstraint baseColumnNames="vlasnik_id"
+                                 baseTableName="stan"
+                                 constraintName="fk_stan_vlasnik_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vlasnik"/>
+
+    </changeSet>
+</databaseChangeLog>

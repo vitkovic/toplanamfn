@@ -1,0 +1,33 @@
+{
+  "toplanaApp": {
+    "transakcijaStara": {
+      "home": {
+        "title": "Transakcija Staras",
+        "createLabel": "Kreiraj novi Transakcija Stara",
+        "createOrEditLabel": "Kreirajte ili izmenite Transakcija Stara",
+        "notFound": "No Transakcija Staras found"
+      },
+      "created": "Kreiran je novi Transakcija Stara pod nazivom {{ param }}",
+      "updated": "Transakcija Stara pod nazivom {{ param }} je ažuriran",
+      "deleted": "Transakcija Stara pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Transakcija Stara pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Transakcija Stara"
+      },
+      "datum": "Datum",
+      "valuta": "Valuta",
+      "status": "Status",
+      "opis": "Opis",
+      "duguje": "Duguje",
+      "potrazuje": "Potrazuje",
+      "vrstaTransakcije": "Vrsta Transakcije",
+      "sifraDokumenta": "Sifra Dokumenta",
+      "sifraPromene": "Sifra Promene",
+      "cene": "Cene",
+      "stavkaIzvoda": "Stavka Izvoda",
+      "stan": "Stan"
+    }
+  }
+}

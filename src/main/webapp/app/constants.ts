@@ -6,6 +6,7 @@ export const VERSION = process.env.VERSION;
 // export const DEBUG_INFO_ENABLED: boolean = !!process.env.DEBUG_INFO_ENABLED;
 export const SERVER_API_URL = process.env.SERVER_API_URL;
 export const BUILD_TIMESTAMP = process.env.BUILD_TIMESTAMP;
+export const RACUN_ZADUZENJA = '840-0000002696760-36';
 
 // Errors
 export const PROBLEM_BASE_URL = 'https://www.jhipster.tech/problem';

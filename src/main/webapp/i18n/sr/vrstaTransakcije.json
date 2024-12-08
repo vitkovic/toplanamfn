@@ -1,0 +1,23 @@
+{
+  "toplanaApp": {
+    "vrstaTransakcije": {
+      "home": {
+        "title": "Vrsta Transakcijes",
+        "createLabel": "Kreiraj novi Vrsta Transakcije",
+        "createOrEditLabel": "Kreirajte ili izmenite Vrsta Transakcije",
+        "notFound": "No Vrsta Transakcijes found"
+      },
+      "created": "Kreiran je novi Vrsta Transakcije pod nazivom {{ param }}",
+      "updated": "Vrsta Transakcije pod nazivom {{ param }} je ažuriran",
+      "deleted": "Vrsta Transakcije pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Vrsta Transakcije pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Vrsta Transakcije"
+      },
+      "vrsta": "Vrsta",
+      "dodajeVrednost": "Dodaje Vrednost"
+    }
+  }
+}

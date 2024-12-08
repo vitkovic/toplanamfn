@@ -49,14 +49,15 @@ import { accountStore } from '@/shared/config/store/account-store';
 import { alertStore } from '@/shared/config/store/alert-store';
 import { translationStore } from '@/shared/config/store/translation-store';
 
+
+
+
 const dateTimeFormats = {
   sr: {
     short: {
       year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
+      month: 'numeric',
+      day: 'numeric'
     },
     medium: {
       year: 'numeric',

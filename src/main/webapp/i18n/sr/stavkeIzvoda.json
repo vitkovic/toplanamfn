@@ -1,0 +1,54 @@
+{
+  "toplanaApp": {
+    "stavkeIzvoda": {
+      "home": {
+        "title": "Ставке извода",
+        "createLabel": "Kreiraj novi Stavke Izvoda",
+        "createOrEditLabel": "Kreirajte ili izmenite Stavke Izvoda",
+        "notFound": "No Stavke Izvodas found",
+        "knjizenje": "Књижење ставке"
+      },
+      "created": "Kreiran je novi Stavke Izvoda pod nazivom {{ param }}",
+      "updated": "Stavke Izvoda pod nazivom {{ param }} je ažuriran",
+      "deleted": "Stavke Izvoda pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Stavke Izvoda pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Ставкa у изводу (ID oznaka {{ id }})"
+      },
+      "rasporedjena": "Прокњижена",
+      "datum": "Датум",
+      "status": "Статус",
+      "iznos": "Износ",
+      "sifra": "Шифра",
+      "opis": "Опис",
+      "transakcija": "Трансакција",
+      "transakcijaStara": "Transakcija Stara",
+      "izvod": "Извод",
+      "sifraStanaNePostoji": "Стан са шифром коју сте унели не постоји. Покушајте са другом шифром.",
+      "sifraStana": "Шифра стана",
+      "racun": "Рачун",
+      "zaduzenje": "Задужење",
+      "podatakZaReklamaciju": "Податак за рекламацију",
+      "nazivIMesto": "Назив и место",
+      "odobrenje": "Одобрење",
+      "sifraPlacanja": "Шифра плаћања",
+      "svrhaDoznake": "Сврха дознаке",
+      "pbz": "PBZ",
+      "pozivNaBroj": "Позив на број",
+      "nazivZaduzenja": "Уплатио",
+      "stavkeIzvodaProknjizene": "Неке ставке овог извода су прокњижене, па се извод не може обрисати ",
+      "valuta":"Валута",
+      "brojTekucegRacuna":"Бр.тек.рн.",
+      "brojTekucegRacunaPuni":"Број текућег рачуна",
+      "brojPartijeKodPoverioca":"Бр. пар. код повериоца",
+      "imeVlasnikaTekucegRacuna":"Име власника тек. рачуна",
+      "imeVlasnikaTekucegRacunaPuni":"Име власника текућег рачуна",
+      "adresaVlasnika":"Адреса власника",
+      "posta":"Пошта" 
+      
+
+    }
+  }
+}

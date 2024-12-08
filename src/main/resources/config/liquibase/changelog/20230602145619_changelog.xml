@@ -1,0 +1,19 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="Dragan (generated)" id="1685717783962-2">
+        <addColumn tableName="transakcija">
+            <column name="datum_dokumenta" type="date"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685717783962-3">
+        <addColumn tableName="transakcija">
+            <column name="sifra_dokumenta" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685717783962-4">
+        <dropForeignKeyConstraint baseTableName="transakcija" constraintName="FKh48my13ggs8l3n54ggerelrpw"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685717783962-5">
+        <dropColumn columnName="sifra_dokumenta_id" tableName="transakcija"/>
+    </changeSet>    
+</databaseChangeLog>

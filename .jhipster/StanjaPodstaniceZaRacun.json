@@ -1,0 +1,45 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [
+    {
+      "relationshipName": "podstanica",
+      "otherEntityName": "podstanica",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "stanjaPodstaniceZaRacun"
+    },
+    {
+      "relationshipName": "nacrtRacuna",
+      "otherEntityName": "nacrtRacuna",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "stanjaPodstaniceZaRacun"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "staroStanje",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "novoStanje",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "ukupnaPovrsina",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "utrosakPoM2",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "changelogDate": "20230429115403",
+  "dto": "no",
+  "searchEngine": false,
+  "service": "no",
+  "entityTableName": "stanja_podstanice_za_racun",
+  "databaseType": "sql",
+  "readOnly": false,
+  "jpaMetamodelFiltering": false,
+  "pagination": "no"
+}

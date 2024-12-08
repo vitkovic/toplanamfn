@@ -1,0 +1,30 @@
+{
+  "toplanaApp": {
+    "cene": {
+      "home": {
+        "title": "Цене и други параметри",
+        "createLabel": "Креирање новог параметра",
+        "createOrEditLabel": "Kreirajte ili izmenite Cene",
+        "notFound": "Није пронађен ни један параметар"
+      },
+      "created": "Креирани су нови параметри са ид ознаком {{ param }}",
+      "updated": "Параметри су успешно ажурирани.",
+      "deleted": "Cene pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете параметре са ид ознаком {{ id }}?"
+      },
+      "detail": {
+        "title": "Цене"
+      },
+      "kwh": "Цена за Kwh",
+      "fix": "Фиксна цена",
+      "fixIskljucen": "Фиксна цена (за станове којима је искључено грејање)",
+      "odrzavanje": "Oдржавање",
+      "ostalo": "Остало", 
+      "pdv1": "ПДВ (општа стопа)",
+      "pdv2": "ПДВ (посебна стопа)",
+      "popust": "Попуст"
+
+    }
+  }
+}

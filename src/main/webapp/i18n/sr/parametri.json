@@ -1,0 +1,24 @@
+{
+  "toplanaApp": {
+    "parametri": {
+      "home": {
+        "title": "Parametris",
+        "createLabel": "Kreiraj novi Parametri",
+        "createOrEditLabel": "Kreirajte ili izmenite Parametri",
+        "notFound": "No Parametris found"
+      },
+      "created": "Kreiran je novi Parametri pod nazivom {{ param }}",
+      "updated": "Parametri pod nazivom {{ param }} je ažuriran",
+      "deleted": "Parametri pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Parametri pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Parametri"
+      },
+      "naziv": "Naziv",
+      "vrednost": "Vrednost",
+      "istorija": "Istorija"
+    }
+  }
+}

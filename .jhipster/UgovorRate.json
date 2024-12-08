@@ -1,0 +1,37 @@
+{
+  "name": "UgovorRate",
+  "fields": [
+    {
+      "fieldName": "brojRata",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "datumSklapanja",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "datumDospeca",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "stan",
+      "otherEntityRelationshipName": "ugovorRate",
+      "relationshipName": "stan",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20230423093051",
+  "entityTableName": "ugovor_rate",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

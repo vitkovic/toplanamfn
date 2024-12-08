@@ -1,0 +1,32 @@
+{
+  "name": "Parametri",
+  "fields": [
+    {
+      "fieldName": "naziv",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "vrednost",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "parametriIstorija",
+      "otherEntityRelationshipName": "parametri",
+      "relationshipName": "istorija"
+    }
+  ],
+  "changelogDate": "20230423092551",
+  "entityTableName": "parametri",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

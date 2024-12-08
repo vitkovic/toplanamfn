@@ -1,0 +1,25 @@
+{
+  "toplanaApp": {
+    "ugovorRate": {
+      "home": {
+        "title": "Ugovor Rates",
+        "createLabel": "Kreiraj novi Ugovor Rate",
+        "createOrEditLabel": "Kreirajte ili izmenite Ugovor Rate",
+        "notFound": "No Ugovor Rates found"
+      },
+      "created": "Kreiran je novi Ugovor Rate pod nazivom {{ param }}",
+      "updated": "Ugovor Rate pod nazivom {{ param }} je ažuriran",
+      "deleted": "Ugovor Rate pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Ugovor Rate pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Ugovor Rate"
+      },
+      "brojRata": "Broj Rata",
+      "datumSklapanja": "Datum Sklapanja",
+      "datumDospeca": "Datum Dospeca",
+      "stan": "Stan"
+    }
+  }
+}

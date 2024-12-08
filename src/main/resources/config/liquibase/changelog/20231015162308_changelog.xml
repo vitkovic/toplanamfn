@@ -1,0 +1,14 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="Dragan (generated)" id="1697386993899-2">
+        <addColumn tableName="ostali_racuni">
+            <column name="stan_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1697386993899-3">
+        <addUniqueConstraint columnNames="stan_id" constraintName="UC_OSTALI_RACUNISTAN_ID_COL" tableName="ostali_racuni"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1697386993899-4">
+        <addForeignKeyConstraint baseColumnNames="stan_id" baseTableName="ostali_racuni" constraintName="FKi7yd3hgewd4qa2pwk3hcrwcdx" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="stan" validate="true"/>
+    </changeSet>    
+</databaseChangeLog>

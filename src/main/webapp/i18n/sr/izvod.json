@@ -1,0 +1,34 @@
+{
+  "toplanaApp": {
+    "izvod": {
+      "home": {
+        "title": "Изводи",
+        "createLabel": "Kreiraj novi Izvod",
+        "createOrEditLabel": "Креирање и промена извода",
+        "notFound": "Није пронађен ни један извод",
+        "titlePostanska": "Датотеке из Поштанске штедионице",
+        "createLabelPostanska": "Учитавање нове датотеке",
+        "postanskaNotFound": "Није пронађена ни једна датотека"
+      },
+      "created": "Креиран је нови извод са ид ознаком {{ param }}",
+      "updated": "Извод са ид ознаком {{ param }} је ажуриран",
+      "deleted": "Извод са ид ознаком  {{ param }} је обрисан",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете извод са ИД ознаком {{ id }}?"
+      },
+      "detail": {
+        "title": "Извод",
+        "stanjeIPromenaNaDan": "Стање и промена средстава на дан:",
+        "postanskaStedionica": "Поштанска штедионица",
+        "trajniNaloziZaPlacanje": "Трајни налози за плаћање"
+      },
+      "datum": "Датум",
+      "broj": "Број",
+      "stavkaIzvoda": "Ставка извода",
+      "rbr":"Р.бр.",
+      "stavkeIzvodaProknjizene": "Неке ставке овог извода су прокњижене, па се извод не може обрисати "
+      
+
+    }
+  }
+}

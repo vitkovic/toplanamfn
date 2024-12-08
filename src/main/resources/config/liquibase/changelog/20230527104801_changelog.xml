@@ -1,0 +1,510 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="Dragan (generated)" id="1685184485059-1">
+        <createSequence incrementBy="50" sequenceName="sequence_generator" startValue="1"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-2">
+        <createTable tableName="cene">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="cenePK"/>
+            </column>
+            <column name="fix" type="numeric(21, 2)"/>
+            <column name="kwh" type="numeric(21, 2)"/>
+            <column name="odrzavanje" type="numeric(21, 2)"/>
+            <column name="ostalo" type="numeric(21, 2)"/>
+            <column name="pdv1" type="numeric(21, 2)"/>
+            <column name="pdv2" type="numeric(21, 2)"/>
+            <column name="popust1" type="numeric(21, 2)"/>
+            <column name="popust2" type="numeric(21, 2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-3">
+        <createTable tableName="cene_stare">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="cene_starePK"/>
+            </column>
+            <column name="datum_prestanka" type="date"/>
+            <column name="fix" type="numeric(21, 2)"/>
+            <column name="kwh" type="numeric(21, 2)"/>
+            <column name="odrzavanje" type="numeric(21, 2)"/>
+            <column name="ostalo" type="numeric(21, 2)"/>
+            <column name="pdv1" type="numeric(21, 2)"/>
+            <column name="pdv2" type="numeric(21, 7)"/>
+            <column name="popust1" type="numeric(21, 2)"/>
+            <column name="popust2" type="numeric(21, 2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-4">
+        <createTable tableName="izvod">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="izvodPK"/>
+            </column>
+            <column name="br_naloga_duguje" type="INTEGER"/>
+            <column name="br_naloga_potrazuje" type="INTEGER"/>
+            <column name="broj_izvoda" type="INTEGER"/>
+            <column name="daatum_izvoda_zaglavlje" type="date"/>
+            <column name="datum_izvoda_zbirni" type="date"/>
+            <column name="iznos_duguje" type="numeric(21, 2)"/>
+            <column name="iznos_potrazuje" type="numeric(21, 2)"/>
+            <column name="kumulativno_duguje" type="numeric(21, 2)"/>
+            <column name="kumulativno_potrazuje" type="numeric(21, 2)"/>
+            <column name="mesto" type="VARCHAR(255)"/>
+            <column name="naziv" type="VARCHAR(255)"/>
+            <column name="naziv_sedista" type="VARCHAR(255)"/>
+            <column name="prethodni_saldo" type="numeric(21, 2)"/>
+            <column name="racun_izvoda" type="VARCHAR(255)"/>
+            <column name="rbr_obrada" type="INTEGER"/>
+            <column name="saldo" type="numeric(21, 2)"/>
+            <column name="sediste" type="VARCHAR(255)"/>
+            <column name="tip_sloga_zaglavlje" type="VARCHAR(255)"/>
+            <column name="tip_sloga_zbirni" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+   
+   
+   
+   
+    <changeSet author="Dragan (generated)" id="1685184485059-10">
+        <createTable tableName="nacrt_racuna">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="nacrt_racunaPK"/>
+            </column>
+            <column name="cena_fix" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cena_kwh" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cena_o_stalo" type="numeric(21, 2)"/>
+            <column name="cena_odrzavanje" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="datum_racuna" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pdv_1" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pdv_2" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="period" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="popust" type="numeric(21, 2)"/>
+            <column name="proknjizen" type="BOOLEAN"/>
+            <column name="valuta_placanja" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-11">
+        <createTable tableName="opomena">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="opomenaPK"/>
+            </column>
+            <column name="datum_izmirenja" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="datum_opomene" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="iznos" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zakljucni_datum" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stan_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-12">
+        <createTable tableName="parametri">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="parametriPK"/>
+            </column>
+            <column name="naziv" type="VARCHAR(255)"/>
+            <column name="vrednost" type="numeric(21, 2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-13">
+        <createTable tableName="parametri_istorija">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="parametri_istorijaPK"/>
+            </column>
+            <column name="vazi_do" type="date"/>
+            <column name="vazi_od" type="date"/>
+            <column name="vrednost" type="numeric(21, 2)"/>
+            <column name="parametri_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-14">
+        <createTable tableName="podstanica">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="podstanicaPK"/>
+            </column>
+            <column name="broj" type="INTEGER"/>
+            <column name="naziv" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-15">
+        <createTable tableName="racun">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="racunPK"/>
+            </column>
+            <column name="azuriran" type="BOOLEAN"/>
+            <column name="cena_fix" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cena_kwh" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cena_o_stalo" type="numeric(21, 2)"/>
+            <column name="cena_odrzavanje" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="datum_racuna" type="date"/>
+            <column name="datum_saldiranja" type="date"/>
+            <column name="pdv_1" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pdv_2" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="period" type="VARCHAR(255)"/>
+            <column name="popust" type="numeric(21, 2)"/>
+            <column name="proknjizen" type="BOOLEAN"/>
+            <column name="ukupno_zaduzenje" type="numeric(21, 2)"/>
+            <column name="utrosak_fiksni" type="numeric(21, 2)"/>
+            <column name="utrosak_odrzavanje" type="numeric(21, 2)"/>
+            <column name="utrosak_u_kwh" type="numeric(21, 3)"/>
+            <column name="utrosak_varijabilni" type="numeric(21, 2)"/>
+            <column name="valuta_placanja" type="date"/>
+            <column name="azurirao_id" type="BIGINT"/>
+            <column name="kreirao_id" type="BIGINT"/>
+            <column name="nacrt_racuna_id" type="BIGINT"/>
+            <column name="stan_id" type="BIGINT"/>
+            <column name="transakcija_id" type="BIGINT"/>
+            <column name="transakcija_stara_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-16">
+        <createTable tableName="sifra_dokumenta">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="sifra_dokumentaPK"/>
+            </column>
+            <column name="sifra" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-17">
+        <createTable tableName="sifra_promene">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="sifra_promenePK"/>
+            </column>
+            <column name="sifra" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-18">
+        <createTable tableName="stan">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="stanPK"/>
+            </column>
+            <column name="broj" type="INTEGER"/>
+            <column name="grad" type="VARCHAR(255)"/>
+            <column name="postanski_broj" type="VARCHAR(255)"/>
+            <column name="povrsina" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sifra" type="VARCHAR(255)"/>
+            <column name="ukljucen" type="BOOLEAN"/>
+            <column name="ulaz" type="INTEGER"/>
+            <column name="ulica" type="VARCHAR(255)"/>
+            <column name="podstanica_id" type="BIGINT"/>
+            <column name="tip_potrosaca_id" type="BIGINT"/>
+            <column name="vlasnik_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-19">
+        <createTable tableName="stanja_podstanice">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="stanja_podstanicePK"/>
+            </column>
+            <column name="datum_ocitavanja" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stanje" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="podstanica_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-20">
+        <createTable tableName="stanja_podstanice_za_racun">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="stanja_podstanice_za_racunPK"/>
+            </column>
+            <column name="ukupna_povrsina" type="numeric(21, 2)"/>
+            <column name="utrosak_po_m_2" type="numeric(21, 2)"/>
+            <column name="nacrt_racuna_id" type="BIGINT"/>
+            <column name="novo_stanje_id" type="BIGINT"/>
+            <column name="podstanica_id" type="BIGINT"/>
+            <column name="staro_stanje_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-21">
+        <createTable tableName="stavke_izvoda">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="stavke_izvodaPK"/>
+            </column>
+            <column name="datum_valute" type="date"/>
+            <column name="iznos" type="numeric(21, 2)"/>
+            <column name="izvor_informacija" type="VARCHAR(255)"/>
+            <column name="mesto_odobrenja" type="VARCHAR(255)"/>
+            <column name="mesto_zaduzenja" type="VARCHAR(255)"/>
+            <column name="model_poziva_odobrenja" type="VARCHAR(255)"/>
+            <column name="model_poziva_zaduzenja" type="VARCHAR(255)"/>
+            <column name="naziv_obracuna" type="VARCHAR(255)"/>
+            <column name="naziv_odobrenja" type="VARCHAR(255)"/>
+            <column name="naziv_zaduzenja" type="VARCHAR(255)"/>
+            <column name="opis" type="VARCHAR(255)"/>
+            <column name="podatak_za_reklamaciju" type="VARCHAR(255)"/>
+            <column name="poziv_odobrenja" type="VARCHAR(255)"/>
+            <column name="poziv_zaduzenja" type="VARCHAR(255)"/>
+            <column name="prioritet_naloga" type="VARCHAR(255)"/>
+            <column name="racun_odobrenja" type="VARCHAR(255)"/>
+            <column name="racun_zaduzenja" type="VARCHAR(255)"/>
+            <column name="rasporedjena" type="BOOLEAN"/>
+            <column name="sifra_placanja" type="VARCHAR(255)"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="status_naloga" type="VARCHAR(255)"/>
+            <column name="svrha_doznake" type="VARCHAR(255)"/>
+            <column name="tip_sloga" type="VARCHAR(255)"/>
+            <column name="vreme_izvrsenja" type="VARCHAR(255)"/>
+            <column name="vreme_unosa" type="VARCHAR(255)"/>
+            <column name="izvod_id" type="BIGINT"/>
+            <column name="transakcija_id" type="BIGINT"/>
+            <column name="transakcija_stara_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-22">
+        <createTable tableName="stavke_utuzenja">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="stavke_utuzenjaPK"/>
+            </column>
+            <column name="datum_dospeca_racuna" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="datum_izdavanja_racuna" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="obracunski_period" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ukupno_za_uplatu" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="zaduzenje" type="numeric(21, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="utuzenje_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-23">
+        <createTable tableName="tip_potrosaca">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="tip_potrosacaPK"/>
+            </column>
+            <column name="opis" type="VARCHAR(255)"/>
+            <column name="tip" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-24">
+        <createTable tableName="transakcija">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="transakcijaPK"/>
+            </column>
+            <column name="datum" type="date"/>
+            <column name="duguje" type="numeric(21, 2)"/>
+            <column name="opis" type="VARCHAR(255)"/>
+            <column name="potrazuje" type="numeric(21, 2)"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="valuta" type="date"/>
+            <column name="sifra_dokumenta_id" type="BIGINT"/>
+            <column name="sifra_promene_id" type="BIGINT"/>
+            <column name="stan_id" type="BIGINT"/>
+            <column name="vrsta_transakcije_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-25">
+        <createTable tableName="transakcija_stara">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="transakcija_staraPK"/>
+            </column>
+            <column name="datum" type="date"/>
+            <column name="duguje" type="numeric(21, 2)"/>
+            <column name="opis" type="VARCHAR(255)"/>
+            <column name="potrazuje" type="numeric(21, 2)"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="valuta" type="date"/>
+            <column name="sifra_dokumenta_id" type="BIGINT"/>
+            <column name="sifra_promene_id" type="BIGINT"/>
+            <column name="stan_id" type="BIGINT"/>
+            <column name="vrsta_transakcije_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-26">
+        <createTable tableName="ugovor_rate">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ugovor_ratePK"/>
+            </column>
+            <column name="broj_rata" type="INTEGER"/>
+            <column name="datum_dospeca" type="date"/>
+            <column name="datum_sklapanja" type="date"/>
+            <column name="stan_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-27">
+        <createTable tableName="utuzenje">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="utuzenjePK"/>
+            </column>
+            <column name="datum" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="stan_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-28">
+        <createTable tableName="vlasnik">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="vlasnikPK"/>
+            </column>
+            <column name="broj_racuna" type="VARCHAR(255)"/>
+            <column name="ime" type="VARCHAR(255)"/>
+            <column name="naziv" type="VARCHAR(255)"/>
+            <column name="partija_racuna" type="VARCHAR(255)"/>
+            <column name="prezime" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-29">
+        <createTable tableName="vrsta_transakcije">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="vrsta_transakcijePK"/>
+            </column>
+            <column name="dodaje_vrednost" type="INTEGER"/>
+            <column name="vrsta" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    
+    <changeSet author="Dragan (generated)" id="1685184485059-32">
+        <addUniqueConstraint columnNames="transakcija_id" constraintName="UC_RACUNTRANSAKCIJA_ID_COL" tableName="racun"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-33">
+        <addUniqueConstraint columnNames="transakcija_stara_id" constraintName="UC_RACUNTRANSAKCIJA_STARA_ID_COL" tableName="racun"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-34">
+        <addUniqueConstraint columnNames="novo_stanje_id" constraintName="UC_STANJA_PODSTANICE_ZA_RACUNNOVO_STANJE_ID_COL" tableName="stanja_podstanice_za_racun"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-35">
+        <addUniqueConstraint columnNames="staro_stanje_id" constraintName="UC_STANJA_PODSTANICE_ZA_RACUNSTARO_STANJE_ID_COL" tableName="stanja_podstanice_za_racun"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-36">
+        <addUniqueConstraint columnNames="sifra" constraintName="UC_STANSIFRA_COL" tableName="stan"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-37">
+        <addUniqueConstraint columnNames="transakcija_id" constraintName="UC_STAVKE_IZVODATRANSAKCIJA_ID_COL" tableName="stavke_izvoda"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-38">
+        <addUniqueConstraint columnNames="transakcija_stara_id" constraintName="UC_STAVKE_IZVODATRANSAKCIJA_STARA_ID_COL" tableName="stavke_izvoda"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-39">
+        <addForeignKeyConstraint baseColumnNames="parametri_id" baseTableName="parametri_istorija" constraintName="FK1ms58wewb8ffw5tnh9rl1vn3f" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="parametri" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-43">
+        <addForeignKeyConstraint baseColumnNames="tip_potrosaca_id" baseTableName="stan" constraintName="FK62tfuk558s7ilg8ulbpxur99u" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="tip_potrosaca" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-44">
+        <addForeignKeyConstraint baseColumnNames="transakcija_stara_id" baseTableName="racun" constraintName="FK758x9we996tjgms9c2ouib4j5" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="transakcija_stara" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-45">
+        <addForeignKeyConstraint baseColumnNames="podstanica_id" baseTableName="stan" constraintName="FK7nj0urrdjveho07togd1ggx5p" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="podstanica" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-46">
+        <addForeignKeyConstraint baseColumnNames="transakcija_id" baseTableName="racun" constraintName="FK7o5eis0hll7gy0019pokf4vfw" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="transakcija" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-47">
+        <addForeignKeyConstraint baseColumnNames="vrsta_transakcije_id" baseTableName="transakcija_stara" constraintName="FK8fqjfwdc1cnvnvfdvuy87y4e7" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="vrsta_transakcije" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-48">
+        <addForeignKeyConstraint baseColumnNames="novo_stanje_id" baseTableName="stanja_podstanice_za_racun" constraintName="FK9h841544dbqrux65kvn25s8tu" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="stanja_podstanice" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-49">
+        <addForeignKeyConstraint baseColumnNames="podstanica_id" baseTableName="stanja_podstanice" constraintName="FK9jc5r439bm352314krjn3ru8e" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="podstanica" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-50">
+        <addForeignKeyConstraint baseColumnNames="transakcija_stara_id" baseTableName="stavke_izvoda" constraintName="FK9ttj0yi9k0hxrfo554lwrhgp3" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="transakcija_stara" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-51">
+        <addForeignKeyConstraint baseColumnNames="stan_id" baseTableName="racun" constraintName="FKc6ops64bpbdtubcy8c5kx86a" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="stan" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-52">
+        <addForeignKeyConstraint baseColumnNames="nacrt_racuna_id" baseTableName="racun" constraintName="FKcwme60noa75t1h9wm3her2ip9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="nacrt_racuna" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-53">
+        <addForeignKeyConstraint baseColumnNames="stan_id" baseTableName="opomena" constraintName="FKdar4a7wod4v2nfncur9lhol4v" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="stan" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-54">
+        <addForeignKeyConstraint baseColumnNames="stan_id" baseTableName="transakcija" constraintName="FKgauv987v2n8yoialswdxu54d6" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="stan" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-55">
+        <addForeignKeyConstraint baseColumnNames="azurirao_id" baseTableName="racun" constraintName="FKgkag2iy6u6ds1p86olbe2lvr4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-56">
+        <addForeignKeyConstraint baseColumnNames="stan_id" baseTableName="ugovor_rate" constraintName="FKh0jrwjgsc3ro9pqeqg5k3khh2" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="stan" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-57">
+        <addForeignKeyConstraint baseColumnNames="sifra_dokumenta_id" baseTableName="transakcija" constraintName="FKh48my13ggs8l3n54ggerelrpw" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="sifra_dokumenta" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-58">
+        <addForeignKeyConstraint baseColumnNames="nacrt_racuna_id" baseTableName="stanja_podstanice_za_racun" constraintName="FKhc5e8f60ma9ffhg9l4mciphyt" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="nacrt_racuna" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-59">
+        <addForeignKeyConstraint baseColumnNames="stan_id" baseTableName="transakcija_stara" constraintName="FKi4arge6qdm1d13svdccvxax9q" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="stan" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-60">
+        <addForeignKeyConstraint baseColumnNames="sifra_promene_id" baseTableName="transakcija" constraintName="FKiw83x7102236dmowdjvjtyba8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="sifra_promene" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-61">
+        <addForeignKeyConstraint baseColumnNames="kreirao_id" baseTableName="racun" constraintName="FKj7i6qnpcuceoh43tlsc19pgr3" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-62">
+        <addForeignKeyConstraint baseColumnNames="sifra_promene_id" baseTableName="transakcija_stara" constraintName="FKkcmsuae5kkuml7m2mhdo8cawf" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="sifra_promene" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-63">
+        <addForeignKeyConstraint baseColumnNames="sifra_dokumenta_id" baseTableName="transakcija_stara" constraintName="FKl78bn3nhc5f1cuf66416idnfw" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="sifra_dokumenta" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-64">
+        <addForeignKeyConstraint baseColumnNames="izvod_id" baseTableName="stavke_izvoda" constraintName="FKlw5v4kgfeb92n6grdf3yapnfe" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="izvod" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-65">
+        <addForeignKeyConstraint baseColumnNames="staro_stanje_id" baseTableName="stanja_podstanice_za_racun" constraintName="FKm9eowcjcaqr6rr4e5tiax3k45" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="stanja_podstanice" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-66">
+        <addForeignKeyConstraint baseColumnNames="transakcija_id" baseTableName="stavke_izvoda" constraintName="FKmo0u3dqyvmwyt081afu5p257a" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="transakcija" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-67">
+        <addForeignKeyConstraint baseColumnNames="podstanica_id" baseTableName="stanja_podstanice_za_racun" constraintName="FKn0oavudt0db35o7meb38ogci1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="podstanica" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-68">
+        <addForeignKeyConstraint baseColumnNames="vrsta_transakcije_id" baseTableName="transakcija" constraintName="FKn3btjys974071nre85ur7ix7b" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="vrsta_transakcije" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-69">
+        <addForeignKeyConstraint baseColumnNames="vlasnik_id" baseTableName="stan" constraintName="FKq1mbihc6j2iasmmaogimcfo5h" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="vlasnik" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-70">
+        <addForeignKeyConstraint baseColumnNames="stan_id" baseTableName="utuzenje" constraintName="FKqnq6cu1d22kq0bjl6ombsh69v" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="stan" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1685184485059-71">
+        <addForeignKeyConstraint baseColumnNames="utuzenje_id" baseTableName="stavke_utuzenja" constraintName="FKw3pynyxb3pjur8sc8y6ci3x8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="utuzenje" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,84 @@
+{
+  "name": "TransakcijaStara",
+  "fields": [
+    {
+      "fieldName": "datum",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "valuta",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "opis",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "duguje",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "potrazuje",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "vrstaTransakcije",
+      "otherEntityRelationshipName": "transakcijaStara",
+      "relationshipName": "vrstaTransakcije",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "sifraDokumenta",
+      "otherEntityRelationshipName": "transakcijaStara",
+      "relationshipName": "sifraDokumenta",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "sifraPromene",
+      "otherEntityRelationshipName": "transakcijaStara",
+      "relationshipName": "sifraPromene",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "ceneStare",
+      "otherEntityRelationshipName": "transakcijaStara",
+      "relationshipName": "cene",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "stavkeIzvoda",
+      "otherEntityRelationshipName": "transakcijaStara",
+      "relationshipName": "stavkaIzvoda",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "stan",
+      "otherEntityRelationshipName": "transakcijaStara",
+      "relationshipName": "stan",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20230423092351",
+  "entityTableName": "transakcija_stara",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,27 @@
+{
+  "toplanaApp": {
+    "stavkeUtuzenja": {
+      "home": {
+        "title": "Stavke Utuzenjas",
+        "createLabel": "Kreiraj novi Stavke Utuzenja",
+        "createOrEditLabel": "Kreirajte ili izmenite Stavke Utuzenja",
+        "notFound": "No Stavke Utuzenjas found"
+      },
+      "created": "Kreiran je novi Stavke Utuzenja pod nazivom {{ param }}",
+      "updated": "Stavke Utuzenja pod nazivom {{ param }} je ažuriran",
+      "deleted": "Stavke Utuzenja pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Stavke Utuzenja pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Stavke Utuzenja"
+      },
+      "obracunskiPeriod": "Obracunski Period",
+      "datumIzdavanjaRacuna": "Datum Izdavanja Racuna",
+      "datumDospecaRacuna": "Datum Dospeca Racuna",
+      "zaduzenje": "Zaduzenje",
+      "ukupnoZaUplatu": "Ukupno Za Uplatu",
+      "utuzenje": "Utuzenje"
+    }
+  }
+}

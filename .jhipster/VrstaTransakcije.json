@@ -1,0 +1,25 @@
+{
+  "name": "VrstaTransakcije",
+  "fields": [
+    {
+      "fieldName": "vrsta",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dodajeVrednost",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20230423091651",
+  "entityTableName": "vrsta_transakcije",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

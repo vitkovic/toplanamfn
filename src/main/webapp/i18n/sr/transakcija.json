@@ -1,0 +1,67 @@
+{
+  "toplanaApp": {
+    "transakcija": {
+      "home": {
+        "title": "Аналитичке картице",
+        "createLabel": "Креирање нове трансакције",
+        "createOrEditLabel": "Креирање и измена трансакције",
+        "notFound": "Није пронађена ни једна трансакција"
+      },
+      "created": "Креирана је нова трансакција са ид ознаком {{ param }}",
+      "updated": "Transakcija pod nazivom {{ param }} je ažuriran",
+      "deleted": "Transakcija pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Transakcija pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Трансакција"
+      },
+      "datum": "Датум",
+      "valuta": "Валута",
+      "status": "Статус",
+      "opis": "Опис",
+      "duguje": "Дугује",
+      "potrazuje": "Потражује",
+      "vrstaTransakcije": "Врста трансакције",
+      "sifraDokumenta": "Шифра документа",
+      "sifraPromene": "Шифра промене",
+      "cene": "Cene",
+      "stavkaIzvoda": "Stavka Izvoda",
+      "stan": "Stan",
+      "zaduzenje": "Задужење",
+      "maticniBroj": "Матични број",
+      "prezimeIIme": "Презиме и име",
+      "adresa": "Адреса",
+      "datumDokumenta": "Датум документа",
+      "iznos": "Износ",
+      "datumKnjizenja": "Датум књижења",
+      "opisPromene": "Опис промене",
+      "stanje": "Стање",
+      "razduzenje": "Раздужење",
+      "pretraga": "Претрага",
+      "odSifre": "Од шифре",
+      "doSifre": "До шифре",
+      "sifra": "Матични број",
+      "potrazi": "Потражи",
+      "analitickaKartica": "Аналитичка картица",
+      "saldo": "Салдо",
+      "racunIliIzvod": "Рачун/извод",
+      "ukupno": "Укупно",
+      "pogledaj": "Погледај",
+      "knjigovodstveniDnevnik": {
+        "title": "Књиговодствени дневник",
+        "poreskiAnaliticki": "Порески дневник - аналитички преглед",
+        "poreskiSinteticki": "Порески дневник - синтетички преглед",
+        "analiticki": "Књиговодствени дневник - аналитички",
+        "lokali": "Локали:",
+        "ostali": "Остали:",
+        "ukupno": "Укупно:",
+        "knjigovodstveniDnevnikSintetika": "Књиговодствени дневник - синтетика",
+        "rekapitulacijaSifraPromeneDatum": "Рекапитулација по шифри промене и датумима",
+        "rekapitulacijaPoVrstiObavezeIDatumima":"Рекапитулација по врсти обавезе и датумима"
+      }
+
+      
+    }
+  }
+}

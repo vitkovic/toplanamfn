@@ -1,0 +1,113 @@
+{
+  "name": "Stan",
+  "fields": [
+    {
+      "fieldName": "povrsina",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "ulica",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ulaz",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "broj",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "ukljucen",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "sifra",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "unique"
+      ]
+    },
+    {
+      "fieldName": "grad",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "postanskiBroj",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "opomena",
+      "otherEntityRelationshipName": "stan",
+      "relationshipName": "opomena"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "utuzenje",
+      "otherEntityRelationshipName": "stan",
+      "relationshipName": "utuzenje"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "ugovorRate",
+      "otherEntityRelationshipName": "stan",
+      "relationshipName": "ugovorRate"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "transakcija",
+      "otherEntityRelationshipName": "stan",
+      "relationshipName": "transakcija"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "transakcijaStara",
+      "otherEntityRelationshipName": "stan",
+      "relationshipName": "transakcijaStara"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "racun",
+      "otherEntityRelationshipName": "stan",
+      "relationshipName": "racun"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tipPotrosaca",
+      "otherEntityRelationshipName": "stan",
+      "relationshipName": "tipPotrosaca",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "podstanica",
+      "otherEntityRelationshipName": "stan",
+      "relationshipName": "podstanica",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "vlasnik",
+      "otherEntityRelationshipName": "stan",
+      "relationshipName": "vlasnik",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20230423090951",
+  "entityTableName": "stan",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

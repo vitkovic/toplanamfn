@@ -4,6 +4,7 @@
 Bootstrap tweaks
 ===============================================================*/
 
+
 body,
 h1,
 h2,
@@ -12,13 +13,17 @@ h4 {
   font-weight: 300;
 }
 
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
-  text-align: left;
+  text-align: left;  
+  min-height: 100vh;
+  
 }
 
 a {
@@ -51,7 +56,7 @@ Main page styles
   display: inline-block;
   width: 347px;
   height: 497px;
-  background: url('../images/jhipster_family_member_3.svg') no-repeat center top;
+  background: url('../images/toplana.png') no-repeat center top;
   background-size: contain;
 }
 
@@ -120,6 +125,9 @@ Generic styles
 
 .footer {
   border-top: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: rgb(44, 62, 80);
+  color: white;  
+
 }
 
 .hand,
@@ -255,3 +263,58 @@ ui bootstrap tweaks
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+
+.notification-font {
+  font-size: 13pt;
+}
+
+.dt-dt {
+  text-align: left;  
+}
+
+hr.new3 {
+  border-top: 3px dashed black;
+}
+
+.monthPicker{
+  font-size:smaller;
+  height: 100px;
+  width: 50%;
+}
+
+.month-picker-input{
+  font-size:small;
+  height: 30px;
+  width: 100%;
+}
+
+.month-picker__year div{
+  font-size:10px;
+}
+
+.margine{
+  margin-bottom: 250px;
+}
+
+.grid-striped .row:nth-of-type(odd) {
+  background-color: rgba(0,0,0,.05);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  background: #ccc;
+}
+
+.red-link{
+  color:red;  
+}
+
+.blue-link{
+  color:rgb(58, 34, 117);
+}
+
+.bold-font{
+  font-weight: bold;
+}

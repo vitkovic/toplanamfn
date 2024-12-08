@@ -1,0 +1,21 @@
+{
+  "name": "SifraPromene",
+  "fields": [
+    {
+      "fieldName": "sifra",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20230423091851",
+  "entityTableName": "sifra_promene",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

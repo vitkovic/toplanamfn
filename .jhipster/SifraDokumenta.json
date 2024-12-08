@@ -1,0 +1,21 @@
+{
+  "name": "SifraDokumenta",
+  "fields": [
+    {
+      "fieldName": "sifra",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20230423091751",
+  "entityTableName": "sifra_dokumenta",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,33 @@
+{
+  "name": "CeneStare",
+  "fields": [
+    {
+      "fieldName": "kwh",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "fix",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "odrzavanje",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "ostalo",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20230423092451",
+  "entityTableName": "cene_stare",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Izvod",
+  "fields": [
+    {
+      "fieldName": "datum",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "broj",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "stavkeIzvoda",
+      "otherEntityRelationshipName": "izvod",
+      "relationshipName": "stavkaIzvoda"
+    }
+  ],
+  "changelogDate": "20230423092151",
+  "entityTableName": "izvod",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

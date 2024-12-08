@@ -2,7 +2,7 @@
     <b-navbar toggleable="md" type="dark" class="bg-primary">
         <b-navbar-brand class="logo" b-link to="/">
             <span class="logo-img"></span>
-            <span v-text="$t('global.title')" class="navbar-title">toplana</span> <span class="navbar-version">{{version}}</span>
+            <span v-text="$t('global.title')" class="navbar-title">toplana</span> 
         </b-navbar-brand>      
         <b-navbar-toggle 
         right 
@@ -17,21 +17,193 @@
            
         <b-collapse is-nav id="header-tabs">
             <b-navbar-nav class="ml-auto">
+               <!--
                 <b-nav-item to="/" exact>
-                    <span>
-                        <font-awesome-icon icon="home" />
+                    <span>                   
                         <span v-text="$t('global.menu.home')">Home</span>
                     </span>
                 </b-nav-item>
+                -->
+
+                <b-nav-item-dropdown
+                    right
+                    id="admin-menu"
+                    v-if="hasAnyAuthority('ROLE_ADMIN') && authenticated"
+                    :class="{'router-link-active': subIsActive('/admin')}"
+                    active-class="active"
+                    class="pointer">
+                    <span slot="button-content" class="navbar-dropdown-menu">                        
+                        <span v-text="$t('global.menu.admin.parametri')">Parametri</span>
+                    </span>
+                    <b-dropdown-item to="/tip-potrosaca">                        
+                        <span v-text="$t('global.menu.entities.tipPotrosaca')">TipPotrosaca</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/podstanica">                        
+                        <span v-text="$t('global.menu.entities.podstanica')">Podstanica</span>
+                    </b-dropdown-item>
+                   <b-dropdown-item to="/cene">                        
+                        <span v-text="$t('global.menu.entities.cene')">Cene</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/vrsta-transakcije">                        
+                        <span v-text="$t('global.menu.entities.vrstaTransakcije')">VrstaTransakcije</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/sifra-dokumenta">                        
+                        <span v-text="$t('global.menu.entities.sifraDokumenta')">SifraDokumenta</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/sifra-promene">                        
+                        <span v-text="$t('global.menu.entities.sifraPromene')">SifraPromene</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/cene-stare">                        
+                        <span v-text="$t('global.menu.entities.ceneStare')">CeneStare</span>
+                    </b-dropdown-item>
+                    <!--
+                    <b-dropdown-item to="/parametri">                        
+                        <span v-text="$t('global.menu.entities.parametri')">Parametri</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/parametri-istorija">                        
+                        <span v-text="$t('global.menu.entities.parametriIstorija')">ParametriIstorija</span>
+                    </b-dropdown-item>
+                    -->
+                </b-nav-item-dropdown>
+
+
+                <b-nav-item-dropdown
+                    right
+                    id="racuni-menu"
+                    v-if="authenticated"
+                    active-class="active" class="pointer">
+                    <span slot="button-content" class="navbar-dropdown-menu">                        
+                        <span v-text="$t('global.menu.racuni.main')"></span>
+                    </span>               
+                    <b-dropdown-item to="/stanja-podstanice">
+                        <span v-text="$t('global.menu.entities.stanjaPodstanice')">StanjaPodstanice</span>
+                    </b-dropdown-item>     
+                    <b-dropdown-item to="/nacrt-racuna">                        
+                        <span v-text="$t('global.menu.racuni.izradaRacuna')"></span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/racun">
+                        <span v-text="$t('global.menu.racuni.pregledi')"></span>
+                    </b-dropdown-item>                    
+                    <b-dropdown-item to="/transakcija-zaduzenje">                        
+                        <span v-text="$t('global.menu.racuni.zaduzenje')"></span>
+                    </b-dropdown-item> 
+                    <b-dropdown-item to="/racun-banka">                        
+                        <span v-text="$t('global.menu.racuni.datotekeZaBanku')"></span>
+                    </b-dropdown-item>                    
+                </b-nav-item-dropdown>
+
+                 <b-nav-item-dropdown
+                    right
+                    id="izvodi-menu"
+                    v-if="authenticated"
+                    active-class="active" class="pointer">
+                    <span slot="button-content" class="navbar-dropdown-menu">                        
+                        <span v-text="$t('global.menu.razduzenje.main')"></span>
+                    </span>                    
+                    <b-dropdown-item to="/izvod">                        
+                        <span v-text="$t('global.menu.entities.izvodi')"></span>
+                    </b-dropdown-item> 
+                    <b-dropdown-item to="/stavke-izvoda">                        
+                        <span v-text="$t('global.menu.entities.stavkeIzvoda')"></span>
+                    </b-dropdown-item>                    
+                    <b-dropdown-item to="/transakcija-razduzenje">                        
+                        <span v-text="$t('global.menu.razduzenje.main')"></span>
+                    </b-dropdown-item>  
+                    <b-dropdown-item to="/izvod-postanska">                        
+                        <span v-text="$t('global.menu.razduzenje.datotekePostanska')"></span>
+                    </b-dropdown-item>                   
+                    <b-dropdown-item to="/stavke-izvoda-postanska">                        
+                        <span v-text="$t('global.menu.entities.stavkeIzvodaPostanska')"></span>
+                    </b-dropdown-item>                    
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown
+                    right
+                    id="izvodi-menu"
+                    v-if="authenticated"
+                    active-class="active" class="pointer">
+                    <span slot="button-content" class="navbar-dropdown-menu">                        
+                        <span v-text="$t('global.menu.transakcija.main')"></span>
+                    </span>                    
+                    <b-dropdown-item to="/transakcija">                        
+                        <span v-text="$t('global.menu.entities.transakcije')"></span>
+                    </b-dropdown-item> 
+                     <b-dropdown-item to="/knjigovodstveni-dnevnik">                        
+                        <span v-text="$t('global.menu.entities.knjigovodstveniDnevnik')"></span>
+                    </b-dropdown-item>                                                         
+                </b-nav-item-dropdown>
+
+
+                <b-nav-item-dropdown
+                    right
+                    id="racuni-menu"
+                    v-if="authenticated"
+                    active-class="active" class="pointer">
+                    <span slot="button-content" class="navbar-dropdown-menu">                        
+                        <span v-text="$t('global.menu.korisnici.main')"></span>
+                    </span>           
+                     <b-dropdown-item to="/opomena">
+                        <span v-text="$t('global.menu.entities.opomena')">Opomena</span>
+                    </b-dropdown-item>         
+                    <b-dropdown-item to="/utuzenje">
+                        <span v-text="$t('global.menu.entities.utuzenje')">Utuzenje</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/stavke-utuzenja">
+                        <span v-text="$t('global.menu.entities.stavkeUtuzenja')">StavkeUtuzenja</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/ugovor-rate">
+                        <span v-text="$t('global.menu.entities.ugovorRate')">UgovorRate</span>
+                    </b-dropdown-item>
+                </b-nav-item-dropdown>
+
+                <b-nav-item-dropdown
+                    right
+                    id="racuni-menu"
+                    v-if="authenticated"
+                    active-class="active" class="pointer">
+                    <span slot="button-content" class="navbar-dropdown-menu">                        
+                        <span v-text="$t('global.menu.maticniPodaci.main')"></span>
+                    </span>                    
+                    <b-dropdown-item to="/stan">                        
+                        <span v-text="$t('global.menu.maticniPodaci.stanoviLokali')"></span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/vlasnik">                        
+                        <span v-text="$t('global.menu.maticniPodaci.vlasnici')"></span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/ostali-racuni">                        
+                        <span v-text="$t('global.menu.entities.ostaliRacuni')"></span>
+                    </b-dropdown-item>                   
+                </b-nav-item-dropdown>
+
                 <b-nav-item-dropdown
                     right
                     id="entity-menu"
                     v-if="authenticated"
                     active-class="active" class="pointer">
-                    <span slot="button-content" class="navbar-dropdown-menu">
-                        <font-awesome-icon icon="th-list" />
-                        <span v-text="$t('global.menu.entities.main')">Entities</span>
-                    </span>
+                    <span slot="button-content" class="navbar-dropdown-menu">                        
+                        <span v-text="$t('global.menu.pregledi.main')"></span>
+                    </span>                   
+                    
+                    <b-dropdown-item to="/transakcija">
+                        <span v-text="$t('global.menu.entities.transakcija')">Transakcija</span>
+                    </b-dropdown-item>                   
+                  <!--  
+                    <b-dropdown-item to="/izvod">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.izvod')">Izvod</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/stavke-izvoda">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.stavkeIzvoda')">StavkeIzvoda</span>
+                    </b-dropdown-item>
+                  -->  
+                    <b-dropdown-item to="/transakcija-stara">
+                        <span v-text="$t('global.menu.entities.transakcijaStara')">TransakcijaStara</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/stanja-podstanice-za-racun">
+                        <font-awesome-icon icon="asterisk" />
+                        <span v-text="$t('global.menu.entities.stanjaPodstaniceZaRacun')">StanjaPodstaniceZaRacun</span>
+                    </b-dropdown-item>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </b-nav-item-dropdown>
                 <b-nav-item-dropdown
@@ -41,8 +213,7 @@
                     :class="{'router-link-active': subIsActive('/admin')}"
                     active-class="active"
                     class="pointer">
-                    <span slot="button-content" class="navbar-dropdown-menu">
-                        <font-awesome-icon icon="cogs" />
+                    <span slot="button-content" class="navbar-dropdown-menu">                        
                         <span v-text="$t('global.menu.admin.main')">Administration</span>
                     </span>
                     <b-dropdown-item to="/admin/user-management" active-class="active">
@@ -91,8 +262,7 @@
                     :class="{'router-link-active': subIsActive('/account')}"
                     active-class="active"
                     class="pointer">
-                    <span slot="button-content" class="navbar-dropdown-menu">
-                        <font-awesome-icon icon="user" />
+                    <span slot="button-content" class="navbar-dropdown-menu">                        
                         <span v-text="$t('global.menu.account.main')">
                             Account
                         </span>
@@ -169,7 +339,7 @@
 
 .logo-img {
   height: 100%;
-  background: url("../../../content/images/logo-jhipster.png") no-repeat center
+  background: url("../../../content/images/Logo-MFN.jpg") no-repeat center
     center;
   background-size: contain;
   width: 100%;

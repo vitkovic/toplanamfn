@@ -1,0 +1,38 @@
+{
+  "name": "Utuzenje",
+  "fields": [
+    {
+      "fieldName": "datum",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "stavkeUtuzenja",
+      "otherEntityRelationshipName": "utuzenje",
+      "relationshipName": "stavkeUtuzenja"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "stan",
+      "otherEntityRelationshipName": "utuzenje",
+      "relationshipName": "stan",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20230423092851",
+  "entityTableName": "utuzenje",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

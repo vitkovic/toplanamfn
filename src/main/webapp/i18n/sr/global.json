@@ -1,16 +1,44 @@
 {
   "global": {
-    "title": "Toplana",
+    "title": "Топлана",
     "browsehappy": "Koristite <strong>zastareli</strong> pretraživač. Molimo vas <a href=\"http://browsehappy.com/?locale=en\">nadogradite pretraživač</a> kako biste poboljšali Vaše iskustvo.",
     "menu": {
-      "home": "Početna stranica",
+      "home": "Почетна страница",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entiteti",
+        "stan": "Стан",
+        "vlasnik": "Власник",
+        "tipPotrosaca": "Врста потрошача",
+        "podstanica": "Подстаница",
+        "stanjaPodstanice": "Стања на подстаницама",
+        "transakcije": "Трансакцијe",
+        "knjigovodstveniDnevnik": "Књиговодствени дневник",
+        "cene": "Цене",
+        "vrstaTransakcije": "Врста трансакције",
+        "sifraDokumenta": "Шифра документа",
+        "sifraPromene": "Шифра промене",
+        "nacrtRacuna": "Нацрт рачуна",
+        "racun": "Рачун",
+        "izvod": "Извод",
+        "izvodi": "Изводи",
+        "stavkeIzvoda": "Ставке извода",
+        "stavkeIzvodaPostanska": "Ставке датотеке из поштанске штедионице",
+        "transakcijaStara": "Претходне године",
+        "ceneStare": "Цене старе",
+        "parametri": "Параметри",
+        "parametriIstorija": "Параметри - историја",
+        "opomena": "Опомена",
+        "ostaliRacuni": "Остали рачуни",
+        
+        "utuzenje": "Утужење",
+        "stavkeUtuzenja": "Ставке утужења",
+        "ugovorRate": "Уговор - рате",
+        "stanjaPodstaniceZaRacun": "Stanja Podstanice Za Racun",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
-        "main": "Profil",
+        "main": "Профил",
         "settings": "Podešavanja",
         "password": "Lozinka",
         "sessions": "Sesije",
@@ -18,8 +46,36 @@
         "logout": "Odjavi me",
         "register": "Registruj me"
       },
+      "razduzenje":{
+        "main":"Раздужење",
+        "datotekePostanska":"Датотеке из Поштанске штедионице"
+      },
+      "transakcija":{
+        "main":"Аналитичке картице"
+      },
+      "racuni": {
+        "main": "Рачуни",
+        "izradaRacuna": "Израда рачуна",
+        "knjizenjeRacuna": "Књижење рачуна",
+        "potrosnjaNaPodstanicama": "Потрошња на подстаницама",
+        "pregledi": "Прегледи",
+        "zaduzenje": "Задужење",
+        "datotekeZaBanku": "Датотеке за банку"
+      },
+      "pregledi": {
+        "main": "Прегледи"
+      },
+      "korisnici": {
+        "main": "Корисници"
+      },
+      "maticniPodaci": {
+        "main": "Матични подаци",
+        "stanoviLokali": "Станови (Локали)",
+        "vlasnici": "Власници",
+        "pregledi": "Прегледи"
+      },
       "admin": {
-        "main": "Administracija",
+        "main": "Администрација",
         "userManagement": "Korisnički manadžment",
         "tracker": "Praćenje korisnika",
         "metrics": "Metrika",
@@ -29,9 +85,10 @@
         "audits": "Revizije",
         "apidocs": "API",
         "database": "Baza podataka",
+        "parametri": "Параметри",
         "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
       },
-      "language": "Jezik"
+      "language": "Језик"
     },
     "form": {
       "username.label": "Korisničko ime",
@@ -79,7 +136,7 @@
       }
     },
     "field": {
-      "id": "ID"
+      "id": "ИД"
     },
     "ribbon": {
       "dev": "Razvojno okruženje"
@@ -90,23 +147,29 @@
     "action": {
       "addblob": "Dodaj blob",
       "addimage": "Dodaj sliku",
-      "back": "Nazad",
-      "cancel": "Otkaži",
-      "delete": "Obriši",
-      "edit": "Izmeni",
-      "open": "Otvori",
-      "save": "Sačuvaj",
-      "view": "Pregled"
+      "back": "Назад",
+      "cancel": "Откажи",
+      "delete": "Обриши",
+      "edit": "Измени",
+      "open": "Отвори",
+      "save": "Сачувај",
+      "view": "Преглед",
+      "knjizenje": "Књижење",
+      "posalji": "Пошаљи",
+      "reset": "Очисти",
+      "stampanje": "Штампање",
+      "details": "Детаљније",
+      "rekapitulacija": "Рекапитулација"
     },
     "detail": {
       "field": "Polje",
       "value": "Vrednost"
     },
     "delete": {
-      "title": "Potvrdi brisanje"
+      "title": "Потврди брисање"
     },
     "validation": {
-      "required": "Polje je obavezno.",
+      "required": "Поље је обавезно.",
       "minlength": "Polje mora biti veće od {{ min }} karaktera.",
       "maxlength": "Polje ne može biti duže od {{ max }} karaktera.",
       "min": "Polje mora biti veče od {{ min }}.",
@@ -132,6 +195,8 @@
       "could.not.extract": "Could not extract file",
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
+    
   },
-  "footer": "Ovo je vaše podnožje"
+  "footerLeft": "Програм за финансијско пословање топлане. ",
+  "footerRight": "Аутор Драган Мишић - Машински факултет Ниш"
 }

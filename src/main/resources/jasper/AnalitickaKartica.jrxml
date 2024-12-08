@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AnalitickaKartica" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54bbabd6-0b5b-4f60-b5cf-58a338afd68e">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="ime" class="java.lang.String">
+		<fieldDescription><![CDATA[ime]]></fieldDescription>
+	</field>
+	<field name="stavkaIzvodaId" class="java.lang.Long">
+		<fieldDescription><![CDATA[stavkaIzvodaId]]></fieldDescription>
+	</field>
+	<field name="potrazuje" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[potrazuje]]></fieldDescription>
+	</field>
+	<field name="valuta" class="java.time.LocalDate">
+		<fieldDescription><![CDATA[valuta]]></fieldDescription>
+	</field>
+	<field name="broj" class="java.lang.Integer">
+		<fieldDescription><![CDATA[broj]]></fieldDescription>
+	</field>
+	<field name="datumDokumenta" class="java.time.LocalDate">
+		<fieldDescription><![CDATA[datumDokumenta]]></fieldDescription>
+	</field>
+	<field name="datumKnjizenja" class="java.time.LocalDate">
+		<fieldDescription><![CDATA[datumKnjizenja]]></fieldDescription>
+	</field>
+	<field name="sifraPromene" class="java.lang.String">
+		<fieldDescription><![CDATA[sifraPromene]]></fieldDescription>
+	</field>
+	<field name="sifraStana" class="java.lang.String">
+		<fieldDescription><![CDATA[sifraStana]]></fieldDescription>
+	</field>
+	<field name="adresa" class="java.lang.String">
+		<fieldDescription><![CDATA[adresa]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="sifraDokumenta" class="java.lang.String">
+		<fieldDescription><![CDATA[sifraDokumenta]]></fieldDescription>
+	</field>
+	<field name="stavkaIzvodaPostanskaId" class="java.lang.Long">
+		<fieldDescription><![CDATA[stavkaIzvodaPostanskaId]]></fieldDescription>
+	</field>
+	<field name="racunId" class="java.lang.Long">
+		<fieldDescription><![CDATA[racunId]]></fieldDescription>
+	</field>
+	<field name="prezime" class="java.lang.String">
+		<fieldDescription><![CDATA[prezime]]></fieldDescription>
+	</field>
+	<field name="tipPotrosacaInteger" class="java.lang.Integer">
+		<fieldDescription><![CDATA[tipPotrosacaInteger]]></fieldDescription>
+	</field>
+	<field name="ulaz" class="java.lang.Integer">
+		<fieldDescription><![CDATA[ulaz]]></fieldDescription>
+	</field>
+	<field name="saldo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[saldo]]></fieldDescription>
+	</field>
+	<field name="ulica" class="java.lang.String">
+		<fieldDescription><![CDATA[ulica]]></fieldDescription>
+	</field>
+	<field name="ukljucen" class="java.lang.Integer">
+		<fieldDescription><![CDATA[ukljucen]]></fieldDescription>
+	</field>
+	<field name="podstanicaBrojInteger" class="java.lang.Integer">
+		<fieldDescription><![CDATA[podstanicaBrojInteger]]></fieldDescription>
+	</field>
+	<field name="punoIme" class="java.lang.String">
+		<fieldDescription><![CDATA[punoIme]]></fieldDescription>
+	</field>
+	<field name="grad" class="java.lang.String">
+		<fieldDescription><![CDATA[grad]]></fieldDescription>
+	</field>
+	<field name="duguje" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[duguje]]></fieldDescription>
+	</field>
+	<field name="opis" class="java.lang.String">
+		<fieldDescription><![CDATA[opis]]></fieldDescription>
+	</field>
+	<field name="status" class="java.lang.String">
+		<fieldDescription><![CDATA[status]]></fieldDescription>
+	</field>
+	<variable name="totalDuguje" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{duguje}]]></variableExpression>
+	</variable>
+	<variable name="totalPotrazuje" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{potrazuje}]]></variableExpression>
+	</variable>
+	<variable name="totalSaldo" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{saldo}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="63" y="8" width="358" height="22" uuid="0b87b625-dd1f-4cb0-b252-da2dfa535886"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="16"/>
+				</textElement>
+				<text><![CDATA[Аналитичка картица обвезника]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="12" width="45" height="18" uuid="df9132c8-2f03-44f7-a239-86cbf6688859"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Статус:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="499" y="13" width="45" height="18" uuid="b7cb32a5-91c4-4e38-adc8-6b2df5bdcb98">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="40" width="54" height="30" uuid="658b17e6-bc01-48e4-a6c3-f3280b8386a8"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Датум књижења]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="58" y="40" width="51" height="30" uuid="b4e23293-ad45-4569-a869-5c276858800c"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Шифра док.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="113" y="40" width="94" height="30" uuid="12e3c5ac-a994-4127-9b1e-41073b59ed9d"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Шифра пром.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="40" width="80" height="30" uuid="59def6fa-e9ec-41dd-bb37-38b9b43d6f6d"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Потражује]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="10" width="70" height="17" uuid="35eac280-c54f-4b68-9ecf-3eace2cd2994">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sifraStana}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="10" width="88" height="17" uuid="608e8eec-873b-4cdb-baac-3ab41a95a190">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Матични број:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="40" width="60" height="30" uuid="0df4365a-5c68-4512-84ad-14c56f2028c5"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Дугује]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="211" y="40" width="80" height="30" uuid="c0403ac0-6268-48be-967b-7c083f87aec6"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Опис]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="242" y="12" width="114" height="17" uuid="c0d9cb6c-b699-4bee-b7bb-e5308eb16035"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="10" width="138" height="17" uuid="8eacb529-a9c1-406b-901c-c67e70c45ab3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{adresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="465" y="40" width="64" height="30" uuid="9fc66c5d-f045-4e73-86be-d439c5744f48"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Салдо]]></text>
+			</staticText>
+			<line>
+				<reportElement x="6" y="30" width="529" height="1" uuid="3d272c75-96c1-4c4c-987f-e8b8418833b2"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="70" width="530" height="1" uuid="01785e22-d682-4d6b-bdbf-45e8bc55e25e"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="173" y="12" width="114" height="17" uuid="761f6b6a-0282-4529-b428-0e4c2840389c"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prezime}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField pattern="#,##0.00#">
+				<reportElement x="378" y="1" width="80" height="16" uuid="77408009-544b-4bff-8092-7e41051e996d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{potrazuje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="211" y="1" width="80" height="16" uuid="0ae8d813-2360-4860-8aa7-528b3e4be16b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{opis} != null ? $F{opis} : " "]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="295" y="1" width="60" height="16" uuid="f151fd0f-307e-4a2d-bdaa-765e3867a833">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{duguje}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd.MM.yyyy">
+				<reportElement x="0" y="1" width="50" height="16" uuid="2585acd8-d790-47a5-916f-aa73ca7f07bd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[java.util.Date.from($F{datumKnjizenja}.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="58" y="1" width="50" height="16" uuid="e3838b29-367f-4fe9-814a-049493ee0336"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sifraDokumenta} != null ? $F{sifraDokumenta} : " "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="112" y="1" width="94" height="16" uuid="85f427dc-fee8-48cf-88ec-830533c80ba7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sifraPromene} != null ? $F{sifraPromene} : " "]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;#,##0.00#">
+				<reportElement x="466" y="1" width="64" height="16" uuid="bfaf32de-ec17-4b94-bc20-4e386a4082d9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="11" width="129" height="20" uuid="88dc365b-c9c4-4e51-9e1a-95e44c2832fa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Укупно:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00#">
+				<reportElement x="295" y="11" width="60" height="20" uuid="53dd7902-74de-41c1-84c3-f16bc27f0ffa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{totalDuguje}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###;#,##0.###">
+				<reportElement x="378" y="11" width="80" height="20" uuid="c6ce6af2-6275-4b57-a702-5fcea621e193">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{totalPotrazuje}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###;#,##0.###">
+				<reportElement x="465" y="11" width="64" height="20" uuid="e654265c-2ce1-4d37-b075-00bf2da72873">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{totalDuguje}.subtract($V{totalPotrazuje})]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="6" width="545" height="1" uuid="ad6d672f-13b3-4dd9-bcf7-385027d0f6f5"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

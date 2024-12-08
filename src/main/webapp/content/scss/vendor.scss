@@ -10,6 +10,8 @@ eg $input-color: red;
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-vue/src/index.scss';
 @import '~bootswatch/dist/flatly/bootswatch';
+//Dodao Dragan
+@import '~vue2-datepicker/scss/index.scss';
 /* Dirty fix on navbar active link with bootswatch theme */
 nav li.router-link-active .navbar-dropdown-menu {
   color: $navbar-dark-active-color;

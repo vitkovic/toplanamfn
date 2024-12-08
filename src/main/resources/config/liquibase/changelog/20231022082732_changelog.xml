@@ -1,0 +1,23 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="Dragan (generated)" id="1697963257472-2">
+        <addColumn tableName="stavke_izvoda_postanska">
+            <column name="npl" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1697963257472-3">
+        <addColumn tableName="izvod">
+            <column name="ukupno_neplacenih" type="numeric(21, 2)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1697963257472-4">
+        <addColumn tableName="izvod">
+            <column name="ukupno_placenih" type="numeric(21, 2)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1697963257472-5">
+        <addColumn tableName="izvod">
+            <column name="ukupno_za_uslugu" type="numeric(21, 2)"/>
+        </addColumn>
+    </changeSet>    
+</databaseChangeLog>

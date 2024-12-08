@@ -1,0 +1,25 @@
+{
+  "toplanaApp": {
+    "parametriIstorija": {
+      "home": {
+        "title": "Parametri Istorijas",
+        "createLabel": "Kreiraj novi Parametri Istorija",
+        "createOrEditLabel": "Kreirajte ili izmenite Parametri Istorija",
+        "notFound": "No Parametri Istorijas found"
+      },
+      "created": "Kreiran je novi Parametri Istorija pod nazivom {{ param }}",
+      "updated": "Parametri Istorija pod nazivom {{ param }} je ažuriran",
+      "deleted": "Parametri Istorija pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Parametri Istorija pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Parametri Istorija"
+      },
+      "vrednost": "Vrednost",
+      "vaziOd": "Vazi Od",
+      "vaziDo": "Vazi Do",
+      "parametri": "Parametri"
+    }
+  }
+}

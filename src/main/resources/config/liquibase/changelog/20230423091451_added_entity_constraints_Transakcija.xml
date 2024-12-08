@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity Transakcija.
+    -->
+    <changeSet id="20230423091451-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="vrsta_transakcije_id"
+                                 baseTableName="transakcija"
+                                 constraintName="fk_transakcija_vrsta_transakcije_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="vrsta_transakcije"/>
+
+        <addForeignKeyConstraint baseColumnNames="sifra_dokumenta_id"
+                                 baseTableName="transakcija"
+                                 constraintName="fk_transakcija_sifra_dokumenta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sifra_dokumenta"/>
+
+        <addForeignKeyConstraint baseColumnNames="sifra_promene_id"
+                                 baseTableName="transakcija"
+                                 constraintName="fk_transakcija_sifra_promene_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sifra_promene"/>
+
+        <addForeignKeyConstraint baseColumnNames="cene_id"
+                                 baseTableName="transakcija"
+                                 constraintName="fk_transakcija_cene_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cene"/>
+
+        <addForeignKeyConstraint baseColumnNames="stan_id"
+                                 baseTableName="transakcija"
+                                 constraintName="fk_transakcija_stan_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="stan"/>
+
+    </changeSet>
+</databaseChangeLog>

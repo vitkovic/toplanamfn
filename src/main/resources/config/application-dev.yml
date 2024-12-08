@@ -39,16 +39,20 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/toplana
     username: toplana
-    password:
+    password: toplana
     hikari:
       poolName: Hikari
       auto-commit: false
   jpa:
     database-platform: io.github.jhipster.domain.util.FixedPostgreSQL10Dialect
-    show-sql: true
+    show-sql: true    
+#    properties:
+#      hibernate:
+#        format_sql: true
+
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
-    contexts: dev, faker
+    contexts: dev
   mail:
     host: localhost
     port: 25
@@ -60,7 +64,9 @@ spring:
     cache: false
 
 server:
-  port: 8080
+  port: 8081
+  
+  
 
 # ===================================================================
 # JHipster specific properties

@@ -1,0 +1,32 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="Dragan (generated)" id="1693327676155-2">
+        <createTable tableName="ostali_racuni">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ostali_racuniPK"/>
+            </column>
+            <column name="aktivan" type="BOOLEAN"/>
+            <column name="naziv" type="VARCHAR(255)"/>
+            <column name="sifra" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1693327676155-3">
+        <addColumn tableName="transakcija">
+            <column name="ostali_racuni_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1693327676155-4">
+        <addColumn tableName="transakcija_stara">
+            <column name="ostali_racuni_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1693327676155-5">
+        <addUniqueConstraint columnNames="sifra" constraintName="UC_OSTALI_RACUNISIFRA_COL" tableName="ostali_racuni"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1693327676155-6">
+        <addForeignKeyConstraint baseColumnNames="ostali_racuni_id" baseTableName="transakcija_stara" constraintName="FKl1kuxyjgrgwwou7au1vfly5r4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="ostali_racuni" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1693327676155-7">
+        <addForeignKeyConstraint baseColumnNames="ostali_racuni_id" baseTableName="transakcija" constraintName="FKl1vdllevf9wgydoysu61p5ac" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="ostali_racuni" validate="true"/>
+    </changeSet>   
+</databaseChangeLog>

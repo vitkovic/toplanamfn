@@ -1,0 +1,60 @@
+{
+  "name": "StavkeUtuzenja",
+  "fields": [
+    {
+      "fieldName": "obracunskiPeriod",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "datumIzdavanjaRacuna",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "datumDospecaRacuna",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "zaduzenje",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "ukupnoZaUplatu",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "utuzenje",
+      "otherEntityRelationshipName": "stavkeUtuzenja",
+      "relationshipName": "utuzenje",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20230423092951",
+  "entityTableName": "stavke_utuzenja",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

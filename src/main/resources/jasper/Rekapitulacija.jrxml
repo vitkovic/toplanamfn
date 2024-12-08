@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d4173189-90c1-4ecc-9a46-9b8a1995ccb9">
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="datum" class="java.time.LocalDate">
+		<fieldDescription><![CDATA[datum]]></fieldDescription>
+	</field>
+	<field name="ukupno" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[ukupno]]></fieldDescription>
+	</field>
+	<field name="nacrtRacunaId" class="java.lang.Long">
+		<fieldDescription><![CDATA[nacrtRacunaId]]></fieldDescription>
+	</field>
+	<field name="pdv2" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[pdv2]]></fieldDescription>
+	</field>
+	<field name="popust" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[popust]]></fieldDescription>
+	</field>
+	<field name="pdv1" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[pdv1]]></fieldDescription>
+	</field>
+	<field name="ukupnoZaduzenje" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[ukupnoZaduzenje]]></fieldDescription>
+	</field>
+	<field name="varijabilniDeo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[varijabilniDeo]]></fieldDescription>
+	</field>
+	<field name="fiksniDeo" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[fiksniDeo]]></fieldDescription>
+	</field>
+	<field name="odrzavanje" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[odrzavanje]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="117" y="9" width="390" height="30" uuid="0554614a-7df0-4a2a-9b50-a1e0a7fb723f"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Рекапитулација разреза по ПДВ тарифама]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="9" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="273" splitType="Stretch">
+			<textField pattern="dd.MM.yyyy">
+				<reportElement x="259" y="1" width="201" height="20" uuid="2d3e564f-01e4-429e-8d77-776108816fb7"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[java.util.Date.from($F{datum}.atStartOfDay(java.time.ZoneId.systemDefault()).toInstant())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="79" y="1" width="110" height="20" uuid="e21ac991-c774-48e4-80ec-ab71a2a44769"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Датум:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="31" width="160" height="20" uuid="08793d14-c9ce-44e9-88e1-9ae99117f66b"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Варијабилни део:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="61" width="90" height="20" uuid="9cf380ed-37d2-4c39-90cc-d29166ad4c2c"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Фиксни део:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="91" width="90" height="20" uuid="e9517479-3ad7-4eb8-affd-0d1efaa4e707"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Попуст:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="121" width="90" height="20" uuid="633f6c8c-1a55-411d-be04-238e73a520a4"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Укупно:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="151" width="140" height="20" uuid="55d5d03b-aa14-4775-b7bd-795a92b71681"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ПДВ (10%):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="209" width="140" height="20" uuid="16cdfa62-c278-4799-bc7f-598024f7aa66"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ПДВ (20%):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="180" width="120" height="20" uuid="deb46b91-ea5c-42e6-9681-402c185b8899"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Одржавање:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="241" width="140" height="20" uuid="1a276f27-f2db-479b-ab11-eefbcb6a0cec"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Укупно задужење:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+				<reportElement x="259" y="31" width="201" height="20" uuid="3d02f028-1b63-45c6-adbd-7776546abba3"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{varijabilniDeo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+				<reportElement x="259" y="60" width="201" height="20" uuid="6f444261-2d54-4b2b-beb9-6dad30528839"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fiksniDeo}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+				<reportElement x="259" y="90" width="201" height="20" uuid="68201eb0-228a-4e69-b021-debfc9a5cf9c"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{popust}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+				<reportElement x="259" y="121" width="201" height="20" uuid="0892115d-1bda-4776-8fd4-bf11a6673f1a"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ukupno}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+				<reportElement x="259" y="151" width="201" height="20" uuid="29916618-340a-4099-87d5-c211b22674ca"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pdv2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+				<reportElement x="259" y="209" width="201" height="20" uuid="5bce94ab-ce3a-4c58-a6d3-7deba2d51e95"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pdv1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+				<reportElement x="259" y="180" width="201" height="20" uuid="5bd5fe3b-d883-43c4-aebc-500b2a31181d"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{odrzavanje}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+				<reportElement x="259" y="241" width="201" height="20" uuid="605d72e9-d1b6-4319-a579-0d78a8d28de7"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ukupnoZaduzenje}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="77" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

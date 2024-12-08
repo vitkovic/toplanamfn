@@ -1,0 +1,261 @@
+
+entity Stan {
+	povrsina BigDecimal required,
+    ulica String,
+    ulaz Integer,
+    broj Integer,
+    ukljucen Boolean,
+    sifra String unique,
+    grad String,
+    postanskiBroj String
+}
+
+entity Vlasnik {
+	ime String,
+    prezime String,
+    brojRacuna String,
+    partijaRacuna String,
+    naziv String
+}
+
+entity TipPotrosaca {
+	tip Integer,
+	opis String
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Podstanica {
+	naziv String,
+	broj Integer
+}
+
+entity StanjaPodstanice{
+	stanje BigDecimal required,
+    datumOcitavanja LocalDate required
+}
+
+entity Transakcija {
+	datum LocalDate,
+    valuta LocalDate,
+    status String,
+    opis String,
+    duguje BigDecimal,
+    potrazuje BigDecimal
+}
+
+entity Cene {
+	kwh BigDecimal,
+    fix BigDecimal,
+    odrzavanje BigDecimal,
+    ostalo BigDecimal
+}
+
+entity VrstaTransakcije {
+	vrsta String,
+    dodajeVrednost Integer
+}
+
+entity SifraDokumenta {
+	sifra String
+}
+
+entity SifraPromene {
+	sifra String
+}
+
+entity NacrtRacuna {
+	datumRacuna LocalDate required, 
+    period String required,
+    valutaPlacanja LocalDate required,
+    cenaKwh BigDecimal required,
+    cenaFix BigDecimal required,
+    cenaOdrzavanje BigDecimal required,
+    cenaOStalo BigDecimal,
+    popust BigDecimal,
+    staroStanjePodstanice BigDecimal required,
+    novoStanjePodstanice BigDecimal required,
+    ukupnaPovrsina BigDecimal,
+    utrosakPoM2 BigDecimal,
+    pdv1 BigDecimal required,
+    pdv2 BigDecimal required
+}
+
+entity Racun {
+	datumRacuna LocalDate,
+    period String,
+    utrosakVarijabilni BigDecimal,
+    utrosakFiksni BigDecimal,
+    utrosakOdrzavanje BigDecimal    
+}
+
+entity Izvod {
+	datum LocalDate,
+    broj Integer
+}
+
+entity StavkeIzvoda {
+	rasporedjena Boolean,
+    datum LocalDate,
+    status String,
+    iznos BigDecimal,
+    sifra String,
+    opis String
+}
+
+entity TransakcijaStara {
+	datum LocalDate,
+    valuta LocalDate,
+    status String,
+    opis String,
+    duguje BigDecimal,
+    potrazuje BigDecimal
+}
+entity CeneStare {
+	kwh BigDecimal,
+    fix BigDecimal,
+    odrzavanje BigDecimal,
+    ostalo BigDecimal
+}
+
+entity Parametri {
+	naziv String,
+    vrednost BigDecimal
+}
+
+entity ParametriIstorija {
+	vrednost BigDecimal,
+    vaziOd LocalDate,
+    vaziDo LocalDate
+}
+
+entity Opomena {
+	datumOpomene LocalDate required,
+    zakljucniDatum LocalDate required,
+    iznos BigDecimal required,
+    datumIzmirenja LocalDate required
+}
+
+entity Utuzenje {
+	datum LocalDate required
+}
+
+entity StavkeUtuzenja {
+	obracunskiPeriod String required,
+    datumIzdavanjaRacuna LocalDate required,
+    datumDospecaRacuna LocalDate required,
+    zaduzenje BigDecimal required,
+    ukupnoZaUplatu BigDecimal required
+}
+
+entity UgovorRate {
+	brojRata Integer,
+    datumSklapanja LocalDate,
+    datumDospeca LocalDate
+}
+
+relationship OneToMany {
+  TipPotrosaca{Stan} to Stan{tipPotrosaca}
+}
+
+relationship OneToMany {
+  Podstanica{nacrtRacuna} to NacrtRacuna{podstanica}
+}
+
+relationship OneToMany {
+  Podstanica{stan} to Stan{podstanica}
+}
+
+relationship OneToMany {
+  Podstanica{stanjePodstanice} to StanjaPodstanice{podstanica}
+}
+
+relationship OneToMany {
+  Vlasnik{stan} to Stan{vlasnik}
+}
+
+relationship OneToMany {
+  Stan{opomena} to Opomena{stan}
+}
+
+relationship OneToMany {
+  Stan{utuzenje} to Utuzenje{stan}
+}
+
+relationship OneToMany {
+  Stan{ugovorRate} to UgovorRate{stan}
+}
+
+relationship OneToMany {
+  Stan{transakcija} to Transakcija{stan}
+}
+
+relationship OneToMany {
+  Stan{transakcijaStara} to TransakcijaStara{stan}
+}
+
+relationship OneToMany {
+  Stan{racun} to Racun{stan}
+}
+
+relationship OneToMany {
+  Utuzenje{stavkeUtuzenja} to StavkeUtuzenja{utuzenje}
+}
+
+relationship OneToMany {
+  NacrtRacuna{racun} to Racun{nacrtRacuna}
+}
+
+relationship OneToMany {
+  Izvod{stavkaIzvoda} to StavkeIzvoda{izvod}
+}
+
+
+relationship OneToOne {
+  StavkeIzvoda{transakcija} to Transakcija{stavkaIzvoda}
+}
+
+relationship OneToOne {
+  StavkeIzvoda{transakcijaStara} to TransakcijaStara{stavkaIzvoda}
+}
+
+relationship ManyToOne {
+  Transakcija{vrstaTransakcije} to VrstaTransakcije
+}
+
+relationship ManyToOne {
+  Transakcija{sifraDokumenta} to SifraDokumenta
+}
+
+relationship ManyToOne {
+  Transakcija{sifraPromene} to SifraPromene
+}
+
+relationship ManyToOne {
+  Transakcija{cene} to Cene
+}
+
+relationship ManyToOne {
+  TransakcijaStara{vrstaTransakcije} to VrstaTransakcije
+}
+
+relationship ManyToOne {
+  TransakcijaStara{sifraDokumenta} to SifraDokumenta
+}
+
+relationship ManyToOne {
+  TransakcijaStara{sifraPromene} to SifraPromene
+}
+
+relationship ManyToOne {
+  TransakcijaStara{cene} to CeneStare
+}
+
+relationship OneToMany {
+  Parametri{istorija} to ParametriIstorija{parametri}
+}
+
+paginate Transakcija, TransakcijaStara, Stan, StanjaPodstanice, NacrtRacuna, Racun, Izvod, StavkeIzvoda, Vlasnik, Opomena, Utuzenje, UgovorRate with pagination
+
+service Transakcija, TransakcijaStara with serviceClass
+

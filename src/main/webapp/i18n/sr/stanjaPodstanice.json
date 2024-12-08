@@ -1,0 +1,25 @@
+{
+  "toplanaApp": {
+    "stanjaPodstanice": {
+      "home": {
+        "title": "Стања на подстаницама",
+        "createLabel": "Креирање нових стања подстаница",
+        "createOrEditLabel": "Креирање и измена стања подстаница",
+        "notFound": "Није пронађено ни једно стање"
+      },
+      "created": "Креирано је ново стање подстанице са ид ознаком {{ param }}",
+      "updated": "Stanja Podstanice pod nazivom {{ param }} je ažuriran",
+      "deleted": "Stanja Podstanice pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете стање подстанице са ид ознаком {{ id }}?"
+      },
+      "detail": {
+        "title": "Stanja Podstanice"
+      },
+      "stanje": "Стање",
+      "datumOcitavanja": "Датум очитавања",
+      "podstanica": "Подстаница", 
+      "uspesnoKreiranaStanja": "Успешно сте унели стања на подстаницама"
+    }
+  }
+}

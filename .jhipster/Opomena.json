@@ -1,0 +1,53 @@
+{
+  "name": "Opomena",
+  "fields": [
+    {
+      "fieldName": "datumOpomene",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "zakljucniDatum",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "iznos",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "datumIzmirenja",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "stan",
+      "otherEntityRelationshipName": "opomena",
+      "relationshipName": "stan",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20230423092751",
+  "entityTableName": "opomena",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

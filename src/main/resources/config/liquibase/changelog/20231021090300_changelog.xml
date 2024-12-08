@@ -1,0 +1,42 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.9.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <changeSet author="Dragan (generated)" id="1697878984627-2">
+        <createTable tableName="stavke_izvoda_postanska">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="stavke_izvoda_postanskaPK"/>
+            </column>
+            <column name="adresa" type="VARCHAR(255)"/>
+            <column name="broj" type="INTEGER"/>
+            <column name="broj_partije_poverioc" type="VARCHAR(255)"/>
+            <column name="broj_tekuceg_racuna" type="VARCHAR(255)"/>
+            <column name="ime" type="VARCHAR(255)"/>
+            <column name="iznos" type="numeric(21, 2)"/>
+            <column name="posta" type="VARCHAR(255)"/>
+            <column name="rasporedjena" type="BOOLEAN"/>
+            <column name="valuta" type="date"/>
+            <column name="izvod_id" type="BIGINT"/>
+            <column name="transakcija_id" type="BIGINT"/>
+            <column name="transakcija_stara_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1697878984627-3">
+        <addColumn tableName="izvod">
+            <column name="tip" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1697878984627-4">
+        <addUniqueConstraint columnNames="transakcija_id" constraintName="UC_STAVKE_IZVODA_POSTANSKATRANSAKCIJA_ID_COL" tableName="stavke_izvoda_postanska"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1697878984627-5">
+        <addUniqueConstraint columnNames="transakcija_stara_id" constraintName="UC_STAVKE_IZVODA_POSTANSKATRANSAKCIJA_STARA_ID_COL" tableName="stavke_izvoda_postanska"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1697878984627-6">
+        <addForeignKeyConstraint baseColumnNames="transakcija_id" baseTableName="stavke_izvoda_postanska" constraintName="FK3fxbsolmqmr5llcua8nh0knee" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="transakcija" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1697878984627-7">
+        <addForeignKeyConstraint baseColumnNames="transakcija_stara_id" baseTableName="stavke_izvoda_postanska" constraintName="FKej5bkqosrk4bhmhx8k0itiqt5" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="transakcija_stara" validate="true"/>
+    </changeSet>
+    <changeSet author="Dragan (generated)" id="1697878984627-8">
+        <addForeignKeyConstraint baseColumnNames="izvod_id" baseTableName="stavke_izvoda_postanska" constraintName="FKsbum50s0vb2gieoxrf09j9rh1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="izvod" validate="true"/>
+    </changeSet>    
+</databaseChangeLog>

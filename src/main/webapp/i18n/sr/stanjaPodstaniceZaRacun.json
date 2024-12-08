@@ -1,0 +1,27 @@
+{
+  "toplanaApp": {
+    "stanjaPodstaniceZaRacun": {
+      "home": {
+        "title": "Stanja Podstanice Za Racuns",
+        "createLabel": "Kreiranje novih Stanja Podstanice Za Racun",
+        "createOrEditLabel": "Kreirajte ili izmenite Stanja Podstanice Za Racun",
+        "notFound": "No Stanja Podstanice Za Racuns found"
+      },
+      "created": "Kreiran je novi Stanja Podstanice Za Racun pod nazivom {{ param }}",
+      "updated": "Stanja Podstanice Za Racun pod nazivom {{ param }} je ažuriran",
+      "deleted": "Stanja Podstanice Za Racun pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Stanja Podstanice Za Racun pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Stanja Podstanice Za Racun"
+      },
+      "staroStanje": "Staro Stanje",
+      "novoStanje": "Novo Stanje",
+      "ukupnaPovrsina": "Ukupna Povrsina",
+      "utrosakPoM2": "Utrosak Po M 2",
+      "podstanica": "Podstanica",
+      "nacrtRacuna": "Nacrt Racuna"
+    }
+  }
+}

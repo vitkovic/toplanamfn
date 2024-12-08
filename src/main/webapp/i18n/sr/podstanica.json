@@ -1,0 +1,26 @@
+{
+  "toplanaApp": {
+    "podstanica": {
+      "home": {
+        "title": "Подстанице",
+        "createLabel": "Креирајте нову подстаницу",
+        "createOrEditLabel": "Креирање и измена подстанице",
+        "notFound": "Није пронађена ни једна подстаница"
+      },
+      "created": "Kreiran je novi Podstanica pod nazivom {{ param }}",
+      "updated": "Podstanica pod nazivom {{ param }} je ažuriran",
+      "deleted": "Podstanica pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Podstanica pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Подстаница"
+      },
+      "naziv": "Назив",
+      "nacrtRacuna": "Нацрт рачуна",
+      "stan": "Стан",
+      "stanjePodstanice": "Стање подстанице",
+      "broj": "Број"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "name": "Transakcija",
+  "fields": [
+    {
+      "fieldName": "datum",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "valuta",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "opis",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "duguje",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "potrazuje",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "vrstaTransakcije",
+      "otherEntityRelationshipName": "transakcija",
+      "relationshipName": "vrstaTransakcije",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "sifraDokumenta",
+      "otherEntityRelationshipName": "transakcija",
+      "relationshipName": "sifraDokumenta",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "sifraPromene",
+      "otherEntityRelationshipName": "transakcija",
+      "relationshipName": "sifraPromene",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "cene",
+      "otherEntityRelationshipName": "transakcija",
+      "relationshipName": "cene",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "stavkeIzvoda",
+      "otherEntityRelationshipName": "transakcija",
+      "relationshipName": "stavkaIzvoda",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "stan",
+      "otherEntityRelationshipName": "transakcija",
+      "relationshipName": "stan",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20230423091451",
+  "entityTableName": "transakcija",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,22 @@
+{
+  "toplanaApp": {
+    "sifraDokumenta": {
+      "home": {
+        "title": "Sifra Dokumentas",
+        "createLabel": "Kreiraj novi Sifra Dokumenta",
+        "createOrEditLabel": "Kreirajte ili izmenite Sifra Dokumenta",
+        "notFound": "No Sifra Dokumentas found"
+      },
+      "created": "Kreiran je novi Sifra Dokumenta pod nazivom {{ param }}",
+      "updated": "Sifra Dokumenta pod nazivom {{ param }} je ažuriran",
+      "deleted": "Sifra Dokumenta pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Sifra Dokumenta pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Sifra Dokumenta"
+      },
+      "sifra": "Sifra"
+    }
+  }
+}

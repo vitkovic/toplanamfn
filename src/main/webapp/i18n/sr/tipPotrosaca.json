@@ -1,0 +1,23 @@
+{
+  "toplanaApp": {
+    "tipPotrosaca": {
+      "home": {
+        "title": "Врста потрошача (реон)",
+        "createLabel": "Креирање новог реона",
+        "createOrEditLabel": "Креирање и измена реона",
+        "notFound": "Није пронађен ни један реон"
+      },
+      "created": "Креирана је нова врста потрошача са ид ознаком{{ param }}",
+      "updated": "Tip Potrosaca pod nazivom {{ param }} je ažuriran",
+      "deleted": "Tip Potrosaca pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете реон са ид ознаком {{ id }}?"
+      },
+      "detail": {
+        "title": "Врста потрошача (реон)"
+      },
+      "tip": "Врста (реон)",
+      "stan": "Stan"
+    }
+  }
+}

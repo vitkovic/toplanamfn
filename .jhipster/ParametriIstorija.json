@@ -1,0 +1,37 @@
+{
+  "name": "ParametriIstorija",
+  "fields": [
+    {
+      "fieldName": "vrednost",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "vaziOd",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "vaziDo",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "parametri",
+      "otherEntityRelationshipName": "istorija",
+      "relationshipName": "parametri",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20230423092651",
+  "entityTableName": "parametri_istorija",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

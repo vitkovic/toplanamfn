@@ -1,0 +1,28 @@
+{
+  "name": "TipPotrosaca",
+  "fields": [
+    {
+      "fieldName": "tip",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "stan",
+      "otherEntityRelationshipName": "tipPotrosaca",
+      "relationshipName": "stan"
+    }
+  ],
+  "changelogDate": "20230423091151",
+  "entityTableName": "tip_potrosaca",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

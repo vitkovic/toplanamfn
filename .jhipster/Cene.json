@@ -1,0 +1,33 @@
+{
+  "name": "Cene",
+  "fields": [
+    {
+      "fieldName": "kwh",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "fix",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "odrzavanje",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "ostalo",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20230423091551",
+  "entityTableName": "cene",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

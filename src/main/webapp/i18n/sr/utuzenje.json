@@ -1,0 +1,24 @@
+{
+  "toplanaApp": {
+    "utuzenje": {
+      "home": {
+        "title": "Utuzenjes",
+        "createLabel": "Kreiraj novi Utuzenje",
+        "createOrEditLabel": "Kreirajte ili izmenite Utuzenje",
+        "notFound": "No Utuzenjes found"
+      },
+      "created": "Kreiran je novi Utuzenje pod nazivom {{ param }}",
+      "updated": "Utuzenje pod nazivom {{ param }} je ažuriran",
+      "deleted": "Utuzenje pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Utuzenje pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Utuzenje"
+      },
+      "datum": "Datum",
+      "stavkeUtuzenja": "Stavke Utuzenja",
+      "stan": "Stan"
+    }
+  }
+}

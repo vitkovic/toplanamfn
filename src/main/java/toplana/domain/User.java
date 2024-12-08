@@ -90,6 +90,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
+    @OneToMany(mappedBy = "azurirao")
+    private Set<Racun> racuniAzurirani = new HashSet<>();
+    
+    @OneToMany(mappedBy = "kreirao")
+    private Set<Racun> racuniKreirani = new HashSet<>();
+    
 
     public Long getId() {
         return id;
@@ -196,7 +202,25 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.authorities = authorities;
     }
 
-    @Override
+    
+    
+	public Set<Racun> getRacuniAzurirani() {
+		return racuniAzurirani;
+	}
+
+	public void setRacuniAzurirani(Set<Racun> racuniAzurirani) {
+		this.racuniAzurirani = racuniAzurirani;
+	}
+
+	public Set<Racun> getRacuniKreirani() {
+		return racuniKreirani;
+	}
+
+	public void setRacuniKreirani(Set<Racun> racuniKreirani) {
+		this.racuniKreirani = racuniKreirani;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

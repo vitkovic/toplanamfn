@@ -1,0 +1,42 @@
+{
+  "toplanaApp": {
+    "stan": {
+      "home": {
+        "title": "Станови",
+        "createLabel": "Креирање новог стана",
+        "createOrEditLabel": "Креиранје и измена стана",
+        "notFound": "Није пронађен ни један стан"
+      },
+      "created": "Kreiran je novi Stan pod nazivom {{ param }}",
+      "updated": "Stan pod nazivom {{ param }} je ažuriran",
+      "deleted": "Stan pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Stan pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Стан"
+      },
+      "povrsina": "Површина",
+      "ulica": "Ulica",
+      "ulaz": "Улаз",
+      "broj": "Број",
+      "ukljucen": "Укључен",
+      "sifra": "Шифра",
+      "grad": "Град",
+      "postanskiBroj": "Поштански број",
+      "opomena": "Opomena",
+      "utuzenje": "Utuzenje",
+      "ugovorRate": "Ugovor Rate",
+      "transakcija": "Transakcija",
+      "transakcijaStara": "Transakcija Stara",
+      "racun": "Racun",
+      "tipPotrosaca": "Реон",
+      "podstanica": "Подстаница",
+      "vlasnik": "Власник",
+      "nijePronadjenStanZaSifru": "За унету шифру не постоји стан. Пробајте неку другу шифру.",
+      "reoni":"Реони",
+      "adresa":"Адреса",
+      "ukljucenoGrejanje":"Укључено грејање"
+    }
+  }
+}

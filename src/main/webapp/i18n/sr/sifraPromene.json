@@ -1,0 +1,24 @@
+{
+  "toplanaApp": {
+    "sifraPromene": {
+      "home": {
+        "title": "Шифре промене",
+        "createLabel": "Креирање нове шифре промене",
+        "createOrEditLabel": "Креирање и измена шифре промене",
+        "notFound": "Није пронађена ни једна шифра промене"
+      },
+      "created": "Креирана је нова шифра промене са ид ознаком {{ param }}",
+      "updated": "Sifra Promene pod nazivom {{ param }} je ažuriran",
+      "deleted": "Sifra Promene pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Да ли сте сигурни да желите да обришете шифру промене са ид ознаком {{ id }}?"
+      },
+      "detail": {
+        "title": "Шифра промене"
+      },
+      "sifra": "Шифра",
+      "broj": "Број",
+      "primenjujeSeKod": "Тип промене (примењује се приликом)"
+    }
+  }
+}

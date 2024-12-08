@@ -117,6 +117,9 @@ server:
     session:
       cookie:
         http-only: true
+        
+putanja:
+  pdf: F:\\toplana\\temp
 
 # Properties to be exposed on the /info management endpoint
 info:

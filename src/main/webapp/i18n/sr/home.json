@@ -1,9 +1,9 @@
 {
   "home": {
-    "title": "Dobrodošli, Java Hipsteru!",
-    "subtitle": "Ovo je Vaša početna stranica",
+    "title": "Добро дошли!",
+    "subtitle": "Ово је ваша почетна страница",
     "logged": {
-      "message": "Prijavljeni ste kao korisnik \"{{username}}\"."
+      "message": "Пријављени сте као корисник \"{{username}}\"."
     },
     "question": "Ako imate bilo kakva pitanja o JHipster-u:",
     "link": {

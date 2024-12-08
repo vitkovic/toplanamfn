@@ -1,0 +1,67 @@
+{
+  "toplanaApp": {
+    "nacrtRacuna": {
+      "home": {
+        "title": "Нацрти рачуна",
+        "createLabel": "Креирање новог нацрта",
+        "createOrEditLabel": "Креирање или измена Нацрта рачуна",
+        "notFound": "Nije pronađen ni jedan nacrt računa"
+      },
+      "created": "Kreiran je novi Nacrt Racuna са ИД ознаком {{ param }}",
+      "updated": "Nacrt Racuna pod nazivom {{ param }} je ažuriran",
+      "deleted": "Nacrt Racuna pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Nacrt Racuna pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Nacrt Racuna"
+      },
+      "datumRacuna": "Датум рачуна",
+      "period": "Период",
+      "valutaPlacanja": "Валута плаћања",
+      "cenaKwh": "Цена киловата",
+      "cenaFix": "Цена - фиксни део",
+      "cenaFixIskljucen": "Цена - фиксни део (за станове који су искључени са грејања)",
+      "cenaOdrzavanje": "Цена одржавања",
+      "cenaOStalo": "Цена остало",
+      "popust": "Попуст",
+      "staroStanjePodstanice": "Старо стање",
+      "datumOcitavanja": "Датум очитавања",
+      "novoStanjePodstanice": "Ново стање",
+      "ukupnaPovrsina": "Површина",
+      "utrosakPoM2": "Утрошак по м2",
+      "pdv1": "Пдв 1",
+      "pdv2": "Пдв2",
+      "racun": "Racun",
+      "podstanica": "Подстаница",
+      "podstanicaBroj": "Подстаница {{ broj }}",
+      "stanja": {
+        "nisu": { 
+          "ubacena": "Изгледа да нису убачена нова стања за текући месец за све подстанице. Молимо вас да проверите!" 
+        }
+      },
+      "rekapitulacija": {
+        "title": "Рекапитулација разреза по ПДВ тарифама",
+        "varijabilniDeo": "Варијабилни део",
+        "fiksniDeo": "Фиксни део",
+        "popust": "Попуст",
+        "ukupno": "Укупно",
+        "pdv1": "Пдв (20%)",
+        "pdv2": "Пдв (10%)",
+        "odrzavanje": "Одржавање",
+        "ukupnoZaduzenje": "Укупно задужење",
+        "datum": "Датум"
+
+      },
+      "upisNijeUspeo":"Упис нацрта рачуна није успео. Проверите да ли су стања на подстаницама иста као у претходним нацртима.",
+      "postojiRacunZaMesec":  "За задати месец је већ креиран рачун!!! Не може се поново креирати.",
+      "ukupnoStanjeStaro":  "Укупно старо стање:",
+      "ukupnoStanjeNovo":  "Укупно ново стање:",
+      "ukupnaPotrosnja":  "Потрошња:", 
+      "proknjizen":  "Прокњижен:",
+      "ocitano":  "Очитано:" ,
+      "racuniIzNacrtaSuProknjizeni": "Овај нацрт је прокњижен. Не може се обрисати!",
+      "racuniSuAzurirani": "Неки од рачуна који одговарају овом нацрту су мануелно ажурирани. Нацрт се не може мењати. Ако ипак желите да промените нацрт, прво обришите те рачуне."
+    }
+  }
+}

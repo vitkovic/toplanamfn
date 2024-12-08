@@ -1,0 +1,44 @@
+{
+  "name": "Vlasnik",
+  "fields": [
+    {
+      "fieldName": "ime",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prezime",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "brojRacuna",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "partijaRacuna",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "naziv",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "stan",
+      "otherEntityRelationshipName": "vlasnik",
+      "relationshipName": "stan"
+    }
+  ],
+  "changelogDate": "20230423091051",
+  "entityTableName": "vlasnik",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

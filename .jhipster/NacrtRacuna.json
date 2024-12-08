@@ -1,0 +1,117 @@
+{
+  "name": "NacrtRacuna",
+  "fields": [
+    {
+      "fieldName": "datumRacuna",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "period",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "valutaPlacanja",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "cenaKwh",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "cenaFix",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "cenaOdrzavanje",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "cenaOStalo",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "popust",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "staroStanjePodstanice",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "novoStanjePodstanice",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "ukupnaPovrsina",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "utrosakPoM2",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "pdv1",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldName": "pdv2",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": [
+        "required"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "racun",
+      "otherEntityRelationshipName": "nacrtRacuna",
+      "relationshipName": "racun"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "podstanica",
+      "otherEntityRelationshipName": "nacrtRacuna",
+      "relationshipName": "podstanica",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20230423091951",
+  "entityTableName": "nacrt_racuna",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}
