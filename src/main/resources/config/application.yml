@@ -119,7 +119,7 @@ server:
         http-only: true
         
 putanja:
-  pdf: F:\\toplana\\temp
+  pdf: c:\\toplana\\temp
 
 # Properties to be exposed on the /info management endpoint
 info:
