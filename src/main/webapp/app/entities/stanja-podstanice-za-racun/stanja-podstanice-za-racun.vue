@@ -38,8 +38,8 @@
                     <td>
                         <router-link :to="{name: 'StanjaPodstaniceZaRacunView', params: {stanjaPodstaniceZaRacunId: stanjaPodstaniceZaRacun.id}}">{{stanjaPodstaniceZaRacun.id}}</router-link>
                     </td>
-                    <td>{{stanjaPodstaniceZaRacun.staroStanje}}</td>
-                    <td>{{stanjaPodstaniceZaRacun.novoStanje}}</td>
+                    <td>{{stanjaPodstaniceZaRacun.staroStanje.stanje}}</td>
+                    <td>{{stanjaPodstaniceZaRacun.novoStanje.stanje}}</td>
                     <td>{{stanjaPodstaniceZaRacun.ukupnaPovrsina}}</td>
                     <td>{{stanjaPodstaniceZaRacun.utrosakPoM2}}</td>
                     <td class="text-right">
