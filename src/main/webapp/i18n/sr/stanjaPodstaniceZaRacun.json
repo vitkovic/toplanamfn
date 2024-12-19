@@ -2,7 +2,7 @@
   "toplanaApp": {
     "stanjaPodstaniceZaRacun": {
       "home": {
-        "title": "Stanja Podstanice Za Racuns",
+        "title": "Stanja Podstanice Za Racun",
         "createLabel": "Kreiranje novih Stanja Podstanice Za Racun",
         "createOrEditLabel": "Kreirajte ili izmenite Stanja Podstanice Za Racun",
         "notFound": "No Stanja Podstanice Za Racuns found"
