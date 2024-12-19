@@ -2,7 +2,7 @@
   "toplanaApp": {
     "sifraDokumenta": {
       "home": {
-        "title": "Sifra Dokumentas",
+        "title": "Sifra Dokumenta",
         "createLabel": "Kreiraj novi Sifra Dokumenta",
         "createOrEditLabel": "Kreirajte ili izmenite Sifra Dokumenta",
         "notFound": "No Sifra Dokumentas found"

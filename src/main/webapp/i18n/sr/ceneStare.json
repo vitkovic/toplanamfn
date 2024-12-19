@@ -2,7 +2,7 @@
   "toplanaApp": {
     "ceneStare": {
       "home": {
-        "title": "Cene Stares",
+        "title": "Cene Stare",
         "createLabel": "Kreiraj novi Cene Stare",
         "createOrEditLabel": "Kreirajte ili izmenite Cene Stare",
         "notFound": "No Cene Stares found"
