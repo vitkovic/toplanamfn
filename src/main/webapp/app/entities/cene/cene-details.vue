@@ -23,6 +23,12 @@
                         <span>{{cene.odrzavanje}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('toplanaApp.cene.fixIskljucen')">Fix Iskljuceno</span>
+                    </dt>
+                    <dd>
+                        <span>{{cene.fixIskljuceno}}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('toplanaApp.cene.ostalo')">Ostalo</span>
                     </dt>
                     <dd>
