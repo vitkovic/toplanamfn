@@ -217,8 +217,9 @@ export default class NacrtRacunaUpdate extends Vue {
         self.isFormDisabled = true;
         return;
       }
-      if(!stanje.novoStanje.stanje){
+      if(stanje.novoStanje.stanje){
         self.isFormDisabled = true;
+        console.log( self.isFormDisabled);
         return;
       }       
       if(!stanje.ukupnaPovrsina){

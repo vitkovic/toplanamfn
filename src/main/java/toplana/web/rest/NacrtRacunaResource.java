@@ -321,6 +321,9 @@ public class NacrtRacunaResource {
         }
         
         nr.setStanjaPodstaniceZaRacune(svePodstanice); 
+        for(int i=0;i<svePodstanice.size();i++){
+            System.out.println(svePodstanice.get(i));
+        } 
         nr.setUkupnaPotrosnja();
         //provera da li za sve podstanice postoji uneto stanje za tekuci mesec
         boolean citanjeProblem = true;
