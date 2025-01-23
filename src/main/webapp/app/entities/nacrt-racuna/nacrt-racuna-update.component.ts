@@ -126,7 +126,6 @@ export default class NacrtRacunaUpdate extends Vue {
       this.nacrtRacunaService()
         .create(this.nacrtRacuna)
         .then(param => {
-    
           this.isSaving = false;
           this.$router.go(-1);
           const message = this.$t('toplanaApp.nacrtRacuna.created', { param: param.id });

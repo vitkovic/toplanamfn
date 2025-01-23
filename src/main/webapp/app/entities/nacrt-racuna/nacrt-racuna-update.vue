@@ -287,8 +287,8 @@
                 <div>               
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
                         <font-awesome-icon icon="ban"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.cancel')">Cancel</span>
-                    </button>
-                    <button type="submit" id="save-entity" :disabled="$v.nacrtRacuna.$invalid || isFormDisabled || nacrtRacuna.proknjizen " class="btn btn-primary">
+                    </button><!--:disabled="$v.nacrtRacuna.$invalid || isFormDisabled || nacrtRacuna.proknjizen "-->
+                    <button type="submit" id="save-entity"  class="btn btn-primary">
                         <font-awesome-icon icon="save"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.save')">Save</span>
                     </button>
                     <button v-if="nacrtRacuna.id" type="button" id="knjizenje" class="btn btn-primary" 
