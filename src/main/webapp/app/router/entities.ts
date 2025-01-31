@@ -76,6 +76,7 @@ const NacrtRacuna = () => import('@/entities/nacrt-racuna/nacrt-racuna.vue');
 const RekapitulacijaPdv = () => import('@/entities/nacrt-racuna/rekapitulacija-pdv.vue');
 // prettier-ignore
 const NacrtRacunaUpdate = () => import('@/entities/nacrt-racuna/nacrt-racuna-update.vue');
+
 // prettier-ignore
 const NacrtRacunaDetails = () => import('@/entities/nacrt-racuna/nacrt-racuna-details.vue');
 // prettier-ignore
@@ -476,6 +477,12 @@ export default [
     path: '/nacrt-racuna/:nacrtRacunaId/edit',
     name: 'NacrtRacunaEdit',
     component: NacrtRacunaUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+   {
+    path: '/nacrt-racuna/:nacrtRacunaId/view',
+    name: 'NacrtRacunaView',
+    component: NacrtRacunaDetails,
     meta: { authorities: [Authority.USER] },
   },
   {
