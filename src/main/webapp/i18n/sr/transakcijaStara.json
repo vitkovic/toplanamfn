@@ -2,7 +2,7 @@
   "toplanaApp": {
     "transakcijaStara": {
       "home": {
-        "title": "Transakcija Staras",
+        "title": "Transakcija Stara",
         "createLabel": "Kreiraj novi Transakcija Stara",
         "createOrEditLabel": "Kreirajte ili izmenite Transakcija Stara",
         "notFound": "No Transakcija Staras found"
