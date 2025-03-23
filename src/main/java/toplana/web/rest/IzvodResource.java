@@ -42,6 +42,9 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.zip.*;
+import java.nio.file.*;
+import java.io.*;
 
 /**
  * REST controller for managing {@link toplana.domain.Izvod}.
@@ -91,21 +94,105 @@ public class IzvodResource {
             .body(result);
     }
     
+    // find file in a specific folder
+    public static Optional<Path> findFileByName(String directoryPath, String fileNameToFind) throws IOException {
+        Path dir = Paths.get(directoryPath);
+
+        if (!Files.isDirectory(dir)) {
+            throw new IllegalArgumentException("Provided path is not a directory: " + directoryPath);
+        }
+
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, entry -> entry.getFileName().toString().equals(fileNameToFind))) {
+            for (Path entry : stream) {
+                return Optional.of(entry); // Found the file
+            }
+        }
+        return Optional.empty(); // File not found
+    }
+    
+    
+    
     @PostMapping("/izvods-upload") 
     public ResponseEntity<?> handleFileUpload( @RequestParam("file") MultipartFile file )  throws URISyntaxException {
 
     	IzvodDTO izvodDto = null;
     	try {
     		String fileName = file.getOriginalFilename();
-	      
+    		 BufferedReader reader = null;
+    		// extract zip
+    		
+    		String tempFileName= "";
+    		String extension= "";
+    		
+    		 if (!(fileName == null || fileName.lastIndexOf('.') == -1)) {
+    			    tempFileName = fileName.substring(0, fileName.lastIndexOf('.')); 
+    			    extension =  fileName.substring(fileName.length() - 3); 
+    		    } 
+    		 
+    		 fileName = tempFileName;
+    		 
+    		if (extension.equalsIgnoreCase("zip")) {
+    		
+		    		String destDir = "c:/toplana/izvodi/"+fileName+"/";
+		    		Path destPath = Paths.get(destDir);
+		            if (Files.notExists(destPath)) {
+		                Files.createDirectories(destPath);
+		            }
+		    		
+		            
+		            try (ZipInputStream zipIn = new ZipInputStream(file.getInputStream())) {
+		                ZipEntry entry = zipIn.getNextEntry();
+		                while (entry != null) {
+		                    Path filePath = destPath.resolve(entry.getName()).normalize();
+		
+		                    // Prevent Zip Slip vulnerability
+		                    if (!filePath.startsWith(destPath)) {
+		                        throw new IOException("Bad ZIP entry: " + entry.getName());
+		                    }
+		
+		                    if (entry.isDirectory()) {
+		                        Files.createDirectories(filePath);
+		                    } else {
+		                        Files.createDirectories(filePath.getParent()); // Ensure parent directories exist
+		                        try (BufferedOutputStream bos = new BufferedOutputStream(Files.newOutputStream(filePath))) {
+		                            byte[] buffer = new byte[4096];
+		                            int bytesRead;
+		                            while ((bytesRead = zipIn.read(buffer)) != -1) {
+		                                bos.write(buffer, 0, bytesRead);
+		                            }
+		                        }
+		                    }
+		                    zipIn.closeEntry();
+		                    entry = zipIn.getNextEntry();
+		            
+		                }
+		            }
+		            
+		            File fileFromFolder = null;
+		            
+		            try {
+		                Optional<Path> fileFound = findFileByName(destDir, "0000002696760.xml");
+		                fileFromFolder = fileFound.orElseThrow().toFile();
+		            } catch (IOException e) {
+		                e.printStackTrace();
+		            }
+		            
+		           reader = new BufferedReader(new FileReader(fileFromFolder)); // kad je iz zipa   
+		            
+    		} else {
+    			InputStream inputStream =  new BufferedInputStream(file.getInputStream());  
+    			reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));  // direktno citanje   
+    		}
+            
     		XmlMapper xmlMap = new XmlMapper();    
     		// create instance of File  
-    		InputStream inputStream =  new BufferedInputStream(file.getInputStream());  
+    	//	InputStream inputStream =  new BufferedInputStream(file.getInputStream());  
     		// read data from College.xml and store it into xmlString  
     		String xmlString;        
     		StringBuilder builder = new StringBuilder();  
     		String line;  
-    		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));        
+    	//	BufferedReader reader = new BufferedReader(new FileReader(fileFromFolder)); // kad je iz zipa
+    	//	BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));   direktno citanje     
     		while ((line = reader.readLine()) != null) {  
     			builder.append(line);  
     		}  
