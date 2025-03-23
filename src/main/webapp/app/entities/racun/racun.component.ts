@@ -70,6 +70,13 @@ export default class Racun extends mixins(AlertMixin) {
       return;
     }
     */
+	console.log(this.search);
+	if (this.search.sifraStana.length > 0) {
+		this.search.sifraStana = this.search.sifraStana.replace(/\D/g, '');
+	}
+	//numbersOnly = input.replace(/\D/g, '');
+	
+	console.log(this.search);
     this.isSaving = true;
     const paginationQuery = {
       page: this.page - 1,

@@ -154,6 +154,12 @@ export default class Transakcija extends mixins(AlertMixin) {
     for(let i = 0; i < this.selected.length;i++){
       this.search.reoni.push(this.selected[i]);
     }
+	
+	if (this.search.sifraStana.length > 0) {
+			this.search.sifraStana = this.search.sifraStana.replace(/\D/g, '');
+	}
+	
+	
     this.isFetching = true;
     const paginationQuery = {
       page: this.page - 1,
