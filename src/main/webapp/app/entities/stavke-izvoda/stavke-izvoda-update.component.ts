@@ -96,6 +96,13 @@ export default class StavkeIzvodaUpdate extends Vue {
     this.isSaving = true;
     this.stavkeIzvodaTransakcija.stavkeIzvoda = this.stavkeIzvoda;
     this.stavkeIzvodaTransakcija.sifraPromene = this.sifraPromene;
+    
+    
+	if (this.stavkeIzvoda.sifra.length > 0) {
+			this.stavkeIzvoda.sifra = this.stavkeIzvoda.sifra.replace(/\D/g, '');
+	}
+    
+    
     debugger
     if (this.stavkeIzvoda.id) {
       this.stavkeIzvodaService()
