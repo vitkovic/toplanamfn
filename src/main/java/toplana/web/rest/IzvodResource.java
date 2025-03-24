@@ -102,15 +102,24 @@ public class IzvodResource {
             throw new IllegalArgumentException("Provided path is not a directory: " + directoryPath);
         }
 
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, entry -> entry.getFileName().toString().equals(fileNameToFind))) {
+        try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir, entry -> entry.getFileName().toString().contains(fileNameToFind))) {
             for (Path entry : stream) {
-                return Optional.of(entry); // Found the file
+            	if (getFileExtension(entry).equalsIgnoreCase("xml"))
+            		return Optional.of(entry); // Found the file
             }
         }
         return Optional.empty(); // File not found
     }
     
-    
+    public static String getFileExtension(Path path) {
+        String fileName = path.getFileName().toString();
+        int dotIndex = fileName.lastIndexOf('.');
+        if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
+            return fileName.substring(dotIndex + 1);
+        } else {
+            return ""; // No extension found
+        }
+    }
     
     @PostMapping("/izvods-upload") 
     public ResponseEntity<?> handleFileUpload( @RequestParam("file") MultipartFile file )  throws URISyntaxException {
@@ -171,14 +180,13 @@ public class IzvodResource {
 		            File fileFromFolder = null;
 		            
 		            try {
-		                Optional<Path> fileFound = findFileByName(destDir, "0000002696760.xml");
+		                Optional<Path> fileFound = findFileByName(destDir, "2696760");
 		                fileFromFolder = fileFound.orElseThrow().toFile();
 		            } catch (IOException e) {
 		                e.printStackTrace();
 		            }
 		            
-		           reader = new BufferedReader(new FileReader(fileFromFolder)); // kad je iz zipa   
-		            
+		           reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileFromFolder), "UTF-8"));
     		} else {
     			InputStream inputStream =  new BufferedInputStream(file.getInputStream());  
     			reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));  // direktno citanje   
