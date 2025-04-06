@@ -98,9 +98,9 @@ export default class StavkeIzvodaUpdate extends Vue {
     this.stavkeIzvodaTransakcija.sifraPromene = this.sifraPromene;
     
     
-	if (this.stavkeIzvoda.sifra.length > 0) {
-			this.stavkeIzvoda.sifra = this.stavkeIzvoda.sifra.replace(/\D/g, '');
-	}
+	//if (this.stavkeIzvodaTransakcija.stavkeIzvoda.sifra.length > 0) {
+	//		this.stavkeIzvodaTransakcija.stavkeIzvoda.sifra = this.stavkeIzvodaTransakcija.stavkeIzvoda.sifra.replace(/\D/g, '');
+	//}
     
     
     debugger

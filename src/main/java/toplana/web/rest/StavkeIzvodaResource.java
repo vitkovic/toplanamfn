@@ -109,10 +109,15 @@ public class StavkeIzvodaResource {
     @PutMapping("/stavke-izvodas-knjizenje")
     public ResponseEntity<StavkeIzvodaTransakcijaDTO> knjizenjeStavkeIzvoda(@RequestBody StavkeIzvodaTransakcijaDTO stavkeIzvodaTransakcija) throws URISyntaxException {
         log.debug("REST request to knjizenje StavkeIzvoda : {}", stavkeIzvodaTransakcija);
+        
+       
         if (stavkeIzvodaTransakcija.getStavkeIzvoda().getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        
         String sifraStana = stavkeIzvodaTransakcija.getStavkeIzvoda().getPozivOdobrenja();
+        String tempSifraStana = sifraStana; 
+                
         if(sifraStana == null || sifraStana.length() == 0) {
         	return ResponseEntity.badRequest().headers(HeaderUtil.createAlert(applicationName, "toplanaApp.stavkeIzvoda.sifraStanaNePostoji", "")).body(stavkeIzvodaTransakcija);
         }
@@ -134,6 +139,7 @@ public class StavkeIzvodaResource {
                     .body(stavkeIzvodaTransakcija);
         }else {
         	//ako je uneta sifra stana sa 05 na pocetku
+        	
         	sifraStana = sifraStana.substring(2);
         	stan = stanRepository.findBySifra(sifraStana);
         	if(stan != null) {
@@ -151,6 +157,8 @@ public class StavkeIzvodaResource {
                             .body(stavkeIzvodaTransakcija);
         		}
         	}else {
+        		
+        		sifraStana = tempSifraStana;
         		//ako je uneta sifra centra ili sl.
         		OstaliRacuni ostaliRacuni = ostaliRacuniRepository.findBySifra(sifraStana);
         		if(ostaliRacuni != null) {
