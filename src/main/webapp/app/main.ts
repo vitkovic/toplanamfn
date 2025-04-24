@@ -58,6 +58,7 @@ import UtuzenjeService from '@/entities/utuzenje/utuzenje.service';
 import StavkeUtuzenjaService from '@/entities/stavke-utuzenja/stavke-utuzenja.service';
 import UgovorRateService from '@/entities/ugovor-rate/ugovor-rate.service';
 import StanjaPodstaniceZaRacunService from '@/entities/stanja-podstanice-za-racun/stanja-podstanice-za-racun.service';
+import StanStanjeService from '@/entities/stan-stanje/stan-stanje.service';
 // jhipster-needle-add-entity-service-to-main-import - JHipster will import entities services here
 
 /* tslint:enable */
@@ -75,24 +76,14 @@ import 'vue2-datepicker/locale/sr';
 import { MonthPicker } from 'vue-month-picker';
 import { MonthPickerInput } from 'vue-month-picker';
 
-
-
-
 Vue.component('MonthPicker', MonthPicker);
 Vue.component('MonthPickerInput', MonthPickerInput);
-Vue.use(MonthPicker)
-Vue.use(MonthPickerInput)
-
+Vue.use(MonthPicker);
+Vue.use(MonthPickerInput);
 
 Vue.use(Notifications);
 Vue.component('DatePicker', DatePicker);
 Vue.use(DatePicker);
-
-
-
-
-
-
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('jhi-item-count', JhiItemCountComponent);
@@ -173,6 +164,7 @@ new Vue({
     stavkeUtuzenjaService: () => new StavkeUtuzenjaService(),
     ugovorRateService: () => new UgovorRateService(),
     stanjaPodstaniceZaRacunService: () => new StanjaPodstaniceZaRacunService(),
+    stanStanjeService: () => new StanStanjeService(),
     // jhipster-needle-add-entity-service-to-main - JHipster will import entities services here
     accountService: () => accountService,
   },

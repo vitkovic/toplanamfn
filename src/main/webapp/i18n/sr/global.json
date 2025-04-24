@@ -31,11 +31,12 @@
         "parametriIstorija": "Параметри - историја",
         "opomena": "Опомена",
         "ostaliRacuni": "Остали рачуни",
-        
+
         "utuzenje": "Утужење",
         "stavkeUtuzenja": "Ставке утужења",
         "ugovorRate": "Уговор - рате",
         "stanjaPodstaniceZaRacun": "Stanja Podstanice Za Racun",
+        "stanStanje": "Stan Stanje",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -47,12 +48,12 @@
         "logout": "Odjavi me",
         "register": "Registruj me"
       },
-      "razduzenje":{
-        "main":"Раздужење",
-        "datotekePostanska":"Датотеке из Поштанске штедионице"
+      "razduzenje": {
+        "main": "Раздужење",
+        "datotekePostanska": "Датотеке из Поштанске штедионице"
       },
-      "transakcija":{
-        "main":"Аналитичке картице"
+      "transakcija": {
+        "main": "Аналитичке картице"
       },
       "racuni": {
         "main": "Рачуни",
@@ -196,7 +197,6 @@
       "could.not.extract": "Could not extract file",
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
-    
   },
   "footerLeft": "Програм за финансијско пословање топлане. ",
   "footerRight": "Аутор Драган Мишић - Машински факултет Ниш"

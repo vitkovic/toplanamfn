@@ -101,7 +101,6 @@ const IzvodPostanskaUpdate = () => import('@/entities/izvod/izvod-postanska-upda
 // prettier-ignore
 const IzvodPostanskaDetails = () => import('@/entities/izvod/izvod-postanska-details.vue');
 
-
 // prettier-ignore
 const StavkeIzvoda = () => import('@/entities/stavke-izvoda/stavke-izvoda.vue');
 // prettier-ignore
@@ -150,7 +149,6 @@ const OstaliRacuni = () => import('@/entities/ostali-racuni/ostali-racuni.vue');
 const OstaliRacuniUpdate = () => import('@/entities/ostali-racuni/ostali-racuni-update.vue');
 const OstaliRacuniDetails = () => import('@/entities/ostali-racuni/ostali-racuni-details.vue');
 
-
 // prettier-ignore
 const Utuzenje = () => import('@/entities/utuzenje/utuzenje.vue');
 // prettier-ignore
@@ -175,6 +173,12 @@ const StanjaPodstaniceZaRacun = () => import('@/entities/stanja-podstanice-za-ra
 const StanjaPodstaniceZaRacunUpdate = () => import('@/entities/stanja-podstanice-za-racun/stanja-podstanice-za-racun-update.vue');
 // prettier-ignore
 const StanjaPodstaniceZaRacunDetails = () => import('@/entities/stanja-podstanice-za-racun/stanja-podstanice-za-racun-details.vue');
+// prettier-ignore
+const StanStanje = () => import('@/entities/stan-stanje/stan-stanje.vue');
+// prettier-ignore
+const StanStanjeUpdate = () => import('@/entities/stan-stanje/stan-stanje-update.vue');
+// prettier-ignore
+const StanStanjeDetails = () => import('@/entities/stan-stanje/stan-stanje-details.vue');
 // jhipster-needle-add-entity-to-router-import - JHipster will import entities to the router here
 
 export default [
@@ -479,7 +483,7 @@ export default [
     component: NacrtRacunaUpdate,
     meta: { authorities: [Authority.USER] },
   },
-   {
+  {
     path: '/nacrt-racuna/:nacrtRacunaId/view',
     name: 'NacrtRacunaView',
     component: NacrtRacunaDetails,
@@ -510,7 +514,7 @@ export default [
     component: RacunUpdate,
     meta: { authorities: [Authority.USER] },
   },
-   
+
   {
     path: '/racun/:racunId/edit',
     name: 'RacunEdit',
@@ -529,8 +533,6 @@ export default [
     component: RacunBanka,
     meta: { authorities: [Authority.USER] },
   },
-
-
 
   {
     path: '/izvod',
@@ -557,7 +559,6 @@ export default [
     meta: { authorities: [Authority.USER] },
   },
 
-
   {
     path: '/izvod-postanska',
     name: 'IzvodPostanska',
@@ -582,7 +583,6 @@ export default [
     component: IzvodPostanskaDetails,
     meta: { authorities: [Authority.USER] },
   },
-
 
   {
     path: '/stavke-izvoda',
@@ -755,7 +755,6 @@ export default [
     meta: { authorities: [Authority.USER] },
   },
 
-
   {
     path: '/ostali-racuni',
     name: 'OstaliRacuni',
@@ -780,8 +779,6 @@ export default [
     component: OstaliRacuniDetails,
     meta: { authorities: [Authority.USER] },
   },
-
-
 
   {
     path: '/utuzenje',
@@ -878,6 +875,31 @@ export default [
     path: '/stanja-podstanice-za-racun/:stanjaPodstaniceZaRacunId/view',
     name: 'StanjaPodstaniceZaRacunView',
     component: StanjaPodstaniceZaRacunDetails,
+    meta: { authorities: [Authority.USER] },
+  },
+
+  {
+    path: '/stan-stanje',
+    name: 'StanStanje',
+    component: StanStanje,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/stan-stanje/new',
+    name: 'StanStanjeCreate',
+    component: StanStanjeUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/stan-stanje/:stanStanjeId/edit',
+    name: 'StanStanjeEdit',
+    component: StanStanjeUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/stan-stanje/:stanStanjeId/view',
+    name: 'StanStanjeView',
+    component: StanStanjeDetails,
     meta: { authorities: [Authority.USER] },
   },
   // jhipster-needle-add-entity-to-router - JHipster will add entities to the router here

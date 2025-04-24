@@ -1,0 +1,26 @@
+{
+  "toplanaApp": {
+    "stanStanje": {
+      "home": {
+        "title": "Stan Stanjes",
+        "createLabel": "Kreiraj novi Stan Stanje",
+        "createOrEditLabel": "Kreirajte ili izmenite Stan Stanje",
+        "notFound": "No Stan Stanjes found"
+      },
+      "created": "Kreiran je novi Stan Stanje pod nazivom {{ param }}",
+      "updated": "Stan Stanje pod nazivom {{ param }} je ažuriran",
+      "deleted": "Stan Stanje pod nazivom {{ param }} je obrisan",
+      "delete": {
+        "question": "Da li ste sigurni da želite da obrišete Stan Stanje pod nazivom {{ id }}?"
+      },
+      "detail": {
+        "title": "Stan Stanje"
+      },
+      "sifra": "Sifra",
+      "datum": "Datum",
+      "vrednost": "Vrednost",
+      "stan_id": "Stan Id",
+      "stan": "Stan"
+    }
+  }
+}
