@@ -190,7 +190,8 @@ public class Racun implements Serializable {
     	
     	this.utrosakOdrzavanje = stan.getPovrsina().multiply(this.cenaOdrzavanje).setScale(2, RoundingMode.HALF_UP);
     	//ako je saldo negativan ili jednak 0
-    	if(this.ukupnoZaduzenje.compareTo(new BigDecimal("0.")) <= 0.05 && this.stan.getTipPotrosaca().getTip() != 5) {
+    	if((this.ukupnoZaduzenje.compareTo(new BigDecimal("0.")) <= 0 && this.stan.getTipPotrosaca().getTip() != 5) || 
+    			(this.ukupnoZaduzenje.doubleValue() <= 0.05 && this.stan.getTipPotrosaca().getTip() != 5)) {
     		this.popust = nacrtRacuna.getPopust();
     		this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
     		this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
