@@ -54,6 +54,9 @@ public class StanResourceIT {
     private static final String DEFAULT_POSTANSKI_BROJ = "AAAAAAAAAA";
     private static final String UPDATED_POSTANSKI_BROJ = "BBBBBBBBBB";
 
+    private static final String DEFAULT_BROJ_MERILA = "AAAAAAAAAA";
+    private static final String UPDATED_BROJ_MERILA = "BBBBBBBBBB";
+
     @Autowired
     private StanRepository stanRepository;
 
@@ -80,7 +83,8 @@ public class StanResourceIT {
             .ukljucen(DEFAULT_UKLJUCEN)
             .sifra(DEFAULT_SIFRA)
             .grad(DEFAULT_GRAD)
-            .postanskiBroj(DEFAULT_POSTANSKI_BROJ);
+            .postanskiBroj(DEFAULT_POSTANSKI_BROJ)
+            .brojMerila(DEFAULT_BROJ_MERILA);
         return stan;
     }
     /**
@@ -98,7 +102,8 @@ public class StanResourceIT {
             .ukljucen(UPDATED_UKLJUCEN)
             .sifra(UPDATED_SIFRA)
             .grad(UPDATED_GRAD)
-            .postanskiBroj(UPDATED_POSTANSKI_BROJ);
+            .postanskiBroj(UPDATED_POSTANSKI_BROJ)
+            .brojMerila(UPDATED_BROJ_MERILA);
         return stan;
     }
 
@@ -129,6 +134,7 @@ public class StanResourceIT {
         assertThat(testStan.getSifra()).isEqualTo(DEFAULT_SIFRA);
         assertThat(testStan.getGrad()).isEqualTo(DEFAULT_GRAD);
         assertThat(testStan.getPostanskiBroj()).isEqualTo(DEFAULT_POSTANSKI_BROJ);
+        assertThat(testStan.getBrojMerila()).isEqualTo(DEFAULT_BROJ_MERILA);
     }
 
     @Test
@@ -188,7 +194,8 @@ public class StanResourceIT {
             .andExpect(jsonPath("$.[*].ukljucen").value(hasItem(DEFAULT_UKLJUCEN.booleanValue())))
             .andExpect(jsonPath("$.[*].sifra").value(hasItem(DEFAULT_SIFRA)))
             .andExpect(jsonPath("$.[*].grad").value(hasItem(DEFAULT_GRAD)))
-            .andExpect(jsonPath("$.[*].postanskiBroj").value(hasItem(DEFAULT_POSTANSKI_BROJ)));
+            .andExpect(jsonPath("$.[*].postanskiBroj").value(hasItem(DEFAULT_POSTANSKI_BROJ)))
+            .andExpect(jsonPath("$.[*].brojMerila").value(hasItem(DEFAULT_BROJ_MERILA)));
     }
     
     @Test
@@ -209,7 +216,8 @@ public class StanResourceIT {
             .andExpect(jsonPath("$.ukljucen").value(DEFAULT_UKLJUCEN.booleanValue()))
             .andExpect(jsonPath("$.sifra").value(DEFAULT_SIFRA))
             .andExpect(jsonPath("$.grad").value(DEFAULT_GRAD))
-            .andExpect(jsonPath("$.postanskiBroj").value(DEFAULT_POSTANSKI_BROJ));
+            .andExpect(jsonPath("$.postanskiBroj").value(DEFAULT_POSTANSKI_BROJ))
+            .andExpect(jsonPath("$.brojMerila").value(DEFAULT_BROJ_MERILA));
     }
     @Test
     @Transactional
@@ -239,7 +247,8 @@ public class StanResourceIT {
             .ukljucen(UPDATED_UKLJUCEN)
             .sifra(UPDATED_SIFRA)
             .grad(UPDATED_GRAD)
-            .postanskiBroj(UPDATED_POSTANSKI_BROJ);
+            .postanskiBroj(UPDATED_POSTANSKI_BROJ)
+            .brojMerila(UPDATED_BROJ_MERILA);
 
         restStanMockMvc.perform(put("/api/stans")
             .contentType(MediaType.APPLICATION_JSON)
@@ -258,6 +267,7 @@ public class StanResourceIT {
         assertThat(testStan.getSifra()).isEqualTo(UPDATED_SIFRA);
         assertThat(testStan.getGrad()).isEqualTo(UPDATED_GRAD);
         assertThat(testStan.getPostanskiBroj()).isEqualTo(UPDATED_POSTANSKI_BROJ);
+        assertThat(testStan.getBrojMerila()).isEqualTo(UPDATED_BROJ_MERILA);
     }
 
     @Test

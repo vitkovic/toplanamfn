@@ -12,13 +12,13 @@ export interface IStan {
   id?: number;
   povrsina?: number;
   ulica?: string;
-  status?: string;
   ulaz?: number;
   broj?: number;
   ukljucen?: boolean;
   sifra?: string;
   grad?: string;
   postanskiBroj?: string;
+  brojMerila?: string;
   opomenas?: IOpomena[];
   utuzenjes?: IUtuzenje[];
   ugovorRates?: IUgovorRate[];
@@ -35,13 +35,13 @@ export class Stan implements IStan {
     public id?: number,
     public povrsina?: number,
     public ulica?: string,
-    public status?: string,
     public ulaz?: number,
     public broj?: number,
     public ukljucen?: boolean,
     public sifra?: string,
     public grad?: string,
     public postanskiBroj?: string,
+    public brojMerila?: string,
     public opomenas?: IOpomena[],
     public utuzenjes?: IUtuzenje[],
     public ugovorRates?: IUgovorRate[],

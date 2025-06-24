@@ -1,6 +1,6 @@
 package toplana.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;											   
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -29,6 +29,7 @@ public class Stan implements Serializable {
     @Column(name = "povrsina", precision = 21, scale = 2, nullable = false)
     private BigDecimal povrsina;
 
+	
     @Column(name = "ulica")
     private String ulica;
 
@@ -50,6 +51,9 @@ public class Stan implements Serializable {
 
     @Column(name = "postanski_broj")
     private String postanskiBroj;
+
+    @Column(name = "broj_merila")
+    private String brojMerila;
 
     @OneToMany(mappedBy = "stan")
     private Set<Opomena> opomenas = new HashSet<>();
@@ -80,10 +84,12 @@ public class Stan implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "stans", allowSetters = true)
     private Vlasnik vlasnik;
-    
-    @OneToOne(mappedBy = "stan")
+	
+								
+	@OneToOne(mappedBy = "stan")
     @JsonIgnore
-    private OstaliRacuni ostaliRacuni;
+    private OstaliRacuni ostaliRacuni;		   
+																	   
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -196,6 +202,19 @@ public class Stan implements Serializable {
 
     public void setPostanskiBroj(String postanskiBroj) {
         this.postanskiBroj = postanskiBroj;
+    }
+
+    public String getBrojMerila() {
+        return brojMerila;
+    }
+
+    public Stan brojMerila(String brojMerila) {
+        this.brojMerila = brojMerila;
+        return this;
+    }
+
+    public void setBrojMerila(String brojMerila) {
+        this.brojMerila = brojMerila;
     }
 
     public Set<Opomena> getOpomenas() {
@@ -386,8 +405,8 @@ public class Stan implements Serializable {
     public void setVlasnik(Vlasnik vlasnik) {
         this.vlasnik = vlasnik;
     }
-    
-    public String getUkljucenKaoString() {
+					  
+	public String getUkljucenKaoString() {
     	if(this.ukljucen)
     		return "0";
     	else 
@@ -407,7 +426,9 @@ public class Stan implements Serializable {
 	public String getStatus() {
     	String out = "" + this.podstanica.getBroj() + this.getUkljucenKaoString();
     	return out;
-    }
+    }									  
+			 
+									 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -439,6 +460,7 @@ public class Stan implements Serializable {
             ", sifra='" + getSifra() + "'" +
             ", grad='" + getGrad() + "'" +
             ", postanskiBroj='" + getPostanskiBroj() + "'" +
+            ", brojMerila='" + getBrojMerila() + "'" +
             "}";
     }
 }

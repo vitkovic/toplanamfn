@@ -39,6 +39,9 @@
             <column name="postanski_broj" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="broj_merila" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="tip_potrosaca_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -79,6 +82,7 @@
             <column name="sifra" type="string"/>
             <column name="grad" type="string"/>
             <column name="postanski_broj" type="string"/>
+            <column name="broj_merila" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

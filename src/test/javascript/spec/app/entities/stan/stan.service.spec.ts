@@ -30,7 +30,7 @@ describe('Service Tests', () => {
     beforeEach(() => {
       service = new StanService();
 
-      elemDefault = new Stan(0, 0, 'AAAAAAA', 0, 0, false, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Stan(0, 0, 'AAAAAAA', 0, 0, false, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -90,6 +90,7 @@ describe('Service Tests', () => {
             sifra: 'BBBBBB',
             grad: 'BBBBBB',
             postanskiBroj: 'BBBBBB',
+            brojMerila: 'BBBBBB',
           },
           elemDefault
         );
@@ -124,6 +125,7 @@ describe('Service Tests', () => {
             sifra: 'BBBBBB',
             grad: 'BBBBBB',
             postanskiBroj: 'BBBBBB',
+            brojMerila: 'BBBBBB',
           },
           elemDefault
         );

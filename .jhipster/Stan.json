@@ -4,9 +4,7 @@
     {
       "fieldName": "povrsina",
       "fieldType": "BigDecimal",
-      "fieldValidateRules": [
-        "required"
-      ]
+      "fieldValidateRules": ["required"]
     },
     {
       "fieldName": "ulica",
@@ -27,9 +25,7 @@
     {
       "fieldName": "sifra",
       "fieldType": "String",
-      "fieldValidateRules": [
-        "unique"
-      ]
+      "fieldValidateRules": ["unique"]
     },
     {
       "fieldName": "grad",
@@ -37,6 +33,10 @@
     },
     {
       "fieldName": "postanskiBroj",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "brojMerila",
       "fieldType": "String"
     }
   ],
@@ -109,5 +109,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }
