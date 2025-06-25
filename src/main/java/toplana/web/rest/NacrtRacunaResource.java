@@ -6,6 +6,7 @@ import toplana.domain.Podstanica;
 import toplana.domain.Racun;
 import toplana.domain.SifraPromene;
 import toplana.domain.Stan;
+import toplana.domain.StanStanje;
 import toplana.domain.StanjaPodstanice;
 import toplana.domain.StanjaPodstaniceZaRacun;
 import toplana.domain.Transakcija;
@@ -16,6 +17,7 @@ import toplana.repository.PodstanicaRepository;
 import toplana.repository.RacunRepository;
 import toplana.repository.SifraPromeneRepository;
 import toplana.repository.StanRepository;
+import toplana.repository.StanStanjeRepository;
 import toplana.repository.StanjaPodstaniceRepository;
 import toplana.repository.StanjaPodstaniceZaRacunRepository;
 import toplana.repository.TransakcijaRepository;
@@ -60,7 +62,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
+import java.time.YearMonth;
 /**
  * REST controller for managing {@link toplana.domain.NacrtRacuna}.
  */
@@ -88,6 +90,7 @@ public class NacrtRacunaResource {
     private final RacunRepository racunRepository;
     private final RacunService racunService;
     private final SifraPromeneRepository sifraPromeneRepository;
+    private final StanStanjeRepository stanstanjeRepository;
     
   
 
@@ -96,7 +99,7 @@ public class NacrtRacunaResource {
 			PodstanicaRepository podstanicaRepository,
 			StanjaPodstaniceZaRacunRepository stanjaPodstaniceZaRacunRepository, StanRepository stanRepository,
 			TransakcijaRepository transakcijaRepository, RacunRepository racunRepository, RacunService racunService,
-			SifraPromeneRepository sifraPromeneRepository) {
+			SifraPromeneRepository sifraPromeneRepository, StanStanjeRepository stanstanjeRepository) {
 		super();
 		this.userService = userService;
 		this.nacrtRacunaRepository = nacrtRacunaRepository;
@@ -109,6 +112,7 @@ public class NacrtRacunaResource {
 		this.racunRepository = racunRepository;
 		this.racunService = racunService;
 		this.sifraPromeneRepository = sifraPromeneRepository;
+		this.stanstanjeRepository = stanstanjeRepository;
 	}
 
 	/**
@@ -175,15 +179,37 @@ public class NacrtRacunaResource {
         
         List<Podstanica> podstanice = podstanicaRepository.findAllByOrderByBroj();
         LocalDate poslednjiDanPrethodnogMeseca = Utilities.getPoslednjiDanPrethodnogMeseca();
+        StanStanje sstan = new StanStanje();
+       
         for(Podstanica p : podstanice) {
         	List<Racun> racuniZaPodstanicu = new ArrayList<Racun>();
         	List<Stan> stanoviZaPodstanicu = stanRepository.findAllByPodstanicaId(p.getId());
+        	
+        	p.setUkupnapovrsina(stanRepository.findKvSumPodstanicaId(p.getId()));
+        	
+        	
+        	
+        	LocalDate today = LocalDate.now();
+            LocalDate previousMonth = today.minusMonths(1); 
+            int previousMonthNumber = previousMonth.getMonthValue(); 
+        	p.setUkupnapotrosnjapostanu(stanRepository.findPotrosnjaPodstanicaId(p.getId(),previousMonthNumber));
+        	
+               	
+        			
         	for(Stan stan : stanoviZaPodstanicu) {
         		//BigDecimal saldo = transakcijaRepository.getSaldoDoKrajaPrethodnogMesecaZaStan(stan.getId());
         		
+        		
+        		if (p.getId() > 1105) { // za nove podstanice
+        			
+        			 stan.setZadnjaStanja(stanstanjeRepository.getLastStatesForStan(stan.getId()));
+        			 
+        			
+        		}
+        		
         		BigDecimal saldo = transakcijaRepository.getSaldoDoKrajaPrethodnogMesecaZaStanAndValuta(nacrtRacuna.getValutaPlacanja(), stan.getId());
         		//ovde dodati sta da se radi kad nema popusta (za neku podstanicu ili vrstu korisnika (reon)
-        		Racun racun = new Racun(stan, result, user, saldo, poslednjiDanPrethodnogMeseca);
+        		Racun racun = new Racun(stan, result, user, saldo, poslednjiDanPrethodnogMeseca,p);
         		racuniZaPodstanicu.add(racun);
         	}
         	racunRepository.saveAll(racuniZaPodstanicu);

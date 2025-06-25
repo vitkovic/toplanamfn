@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * A Racun.
@@ -151,7 +152,7 @@ public class Racun implements Serializable {
     
     public Racun() {}
     
-    public Racun(Stan stan, NacrtRacuna nacrtRacuna, User user, BigDecimal saldo, LocalDate poslednjiDanPrethodnogMeseca) {
+    public Racun(Stan stan, NacrtRacuna nacrtRacuna, User user, BigDecimal saldo, LocalDate poslednjiDanPrethodnogMeseca, Podstanica pn) {
     	this.datumRacuna = nacrtRacuna.getDatumRacuna();
     	this.period = nacrtRacuna.getPeriod();
     	this.stan = stan;
@@ -179,29 +180,98 @@ public class Racun implements Serializable {
     	this.proknjizen = false;
     	this.ukupnoZaduzenje = saldo;    	 
     	if(stan.isUkljucen()) {
-    		this.utrosakUKwh = spr.getUtrosakPoM2().multiply(stan.getPovrsina()).setScale(2, RoundingMode.HALF_UP);
-    		this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFix).setScale(2, RoundingMode.HALF_UP);
-    	}else {
-    		this.utrosakUKwh = new BigDecimal("0.");
-    		this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFixIskljucen).setScale(2, RoundingMode.HALF_UP);
-    	}
     		
-    	this.utrosakVarijabilni = this.utrosakUKwh.multiply(this.cenaKwh).setScale(2, RoundingMode.HALF_UP);
+    		if (p.getId() > 1105) { // 1105 treba definisati kao varijablu u parametrima
+    			
+    			BigDecimal zajednickostanjepodstanice = (spr.getNovoStanje().getStanje().subtract(spr.getStaroStanje().getStanje())).multiply(BigDecimal.valueOf(1000.00)); 
+    			// Razlika prathodnog i novog stanja (I115)
+    			BigDecimal ukupnapotrosnja =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu());
+    			// Suma potrosnji stanova - J115 (I111)
+    			BigDecimal ukupnapovrsina = BigDecimal.valueOf(pn.getUkupnapovrsina());
+    			// Povrsina svih stanova
+    			BigDecimal udeostana = (stan.getPovrsina().divide(ukupnapovrsina)).multiply(BigDecimal.valueOf(100.00));
+    			// Procentualni udeo stana
+    			
+    			    			
+    			BigDecimal udeozajednickepotrosnje = udeostana.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja));
+    			// Za stan deo koji se odnosi na udeo zajednicke potrosnje - J5
+    			
+    			
+    			BigDecimal sopstvenapotrosnja =BigDecimal.valueOf(stan.getZadnjaStanja().getLast() - stan.getZadnjaStanja().getFirst());
+    			// Za stan sopstvena potrosnja ocitavanja - I5
+    			
+    			
+    			
+    			
+    			this.utrosakUKwh = (udeozajednickepotrosnje.add(sopstvenapotrosnja)).setScale(2, RoundingMode.HALF_UP); 
+    			// Ukupna potrosnja po stanu u kW
+    			this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFix).setScale(2, RoundingMode.HALF_UP);
+    			
+    		} else {
+    		
+    			this.utrosakUKwh = spr.getUtrosakPoM2().multiply(stan.getPovrsina()).setScale(2, RoundingMode.HALF_UP);
+    			this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFix).setScale(2, RoundingMode.HALF_UP);
+    		}
+    	}else {
+    		
+    		if (p.getId() > 1105) {
+    			
+    			this.utrosakUKwh = new BigDecimal("0.");
+    			this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFixIskljucen).setScale(2, RoundingMode.HALF_UP);
+    			
+    		} else {
+    		
+    			this.utrosakUKwh = new BigDecimal("0.");
+    			this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFixIskljucen).setScale(2, RoundingMode.HALF_UP);
+    		}
+    	}
     	
-    	this.utrosakOdrzavanje = stan.getPovrsina().multiply(this.cenaOdrzavanje).setScale(2, RoundingMode.HALF_UP);
+    	if (p.getId() > 1105) {
+    		
+    		this.utrosakVarijabilni = this.utrosakUKwh.multiply(this.cenaKwh).setScale(2, RoundingMode.HALF_UP);
+    		this.utrosakOdrzavanje  = new BigDecimal("0.");
+		
+    	} else {
+    		
+			this.utrosakVarijabilni = this.utrosakUKwh.multiply(this.cenaKwh).setScale(2, RoundingMode.HALF_UP);
+    	
+			this.utrosakOdrzavanje = stan.getPovrsina().multiply(this.cenaOdrzavanje).setScale(2, RoundingMode.HALF_UP);
+    	
+		}
     	//ako je saldo negativan ili jednak 0
     	if((this.ukupnoZaduzenje.compareTo(new BigDecimal("0.")) <= 0 && this.stan.getTipPotrosaca().getTip() != 5) || 
     			(this.ukupnoZaduzenje.doubleValue() <= 0.05 && this.stan.getTipPotrosaca().getTip() != 5)) {
     		this.popust = nacrtRacuna.getPopust();
-    		this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
-    		this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
+    		
+    		if (p.getId() > 1105) {
+    			
+    			this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
+    			this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
+    	
+    		
+    		} else {
+    			this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
+    			this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
+    	
+    		}
+    	
+    	
     	}else {
     		this.popust = BigDecimal.ZERO;
     	}
     	
-    	this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
-    	this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
-    	this.utrosakOdrzavanje = this.utrosakOdrzavanje.multiply(new BigDecimal("100.").add(this.pdv1).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);   	
+    	if (p.getId() > 1105) {
+    		
+    		this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
+			this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
+			this.utrosakOdrzavanje = new BigDecimal("0.");
+	
+		} else {
+    	
+			this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
+			this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
+			this.utrosakOdrzavanje = this.utrosakOdrzavanje.multiply(new BigDecimal("100.").add(this.pdv1).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
+		}
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

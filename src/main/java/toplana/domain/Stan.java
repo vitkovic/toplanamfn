@@ -9,6 +9,7 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -91,7 +92,19 @@ public class Stan implements Serializable {
     private OstaliRacuni ostaliRacuni;		   
 																	   
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+	private List<Double> zadnjaStanja;
+	
+	
+	
+    public List<Double> getZadnjaStanja() {
+		return zadnjaStanja;
+	}
+
+	public void setZadnjaStanja(List<Double> zadnjaStanja) {
+		this.zadnjaStanja = zadnjaStanja;
+	}
+
+	// jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }

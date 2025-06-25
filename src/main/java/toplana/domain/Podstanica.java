@@ -47,13 +47,36 @@ public class Podstanica implements Serializable {
     
     @OneToMany(mappedBy = "podstanica")
     private Set<StanjaPodstaniceZaRacun> stanjaPodstaniceZaRacune = new HashSet<>();
+    
+    
+    
+    private Double ukupnapovrsina;
+    private Double ukupnapotrosnjapostanu;
+    
+    
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public Double getUkupnapovrsina() {
+		return ukupnapovrsina;
+	}
+
+	public void setUkupnapovrsina(Double ukupnapovrsina) {
+		this.ukupnapovrsina = ukupnapovrsina;
+	}
+
+	public Double getUkupnapotrosnjapostanu() {
+		return ukupnapotrosnjapostanu;
+	}
+
+	public void setUkupnapotrosnjapostanu(Double ukupnapotrosnjapostanu) {
+		this.ukupnapotrosnjapostanu = ukupnapotrosnjapostanu;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 
