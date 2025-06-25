@@ -46,6 +46,7 @@ const validations: any = {
     sifra: {},
     grad: {},
     postanskiBroj: {},
+	brojMerila: {},
   },
 };
 

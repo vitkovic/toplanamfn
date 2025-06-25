@@ -36,7 +36,8 @@
       "nijePronadjenStanZaSifru": "За унету шифру не постоји стан. Пробајте неку другу шифру.",
       "reoni":"Реони",
       "adresa":"Адреса",
-      "ukljucenoGrejanje":"Укључено грејање"
+      "ukljucenoGrejanje":"Укључено грејање",
+      "brojMerila":"Број Мерила"
     }
   }
 }

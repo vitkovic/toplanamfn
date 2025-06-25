@@ -81,6 +81,16 @@
                             </div>
                         </div>
                     </div>
+					<div class="row">
+					                       <div class="col-8">                    
+					                           <div class="form-group">
+					                               <label class="form-control-label" v-text="$t('toplanaApp.stan.brojMerila')" for="stan-brojMerila">Broj Merila</label>
+					                               <input type="text" class="form-control" name="brojMerila" id="stan-brojMerila"
+					                                   :class="{'valid': !$v.stan.brojMerila.$invalid, 'invalid': $v.stan.brojMerila.$invalid }" v-model="$v.stan.brojMerila.$model" />
+					                           </div>
+					                       </div>
+					                      
+					                   </div>
                      <div class="row">
                         <div class="col-4">   
                             <div class="form-group">
