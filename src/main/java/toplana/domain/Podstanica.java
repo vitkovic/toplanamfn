@@ -49,8 +49,9 @@ public class Podstanica implements Serializable {
     private Set<StanjaPodstaniceZaRacun> stanjaPodstaniceZaRacune = new HashSet<>();
     
     
-    
+    @javax.persistence.Transient
     private Double ukupnapovrsina;
+    @javax.persistence.Transient
     private Double ukupnapotrosnjapostanu;
     
     

@@ -192,9 +192,9 @@ public class NacrtRacunaResource {
         	LocalDate today = LocalDate.now();
             LocalDate previousMonth = today.minusMonths(1); 
             int previousMonthNumber = previousMonth.getMonthValue(); 
-        	p.setUkupnapotrosnjapostanu(stanRepository.findPotrosnjaPodstanicaId(p.getId(),previousMonthNumber));
-        	
-               	
+        	p.setUkupnapotrosnjapostanu(stanRepository.findPotrosnjaPodstanicaId(p.getId(),1));
+        	p.setUkupnapotrosnjapostanu(600.00);
+        //	p.setUkupnapotrosnjapostanu();
         			
         	for(Stan stan : stanoviZaPodstanicu) {
         		//BigDecimal saldo = transakcijaRepository.getSaldoDoKrajaPrethodnogMesecaZaStan(stan.getId());

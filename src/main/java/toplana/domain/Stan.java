@@ -91,7 +91,7 @@ public class Stan implements Serializable {
     @JsonIgnore
     private OstaliRacuni ostaliRacuni;		   
 																	   
-
+	@javax.persistence.Transient
 	private List<Double> zadnjaStanja;
 	
 	

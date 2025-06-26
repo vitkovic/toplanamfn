@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 public interface StanStanjeRepository extends JpaRepository<StanStanje, Long> {
 	
 	@Query(value = "select sstanje.vrednost, sstanje.datum from stan s, stan_stanje sstanje "
-			+ "	 where s.id = sstanje.stan_id and sstanje.stan_id = stanid"
+			+ "	 where s.id = sstanje.stan_id and sstanje.stan_id = :stanid"
 			+ "	ORDER BY Datum DESC LIMIT 2 ", nativeQuery=true)
 	List<Double> getLastStatesForStan(@Param("stanid") Long stanid);
 	

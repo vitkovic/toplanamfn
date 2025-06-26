@@ -181,23 +181,28 @@ public class Racun implements Serializable {
     	this.ukupnoZaduzenje = saldo;    	 
     	if(stan.isUkljucen()) {
     		
-    		if (p.getId() > 1105) { // 1105 treba definisati kao varijablu u parametrima
+    		if (p.getId() > 1105 && (stan.getId()==607 || stan.getId()==608 || stan.getId()==684 || stan.getId()==685)) { // 1105 treba definisati kao varijablu u parametrima
     			
-    			BigDecimal zajednickostanjepodstanice = (spr.getNovoStanje().getStanje().subtract(spr.getStaroStanje().getStanje())).multiply(BigDecimal.valueOf(1000.00)); 
+    			BigDecimal zajednickostanjepodstanice = (spr.getNovoStanje().getStanje().subtract(spr.getStaroStanje().getStanje())).multiply(BigDecimal.valueOf(1000.00)).setScale(2, RoundingMode.HALF_UP);; 
     			// Razlika prathodnog i novog stanja (I115)
-    			BigDecimal ukupnapotrosnja =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu());
+    			BigDecimal ukupnapotrosnja =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
     			// Suma potrosnji stanova - J115 (I111)
-    			BigDecimal ukupnapovrsina = BigDecimal.valueOf(pn.getUkupnapovrsina());
+    			BigDecimal ukupnapovrsina = BigDecimal.valueOf(pn.getUkupnapovrsina()).setScale(2, RoundingMode.HALF_UP);
     			// Povrsina svih stanova
-    			BigDecimal udeostana = (stan.getPovrsina().divide(ukupnapovrsina)).multiply(BigDecimal.valueOf(100.00));
+    			BigDecimal udeostana = (stan.getPovrsina().divide(ukupnapovrsina, 2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP)).multiply(BigDecimal.valueOf(100.00).setScale(2, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP);
     			// Procentualni udeo stana
     			
     			    			
-    			BigDecimal udeozajednickepotrosnje = udeostana.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja));
+    			BigDecimal udeozajednickepotrosnje = udeostana.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
     			// Za stan deo koji se odnosi na udeo zajednicke potrosnje - J5
     			
     			
-    			BigDecimal sopstvenapotrosnja =BigDecimal.valueOf(stan.getZadnjaStanja().getLast() - stan.getZadnjaStanja().getFirst());
+    			 for(int i=0;i<stan.getZadnjaStanja().size();i++){
+    				 System.out.println(stan.getZadnjaStanja());
+    		        } 
+    			 
+    			 System.out.println(p.getId() + "********************************************************************************" + stan.getId());
+    			BigDecimal sopstvenapotrosnja =BigDecimal.valueOf(stan.getZadnjaStanja().get(1) - stan.getZadnjaStanja().get(0)).setScale(2, RoundingMode.HALF_UP);
     			// Za stan sopstvena potrosnja ocitavanja - I5
     			
     			
