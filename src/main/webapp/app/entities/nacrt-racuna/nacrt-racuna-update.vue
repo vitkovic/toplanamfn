@@ -218,7 +218,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title" 
-                                v-text="$t('toplanaApp.nacrtRacuna.podstanicaBroj', {'broj': stanja.podstanica.broj})"
+                                v-text="stanja.podstanica.naziv"
                                 ></h5>
                                 <div class="row">                                    
                                     <div class="col-3">                                        
