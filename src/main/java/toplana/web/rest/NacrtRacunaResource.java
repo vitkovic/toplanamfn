@@ -53,13 +53,16 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.time.YearMonth;
@@ -192,10 +195,69 @@ public class NacrtRacunaResource {
         	LocalDate today = LocalDate.now();
             LocalDate previousMonth = today.minusMonths(1); 
             int previousMonthNumber = previousMonth.getMonthValue(); 
-        	p.setUkupnapotrosnjapostanu(stanRepository.findPotrosnjaPodstanicaId(p.getId(),1));
-        	p.setUkupnapotrosnjapostanu(600.00);
-        //	p.setUkupnapotrosnjapostanu();
-        			
+           
+            // !!! Proracun ukupne potrosnje po stanu
+            List <StanStanje> vrednostipotrosnje = stanRepository.findPotrosnjaPodstanicaId(p.getId(),previousMonthNumber);
+            		
+            String sifra="";
+            String temp = "";
+            String vrednost="";
+            Map<String, String> m = new HashMap<>();
+            for(int i=0;i<vrednostipotrosnje.size();i++){
+            	
+            	
+            	try {
+            		
+            		StanStanje ss = (StanStanje)vrednostipotrosnje.get(i);
+            		System.out.println(ss);
+            		
+            		 sifra = ss.getSifra().trim();
+            		 if (i == 0) temp = sifra;
+            		 
+            		 if (sifra.equalsIgnoreCase(temp)) {
+            			 vrednost+= ss.getVrednost() + ";";
+            		 } else {
+            			 vrednost = ss.getVrednost().toString() + ";";
+            		 }
+            		
+            		 m.put(ss.getSifra(), vrednost);
+            		
+            		
+	            	System.out.println(vrednost);
+	            	temp = sifra;
+            	} catch (Exception e) {
+            		e.printStackTrace();
+            	}
+            	
+            } 
+            
+            String map="";
+            BigDecimal suma = new BigDecimal(.0);
+            
+            for (String key : m.keySet()) {
+                map = key + "...." + m.get(key);
+                
+                String value = m.get(key);
+                
+                String[] vrednosti = value.split(";");
+                
+                Long val = Math.abs(Long.valueOf(vrednosti[1]) - Long.valueOf(vrednosti[0]));
+                
+                suma = suma.add(BigDecimal.valueOf(val));
+                
+                
+                System.out.println(map + "    #####################################################################################################");
+                System.out.println(suma + "    #####################################################################################################");
+            }
+            
+           
+            
+      
+        	p.setUkupnapotrosnjapostanu(suma.doubleValue());
+      
+        	// DOVDE
+        	
+        	
         	for(Stan stan : stanoviZaPodstanicu) {
         		//BigDecimal saldo = transakcijaRepository.getSaldoDoKrajaPrethodnogMesecaZaStan(stan.getId());
         		
