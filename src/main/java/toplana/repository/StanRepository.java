@@ -24,7 +24,7 @@ public interface StanRepository extends JpaRepository<Stan, Long> {
 	
 	
 	@Query(value = "select SUM(s.povrsina) from stan s "
-			+ "	 where s.podstanica_id = :podstanicaid", nativeQuery=true)
+			+ "	 where s.podstanica_id = :podstanicaid and s.ukljucen", nativeQuery=true)
 	Double findKvSumPodstanicaId(@Param("podstanicaid") Long podstanicaid);
 	
 	

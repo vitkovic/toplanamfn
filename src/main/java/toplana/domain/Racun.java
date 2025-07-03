@@ -178,23 +178,58 @@ public class Racun implements Serializable {
     	this.pdv1 = nacrtRacuna.getPdv1();
     	this.pdv2 = nacrtRacuna.getPdv2();    	
     	this.proknjizen = false;
-    	this.ukupnoZaduzenje = saldo;    	 
+    	this.ukupnoZaduzenje = saldo;    
+    	
+    	
+   	 	
+    	
     	if(stan.isUkljucen()) {
     		
     		if (p.getId() > 1105 && (stan.getId()==607 || stan.getId()==608 || stan.getId()==684 || stan.getId()==685)) { // 1105 treba definisati kao varijablu u parametrima i obrisati ove posebne id stanova
     			
+    			
+    			System.out.println(p.getId() + "********************************************************************************" + spr.getNovoStanje().getStanje());
+    			System.out.println(p.getId() + "********************************************************************************" + spr.getStaroStanje().getStanje());
+    			System.out.println(p.getId() + "********************************************************************************" + saldo);
+    			System.out.println(p.getId() + "********************************************************************************" + saldo);
+    			System.out.println(p.getId() + "********************************************************************************" + saldo);
+    	    	
+    			
+    			
+    			
+    			
     			BigDecimal zajednickostanjepodstanice = (spr.getNovoStanje().getStanje().subtract(spr.getStaroStanje().getStanje())).multiply(BigDecimal.valueOf(1000.00)).setScale(2, RoundingMode.HALF_UP);; 
     			// Razlika prathodnog i novog stanja (I115)
+    			
+    			
+    			 System.out.println("ZSP: " + zajednickostanjepodstanice);
+    			
     			BigDecimal ukupnapotrosnja =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
     			// Suma potrosnji stanova - J115 (I111)
+    			
+    			 System.out.println("UP: " + ukupnapotrosnja);
+    			
     			BigDecimal ukupnapovrsina = BigDecimal.valueOf(pn.getUkupnapovrsina()).setScale(2, RoundingMode.HALF_UP);
     			// Povrsina svih stanova
-    			BigDecimal udeostana = (stan.getPovrsina().divide(ukupnapovrsina, 2, RoundingMode.HALF_UP).setScale(2, RoundingMode.HALF_UP)).multiply(BigDecimal.valueOf(100.00).setScale(2, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP);
+    			
+    			
+    			 System.out.println("Ukupna Povrsina:" + ukupnapovrsina);
+    			 
+    			 System.out.println("Stan Povrsina:" + stan.getPovrsina());
+    			
+    			BigDecimal udeostananum = stan.getPovrsina().divide(ukupnapovrsina,5, RoundingMode.HALF_UP).setScale(5);
+    			
+    			BigDecimal udeostana = udeostananum.multiply(BigDecimal.valueOf(100.00)).setScale(3, RoundingMode.HALF_UP);
     			// Procentualni udeo stana
     			
+    			
+    			 System.out.println("Udeo Stana: " + udeostana);
     			    			
     			BigDecimal udeozajednickepotrosnje = udeostana.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
     			// Za stan deo koji se odnosi na udeo zajednicke potrosnje - J5
+    			
+    			
+    			 System.out.println(udeozajednickepotrosnje);
     			
     			
     			 for(int i=0;i<stan.getZadnjaStanja().size();i++){
@@ -206,7 +241,7 @@ public class Racun implements Serializable {
     			// Za stan sopstvena potrosnja ocitavanja - I5
     			
     			
-    			
+    			 System.out.println(sopstvenapotrosnja );
     			
     			this.utrosakUKwh = (udeozajednickepotrosnje.add(sopstvenapotrosnja)).setScale(2, RoundingMode.HALF_UP); 
     			// Ukupna potrosnja po stanu u kW
@@ -246,7 +281,10 @@ public class Racun implements Serializable {
     	//ako je saldo negativan ili jednak 0
     	if((this.ukupnoZaduzenje.compareTo(new BigDecimal("0.")) <= 0 && this.stan.getTipPotrosaca().getTip() != 5) || 
     			(this.ukupnoZaduzenje.doubleValue() <= 0.05 && this.stan.getTipPotrosaca().getTip() != 5)) {
+    		
     		this.popust = nacrtRacuna.getPopust();
+    		
+    		 System.out.println(p.getId() + " Popust ********************************************************************************" + this.popust);
     		
     		if (p.getId() > 1105) {
     			
