@@ -181,7 +181,7 @@ public class Racun implements Serializable {
     	this.ukupnoZaduzenje = saldo;    	 
     	if(stan.isUkljucen()) {
     		
-    		if (p.getId() > 1105 && (stan.getId()==607 || stan.getId()==608 || stan.getId()==684 || stan.getId()==685)) { // 1105 treba definisati kao varijablu u parametrima
+    		if (p.getId() > 1105 && (stan.getId()==607 || stan.getId()==608 || stan.getId()==684 || stan.getId()==685)) { // 1105 treba definisati kao varijablu u parametrima i obrisati ove posebne id stanova
     			
     			BigDecimal zajednickostanjepodstanice = (spr.getNovoStanje().getStanje().subtract(spr.getStaroStanje().getStanje())).multiply(BigDecimal.valueOf(1000.00)).setScale(2, RoundingMode.HALF_UP);; 
     			// Razlika prathodnog i novog stanja (I115)
