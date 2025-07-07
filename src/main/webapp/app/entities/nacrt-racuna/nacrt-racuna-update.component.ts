@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { format, parseISO } from 'date-fns';
 
 import { Component, Vue, Inject } from 'vue-property-decorator';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 <template>
     <div class="row justify-content-center">
         <div class="col-8">

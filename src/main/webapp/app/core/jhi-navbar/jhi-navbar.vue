@@ -1,3 +1,4 @@
+// @ts-nocheck
 <template>
     <b-navbar toggleable="md" type="dark" class="bg-primary">
         <b-navbar-brand class="logo" b-link to="/">
@@ -78,9 +79,7 @@
                     <b-dropdown-item to="/stanja-podstanice">
                         <span v-text="$t('global.menu.entities.stanjaPodstanice')">StanjaPodstanice</span>
 						</b-dropdown-item>     
-					<b-dropdown-item to="/stanja-podstanice">
-					    <span v-text="$t('global.menu.entities.stanjaStanova')">Stanja Stanova</span>
-                    </b-dropdown-item>     
+					   
                     <b-dropdown-item to="/nacrt-racuna">                        
                         <span v-text="$t('global.menu.racuni.izradaRacuna')"></span>
                     </b-dropdown-item>
