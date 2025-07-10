@@ -134,7 +134,7 @@ public class RacunDTO {
     	}
     	
     	this.slikaQrStan = null;
-    	this.pozivNaBroj = "97";
+    	this.pozivNaBroj = "289";
     	
 	}
 

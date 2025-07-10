@@ -107,6 +107,7 @@ public class RacunService {
     		try {
     			QrGeneratorFromText.generateQr(rDTO.getStan().getSifra(),rDTO.getStan().getVlasnik().getIme() + rDTO.getStan().getVlasnik().getPrezime(), 
     			rDTO.getZaPlacanje(), rDTO.getPozivNaBroj());
+    			rDTO.setSlikaQrStan(rDTO.getStan().getSifra() + ".png");
     		} catch (Exception ex) {
     			
     			ex.printStackTrace();

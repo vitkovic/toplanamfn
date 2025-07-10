@@ -20,18 +20,19 @@ public class QrGeneratorFromText {
     public static void generateQr(String sifra,String senderData, BigDecimal ammount, String pozivnaBroj) throws IOException, WriterException {
         // QR payload string
     	
-    	pozivnaBroj = "97";
-    	sifra = "163220000111111111000";
+    	//pozivnaBroj = "97";
+    	//String sifraTemp = "163220000111111111000";
+    	//sifraTemp = sifra;
     	
         String qrText =
             "K:PR|V:01|C:1|R:840000000174566663|N:MFN AL. Medvedeva 14"
-            + "|I:RSD3596,13|P:" + senderData 
+            + "|I:RSD" + ammount.toString().replace('.', ',')+"|P:" + senderData 
             + "|SF:189|S:UPLATA PO RAČUNU ZA Toplotnu EN."
-            + "|RO:" + pozivnaBroj + sifra;
+            + "|RO:" + "00" + sifra;
 
         // Set encoding hints
         Map<EncodeHintType, Object> hints = new HashMap<>();
-        hints.put(EncodeHintType.CHARACTER_SET, "ISO-8859-1");
+        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
         hints.put(EncodeHintType.MARGIN, 4);  // quiet zone
 
@@ -40,7 +41,7 @@ public class QrGeneratorFromText {
         BitMatrix matrix = qrCodeWriter.encode(qrText, BarcodeFormat.QR_CODE, 300, 300, hints);
 
         // Output file
-        Path outputFile = Path.of("qr_eps_payment.png");
+        Path outputFile = Path.of(sifra+".png");
         MatrixToImageWriter.writeToPath(matrix, "PNG", outputFile);
 
         System.out.println("✅ QR code generated: " + outputFile.toAbsolutePath());
