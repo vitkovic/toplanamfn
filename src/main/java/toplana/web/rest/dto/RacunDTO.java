@@ -72,7 +72,7 @@ public class RacunDTO {
 	 
 	 private StanjaPodstaniceZaRacun stanjeZaRacun;
 	 
-	
+	private String slikaQrStan;
 
 	public RacunDTO() {
 		super();
@@ -132,12 +132,22 @@ public class RacunDTO {
     			break;
     		}
     	}
+    	
+    	this.slikaQrStan = null;
 	}
 
 	 
 
 	
 	
+	public String getSlikaQrStan() {
+		return slikaQrStan;
+	}
+
+	public void setSlikaQrStan(String slikaQrStan) {
+		this.slikaQrStan = slikaQrStan;
+	}
+
 	public BigDecimal getCenaFixIskljucen() {
 		return cenaFixIskljucen;
 	}

@@ -128,7 +128,7 @@ public class RacunService {
     				rDTO.getZaPlacanje().toString(), rDTO.getDatumRacuna().format(formatter),
     				rDTO.getValutaPlacanja().format(formatter), rDTO.getDatumSaldiranja().format(formatter),
     				rDTO.getUkupnoZaduzenje().toString(), "1", a, rDTO.getPopust().toString(),
-    				rDTO.getStan().isUkljucen(), rDTO.getPopust() == null ? false : true, rDTO.getCenaFixIskljucen().toString(), rDTO.getPeriod()
+    				rDTO.getStan().isUkljucen(), rDTO.getPopust() == null ? false : true, rDTO.getCenaFixIskljucen().toString(), rDTO.getPeriod(), rDTO.getSlikaQrStan()
     				);    				
     		racuniStampanje.add(rs);   				    				    				    				
     	}

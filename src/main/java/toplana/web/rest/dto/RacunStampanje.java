@@ -52,6 +52,7 @@ public class RacunStampanje {
 	 private String period;
 	 private boolean iskljucen;
 	 private boolean dajeSePopust;
+	 private String slikaQrStan;
 	 
 	 
 	public RacunStampanje() {}
@@ -67,7 +68,7 @@ public class RacunStampanje {
 			String cenaOdrzavanje, String utrosakOdrzavanjeBezPdv, String utrosakOdrzavanjePdv,
 			String utrosakOdrzavanje, String zaduzenjePoRacunu, String ukupnoZaduzenje, String zaPlacanje,
 			String datumRacuna, String valutaPlacanja, String datumSaldiranja, String dugIzPrethodnogPerioda,
-			String brojRacuna, String zaMesec, String popust,  boolean iskljucen, boolean dajeSePopust, String cenaFixIskljucen, String period) {
+			String brojRacuna, String zaMesec, String popust,  boolean iskljucen, boolean dajeSePopust, String cenaFixIskljucen, String period, String qr) {
 
 		this.id = id;
 		this.vlasnikPrezime = vlasnikPrezime;
@@ -119,6 +120,7 @@ public class RacunStampanje {
 		this.iskljucen = iskljucen;
 		this.cenaFixIskljucen = cenaFixIskljucen;
 		this.period = period;
+		this.slikaQrStan = qr;
 		
 		String vPrezime = "";
 		if(this.vlasnikPrezime != null)
@@ -138,6 +140,14 @@ public class RacunStampanje {
 	
 	
 	
+	public String getSlikaQrStan() {
+		return slikaQrStan;
+	}
+
+	public void setSlikaQrStan(String slikaQrStan) {
+		this.slikaQrStan = slikaQrStan;
+	}
+
 	public String getCenaFixIskljucen() {
 		return cenaFixIskljucen;
 	}
