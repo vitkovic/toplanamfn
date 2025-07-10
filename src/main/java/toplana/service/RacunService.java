@@ -26,6 +26,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import toplana.QrGeneratorFromText;
 import toplana.domain.Racun;
 import toplana.web.rest.dto.RacunDTO;
 import toplana.web.rest.dto.RacunStampanje;
@@ -99,8 +100,21 @@ public class RacunService {
     	Locale loc = new Locale("SH");
     	
     	for(Racun r : racuni) {
+    		
     		r.getNacrtRacuna().getStanjaPodstaniceZaRacune();
     		RacunDTO rDTO = new RacunDTO(r);
+    		
+    		try {
+    			QrGeneratorFromText.generateQr(rDTO.getStan().getSifra(),rDTO.getStan().getVlasnik().getIme() + rDTO.getStan().getVlasnik().getPrezime(), 
+    			rDTO.getZaPlacanje(), rDTO.getPozivNaBroj());
+    		} catch (Exception ex) {
+    			
+    			ex.printStackTrace();
+    			
+    		}
+    		
+    		
+    		
     		
     		String month = rDTO.getDatumRacuna().getMonth().getDisplayName(TextStyle.FULL, loc);
     		String a = month + " " + Integer.valueOf(rDTO.getDatumRacuna().getYear()).toString().substring(2,4);   		

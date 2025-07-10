@@ -9,6 +9,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.EncodeHintType;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -16,13 +17,17 @@ import java.util.Map;
 
 public class QrGeneratorFromText {
 
-    public static void generateQr(String sifra,String senderData, BigInteger ammount) throws IOException, WriterException {
+    public static void generateQr(String sifra,String senderData, BigDecimal ammount, String pozivnaBroj) throws IOException, WriterException {
         // QR payload string
+    	
+    	pozivnaBroj = "97";
+    	sifra = "163220000111111111000";
+    	
         String qrText =
-            "K:PR|V:01|C:1|R:845000000040484987|N:JP EPS BEOGRAD BALKANSKA 13"
-            + "|I:RSD3596,13|P:MRĐO MAČKATOVIĆ ŽUPSKA 13 BEOGRAD 6"
-            + "|SF:189|S:UPLATA PO RAČUNU ZA EL. ENERGIJU"
-            + "|RO:97163220000111111111000";
+            "K:PR|V:01|C:1|R:840000000174566663|N:MFN AL. Medvedeva 14"
+            + "|I:RSD3596,13|P:" + senderData 
+            + "|SF:189|S:UPLATA PO RAČUNU ZA Toplotnu EN."
+            + "|RO:" + pozivnaBroj + sifra;
 
         // Set encoding hints
         Map<EncodeHintType, Object> hints = new HashMap<>();

@@ -157,6 +157,7 @@
 	<field name="cenaFixIskljucen" class="java.lang.String">
 		<fieldDescription><![CDATA[cenaFixIskljucen]]></fieldDescription>
 	</field>
+	<field name="slikaQrStan" class="java.lang.String"/>
 	<variable name="counter" class="java.lang.Integer" calculation="Count"/>
 	<variable name="Variable_1" class="java.lang.Integer" calculation="System">
 		<initialValueExpression><![CDATA[1]]></initialValueExpression>
@@ -1078,7 +1079,7 @@
 				<textFieldExpression><![CDATA[$F{zaPlacanje}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="-5" y="312" width="551" height="1" uuid="b4325476-acfd-48ec-ae0f-b9383e1ee590">
+				<reportElement x="-5" y="336" width="551" height="1" uuid="b4325476-acfd-48ec-ae0f-b9383e1ee590">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<graphicElement>
@@ -1086,14 +1087,14 @@
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="0" y="318" width="70" height="12" uuid="738b9e44-1b78-4727-b2ff-ec83d2a70e63"/>
+				<reportElement x="0" y="342" width="70" height="12" uuid="738b9e44-1b78-4727-b2ff-ec83d2a70e63"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Datum računa: "]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="70" y="318" width="84" height="12" uuid="61372333-ce97-4178-b807-2c67394bcd93">
+				<reportElement x="70" y="342" width="84" height="12" uuid="61372333-ce97-4178-b807-2c67394bcd93">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e1cca28-f791-431e-b889-6ed8e3244420"/>
 				</reportElement>
 				<textElement>
@@ -1102,14 +1103,14 @@
 				<textFieldExpression><![CDATA[$F{datumRacuna}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="170" y="318" width="78" height="12" uuid="c8477bb3-4b0d-43e5-b763-21cee37085da"/>
+				<reportElement x="170" y="342" width="78" height="12" uuid="c8477bb3-4b0d-43e5-b763-21cee37085da"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Valuta plaćanja: "]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="249" y="319" width="88" height="12" uuid="b057df31-127f-414c-887f-2d3c97539c63">
+				<reportElement x="249" y="343" width="88" height="12" uuid="b057df31-127f-414c-887f-2d3c97539c63">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e02dfd99-1c40-422f-aa17-85e8412b20f5"/>
 				</reportElement>
 				<textElement>
@@ -1118,14 +1119,14 @@
 				<textFieldExpression><![CDATA[$F{valutaPlacanja}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="378" y="319" width="111" height="12" uuid="47909b86-6c59-4698-852f-332898e2c716"/>
+				<reportElement x="378" y="343" width="111" height="12" uuid="47909b86-6c59-4698-852f-332898e2c716"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Uplate sa datumom: "]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="489" y="319" width="59" height="12" uuid="43cdc1a9-7978-4ac1-bdcf-c1b2d680d861">
+				<reportElement x="489" y="343" width="59" height="12" uuid="43cdc1a9-7978-4ac1-bdcf-c1b2d680d861">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01729bfc-464f-4d16-b893-48df8ff842eb"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1135,7 +1136,7 @@
 				<textFieldExpression><![CDATA[$F{datumSaldiranja}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="333" width="291" height="12" uuid="656970b3-0c33-4762-b6a3-56e5d609dfea"/>
+				<reportElement x="0" y="357" width="291" height="12" uuid="656970b3-0c33-4762-b6a3-56e5d609dfea"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
@@ -1151,7 +1152,7 @@
 				<textFieldExpression><![CDATA[$F{racunUtrosakKwh}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="-2" y="348" width="563" height="1" uuid="997ebe18-f4f1-4f2e-930b-44741f0dc83d"/>
+				<reportElement x="-2" y="372" width="563" height="1" uuid="997ebe18-f4f1-4f2e-930b-44741f0dc83d"/>
 			</line>
 			<textField>
 				<reportElement x="80" y="46" width="168" height="12" uuid="bb482edf-c4d8-4a6f-941b-831816e562ba">
@@ -1184,9 +1185,16 @@
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="381" y="245" width="50" height="50" uuid="d464e686-3f15-42e9-92ed-3c15517afc6d"/>
-				<imageExpression><![CDATA["C:/toplana/temp/nbs_ips_example.png"]]></imageExpression>
+				<reportElement x="346" y="231" width="100" height="100" uuid="d464e686-3f15-42e9-92ed-3c15517afc6d">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$F{slikaQrStan}]]></imageExpression>
 			</image>
+			<staticText>
+				<reportElement x="254" y="316" width="100" height="30" uuid="1c8ee95b-e497-4744-8469-b29ae20afb7d"/>
+				<text><![CDATA[QR Code]]></text>
+			</staticText>
 		</band>
 	</detail>
 </jasperReport>

@@ -72,7 +72,7 @@ public class RacunDTO {
 	 
 	 private StanjaPodstaniceZaRacun stanjeZaRacun;
 	 
-	private String slikaQrStan;
+	private String slikaQrStan, pozivNaBroj;
 
 	public RacunDTO() {
 		super();
@@ -134,12 +134,22 @@ public class RacunDTO {
     	}
     	
     	this.slikaQrStan = null;
+    	this.pozivNaBroj = "97";
+    	
 	}
 
 	 
 
 	
 	
+	public String getPozivNaBroj() {
+		return pozivNaBroj;
+	}
+
+	public void setPozivNaBroj(String pozivNaBroj) {
+		this.pozivNaBroj = pozivNaBroj;
+	}
+
 	public String getSlikaQrStan() {
 		return slikaQrStan;
 	}
