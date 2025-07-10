@@ -34,7 +34,7 @@ export default class RacunDetails extends Vue {
           var fileURL = window.URL.createObjectURL(new Blob([res]));
           var fileLink = document.createElement('a');
           fileLink.href = fileURL;
-          fileLink.setAttribute('download', 'file.pdf');
+          fileLink.setAttribute('download', this.racun.stan.sifra + ".pdf");
           document.body.appendChild(fileLink);
           fileLink.click();
         });      

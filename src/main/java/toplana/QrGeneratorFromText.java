@@ -1,11 +1,16 @@
 package toplana;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+
+import jdk.internal.net.http.common.Log;
+
 import com.google.zxing.EncodeHintType;
 
 import java.io.IOException;
@@ -16,20 +21,39 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class QrGeneratorFromText {
+	
+	   private static final Logger logger = LoggerFactory.getLogger( QrGeneratorFromText.class);
 
-    public static void generateQr(String sifra,String senderData, BigDecimal ammount, String pozivnaBroj) throws IOException, WriterException {
+    public static boolean generateQr(String sifra,String senderData, BigDecimal ammount, String pozivnaBroj) throws IOException, WriterException {
         // QR payload string
     	
     	//pozivnaBroj = "97";
     	//String sifraTemp = "163220000111111111000";
     	//sifraTemp = sifra;
-    	
+     
+    	  
         String qrText =
             "K:PR|V:01|C:1|R:840000000174566663|N:MFN AL. Medvedeva 14"
             + "|I:RSD" + ammount.toString().replace('.', ',')+"|P:" + senderData 
-            + "|SF:189|S:UPLATA PO RAČUNU ZA Toplotnu EN."
+            + "|SF:189|S:UPLATA PO RAČUNU ZA TOPLOTNU EN"
             + "|RO:" + "00" + sifra;
 
+        
+        
+    	// Test qr validity
+        try {
+        	if (!QrGeneratorService.testService(sifra, senderData, ammount, pozivnaBroj)) {
+        		System.out.println("✅ QR code not generated");
+        		logger.error("Wrong data sent to qr service!");
+        		return false;
+        	
+        	}
+        
+        } catch (Exception ex) {
+        	ex.printStackTrace();
+        	logger.error("QR Service Exception!");
+        	return false;
+        } 
         // Set encoding hints
         Map<EncodeHintType, Object> hints = new HashMap<>();
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
@@ -45,5 +69,7 @@ public class QrGeneratorFromText {
         MatrixToImageWriter.writeToPath(matrix, "PNG", outputFile);
 
         System.out.println("✅ QR code generated: " + outputFile.toAbsolutePath());
+        
+        return true;
     }
 }

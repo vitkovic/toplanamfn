@@ -264,7 +264,7 @@ public class RacunResource {
     public ResponseEntity<InputStreamResource> stampanjeJednogRacuna(@PathVariable Long id)
             throws IOException {    	
     	
-    	//System.out.println("dasdjhasdsjdhasjkdashdjkahdkjahdajkdhajkdhadjkahdasjkdhasjkdhsadjkahdjkahdasjkdsahdjkadhaskjdhaskdjshakdjahd");
+    	
     	
     	Optional<Racun> r = racunRepository.findById(id);
     	List<Racun> racuni = new ArrayList<Racun>();
@@ -272,11 +272,15 @@ public class RacunResource {
     	String filename = racunService.createRacuneZaStampanje(racuni);
     	File file = new File(filename);   	       
 
+    	
+    	System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ file: " + filename);
+    	
+    	
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
-        headers.add("Content-Disposition","attachment; filename=\"" + filename +"\"");
+        headers.add("Content-Disposition","attachment; filename=\"" + racuni.get(0).getStan().getSifra() + ".pdf" +"\"");
         
         return ResponseEntity
                 .ok()

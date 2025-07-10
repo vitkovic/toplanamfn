@@ -1,5 +1,6 @@
 package toplana;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -9,20 +10,20 @@ import java.nio.file.Path;
 
 public class QrGeneratorService {
 
-    public static void main(String[] args) throws Exception {
+    public static boolean testService(String sifra,String senderData, BigDecimal ammount, String pozivnaBroj) throws Exception {
         // JSON request payload
         String json =
             "{"
                 + "\"K\": \"PR\","
                 + "\"V\": \"01\","
                 + "\"C\": \"1\","
-                + "\"R\": \"845000000040484987\","
-                + "\"N\": \"JP EPS BEOGRAD\\r\\nBALKANSKA 13\","
-                + "\"I\": \"RSD3596,13\","
-                + "\"P\": \"MRĐO MAČKATOVIĆ\\r\\nŽUPSKA 13\\r\\nBEOGRAD 6\","
-                + "\"SF\": \"189\","
-                + "\"S\": \"UPLATA PO RAČUNU ZA EL. ENERGIJU\","
-                + "\"RO\": \"97163220000111111111000\""
+                + "\"R\": \"840000000174566663\","
+                + "\"N\": \"MFN AL. Medvedeva 14\","
+                + "\"I\": \"RSD" + ammount.toString().replace('.', ',')+"\","
+                + "\"P\": \"" + senderData + "\","
+                + "\"SF\": \"289\","
+                + "\"S\": \"UPLATA PO RAČUNU ZA TOPLOTNU EN\","
+                + "\"RO\": \"+ \"00\""+ sifra + "\""
             + "}";
 
         HttpClient client = HttpClient.newHttpClient();
@@ -39,9 +40,12 @@ public class QrGeneratorService {
             Path outputPath = Path.of("nbs_qr_code.png");
             Files.write(outputPath, response.body());
             System.out.println("✅ QR code saved to: " + outputPath.toAbsolutePath());
+            return false;
         } else {
             System.err.println("❌ Failed to generate QR. Status code: " + response.statusCode());
             System.err.println(new String(response.body()));
         }
+        
+        return true;
     }
 }

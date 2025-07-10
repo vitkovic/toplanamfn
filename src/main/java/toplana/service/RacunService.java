@@ -38,9 +38,19 @@ public class RacunService {
     private final Logger log = LoggerFactory.getLogger(RacunService.class);
     
     @Value("${putanja.pdf}")
-    private String pdfPutanja;   
+    private String pdfPutanja; 
     
-    public String generateRekapitulacijaReport(List<RekapitulacijaPoPdvDTO> rps) {
+    private String downFileName;
+    
+    public String getDownFileName() {
+		return downFileName;
+	}
+
+	public void setDownFileName(String downFileName) {
+		this.downFileName = downFileName;
+	}
+
+	public String generateRekapitulacijaReport(List<RekapitulacijaPoPdvDTO> rps) {
 		 
 		try {
 			
@@ -84,6 +94,7 @@ public class RacunService {
 			// Export the report to a PDF file
 			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\Racuni.pdf");
 			System.out.println("PDF File Generated !!");
+		
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -105,9 +116,14 @@ public class RacunService {
     		RacunDTO rDTO = new RacunDTO(r);
     		
     		try {
-    			QrGeneratorFromText.generateQr(rDTO.getStan().getSifra(),rDTO.getStan().getVlasnik().getIme() + rDTO.getStan().getVlasnik().getPrezime(), 
-    			rDTO.getZaPlacanje(), rDTO.getPozivNaBroj());
-    			rDTO.setSlikaQrStan(rDTO.getStan().getSifra() + ".png");
+    			if (QrGeneratorFromText.generateQr(rDTO.getStan().getSifra(),rDTO.getStan().getVlasnik().getIme() + rDTO.getStan().getVlasnik().getPrezime(), 
+    			rDTO.getZaPlacanje(), rDTO.getPozivNaBroj())) {
+    				rDTO.setSlikaQrStan(rDTO.getStan().getSifra() + ".png");
+    				
+    			} else {
+    				rDTO.setSlikaQrStan("");
+    			}
+    			
     		} catch (Exception ex) {
     			
     			ex.printStackTrace();
