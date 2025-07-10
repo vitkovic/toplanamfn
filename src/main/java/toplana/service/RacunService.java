@@ -121,7 +121,7 @@ public class RacunService {
     				rDTO.setSlikaQrStan(rDTO.getStan().getSifra() + ".png");
     				
     			} else {
-    				rDTO.setSlikaQrStan("");
+    				rDTO.setSlikaQrStan("c://toplana//temp//empty.png");
     			}
     			
     		} catch (Exception ex) {

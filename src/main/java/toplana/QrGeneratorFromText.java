@@ -16,6 +16,7 @@ import com.google.zxing.EncodeHintType;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,36 +26,54 @@ public class QrGeneratorFromText {
 	   private static final Logger logger = LoggerFactory.getLogger( QrGeneratorFromText.class);
 
     public static boolean generateQr(String sifra,String senderData, BigDecimal ammount, String pozivnaBroj) throws IOException, WriterException {
-        // QR payload string
+      
     	
-    	//pozivnaBroj = "97";
-    	//String sifraTemp = "163220000111111111000";
-    	//sifraTemp = sifra;
-     
+    	boolean serviceCreated = false;
+    	boolean serviceNeeded = false;
+    	
+    	ammount = ammount.setScale(2, RoundingMode.HALF_UP);
+    	String value = ammount.toString();
+    	
+    	if (value.lastIndexOf(".") == -1) {
+    		value += ",00";
+    	} else {
+    		value = value.replace('.', ',');
+    	}
     	  
         String qrText =
             "K:PR|V:01|C:1|R:840000000174566663|N:MFN AL. Medvedeva 14"
-            + "|I:RSD" + ammount.toString().replace('.', ',')+"|P:" + senderData 
+            + "|I:RSD" + value +"|P:" + senderData 
             + "|SF:189|S:UPLATA PO RAČUNU ZA TOPLOTNU EN"
             + "|RO:" + "00" + sifra;
 
         
         
     	// Test qr validity
-        try {
-        	if (!QrGeneratorService.testService(sifra, senderData, ammount, pozivnaBroj)) {
-        		System.out.println("✅ QR code not generated");
-        		logger.error("Wrong data sent to qr service!");
-        		return false;
-        	
-        	}
         
-        } catch (Exception ex) {
-        	ex.printStackTrace();
-        	logger.error("QR Service Exception!");
-        	return false;
-        } 
+        if (serviceNeeded) {
+	        try {
+	        	if (!QrGeneratorService.testService(sifra, senderData, ammount, pozivnaBroj)) {
+	        		System.out.println("✅ QR code not generated");
+	        		logger.error("Wrong data sent to qr service!");
+	        		serviceCreated = false;
+	        		return false;
+	        	
+	        	} else {
+	        		serviceCreated = true;
+	        	}
+	        
+	        } catch (Exception ex) {
+	        	ex.printStackTrace();
+	        	logger.error("QR Service Exception!");
+	        	serviceCreated = false;
+	        	return false;
+	        }
+        
+        }
         // Set encoding hints
+        if (serviceNeeded && serviceCreated) {
+        	return true;
+        }
         Map<EncodeHintType, Object> hints = new HashMap<>();
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
