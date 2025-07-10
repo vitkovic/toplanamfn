@@ -14,6 +14,8 @@ public class QrGeneratorService {
     public static boolean testService(String sifra,String senderData, BigDecimal ammount, String pozivnaBroj) throws Exception {
         // JSON request payload
         
+    	
+    	// set ammount for service
     	ammount = ammount.setScale(2, RoundingMode.HALF_UP);
     	String value = ammount.toString();
     	

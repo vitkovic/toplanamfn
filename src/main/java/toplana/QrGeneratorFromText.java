@@ -74,6 +74,8 @@ public class QrGeneratorFromText {
         if (serviceNeeded && serviceCreated) {
         	return true;
         }
+        
+        
         Map<EncodeHintType, Object> hints = new HashMap<>();
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
