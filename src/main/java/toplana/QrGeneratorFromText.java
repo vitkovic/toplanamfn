@@ -13,7 +13,12 @@ import jdk.internal.net.http.common.Log;
 
 import com.google.zxing.EncodeHintType;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -21,7 +26,11 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+
 public class QrGeneratorFromText {
+	
+	   public static BufferedImage awtImage;
 	
 	   private static final Logger logger = LoggerFactory.getLogger( QrGeneratorFromText.class);
 
@@ -86,11 +95,51 @@ public class QrGeneratorFromText {
         BitMatrix matrix = qrCodeWriter.encode(qrText, BarcodeFormat.QR_CODE, 300, 300, hints);
 
         // Output file
-        Path outputFile = Path.of(sifra+".png");
-        MatrixToImageWriter.writeToPath(matrix, "PNG", outputFile);
+        //Path outputFile = Path.of(sifra+".png");
+        //MatrixToImageWriter.writeToPath(matrix, "PNG", outputFile);
+       
+        
+        
+        
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        MatrixToImageWriter.writeToStream(matrix, "PNG", os);
+        
+        
+        // java.awt.image creation
+        
+        BufferedImage img = new BufferedImage(300, 300, BufferedImage.TYPE_INT_RGB);
+        ImageIO.write(img, "png", os);
 
-        System.out.println("✅ QR code generated: " + outputFile.toAbsolutePath());
+        // Now convert back to BufferedImage
+        BufferedImage resultImage = byteArrayOutputStreamToBufferedImage(os);
+        
+       // File imgfile = new File("screenshot.png");
+       // ImageIO.write(resultImage, "png", imgfile);
+        
+        awtImage = resultImage;
+        
+        //System.out.println("Image width: " + resultImage.getWidth());
+        
+        //System.out.print(os);
+
+        //System.out.println("✅ QR code generated: " + outputFile.toAbsolutePath());
         
         return true;
     }
+    
+    public static void main(String[] args) {
+    	try {
+			generateQr("3455678","Djoka", new BigDecimal(1000.45), "00");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    } 
+    public static BufferedImage byteArrayOutputStreamToBufferedImage(ByteArrayOutputStream baos) throws IOException {
+        byte[] imageBytes = baos.toByteArray();
+        ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes);
+        return ImageIO.read(bais); // returns a BufferedImage
+    }
+    
+    
 }

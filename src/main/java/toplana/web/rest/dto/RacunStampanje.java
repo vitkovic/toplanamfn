@@ -1,5 +1,8 @@
 package toplana.web.rest.dto;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+
 public class RacunStampanje {
 	 private Long id;
 	 private String vlasnikPrezime;
@@ -53,6 +56,7 @@ public class RacunStampanje {
 	 private boolean iskljucen;
 	 private boolean dajeSePopust;
 	 private String slikaQrStan;
+	 private Image imgQr;
 	 
 	 
 	public RacunStampanje() {}
@@ -68,7 +72,7 @@ public class RacunStampanje {
 			String cenaOdrzavanje, String utrosakOdrzavanjeBezPdv, String utrosakOdrzavanjePdv,
 			String utrosakOdrzavanje, String zaduzenjePoRacunu, String ukupnoZaduzenje, String zaPlacanje,
 			String datumRacuna, String valutaPlacanja, String datumSaldiranja, String dugIzPrethodnogPerioda,
-			String brojRacuna, String zaMesec, String popust,  boolean iskljucen, boolean dajeSePopust, String cenaFixIskljucen, String period, String qr) {
+			String brojRacuna, String zaMesec, String popust,  boolean iskljucen, boolean dajeSePopust, String cenaFixIskljucen, String period, String qr, BufferedImage bufImg) {
 
 		this.id = id;
 		this.vlasnikPrezime = vlasnikPrezime;
@@ -121,6 +125,7 @@ public class RacunStampanje {
 		this.cenaFixIskljucen = cenaFixIskljucen;
 		this.period = period;
 		this.slikaQrStan = qr;
+		this.imgQr = bufImg;
 		
 		String vPrezime = "";
 		if(this.vlasnikPrezime != null)
@@ -140,6 +145,14 @@ public class RacunStampanje {
 	
 	
 	
+	public Image getImgQr() {
+		return imgQr;
+	}
+
+	public void setImgQr(Image imgQr) {
+		this.imgQr = imgQr;
+	}
+
 	public String getSlikaQrStan() {
 		return slikaQrStan;
 	}

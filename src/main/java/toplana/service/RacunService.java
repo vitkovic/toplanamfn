@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -78,7 +80,7 @@ public class RacunService {
 		 
 		try {
 			
-			ClassPathResource cl = new ClassPathResource("/jasper/Racun2.jrxml");
+			ClassPathResource cl = new ClassPathResource("/jasper/Racun3.jrxml");
 			
 			//File file = ResourceUtils.getFile("classpath:jasper/Racun2.jrxml");
 			InputStream input = cl.getInputStream();//new FileInputStream(file);
@@ -120,6 +122,15 @@ public class RacunService {
     			rDTO.getZaPlacanje(), rDTO.getPozivNaBroj())) {
     				rDTO.setSlikaQrStan(rDTO.getStan().getSifra() + ".png");
     				
+    				
+    				//System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+    				
+    				//System.out.print(QrGeneratorFromText.awtImage);
+    				// File imgfile = new File("screenshot.png");
+    			    // ImageIO.write(QrGeneratorFromText.awtImage, "png", imgfile);
+    				
+    				rDTO.setImgQr(QrGeneratorFromText.awtImage);
+    				
     			} else {
     				rDTO.setSlikaQrStan("c://toplana//temp//empty.png");
     			}
@@ -159,9 +170,10 @@ public class RacunService {
     				rDTO.getZaPlacanje().toString(), rDTO.getDatumRacuna().format(formatter),
     				rDTO.getValutaPlacanja().format(formatter), rDTO.getDatumSaldiranja().format(formatter),
     				rDTO.getUkupnoZaduzenje().toString(), "1", a, rDTO.getPopust().toString(),
-    				rDTO.getStan().isUkljucen(), rDTO.getPopust() == null ? false : true, rDTO.getCenaFixIskljucen().toString(), rDTO.getPeriod(), rDTO.getSlikaQrStan()
+    				rDTO.getStan().isUkljucen(), rDTO.getPopust() == null ? false : true, rDTO.getCenaFixIskljucen().toString(), rDTO.getPeriod(), rDTO.getSlikaQrStan(), rDTO.getImgQr()
     				);    				
-    		racuniStampanje.add(rs);   				    				    				    				
+    		racuniStampanje.add(rs);   
+    		
     	}
     	return this.generateReport(racuniStampanje);
     	

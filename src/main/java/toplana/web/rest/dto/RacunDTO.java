@@ -73,6 +73,8 @@ public class RacunDTO {
 	 private StanjaPodstaniceZaRacun stanjeZaRacun;
 	 
 	private String slikaQrStan, pozivNaBroj;
+	
+	private java.awt.image.BufferedImage imgQr;
 
 	public RacunDTO() {
 		super();
@@ -135,6 +137,7 @@ public class RacunDTO {
     	
     	this.slikaQrStan = null;
     	this.pozivNaBroj = "289";
+    	this.imgQr = null;
     	
 	}
 
@@ -142,6 +145,14 @@ public class RacunDTO {
 
 	
 	
+	public java.awt.image.BufferedImage getImgQr() {
+		return imgQr;
+	}
+
+	public void setImgQr(java.awt.image.BufferedImage imgQr) {
+		this.imgQr = imgQr;
+	}
+
 	public String getPozivNaBroj() {
 		return pozivNaBroj;
 	}
