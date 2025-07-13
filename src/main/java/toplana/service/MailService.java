@@ -5,6 +5,7 @@ import toplana.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Locale;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -12,6 +13,7 @@ import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -20,6 +22,8 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
+import toplana.web.rest.dto.MailWithAttachment;
+import java.io.File;
 /**
  * Service for sending emails.
  * <p>
@@ -103,4 +107,34 @@ public class MailService {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
     }
+    
+    @Async
+    public void sendMultipleEmails(List<MailWithAttachment> emails) {
+        for (MailWithAttachment mail : emails) {
+            try {
+                sendMailWithAttachment(mail);
+            } catch (MessagingException e) {
+                // Handle exception per email (e.g., log or retry)
+                System.err.println("Failed to send to " + mail.getTo() + ": " + e.getMessage());
+            }
+        }
+    }
+    @Async
+    private void sendMailWithAttachment(MailWithAttachment mail) throws MessagingException {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+        helper.setTo(mail.getTo());
+        helper.setSubject(mail.getSubject());
+        helper.setText(mail.getBody(), false);
+
+        FileSystemResource file = new FileSystemResource(new File(mail.getAttachmentPath()));
+        helper.addAttachment(file.getFilename(), file);
+
+        javaMailSender.send(message);
+    }
+    
+    
+    
+    
 }

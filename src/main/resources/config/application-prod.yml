@@ -47,9 +47,15 @@ spring:
     contexts: prod
   mail:
     host: localhost
-    port: 25
+    port: 587
     username:
     password:
+	properties:
+	  mail:
+	  smtp:
+	  auth: true
+	  starttls:
+	  enable: true
   thymeleaf:
     cache: true
 putanja:

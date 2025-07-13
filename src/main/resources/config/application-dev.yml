@@ -55,9 +55,15 @@ spring:
     contexts: dev
   mail:
     host: localhost
-    port: 25
+    port: 587
     username:
     password:
+	properties:
+	  mail:
+	  smtp:
+	  auth: true
+	  starttls:
+	  enable: true
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
