@@ -38,6 +38,7 @@
         "ugovorRate": "Уговор - рате",
         "stanjaPodstaniceZaRacun": "Stanja Podstanice Za Racun",
         "stanStanje": "Stan Stanje",
+        "vlasnik": "Vlasnik",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

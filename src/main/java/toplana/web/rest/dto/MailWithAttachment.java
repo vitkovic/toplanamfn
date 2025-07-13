@@ -1,7 +1,14 @@
 package toplana.web.rest.dto;
 
 public class MailWithAttachment {
-    private String to;
+    public MailWithAttachment(String to, String subject, String body, String attachmentPath) {
+		super();
+		this.to = to;
+		this.subject = subject;
+		this.body = body;
+		this.attachmentPath = attachmentPath;
+	}
+	private String to;
     private String subject;
     private String body;
     private String attachmentPath;

@@ -2,6 +2,7 @@ package toplana.domain;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -35,6 +36,10 @@ public class Vlasnik implements Serializable {
 
     @Column(name = "naziv")
     private String naziv;
+
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
+    @Column(name = "email")
+    private String email;
 
     @OneToMany(mappedBy = "vlasnik")
     private Set<Stan> stans = new HashSet<>();
@@ -113,6 +118,19 @@ public class Vlasnik implements Serializable {
         this.naziv = naziv;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public Vlasnik email(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Set<Stan> getStans() {
         return stans;
     }
@@ -165,6 +183,7 @@ public class Vlasnik implements Serializable {
             ", brojRacuna='" + getBrojRacuna() + "'" +
             ", partijaRacuna='" + getPartijaRacuna() + "'" +
             ", naziv='" + getNaziv() + "'" +
+            ", email='" + getEmail() + "'" +
             "}";
     }
 }

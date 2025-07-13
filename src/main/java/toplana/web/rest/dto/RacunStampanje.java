@@ -9,9 +9,17 @@ public class RacunStampanje {
 	 private String vlasnikIme;
 	 private String vlasnikNaziv;
 	 private String vlasnikImePrezimeNaziv;
+	 private String vlasnikEmail;
 	 private String stanUlica;
 	 private String stanUlaz;
-	 private String stanBroj;
+	 public String getVlasnikEmail() {
+		return vlasnikEmail;
+	}
+
+	public void setVlasnikEmail(String vlasnikEmail) {
+		this.vlasnikEmail = vlasnikEmail;
+	}
+	private String stanBroj;
 	 private String stanSifra;
 	 private String stanStatus;
 	 private String vlasnikRacun;
@@ -72,7 +80,7 @@ public class RacunStampanje {
 			String cenaOdrzavanje, String utrosakOdrzavanjeBezPdv, String utrosakOdrzavanjePdv,
 			String utrosakOdrzavanje, String zaduzenjePoRacunu, String ukupnoZaduzenje, String zaPlacanje,
 			String datumRacuna, String valutaPlacanja, String datumSaldiranja, String dugIzPrethodnogPerioda,
-			String brojRacuna, String zaMesec, String popust,  boolean iskljucen, boolean dajeSePopust, String cenaFixIskljucen, String period, String qr, BufferedImage bufImg) {
+			String brojRacuna, String zaMesec, String popust,  boolean iskljucen, boolean dajeSePopust, String cenaFixIskljucen, String period, String qr, BufferedImage bufImg, String email) {
 
 		this.id = id;
 		this.vlasnikPrezime = vlasnikPrezime;
@@ -126,6 +134,7 @@ public class RacunStampanje {
 		this.period = period;
 		this.slikaQrStan = qr;
 		this.imgQr = bufImg;
+		this.vlasnikEmail = email;
 		
 		String vPrezime = "";
 		if(this.vlasnikPrezime != null)

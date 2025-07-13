@@ -2,10 +2,10 @@
   "toplanaApp": {
     "vlasnik": {
       "home": {
-        "title": "Власници станова",
-        "createLabel": "Креирање новог власника",
-        "createOrEditLabel": "Креирање и измена власника стана",
-        "notFound": "Није пронађен ни један власник"
+        "title": "Vlasniks",
+        "createLabel": "Kreiraj novi Vlasnik",
+        "createOrEditLabel": "Kreirajte ili izmenite Vlasnik",
+        "notFound": "No Vlasniks found"
       },
       "created": "Kreiran je novi Vlasnik pod nazivom {{ param }}",
       "updated": "Vlasnik pod nazivom {{ param }} je ažuriran",
@@ -16,13 +16,13 @@
       "detail": {
         "title": "Vlasnik"
       },
-      "ime": "Име",
-      "prezime": "Презиме",
-      "brojRacuna": "Број рачуна",
-      "partijaRacuna": "Партија рачуна",
-      "naziv": "Назив",
-      "stan": "Стан",      
-      "prezimeIime": "Презиме и име"
+      "ime": "Ime",
+      "prezime": "Prezime",
+      "brojRacuna": "Broj Racuna",
+      "partijaRacuna": "Partija Racuna",
+      "naziv": "Naziv",
+      "email": "Email",
+      "stan": "Stan"
     }
   }
 }

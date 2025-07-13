@@ -61,13 +61,17 @@ public class QrGeneratorFromText {
         
         if (serviceNeeded) {
 	        try {
-	        	if (!QrGeneratorService.testService(sifra, senderData, ammount, pozivnaBroj)) {
+	        	
+	        	BufferedImage buffimg = QrGeneratorService.testService(sifra, senderData, ammount, pozivnaBroj); 
+	        	
+	        	if (buffimg != null) {
 	        		System.out.println("✅ QR code not generated");
 	        		logger.error("Wrong data sent to qr service!");
 	        		serviceCreated = false;
 	        		return false;
 	        	
 	        	} else {
+	        		awtImage = buffimg;
 	        		serviceCreated = true;
 	        	}
 	        

@@ -54,16 +54,18 @@ spring:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev
   mail:
-    host: localhost
+    host: smtp.office365.com
     port: 587
-    username:
-    password:
-	properties:
-	  mail:
-	  smtp:
-	  auth: true
-	  starttls:
-	  enable: true
+    username: nikola.vitkovic@masfak.ni.ac.rs
+    password: 1Milirena76$
+    properties:
+      mail:
+        from: nikola.vitkovic@masfak.ni.ac.rs
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
@@ -102,7 +104,7 @@ jhipster:
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://127.0.0.1:8080
+    from: nikola.vitkovic@masfak.ni.ac.rs
   metrics:
     logs: # Reports metrics in the logs
       enabled: false

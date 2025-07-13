@@ -30,10 +30,11 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import toplana.QrGeneratorFromText;
 import toplana.domain.Racun;
+import toplana.web.rest.dto.MailWithAttachment;
 import toplana.web.rest.dto.RacunDTO;
 import toplana.web.rest.dto.RacunStampanje;
 import toplana.web.rest.dto.RekapitulacijaPoPdvDTO;
-
+import toplana.service.MailService;
 @Service
 @Transactional
 public class RacunService {
@@ -44,9 +45,19 @@ public class RacunService {
     
     private String downFileName;
     
+    private final MailService mailService;
+    
     public String getDownFileName() {
 		return downFileName;
 	}
+
+    
+	public RacunService(MailService mailService) {
+		this.mailService = mailService;
+	}
+
+
+
 
 	public void setDownFileName(String downFileName) {
 		this.downFileName = downFileName;
@@ -79,8 +90,8 @@ public class RacunService {
     public String generateReport(List<RacunStampanje> racuni) {
 		 
 		try {
-			
-			ClassPathResource cl = new ClassPathResource("/jasper/Racun3.jrxml");
+			List<MailWithAttachment> emailList = new ArrayList<>();
+			ClassPathResource cl = new ClassPathResource("/jasper/Racun4.jrxml");
 			
 			//File file = ResourceUtils.getFile("classpath:jasper/Racun2.jrxml");
 			InputStream input = cl.getInputStream();//new FileInputStream(file);
@@ -94,8 +105,19 @@ public class RacunService {
 			// Fill the report
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 			// Export the report to a PDF file
-			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\Racuni.pdf");
+			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\Racun.pdf");
 			System.out.println("PDF File Generated !!");
+			
+			for(RacunStampanje r : racuni) { 
+				
+				emailList.add(
+	    			    new MailWithAttachment("nvitko@gmail.com", "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", pdfPutanja + "\\Racun.pdf")
+	    			);
+
+				
+			}
+			mailService.sendMultipleEmails(emailList);
+			
 		
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -112,6 +134,7 @@ public class RacunService {
     	List<RacunStampanje> racuniStampanje = new ArrayList<RacunStampanje>();
     	Locale loc = new Locale("SH");
     	
+    	
     	for(Racun r : racuni) {
     		
     		r.getNacrtRacuna().getStanjaPodstaniceZaRacune();
@@ -121,15 +144,7 @@ public class RacunService {
     			if (QrGeneratorFromText.generateQr(rDTO.getStan().getSifra(),rDTO.getStan().getVlasnik().getIme() + rDTO.getStan().getVlasnik().getPrezime(), 
     			rDTO.getZaPlacanje(), rDTO.getPozivNaBroj())) {
     				rDTO.setSlikaQrStan(rDTO.getStan().getSifra() + ".png");
-    				
-    				
-    				//System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-    				
-    				//System.out.print(QrGeneratorFromText.awtImage);
-    				// File imgfile = new File("screenshot.png");
-    			    // ImageIO.write(QrGeneratorFromText.awtImage, "png", imgfile);
-    				
-    				rDTO.setImgQr(QrGeneratorFromText.awtImage);
+    				rDTO.setImgQr(QrGeneratorFromText.awtImage); // set byte image to transfer - no saving on disk
     				
     			} else {
     				rDTO.setSlikaQrStan("c://toplana//temp//empty.png");
@@ -170,11 +185,16 @@ public class RacunService {
     				rDTO.getZaPlacanje().toString(), rDTO.getDatumRacuna().format(formatter),
     				rDTO.getValutaPlacanja().format(formatter), rDTO.getDatumSaldiranja().format(formatter),
     				rDTO.getUkupnoZaduzenje().toString(), "1", a, rDTO.getPopust().toString(),
-    				rDTO.getStan().isUkljucen(), rDTO.getPopust() == null ? false : true, rDTO.getCenaFixIskljucen().toString(), rDTO.getPeriod(), rDTO.getSlikaQrStan(), rDTO.getImgQr()
+    				rDTO.getStan().isUkljucen(), rDTO.getPopust() == null ? false : true, rDTO.getCenaFixIskljucen().toString(), rDTO.getPeriod(),
+    				rDTO.getSlikaQrStan(), rDTO.getImgQr(), rDTO.getStan().getVlasnik().getEmail()
     				);    				
-    		racuniStampanje.add(rs);   
+    		racuniStampanje.add(rs); 
+    		
+    	
+    		
     		
     	}
+    	
     	return this.generateReport(racuniStampanje);
     	
     }

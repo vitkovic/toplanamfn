@@ -16,6 +16,7 @@ const validations: any = {
     brojRacuna: {},
     partijaRacuna: {},
     naziv: {},
+    email: {},
   },
 };
 

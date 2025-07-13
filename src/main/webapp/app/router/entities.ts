@@ -902,5 +902,30 @@ export default [
     component: StanStanjeDetails,
     meta: { authorities: [Authority.USER] },
   },
+
+  {
+    path: '/vlasnik',
+    name: 'Vlasnik',
+    component: Vlasnik,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/vlasnik/new',
+    name: 'VlasnikCreate',
+    component: VlasnikUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/vlasnik/:vlasnikId/edit',
+    name: 'VlasnikEdit',
+    component: VlasnikUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/vlasnik/:vlasnikId/view',
+    name: 'VlasnikView',
+    component: VlasnikDetails,
+    meta: { authorities: [Authority.USER] },
+  },
   // jhipster-needle-add-entity-to-router - JHipster will add entities to the router here
 ];

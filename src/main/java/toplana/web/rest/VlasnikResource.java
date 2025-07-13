@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -53,7 +54,7 @@ public class VlasnikResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/vlasniks")
-    public ResponseEntity<Vlasnik> createVlasnik(@RequestBody Vlasnik vlasnik) throws URISyntaxException {
+    public ResponseEntity<Vlasnik> createVlasnik(@Valid @RequestBody Vlasnik vlasnik) throws URISyntaxException {
         log.debug("REST request to save Vlasnik : {}", vlasnik);
         if (vlasnik.getId() != null) {
             throw new BadRequestAlertException("A new vlasnik cannot already have an ID", ENTITY_NAME, "idexists");
@@ -74,7 +75,7 @@ public class VlasnikResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/vlasniks")
-    public ResponseEntity<Vlasnik> updateVlasnik(@RequestBody Vlasnik vlasnik) throws URISyntaxException {
+    public ResponseEntity<Vlasnik> updateVlasnik(@Valid @RequestBody Vlasnik vlasnik) throws URISyntaxException {
         log.debug("REST request to update Vlasnik : {}", vlasnik);
         if (vlasnik.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
@@ -97,14 +98,6 @@ public class VlasnikResource {
         Page<Vlasnik> page = vlasnikRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
-    }
-    
-    @GetMapping("/vlasniksAll")
-    public List<Vlasnik> getAllVlasniks() {
-        log.debug("REST request to get a page of Vlasniks");
-        List<Vlasnik> vlasnici = vlasnikRepository.findAll();
-        //HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return vlasnici;
     }
 
     /**
@@ -129,14 +122,7 @@ public class VlasnikResource {
     @DeleteMapping("/vlasniks/{id}")
     public ResponseEntity<Void> deleteVlasnik(@PathVariable Long id) {
         log.debug("REST request to delete Vlasnik : {}", id);
-        //provera da li vlasnik moze da se obrise (da li je vlasnik stana)
-        Optional<Vlasnik> vlasnikO = vlasnikRepository.findById(id);
-        Vlasnik vlasnik = vlasnikO.get();
-        if(vlasnik.getStans() != null && vlasnik.getStans().size() >0) {
-        	return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "toplanaApp.vlasnik.imaStan", "")).build();
-        }else {
-        	vlasnikRepository.deleteById(id);
-        	return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
-        }      		                
+        vlasnikRepository.deleteById(id);
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
 }

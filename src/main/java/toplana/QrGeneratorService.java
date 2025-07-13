@@ -1,5 +1,7 @@
 package toplana;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URI;
@@ -9,11 +11,14 @@ import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import javax.imageio.ImageIO;
+
 public class QrGeneratorService {
 
-    public static boolean testService(String sifra,String senderData, BigDecimal ammount, String pozivnaBroj) throws Exception {
+    public static BufferedImage testService(String sifra,String senderData, BigDecimal ammount, String pozivnaBroj) throws Exception {
         // JSON request payload
-        
+    	
+    	BufferedImage bufferedImage = null;
     	
     	// set ammount for service
     	ammount = ammount.setScale(2, RoundingMode.HALF_UP);
@@ -72,13 +77,16 @@ public class QrGeneratorService {
 
         if (response.statusCode() == 200) {
             Path outputPath = Path.of(sifra+".png");
-            Files.write(outputPath, response.body());
+            
+            ByteArrayInputStream bais = new ByteArrayInputStream(response.body()); // convert to bytearray
+            bufferedImage = ImageIO.read(bais); // create buffered image for jhipster
+            //Files.write(outputPath, response.body());
             System.out.println("✅ QR code saved to: " + outputPath.toAbsolutePath());
-            return true;
+            return bufferedImage;
         } else {
             System.err.println("❌ Failed to generate QR. Status code: " + response.statusCode());
             System.err.println(new String(response.body()));
-            return false;
+            return null;
         }
         
     }

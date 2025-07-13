@@ -271,10 +271,6 @@ public class RacunResource {
     	racuni.add(r.get());
     	String filename = racunService.createRacuneZaStampanje(racuni);
     	File file = new File(filename);   	       
-
-    	
-    	System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ file: " + filename);
-    	
     	
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");

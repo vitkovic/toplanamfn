@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
@@ -122,18 +123,59 @@ public class MailService {
     @Async
     private void sendMailWithAttachment(MailWithAttachment mail) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, StandardCharsets.UTF_8.name());
 
-        helper.setTo(mail.getTo());
+        String toAddress = mail.getTo();
+
+        if (toAddress == null || toAddress.trim().isEmpty()) {
+            throw new MessagingException("Email address is null or empty");
+        }
+
+        // Inspect raw input
+        System.out.println(">>> RAW to address: [" + toAddress + "]");
+        System.out.println(">>> Char-by-char analysis:");
+        for (int i = 0; i < toAddress.length(); i++) {
+            char c = toAddress.charAt(i);
+            System.out.printf("Char[%d] = '%c' (ASCII: %d)\n", i, c, (int) c);
+        }
+
+        // Stronger sanitization
+        String sanitized = toAddress.replaceAll("[^\\p{ASCII}]", "")   // remove non-ASCII
+                                    .replaceAll("[\\r\\n\\t]", "")     // remove newlines/tabs
+                                    .trim();
+
+        System.out.println(">>> Sanitized to address: [" + sanitized + "]");
+
+        // Validate with InternetAddress parser (more robust)
+        try {
+            InternetAddress[] parsed = InternetAddress.parse(sanitized, true);
+            helper.setTo(parsed);
+        } catch (Exception e) {
+            throw new MessagingException("Invalid email address: " + sanitized, e);
+        }
+
+        // Set from address
+        String fromAddress = jHipsterProperties.getMail().getFrom();
+        if (fromAddress == null || fromAddress.isEmpty()) {
+            throw new MessagingException("From address not configured in jhipster.mail.from");
+        }
+        
+        
+        helper.setFrom(fromAddress);
         helper.setSubject(mail.getSubject());
-        helper.setText(mail.getBody(), false);
+        String html = "<h4>Poštovani,</h4><p>"+mail.getBody()+"</p>";
+        helper.setText(html, true);
 
-        FileSystemResource file = new FileSystemResource(new File(mail.getAttachmentPath()));
-        helper.addAttachment(file.getFilename(), file);
+        File attachment = new File(mail.getAttachmentPath());
+        if (!attachment.exists()) {
+            throw new MessagingException("Attachment file not found: " + mail.getAttachmentPath());
+        }
+
+        helper.addAttachment(attachment.getName(), new FileSystemResource(attachment));
 
         javaMailSender.send(message);
+        System.out.println("✅ Email sent to: " + sanitized);
     }
-    
     
     
     

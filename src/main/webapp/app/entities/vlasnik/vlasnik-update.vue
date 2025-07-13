@@ -34,6 +34,16 @@
                         <input type="text" class="form-control" name="naziv" id="vlasnik-naziv"
                             :class="{'valid': !$v.vlasnik.naziv.$invalid, 'invalid': $v.vlasnik.naziv.$invalid }" v-model="$v.vlasnik.naziv.$model" />
                     </div>
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="$t('toplanaApp.vlasnik.email')" for="vlasnik-email">Email</label>
+                        <input type="text" class="form-control" name="email" id="vlasnik-email"
+                            :class="{'valid': !$v.vlasnik.email.$invalid, 'invalid': $v.vlasnik.email.$invalid }" v-model="$v.vlasnik.email.$model" />
+                        <div v-if="$v.vlasnik.email.$anyDirty && $v.vlasnik.email.$invalid">
+                            <small class="form-text text-danger" v-if="!$v.vlasnik.email.pattern" v-text="$t('entity.validation.pattern', {pattern: 'Email'})">
+                                This field should follow pattern for "Email".
+                            </small>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

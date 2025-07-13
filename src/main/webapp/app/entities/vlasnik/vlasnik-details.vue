@@ -34,6 +34,12 @@
                     <dd>
                         <span>{{vlasnik.naziv}}</span>
                     </dd>
+                    <dt>
+                        <span v-text="$t('toplanaApp.vlasnik.email')">Email</span>
+                    </dt>
+                    <dd>
+                        <span>{{vlasnik.email}}</span>
+                    </dd>
                 </dl>
                 <button type="submit"
                         v-on:click.prevent="previousState()"

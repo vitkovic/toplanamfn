@@ -31,7 +31,7 @@ management:
       mode: full
   health:
     mail:
-      enabled: false # When using the MailService, configure an SMTP server and set this to true
+      enabled: true # When using the MailService, configure an SMTP server and set this to true
   metrics:
     export:
       # Prometheus is the default metrics backend
@@ -143,8 +143,6 @@ jhipster:
   #     exposed-headers: "Authorization,Link,X-Total-Count"
   #     allow-credentials: true
   #     max-age: 1800
-  mail:
-    from: toplana@localhost
   swagger:
     default-include-pattern: /api/.*
     title: toplana API

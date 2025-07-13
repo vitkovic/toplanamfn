@@ -30,7 +30,7 @@ describe('Service Tests', () => {
     beforeEach(() => {
       service = new VlasnikService();
 
-      elemDefault = new Vlasnik(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Vlasnik(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -87,6 +87,7 @@ describe('Service Tests', () => {
             brojRacuna: 'BBBBBB',
             partijaRacuna: 'BBBBBB',
             naziv: 'BBBBBB',
+            email: 'BBBBBB',
           },
           elemDefault
         );
@@ -118,6 +119,7 @@ describe('Service Tests', () => {
             brojRacuna: 'BBBBBB',
             partijaRacuna: 'BBBBBB',
             naziv: 'BBBBBB',
+            email: 'BBBBBB',
           },
           elemDefault
         );

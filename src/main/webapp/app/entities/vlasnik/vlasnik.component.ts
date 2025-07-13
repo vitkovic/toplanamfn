@@ -77,7 +77,7 @@ export default class Vlasnik extends mixins(AlertMixin) {
       });
   }
 
-  public sort(): Array<any> {    
+  public sort(): Array<any> {
     const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
     if (this.propOrder !== 'id') {
       result.push('id');
