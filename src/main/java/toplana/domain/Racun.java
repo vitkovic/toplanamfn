@@ -181,11 +181,15 @@ public class Racun implements Serializable {
     	this.ukupnoZaduzenje = saldo;    
     	
     	
-   	 	
+    	if (p.getId() > 1105) {
+    		System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+    	
+    		
+    	}
     	
     	if(stan.isUkljucen()) {
     		
-    		if (p.getId() > 1105 && (stan.getId()==607 || stan.getId()==608 || stan.getId()==684 || stan.getId()==685)) { // 1105 treba definisati kao varijablu u parametrima i obrisati ove posebne id stanova
+    		if (p.getId() > 1105) { // 1105 treba definisati kao varijablu u parametrima i obrisati ove posebne id stanova
     			
     			
     			System.out.println(p.getId() + "********************************************************************************" + spr.getNovoStanje().getStanje());
@@ -254,10 +258,20 @@ public class Racun implements Serializable {
     		}
     	}else {
     		
+    		this.cenaFix = this.cenaFixIskljucen;
+    		
     		if (p.getId() > 1105) {
+    			
+    			System.out.println("ISKLJUCEN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     			
     			this.utrosakUKwh = new BigDecimal("0.");
     			this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFixIskljucen).setScale(2, RoundingMode.HALF_UP);
+    			
+    			
+    			System.out.println("Varijabila:" + utrosakUKwh);
+    			 
+    			 System.out.println("Fiksni:" + this.utrosakFiksni);
+    			
     			
     		} else {
     		
@@ -305,9 +319,19 @@ public class Racun implements Serializable {
     	
     	if (p.getId() > 1105) {
     		
+    		System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+    		
     		this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
 			this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
 			this.utrosakOdrzavanje = new BigDecimal("0.");
+			
+			
+			System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+this.utrosakFiksni);
+			
+			
+			
+			
+			
 	
 		} else {
     	

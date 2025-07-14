@@ -246,8 +246,8 @@ public class NacrtRacunaResource {
                 suma = suma.add(BigDecimal.valueOf(val));
                 
                 
-                System.out.println(map + "    #####################################################################################################");
-                System.out.println(suma + "    #####################################################################################################");
+              //  System.out.println(map + "    #####################################################################################################");
+               // System.out.println(suma + "    #####################################################################################################");
             }
             
            
@@ -265,7 +265,7 @@ public class NacrtRacunaResource {
         		if (p.getId() > 1105) { // za nove podstanice
         			
         			 stan.setZadnjaStanja(stanstanjeRepository.getLastStatesForStan(stan.getId()));
-        			 
+        		//	 System.out.println(stan.getId() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         			
         		}
         		
