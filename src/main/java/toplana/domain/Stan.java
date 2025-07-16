@@ -49,11 +49,26 @@ public class Stan implements Serializable {
 
     @Column(name = "grad")
     private String grad;
+    
+    @Column(name = "udeo", precision = 21, scale = 2, nullable = true)
+    private BigDecimal udeo;
 
     @Column(name = "postanski_broj")
     private String postanskiBroj;
 
-    @Column(name = "broj_merila")
+    public BigDecimal getUdeo() {
+		return udeo;
+	}
+
+	public void setUdeo(BigDecimal udeo) {
+		this.udeo = udeo;
+	}
+
+	public Boolean getUkljucen() {
+		return ukljucen;
+	}
+
+	@Column(name = "broj_merila")
     private String brojMerila;
 
     @OneToMany(mappedBy = "stan")
@@ -184,6 +199,11 @@ public class Stan implements Serializable {
 
     public Stan sifra(String sifra) {
         this.sifra = sifra;
+        return this;
+    }
+    
+    public Stan udeo(BigDecimal udeo) {
+        this.udeo = udeo;
         return this;
     }
 
@@ -474,6 +494,7 @@ public class Stan implements Serializable {
             ", grad='" + getGrad() + "'" +
             ", postanskiBroj='" + getPostanskiBroj() + "'" +
             ", brojMerila='" + getBrojMerila() + "'" +
+            ", Udeo='" + getUdeo() + "'" +
             "}";
     }
 }
