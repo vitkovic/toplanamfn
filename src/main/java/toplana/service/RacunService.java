@@ -108,14 +108,14 @@ public class RacunService {
 			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\Racun.pdf");
 			System.out.println("PDF File Generated !!");
 			
-			for(RacunStampanje r : racuni) { 
+			//for(RacunStampanje r : racuni) { 
 				
-				emailList.add(
-	    			    new MailWithAttachment("nvitko@gmail.com", "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", pdfPutanja + "\\Racun.pdf")
-	    			);
+				//emailList.add(
+	    			//    new MailWithAttachment("nvitko@gmail.com", "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", pdfPutanja + "\\Racun.pdf")
+	    		//	);
 
 				
-			}
+			//}
 			mailService.sendMultipleEmails(emailList);
 			
 		
