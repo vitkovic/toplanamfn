@@ -53,6 +53,18 @@
                         <span>{{stan.postanskiBroj}}</span>
                     </dd>
                     <dt>
+                        <span v-text="$t('toplanaApp.stan.brojMerila')">Broj Merila</span>
+                    </dt>
+                    <dd>
+                        <span>{{stan.brojMerila}}</span>
+                    </dd>
+                    <dt>
+                        <span v-text="$t('toplanaApp.stan.udeo')">Udeo</span>
+                    </dt>
+                    <dd>
+                        <span>{{stan.udeo}}</span>
+                    </dd>
+                    <dt>
                         <span v-text="$t('toplanaApp.stan.tipPotrosaca')">Tip Potrosaca</span>
                     </dt>
                     <dd>
