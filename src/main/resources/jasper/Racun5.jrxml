@@ -773,7 +773,7 @@
 				<textFieldExpression><![CDATA[$F{utrosakVarijabilniPdv}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="420" y="382" width="27" height="12" uuid="25c1101b-46db-454e-b205-090678d02adb">
+				<reportElement x="418" y="396" width="27" height="12" uuid="25c1101b-46db-454e-b205-090678d02adb">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="95d9c408-7a6a-4b67-bc02-c89b568169e5"/>
 				</reportElement>
 				<textElement>
@@ -834,15 +834,6 @@
 				<textFieldExpression><![CDATA[$F{utrosakFiksniBezPdv}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="419" y="396" width="27" height="12" uuid="06160c00-907e-4d2b-8d80-308dc83cdfc6">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06990049-b1d3-43fe-b0b9-b1b998e8b04d"/>
-				</reportElement>
-				<textElement>
-					<font fontName="DejaVu Sans" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{pdv1}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="447" y="382" width="45" height="12" uuid="c76df143-57d9-4424-aa45-a60456f6f27a">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bcc70c67-c942-4900-af8a-3857fdd7d0d7"/>
 				</reportElement>
@@ -897,16 +888,7 @@
 				<textFieldExpression><![CDATA[$F{utrosakOdrzavanjeBezPdv}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="364" y="396" width="56" height="12" uuid="ad1c90bf-3823-4732-b4ea-966043358382">
-					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4f261a24-0685-4e18-8d20-8447e79cb0de"/>
-				</reportElement>
-				<textElement>
-					<font fontName="DejaVu Sans" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{utrosakOdrzavanjePdv}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="420" y="370" width="27" height="12" uuid="5652f9f6-285c-41da-a8ff-89ae6d3bc835">
+				<reportElement x="418" y="369" width="27" height="12" uuid="5652f9f6-285c-41da-a8ff-89ae6d3bc835">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94370175-0380-4326-a4be-11d9b89c248a"/>
 				</reportElement>
 				<textElement>
@@ -1307,6 +1289,24 @@
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Za redovna izmirenja računa, odobrava se popust od 5%."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="383" width="27" height="12" uuid="8d6012e8-0fac-4dba-9cf4-c703b1c216ae">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94370175-0380-4326-a4be-11d9b89c248a"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pdv2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="363" y="396" width="46" height="12" uuid="4bd93315-ce57-4e55-8012-741e20f2131d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="65614a12-a0e5-4753-a101-2c5f8f236b89"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakOdrzavanjeBezPdv}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

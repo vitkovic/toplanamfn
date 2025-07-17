@@ -112,7 +112,7 @@ public class RacunService {
 			// Export the report to a PDF file
 			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\Racun.pdf");
 			
-			                          
+			                             
 			for(RacunStampanje r : racuni) { 
 				
 				emailList.add(
