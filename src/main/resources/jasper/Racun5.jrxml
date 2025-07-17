@@ -658,7 +658,7 @@
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["MAŠINSKI FAKULTET - NIŠ, A. Medvedeva 14, Telefon: 018 - 500-675"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["MAŠINSKI FAKULTET - NIŠ, A. Medvedeva 14, Telefon: 018 - 500-674"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="72" y="23" width="430" height="14" uuid="2207dc36-d437-4810-9723-b6ee0587008a">
@@ -773,7 +773,7 @@
 				<textFieldExpression><![CDATA[$F{utrosakVarijabilniPdv}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="420" y="368" width="27" height="12" uuid="25c1101b-46db-454e-b205-090678d02adb">
+				<reportElement x="420" y="382" width="27" height="12" uuid="25c1101b-46db-454e-b205-090678d02adb">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="95d9c408-7a6a-4b67-bc02-c89b568169e5"/>
 				</reportElement>
 				<textElement>
@@ -834,7 +834,7 @@
 				<textFieldExpression><![CDATA[$F{utrosakFiksniBezPdv}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="420" y="382" width="27" height="12" uuid="06160c00-907e-4d2b-8d80-308dc83cdfc6">
+				<reportElement x="419" y="396" width="27" height="12" uuid="06160c00-907e-4d2b-8d80-308dc83cdfc6">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06990049-b1d3-43fe-b0b9-b1b998e8b04d"/>
 				</reportElement>
 				<textElement>
@@ -906,7 +906,7 @@
 				<textFieldExpression><![CDATA[$F{utrosakOdrzavanjePdv}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="420" y="396" width="27" height="12" uuid="5652f9f6-285c-41da-a8ff-89ae6d3bc835">
+				<reportElement x="420" y="370" width="27" height="12" uuid="5652f9f6-285c-41da-a8ff-89ae6d3bc835">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94370175-0380-4326-a4be-11d9b89c248a"/>
 				</reportElement>
 				<textElement>
@@ -1091,7 +1091,7 @@
 				<reportElement x="-2" y="479" width="563" height="1" uuid="997ebe18-f4f1-4f2e-930b-44741f0dc83d"/>
 			</line>
 			<textField>
-				<reportElement x="1" y="550" width="553" height="38" uuid="9048c9bd-00b5-44b1-9198-e70045b3810c"/>
+				<reportElement x="1" y="570" width="553" height="30" uuid="9048c9bd-00b5-44b1-9198-e70045b3810c"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
@@ -1116,7 +1116,7 @@
 				<textFieldExpression><![CDATA["Prezime i ime: "]]></textFieldExpression>
 			</textField>
 			<image>
-				<reportElement x="0" y="580" width="150" height="150" uuid="aec038cf-57ac-449b-95eb-86f24f53fa9a">
+				<reportElement x="-1" y="600" width="130" height="130" uuid="aec038cf-57ac-449b-95eb-86f24f53fa9a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1293,6 +1293,20 @@
 					<font fontName="DejaVu Sans" size="10" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["840-2696760-36"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="159" y="710" width="378" height="12" uuid="a92fdd60-73f4-490a-91ec-7ca29a669e08"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Račun je važeći bez potpisa i pečata."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="550" width="378" height="12" uuid="47e4c5f9-7a81-4457-8f0c-8f5f8d472625"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Za redovna izmirenja računa, odobrava se popust od 5%."]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
