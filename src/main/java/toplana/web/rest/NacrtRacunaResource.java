@@ -471,6 +471,7 @@ public class NacrtRacunaResource {
     	
     	
     	List<Racun> racuni = racunRepository.findAllByNacrtRacunaId(nacrtRacunaId);
+    	racunService.setStanstanjeRepository(stanstanjeRepository);
     	String filename = racunService.createRacuneZaStampanje(racuni);
     	File file = new File(filename);   	       
 

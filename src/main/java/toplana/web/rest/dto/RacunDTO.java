@@ -75,6 +75,48 @@ public class RacunDTO {
 	private String slikaQrStan, pozivNaBroj;
 	
 	private java.awt.image.BufferedImage imgQr;
+	
+	private Double NoviStaroStanje;
+	private Double NoviNovoStanje;
+	private Double NovipotrosnjazaPeriod;
+	private Double NoviUdeoUZajednickoj;
+	private Double NoviPotrosnjaPoSvimMerilima;
+	private Double NoviZajednickaPotrosnja;
+	
+	
+	
+
+	public Double getNoviUdeoUZajednickoj() {
+		return NoviUdeoUZajednickoj;
+	}
+
+	public void setNoviUdeoUZajednickoj(Double noviUdeoUZajednickoj) {
+		NoviUdeoUZajednickoj = noviUdeoUZajednickoj;
+	}
+
+	public Double getNoviPotrosnjaPoSvimMerilima() {
+		return NoviPotrosnjaPoSvimMerilima;
+	}
+
+	public void setNoviPotrosnjaPoSvimMerilima(Double noviPotrosnjaPoSvimMerilima) {
+		NoviPotrosnjaPoSvimMerilima = noviPotrosnjaPoSvimMerilima;
+	}
+
+	public Double getNoviZajednickaPotrosnja() {
+		return NoviZajednickaPotrosnja;
+	}
+
+	public void setNoviZajednickaPotrosnja(Double noviZajednickaPotrosnja) {
+		NoviZajednickaPotrosnja = noviZajednickaPotrosnja;
+	}
+
+	public Double getNovipotrosnjazaPeriod() {
+		return NovipotrosnjazaPeriod;
+	}
+
+	public void setNovipotrosnjazaPeriod(Double novipotrosnjazaPeriod) {
+		NovipotrosnjazaPeriod = novipotrosnjazaPeriod;
+	}
 
 	public RacunDTO() {
 		super();
@@ -138,6 +180,12 @@ public class RacunDTO {
     	this.slikaQrStan = null;
     	this.pozivNaBroj = "289";
     	this.imgQr = null;
+    	this.NoviStaroStanje =  0.0;
+    	this.NoviNovoStanje = 0.0;
+    	this.NovipotrosnjazaPeriod = 0.0;
+    	this.NoviUdeoUZajednickoj = 0.0;
+    	this.NoviPotrosnjaPoSvimMerilima = 0.0;
+    	this.NoviZajednickaPotrosnja = 0.0;
     	
 	}
 
@@ -145,6 +193,22 @@ public class RacunDTO {
 
 	
 	
+	public Double getNoviStaroStanje() {
+		return NoviStaroStanje;
+	}
+
+	public void setNoviStaroStanje(Double noviStaroStanje) {
+		NoviStaroStanje = noviStaroStanje;
+	}
+
+	public Double getNoviNovoStanje() {
+		return NoviNovoStanje;
+	}
+
+	public void setNoviNovoStanje(Double noviNovoStanje) {
+		NoviNovoStanje = noviNovoStanje;
+	}
+
 	public java.awt.image.BufferedImage getImgQr() {
 		return imgQr;
 	}

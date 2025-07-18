@@ -3,6 +3,8 @@ package toplana.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -29,7 +31,12 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import toplana.QrGeneratorFromText;
+import toplana.domain.NacrtRacuna;
+import toplana.domain.Podstanica;
 import toplana.domain.Racun;
+import toplana.domain.Stan;
+import toplana.domain.StanjaPodstaniceZaRacun;
+import toplana.repository.StanStanjeRepository;
 import toplana.web.rest.dto.MailWithAttachment;
 import toplana.web.rest.dto.RacunDTO;
 import toplana.web.rest.dto.RacunStampanje;
@@ -47,7 +54,20 @@ public class RacunService {
     
     private final MailService mailService;
     
-    public String getDownFileName() {
+    
+    private StanStanjeRepository stanstanjeRepository; 
+    
+    public StanStanjeRepository getStanstanjeRepository() {
+		return stanstanjeRepository;
+	}
+
+
+	public void setStanstanjeRepository(StanStanjeRepository stanstanjeRepository) {
+		this.stanstanjeRepository = stanstanjeRepository;
+	}
+
+
+	public String getDownFileName() {
 		return downFileName;
 	}
 
@@ -102,6 +122,8 @@ public class RacunService {
 			InputStream input = cl.getInputStream();//new FileInputStream(file);
 			// Compile the Jasper report from .jrxml to .japser
 			JasperReport jasperReport = JasperCompileManager.compileReport(input);
+			
+			
 			// Get your data source
 			JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(racuni);
 			// Add parameters
@@ -139,12 +161,49 @@ public class RacunService {
     	List<RacunStampanje> racuniStampanje = new ArrayList<RacunStampanje>();
     	Locale loc = new Locale("SH");
     	
-    	
+      
     	for(Racun r : racuni) {
     		
     		r.getNacrtRacuna().getStanjaPodstaniceZaRacune();
     		RacunDTO rDTO = new RacunDTO(r);
     		
+    		rDTO.getStan().setZadnjaStanja(stanstanjeRepository.getLastStatesForStan(rDTO.getStan().getId()));
+    		
+    		rDTO.setNoviStaroStanje(rDTO.getStan().getZadnjaStanja().get(0));
+    		rDTO.setNoviNovoStanje(rDTO.getStan().getZadnjaStanja().get(1));
+    		rDTO.setNovipotrosnjazaPeriod(rDTO.getNoviNovoStanje() - rDTO.getNoviStaroStanje());
+    		NacrtRacuna nc = r.getNacrtRacuna();
+    		StanjaPodstaniceZaRacun spr = null;
+    		Podstanica pn = r.getStan().getPodstanica();
+    		Stan stan = r.getStan();
+    		
+    		for(StanjaPodstaniceZaRacun spz : nc.getStanjaPodstaniceZaRacune()) {
+    			spr = spz;
+        	}   
+    	
+    		// ovaj
+    		BigDecimal zajednickostanjepodstanice = (spr.getNovoStanje().getStanje().subtract(spr.getStaroStanje().getStanje())).multiply(BigDecimal.valueOf(1000.00)).setScale(2, RoundingMode.HALF_UP);;
+    		// ovaj
+    		BigDecimal ukupnapotrosnjapoStanu =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
+    		
+    		BigDecimal ukupnapotrosnja =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
+    		
+    		BigDecimal ukupnapovrsina = BigDecimal.valueOf(pn.getUkupnapovrsina()).setScale(2, RoundingMode.HALF_UP);
+			// Povrsina svih stanova
+			
+			
+			BigDecimal udeostananum = stan.getPovrsina().divide(ukupnapovrsina,5, RoundingMode.HALF_UP).setScale(5);
+			
+			BigDecimal udeostana = udeostananum.multiply(BigDecimal.valueOf(100.00)).setScale(3, RoundingMode.HALF_UP);
+			// Procentualni udeo stana
+			
+			
+            // ovaj		
+			BigDecimal udeozajednickepotrosnje = udeostana.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
+			
+			
+			
+			// Za stan deo koji se odnosi na udeo zajednicke potrosnje - J5
     		try {
     			if (QrGeneratorFromText.generateQr(rDTO.getStan().getSifra(),rDTO.getStan().getVlasnik().getIme() + rDTO.getStan().getVlasnik().getPrezime(), 
     			rDTO.getZaPlacanje(), rDTO.getPozivNaBroj())) {
@@ -191,7 +250,8 @@ public class RacunService {
     				rDTO.getValutaPlacanja().format(formatter), rDTO.getDatumSaldiranja().format(formatter),
     				rDTO.getUkupnoZaduzenje().toString(), "1", a, rDTO.getPopust().toString(),
     				rDTO.getStan().isUkljucen(), rDTO.getPopust() == null ? false : true, rDTO.getCenaFixIskljucen().toString(), rDTO.getPeriod(),
-    				rDTO.getSlikaQrStan(), rDTO.getImgQr(), rDTO.getStan().getVlasnik().getEmail()
+    				rDTO.getSlikaQrStan(), rDTO.getImgQr(), rDTO.getStan().getVlasnik().getEmail(), rDTO.getNoviStaroStanje(), rDTO.getNoviNovoStanje(), rDTO.getNovipotrosnjazaPeriod(),
+    				udeozajednickepotrosnje.doubleValue(), ukupnapotrosnjapoStanu.doubleValue(), udeozajednickepotrosnje.doubleValue()
     				);    				
     		racuniStampanje.add(rs); 
     		

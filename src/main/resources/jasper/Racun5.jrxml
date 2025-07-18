@@ -160,6 +160,12 @@
 	</field>
 	<field name="slikaQrStan" class="java.lang.String"/>
 	<field name="imgQr" class="java.awt.Image"/>
+	<field name="NoviStaroStanje" class="java.lang.Double"/>
+	<field name="NoviNovoStanje" class="java.lang.Double"/>
+	<field name="NovipotrosnjazaPeriod" class="java.lang.Double"/>
+	<field name="NoviUdeoUZajednickoj" class="java.lang.Double"/>
+	<field name="NoviZajednickaPotrosnja" class="java.lang.Double"/>
+	<field name="NoviPotrosnjaPoSvimMerilima" class="java.lang.Double"/>
 	<variable name="counter" class="java.lang.Integer" calculation="Count"/>
 	<variable name="Variable_1" class="java.lang.Integer" calculation="System">
 		<initialValueExpression><![CDATA[1]]></initialValueExpression>
@@ -464,14 +470,14 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{podstanicaStaroStanje} + " kwh"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{podstanicaStaroStanje} ]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="207" y="254" width="99" height="12" uuid="d3d4c7b0-3b3a-48b0-b9c6-dd94f87b17c0"/>
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Ukupna površina"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Ukupna površina m2"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="369" y="196" width="176" height="12" uuid="717ceeb7-276a-4bea-a0bb-e35e1f42021b"/>
@@ -490,7 +496,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{podstanicaNovoStanje} + " kwh"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{podstanicaNovoStanje} ]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="369" y="234" width="199" height="12" uuid="1e24c723-6913-4242-8dd4-28136c96b57f"/>
@@ -509,7 +515,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{podstanicaRazlikaStanja} + " kwh"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{podstanicaRazlikaStanja} ]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="208" y="273" width="100" height="12" uuid="c2af5656-98e0-4595-9835-85a2f2c2664a">
@@ -521,7 +527,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{podstanicaUkupnaPovrsina} + " m2"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{podstanicaUkupnaPovrsina} ]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="323" width="80" height="12" uuid="17f7a150-2187-4d73-b289-87edfad0b2d6">
@@ -1124,7 +1130,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{podstanicaStaroStanje} + " kwh"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NoviUdeoUZajednickoj}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="208" y="216" width="176" height="12" uuid="0bace23a-3f4a-4521-aa08-a3a36eb3699b"/>
@@ -1162,7 +1168,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{podstanicaUkupnaPovrsina} + " m2"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NovipotrosnjazaPeriod}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="159" width="190" height="12" uuid="f8984f48-ac48-427f-942c-e9436a06d33a">
@@ -1183,7 +1189,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{podstanicaStaroStanje} + " kwh"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NoviStaroStanje}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="196" width="190" height="12" uuid="d9cf3b8c-4603-454e-addc-660bd783dd15"/>
@@ -1202,7 +1208,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{podstanicaNovoStanje} + " kwh"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NoviNovoStanje}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="1" y="272" width="202" height="12" uuid="e92cb2fb-d32f-4369-ab8c-089d8c30bbf2"/>
@@ -1221,7 +1227,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{podstanicaUkupnaPovrsina} + " m2"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NoviUdeoUZajednickoj}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="529" width="378" height="12" uuid="dc6ffe76-edcb-4f8f-a698-15bf7631de3e"/>

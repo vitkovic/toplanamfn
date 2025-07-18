@@ -65,7 +65,12 @@ public class RacunStampanje {
 	 private boolean dajeSePopust;
 	 private String slikaQrStan;
 	 private Image imgQr;
-	 
+	 private Double NoviStaroStanje;
+	 private Double NoviNovoStanje;
+	 private Double NovipotrosnjazaPeriod;
+	 private Double NoviUdeoUZajednickoj;
+	 private Double NoviPotrosnjaPoSvimMerilima;
+	 private Double NoviZajednickaPotrosnja;
 	 
 	public RacunStampanje() {}
 	
@@ -80,7 +85,8 @@ public class RacunStampanje {
 			String cenaOdrzavanje, String utrosakOdrzavanjeBezPdv, String utrosakOdrzavanjePdv,
 			String utrosakOdrzavanje, String zaduzenjePoRacunu, String ukupnoZaduzenje, String zaPlacanje,
 			String datumRacuna, String valutaPlacanja, String datumSaldiranja, String dugIzPrethodnogPerioda,
-			String brojRacuna, String zaMesec, String popust,  boolean iskljucen, boolean dajeSePopust, String cenaFixIskljucen, String period, String qr, BufferedImage bufImg, String email) {
+			String brojRacuna, String zaMesec, String popust,  boolean iskljucen, boolean dajeSePopust, String cenaFixIskljucen, String period, String qr, BufferedImage bufImg, String email,
+			Double NoviStaroStanje, Double NoviNovoStanje, Double NovipotrosnjazaPeriod, Double NoviUdeoUZajednickoj,Double NoviPotrosnjaPoSvimMerilima, Double NoviZajednickaPotrosnja) {
 
 		this.id = id;
 		this.vlasnikPrezime = vlasnikPrezime;
@@ -135,7 +141,13 @@ public class RacunStampanje {
 		this.slikaQrStan = qr;
 		this.imgQr = bufImg;
 		this.vlasnikEmail = email;
-		
+		this.NoviStaroStanje = NoviStaroStanje;
+		this.NoviNovoStanje = NoviNovoStanje;
+		this.NovipotrosnjazaPeriod = NovipotrosnjazaPeriod;
+		this.NoviUdeoUZajednickoj = NoviUdeoUZajednickoj;
+		this.NoviPotrosnjaPoSvimMerilima = NoviPotrosnjaPoSvimMerilima;
+		this.NoviZajednickaPotrosnja = NoviZajednickaPotrosnja;
+		  
 		String vPrezime = "";
 		if(this.vlasnikPrezime != null)
 			vPrezime = this.vlasnikPrezime;
@@ -154,6 +166,30 @@ public class RacunStampanje {
 	
 	
 	
+	public Double getNoviStaroStanje() {
+		return NoviStaroStanje;
+	}
+
+	public void setNoviStaroStanje(Double noviStaroStanje) {
+		NoviStaroStanje = noviStaroStanje;
+	}
+
+	public Double getNoviNovoStanje() {
+		return NoviNovoStanje;
+	}
+
+	public void setNoviNovoStanje(Double noviNovoStanje) {
+		NoviNovoStanje = noviNovoStanje;
+	}
+
+	public Double getNovipotrosnjazaPeriod() {
+		return NovipotrosnjazaPeriod;
+	}
+
+	public void setNovipotrosnjazaPeriod(Double novipotrosnjazaPeriod) {
+		NovipotrosnjazaPeriod = novipotrosnjazaPeriod;
+	}
+
 	public Image getImgQr() {
 		return imgQr;
 	}
