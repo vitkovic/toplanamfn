@@ -65,12 +65,13 @@ public class RacunStampanje {
 	 private boolean dajeSePopust;
 	 private String slikaQrStan;
 	 private Image imgQr;
-	 private Double NoviStaroStanje;
-	 private Double NoviNovoStanje;
-	 private Double NovipotrosnjazaPeriod;
-	 private Double NoviUdeoUZajednickoj;
-	 private Double NoviPotrosnjaPoSvimMerilima;
-	 private Double NoviZajednickaPotrosnja;
+	 
+	 private Double noviStaroStanje;
+	 private Double noviNovoStanje;
+	 private Double novipotrosnjazaPeriod;
+	 private Double noviUdeoUZajednickoj;
+	 private Double noviPotrosnjaPoSvimMerilima;
+	 private Double noviZajednickaPotrosnja;
 	 
 	public RacunStampanje() {}
 	
@@ -141,12 +142,12 @@ public class RacunStampanje {
 		this.slikaQrStan = qr;
 		this.imgQr = bufImg;
 		this.vlasnikEmail = email;
-		this.NoviStaroStanje = NoviStaroStanje;
-		this.NoviNovoStanje = NoviNovoStanje;
-		this.NovipotrosnjazaPeriod = NovipotrosnjazaPeriod;
-		this.NoviUdeoUZajednickoj = NoviUdeoUZajednickoj;
-		this.NoviPotrosnjaPoSvimMerilima = NoviPotrosnjaPoSvimMerilima;
-		this.NoviZajednickaPotrosnja = NoviZajednickaPotrosnja;
+		this.noviStaroStanje = NoviStaroStanje;
+		this.noviNovoStanje = NoviNovoStanje;
+		this.novipotrosnjazaPeriod = NovipotrosnjazaPeriod;    
+		this.noviUdeoUZajednickoj = NoviUdeoUZajednickoj;
+		this.noviPotrosnjaPoSvimMerilima = NoviPotrosnjaPoSvimMerilima;
+		this.noviZajednickaPotrosnja = NoviZajednickaPotrosnja;
 		  
 		String vPrezime = "";
 		if(this.vlasnikPrezime != null)
@@ -165,29 +166,54 @@ public class RacunStampanje {
 	}
 	
 	
+	  
 	
 	public Double getNoviStaroStanje() {
-		return NoviStaroStanje;
+		return noviStaroStanje;
 	}
 
 	public void setNoviStaroStanje(Double noviStaroStanje) {
-		NoviStaroStanje = noviStaroStanje;
+		this.noviStaroStanje = noviStaroStanje;
 	}
 
 	public Double getNoviNovoStanje() {
-		return NoviNovoStanje;
+		return noviNovoStanje;
 	}
 
 	public void setNoviNovoStanje(Double noviNovoStanje) {
-		NoviNovoStanje = noviNovoStanje;
+		this.noviNovoStanje = noviNovoStanje;
 	}
 
 	public Double getNovipotrosnjazaPeriod() {
-		return NovipotrosnjazaPeriod;
+		return novipotrosnjazaPeriod;
 	}
 
 	public void setNovipotrosnjazaPeriod(Double novipotrosnjazaPeriod) {
-		NovipotrosnjazaPeriod = novipotrosnjazaPeriod;
+		this.novipotrosnjazaPeriod = novipotrosnjazaPeriod;
+	}
+
+	public Double getNoviUdeoUZajednickoj() {
+		return noviUdeoUZajednickoj;
+	}
+
+	public void setNoviUdeoUZajednickoj(Double noviUdeoUZajednickoj) {
+		this.noviUdeoUZajednickoj = noviUdeoUZajednickoj;
+	}
+
+	public Double getNoviPotrosnjaPoSvimMerilima() {
+		return noviPotrosnjaPoSvimMerilima;
+	}
+
+	public void setNoviPotrosnjaPoSvimMerilima(Double noviPotrosnjaPoSvimMerilima) {
+		this.noviPotrosnjaPoSvimMerilima = noviPotrosnjaPoSvimMerilima;
+	}
+
+	public Double getNoviZajednickaPotrosnja() {
+		return noviZajednickaPotrosnja;
+	}
+
+	public void setNoviZajednickaPotrosnja(Double noviZajednickaPotrosnja) {
+		this.noviZajednickaPotrosnja = noviZajednickaPotrosnja;
 	}
 
 	public Image getImgQr() {

@@ -35,7 +35,9 @@ import toplana.domain.NacrtRacuna;
 import toplana.domain.Podstanica;
 import toplana.domain.Racun;
 import toplana.domain.Stan;
+import toplana.domain.StanStanje;
 import toplana.domain.StanjaPodstaniceZaRacun;
+import toplana.repository.StanRepository;
 import toplana.repository.StanStanjeRepository;
 import toplana.web.rest.dto.MailWithAttachment;
 import toplana.web.rest.dto.RacunDTO;
@@ -44,7 +46,7 @@ import toplana.web.rest.dto.RekapitulacijaPoPdvDTO;
 import toplana.service.MailService;
 @Service
 @Transactional
-public class RacunService {
+public class RacunService  {
     private final Logger log = LoggerFactory.getLogger(RacunService.class);
     
     @Value("${putanja.pdf}")
@@ -55,25 +57,18 @@ public class RacunService {
     private final MailService mailService;
     
     
-    private StanStanjeRepository stanstanjeRepository; 
-    
-    public StanStanjeRepository getStanstanjeRepository() {
-		return stanstanjeRepository;
-	}
-
-
-	public void setStanstanjeRepository(StanStanjeRepository stanstanjeRepository) {
-		this.stanstanjeRepository = stanstanjeRepository;
-	}
-
+    private final StanStanjeRepository stanstanjeRepository;
+    private final StanRepository stanRepository;
 
 	public String getDownFileName() {
 		return downFileName;
 	}
 
     
-	public RacunService(MailService mailService) {
+	public RacunService(MailService mailService, StanStanjeRepository stanstanjeRepository, StanRepository stanRepository) {
 		this.mailService = mailService;
+		this.stanstanjeRepository = stanstanjeRepository;
+		this.stanRepository = stanRepository;
 	}
 
 
@@ -116,7 +111,7 @@ public class RacunService {
 			
 			List<MailWithAttachment> emailList = new ArrayList<>();
 			
-			ClassPathResource cl = new ClassPathResource("/jasper/Racun5.jrxml");
+			ClassPathResource cl = new ClassPathResource("/jasper/Racun6.jrxml");
 			
 			//File file = ResourceUtils.getFile("classpath:jasper/Racun2.jrxml");
 			InputStream input = cl.getInputStream();//new FileInputStream(file);
@@ -160,48 +155,134 @@ public class RacunService {
     	DateTimeFormatter formatterMesec = DateTimeFormatter.ofPattern("MMM yy");  
     	List<RacunStampanje> racuniStampanje = new ArrayList<RacunStampanje>();
     	Locale loc = new Locale("SH");
-    	
-      
+    	// ovaj
+		BigDecimal zajednickostanjepodstanice = new BigDecimal(0.0);
+		BigDecimal ukupnapotrosnjapoStanu  = new BigDecimal(0.0);
+		BigDecimal udeozajednickepotrosnje = new BigDecimal(0.0);
+		
+		
+		
+		
     	for(Racun r : racuni) {
     		
     		r.getNacrtRacuna().getStanjaPodstaniceZaRacune();
     		RacunDTO rDTO = new RacunDTO(r);
     		
-    		rDTO.getStan().setZadnjaStanja(stanstanjeRepository.getLastStatesForStan(rDTO.getStan().getId()));
     		
-    		rDTO.setNoviStaroStanje(rDTO.getStan().getZadnjaStanja().get(0));
-    		rDTO.setNoviNovoStanje(rDTO.getStan().getZadnjaStanja().get(1));
-    		rDTO.setNovipotrosnjazaPeriod(rDTO.getNoviNovoStanje() - rDTO.getNoviStaroStanje());
-    		NacrtRacuna nc = r.getNacrtRacuna();
-    		StanjaPodstaniceZaRacun spr = null;
+   // 		rDTO.getStan().setZadnjaStanja(stanstanjeRepository.getLastStatesForStan(rDTO.getStan().getId()));
     		Podstanica pn = r.getStan().getPodstanica();
-    		Stan stan = r.getStan();
     		
-    		for(StanjaPodstaniceZaRacun spz : nc.getStanjaPodstaniceZaRacune()) {
-    			spr = spz;
-        	}   
-    	
-    		// ovaj
-    		BigDecimal zajednickostanjepodstanice = (spr.getNovoStanje().getStanje().subtract(spr.getStaroStanje().getStanje())).multiply(BigDecimal.valueOf(1000.00)).setScale(2, RoundingMode.HALF_UP);;
-    		// ovaj
-    		BigDecimal ukupnapotrosnjapoStanu =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
+    		if (pn.getId() > 1105) {   
+    			
     		
-    		BigDecimal ukupnapotrosnja =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
-    		
-    		BigDecimal ukupnapovrsina = BigDecimal.valueOf(pn.getUkupnapovrsina()).setScale(2, RoundingMode.HALF_UP);
-			// Povrsina svih stanova
+    			pn.setUkupnapovrsina(stanRepository.findKvSumPodstanicaId(pn.getId()));
+            	
+            	
+            	 
+            	LocalDate today = LocalDate.now();
+                LocalDate previousMonth = today.minusMonths(1); 
+                int previousMonthNumber = previousMonth.getMonthValue(); 
+               
+                // !!! Proracun ukupne potrosnje po stanu
+                List <StanStanje> vrednostipotrosnje = stanRepository.findPotrosnjaPodstanicaId(pn.getId(),previousMonthNumber);
+                		
+                String sifra="";
+                String temp = "";
+                String vrednost="";
+                Map<String, String> m = new HashMap<>();
+                for(int i=0;i<vrednostipotrosnje.size();i++){
+                	
+                	
+                	try {
+                		
+                		StanStanje ss = (StanStanje)vrednostipotrosnje.get(i);
+                		System.out.println(ss);
+                		
+                		 sifra = ss.getSifra().trim();
+                		 if (i == 0) temp = sifra;
+                		 
+                		 if (sifra.equalsIgnoreCase(temp)) {
+                			 vrednost+= ss.getVrednost() + ";";
+                		 } else {
+                			 vrednost = ss.getVrednost().toString() + ";";
+                		 }
+                		
+                		 m.put(ss.getSifra(), vrednost);
+                		
+                		
+    	            	System.out.println(vrednost);
+    	            	temp = sifra;
+                	} catch (Exception e) {
+                		e.printStackTrace();
+                	}
+                	
+                } 
+                
+                String map="";
+                BigDecimal suma = new BigDecimal(.0);
+                
+                for (String key : m.keySet()) {
+                    map = key + "...." + m.get(key);
+                    
+                    String value = m.get(key);
+                    
+                    String[] vrednosti = value.split(";");
+                    
+                    Long val = Math.abs(Long.valueOf(vrednosti[1]) - Long.valueOf(vrednosti[0]));
+                    
+                    suma = suma.add(BigDecimal.valueOf(val));
+                    
+                    
+                  //  System.out.println(map + "    #####################################################################################################");
+                   // System.out.println(suma + "    #####################################################################################################");
+                }
+                
+               
+                
+          
+            	pn.setUkupnapotrosnjapostanu(suma.doubleValue());
+    			
+    			rDTO.getStan().setZadnjaStanja(stanstanjeRepository.getLastStatesForStan(rDTO.getStan().getId()));
+	    		rDTO.setNoviStaroStanje(rDTO.getStan().getZadnjaStanja().get(0));
+	    		rDTO.setNoviNovoStanje(rDTO.getStan().getZadnjaStanja().get(1));
+	    		rDTO.setNovipotrosnjazaPeriod(rDTO.getNoviNovoStanje() - rDTO.getNoviStaroStanje());
+	    		NacrtRacuna nc = r.getNacrtRacuna();
+	    		StanjaPodstaniceZaRacun spr = null;
+	    		//Podstanica pn = r.getStan().getPodstanica();
+	    		Stan stan = r.getStan();
+	    		
+	    		for(StanjaPodstaniceZaRacun spz : nc.getStanjaPodstaniceZaRacune()) {
+	    			spr = spz;
+	        	}   
+	    	 
+	    		
+	    		System.out.println(pn + " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"  );
+	    		
+	    		// ovaj    
+	    		zajednickostanjepodstanice = (spr.getNovoStanje().getStanje().subtract(spr.getStaroStanje().getStanje())).multiply(BigDecimal.valueOf(1000.00)).setScale(2, RoundingMode.HALF_UP);;
+	    		// ovaj
+	    		ukupnapotrosnjapoStanu =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
+	    		
+	    		BigDecimal ukupnapotrosnja =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
+	    		
+	    		BigDecimal ukupnapovrsina = BigDecimal.valueOf(pn.getUkupnapovrsina()).setScale(2, RoundingMode.HALF_UP);
+				// Povrsina svih stanova
+				
+				
+				BigDecimal udeostananum = stan.getPovrsina().divide(ukupnapovrsina,5, RoundingMode.HALF_UP).setScale(5);
+				
+				BigDecimal udeostana = udeostananum.multiply(BigDecimal.valueOf(100.00)).setScale(3, RoundingMode.HALF_UP);
+				// Procentualni udeo stana
+				
+				
+	            // ovaj		
+				udeozajednickepotrosnje = udeostana.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
 			
-			
-			BigDecimal udeostananum = stan.getPovrsina().divide(ukupnapovrsina,5, RoundingMode.HALF_UP).setScale(5);
-			
-			BigDecimal udeostana = udeostananum.multiply(BigDecimal.valueOf(100.00)).setScale(3, RoundingMode.HALF_UP);
-			// Procentualni udeo stana
-			
-			
-            // ovaj		
-			BigDecimal udeozajednickepotrosnje = udeostana.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
-			
-			
+    		}  else {
+    			rDTO.setNoviStaroStanje(0.0);
+	    		rDTO.setNoviNovoStanje(0.0);
+	    		rDTO.setNovipotrosnjazaPeriod(0.0);
+    		}
 			
 			// Za stan deo koji se odnosi na udeo zajednicke potrosnje - J5
     		try {
@@ -251,11 +332,11 @@ public class RacunService {
     				rDTO.getUkupnoZaduzenje().toString(), "1", a, rDTO.getPopust().toString(),
     				rDTO.getStan().isUkljucen(), rDTO.getPopust() == null ? false : true, rDTO.getCenaFixIskljucen().toString(), rDTO.getPeriod(),
     				rDTO.getSlikaQrStan(), rDTO.getImgQr(), rDTO.getStan().getVlasnik().getEmail(), rDTO.getNoviStaroStanje(), rDTO.getNoviNovoStanje(), rDTO.getNovipotrosnjazaPeriod(),
-    				udeozajednickepotrosnje.doubleValue(), ukupnapotrosnjapoStanu.doubleValue(), udeozajednickepotrosnje.doubleValue()
+    				udeozajednickepotrosnje.doubleValue(), ukupnapotrosnjapoStanu.doubleValue(), zajednickostanjepodstanice.doubleValue()
     				);    				
     		racuniStampanje.add(rs); 
     		
-    	
+    	  
     		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+  rDTO.getStan().getSifra());
     		
     	}

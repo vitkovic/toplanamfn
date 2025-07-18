@@ -1,0 +1,1319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 6.3.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Racun2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3ce3dc05-53e3-413a-a6c1-7d31d33f9ae1">
+	<parameter name="imgQr" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="utrosakFiksniBezPopusta" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakFiksniBezPopusta]]></fieldDescription>
+	</field>
+	<field name="utrosakPoM2" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakPoM2]]></fieldDescription>
+	</field>
+	<field name="stanPovrsina" class="java.lang.String">
+		<fieldDescription><![CDATA[stanPovrsina]]></fieldDescription>
+	</field>
+	<field name="utrosakFiksniPopust" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakFiksniPopust]]></fieldDescription>
+	</field>
+	<field name="vlasnikRacun" class="java.lang.String">
+		<fieldDescription><![CDATA[vlasnikRacun]]></fieldDescription>
+	</field>
+	<field name="pdv2" class="java.lang.String">
+		<fieldDescription><![CDATA[pdv2]]></fieldDescription>
+	</field>
+	<field name="stanUlaz" class="java.lang.String">
+		<fieldDescription><![CDATA[stanUlaz]]></fieldDescription>
+	</field>
+	<field name="utrosakFiksni" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakFiksni]]></fieldDescription>
+	</field>
+	<field name="utrosakVarijabilniBezPdv" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakVarijabilniBezPdv]]></fieldDescription>
+	</field>
+	<field name="stanStatus" class="java.lang.String">
+		<fieldDescription><![CDATA[stanStatus]]></fieldDescription>
+	</field>
+	<field name="dugIzPrethodnogPerioda" class="java.lang.String">
+		<fieldDescription><![CDATA[dugIzPrethodnogPerioda]]></fieldDescription>
+	</field>
+	<field name="datumSaldiranja" class="java.lang.String">
+		<fieldDescription><![CDATA[datumSaldiranja]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="pdv1" class="java.lang.String">
+		<fieldDescription><![CDATA[pdv1]]></fieldDescription>
+	</field>
+	<field name="ukupnoZaduzenje" class="java.lang.String">
+		<fieldDescription><![CDATA[ukupnoZaduzenje]]></fieldDescription>
+	</field>
+	<field name="utrosakOdrzavanjeBezPdv" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakOdrzavanjeBezPdv]]></fieldDescription>
+	</field>
+	<field name="cenaFix" class="java.lang.String">
+		<fieldDescription><![CDATA[cenaFix]]></fieldDescription>
+	</field>
+	<field name="podstanicaRazlikaStanja" class="java.lang.String">
+		<fieldDescription><![CDATA[podstanicaRazlikaStanja]]></fieldDescription>
+	</field>
+	<field name="zaPlacanje" class="java.lang.String">
+		<fieldDescription><![CDATA[zaPlacanje]]></fieldDescription>
+	</field>
+	<field name="podstanicaStaroStanje" class="java.lang.String">
+		<fieldDescription><![CDATA[podstanicaStaroStanje]]></fieldDescription>
+	</field>
+	<field name="vlasnikIme" class="java.lang.String">
+		<fieldDescription><![CDATA[vlasnikIme]]></fieldDescription>
+	</field>
+	<field name="podstanicaNovoStanje" class="java.lang.String">
+		<fieldDescription><![CDATA[podstanicaNovoStanje]]></fieldDescription>
+	</field>
+	<field name="utrosakFiksniPdv" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakFiksniPdv]]></fieldDescription>
+	</field>
+	<field name="vlasnikNaziv" class="java.lang.String">
+		<fieldDescription><![CDATA[vlasnikNaziv]]></fieldDescription>
+	</field>
+	<field name="cenaOdrzavanje" class="java.lang.String">
+		<fieldDescription><![CDATA[cenaOdrzavanje]]></fieldDescription>
+	</field>
+	<field name="utrosakVarijabilniPdv" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakVarijabilniPdv]]></fieldDescription>
+	</field>
+	<field name="podstanicaUkupnaPovrsina" class="java.lang.String">
+		<fieldDescription><![CDATA[podstanicaUkupnaPovrsina]]></fieldDescription>
+	</field>
+	<field name="utrosakOdrzavanjePdv" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakOdrzavanjePdv]]></fieldDescription>
+	</field>
+	<field name="utrosakVarijabilniPopust" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakVarijabilniPopust]]></fieldDescription>
+	</field>
+	<field name="utrosakOdrzavanje" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakOdrzavanje]]></fieldDescription>
+	</field>
+	<field name="zaduzenjePoRacunu" class="java.lang.String">
+		<fieldDescription><![CDATA[zaduzenjePoRacunu]]></fieldDescription>
+	</field>
+	<field name="stanSifra" class="java.lang.String">
+		<fieldDescription><![CDATA[stanSifra]]></fieldDescription>
+	</field>
+	<field name="utrosakVarijabilniBezPopusta" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakVarijabilniBezPopusta]]></fieldDescription>
+	</field>
+	<field name="datumRacuna" class="java.lang.String">
+		<fieldDescription><![CDATA[datumRacuna]]></fieldDescription>
+	</field>
+	<field name="period" class="java.lang.String">
+		<fieldDescription><![CDATA[period]]></fieldDescription>
+	</field>
+	<field name="racunUtrosakKwh" class="java.lang.String">
+		<fieldDescription><![CDATA[racunUtrosakKwh]]></fieldDescription>
+	</field>
+	<field name="vlasnikPartijaRacun" class="java.lang.String">
+		<fieldDescription><![CDATA[vlasnikPartijaRacun]]></fieldDescription>
+	</field>
+	<field name="vlasnikPrezime" class="java.lang.String">
+		<fieldDescription><![CDATA[vlasnikPrezime]]></fieldDescription>
+	</field>
+	<field name="valutaPlacanja" class="java.lang.String">
+		<fieldDescription><![CDATA[valutaPlacanja]]></fieldDescription>
+	</field>
+	<field name="utrosakFiksniBezPdv" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakFiksniBezPdv]]></fieldDescription>
+	</field>
+	<field name="stanBroj" class="java.lang.String">
+		<fieldDescription><![CDATA[stanBroj]]></fieldDescription>
+	</field>
+	<field name="utrosakVarijabilni" class="java.lang.String">
+		<fieldDescription><![CDATA[utrosakVarijabilni]]></fieldDescription>
+	</field>
+	<field name="cenaKwh" class="java.lang.String">
+		<fieldDescription><![CDATA[cenaKwh]]></fieldDescription>
+	</field>
+	<field name="stanUlica" class="java.lang.String">
+		<fieldDescription><![CDATA[stanUlica]]></fieldDescription>
+	</field>
+	<field name="popust" class="java.lang.String">
+		<fieldDescription><![CDATA[popust]]></fieldDescription>
+	</field>
+	<field name="brojRacuna" class="java.lang.String">
+		<fieldDescription><![CDATA[brojRacuna]]></fieldDescription>
+	</field>
+	<field name="zaMesec" class="java.lang.String">
+		<fieldDescription><![CDATA[zaMesec]]></fieldDescription>
+	</field>
+	<field name="vlasnikImePrezimeNaziv" class="java.lang.String">
+		<fieldDescription><![CDATA[vlasnikImePrezimeNaziv]]></fieldDescription>
+	</field>
+	<field name="dajeSePopust" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[dajeSePopust]]></fieldDescription>
+	</field>
+	<field name="iskljucen" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[iskljucen]]></fieldDescription>
+	</field>
+	<field name="cenaFixIskljucen" class="java.lang.String">
+		<fieldDescription><![CDATA[cenaFixIskljucen]]></fieldDescription>
+	</field>
+	<field name="slikaQrStan" class="java.lang.String"/>
+	<field name="imgQr" class="java.awt.Image"/>
+	<field name="noviStaroStanje" class="java.lang.Double"/>
+	<field name="noviNovoStanje" class="java.lang.Double"/>
+	<field name="novipotrosnjazaPeriod" class="java.lang.Double"/>
+	<field name="noviUdeoUZajednickoj" class="java.lang.Double"/>
+	<field name="noviZajednickaPotrosnja" class="java.lang.Double"/>
+	<field name="noviPotrosnjaPoSvimMerilima" class="java.lang.Double"/>
+	<variable name="counter" class="java.lang.Integer" calculation="Count"/>
+	<variable name="Variable_1" class="java.lang.Integer" calculation="System">
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band height="121" splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="24" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="451" y="4" width="100" height="17" uuid="ea640f3c-c7b8-4b68-b938-1586fa2bcefe"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement x="222" y="0" width="100" height="1" uuid="b80af40c-793b-4b48-8805-0280cf713c78">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1d3de089-3097-4bc3-bf54-16e65c8cb3a9"/>
+				</reportElement>
+				<text><![CDATA[vlasnikPrezime]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="0" width="100" height="1" uuid="5a380cf0-616b-4451-b4cc-6c06dda5f837">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c6023574-54dd-42ec-8337-fe5363b18eea"/>
+				</reportElement>
+				<text><![CDATA[vlasnikIme]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="405" y="0" width="100" height="1" uuid="b4480616-7f15-441a-86bf-1fcfa9c7c8fe">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2a8de89-dcfa-4f30-a8a6-fc1535fb3dbf"/>
+				</reportElement>
+				<text><![CDATA[stanUlica]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="0" width="100" height="1" uuid="0c3c5bfa-9cea-424f-adf2-091e7765b32c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f76515dc-ed73-4243-a67e-e776bcfdc506"/>
+				</reportElement>
+				<text><![CDATA[stanUlaz]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="462" y="0" width="100" height="1" uuid="94ecd16e-b5b2-4853-b005-9d06cdf6fc86">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e1743695-b2a8-4dc7-bf1a-6ecc40cfd34b"/>
+				</reportElement>
+				<text><![CDATA[stanBroj]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="0" width="100" height="1" uuid="3e044c40-4682-4012-ab0f-b2720c1559fa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ad027d00-e56c-419d-b092-431febbbd1df"/>
+				</reportElement>
+				<text><![CDATA[vlasnikRacun]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="0" width="100" height="1" uuid="b234025f-03c7-4b07-934b-859fcc3b0183">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c4ad35b2-42ab-4ddc-a6c7-cca87f097747"/>
+				</reportElement>
+				<text><![CDATA[vlasnikPartijaRacun]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="0" width="100" height="1" uuid="6468cdcf-c849-4201-811c-6dea4995370a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dfdb9653-c779-44e6-87a5-7d9d19f4068e"/>
+				</reportElement>
+				<text><![CDATA[podstanicaStaroStanje]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="0" width="100" height="1" uuid="c8d97f60-5ae5-415f-82df-386697f3b7a7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a9e44e20-9230-4465-a38c-c31358c338cf"/>
+				</reportElement>
+				<text><![CDATA[podstanicaNovoStanje]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="0" width="100" height="1" uuid="e7b20d30-4471-4d5e-960d-d5a56f72deee">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac1f73b8-c41f-4b33-9adb-8bc87c485ebc"/>
+				</reportElement>
+				<text><![CDATA[podstanicaRazlikaStanja]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="355" y="0" width="100" height="1" uuid="401c8e00-4153-46ef-971f-9401656584bb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac5c0719-b016-4588-9eb5-3b8cb3542dfa"/>
+				</reportElement>
+				<text><![CDATA[podstanicaUkupnaPovrsina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="128" y="0" width="100" height="1" uuid="11779c5f-78c4-4505-bdb2-efb737cdd9c7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e23138de-3204-47de-ae3e-0c56b6d81b40"/>
+				</reportElement>
+				<text><![CDATA[stanPovrsina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="177" y="0" width="100" height="1" uuid="7862f80f-69ea-4704-aa5b-5f0d40872c7e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="482ac2d1-c076-4cee-94b3-ec23ae78025b"/>
+				</reportElement>
+				<text><![CDATA[utrosakPoM2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="0" width="100" height="1" uuid="953e063f-6fac-4aa8-bd77-de9eacb1c69d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="47e8bddd-2247-45b4-909a-6d70182f21aa"/>
+				</reportElement>
+				<text><![CDATA[cenaKwh]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="263" y="0" width="100" height="1" uuid="7bc6938e-9edf-41b7-bc29-ef32f4d783f1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8ac09446-f1d5-476e-8c18-0a4b7dbe7c97"/>
+				</reportElement>
+				<text><![CDATA[utrosakVarijabilni]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="0" width="100" height="1" uuid="0441bd24-490e-456d-908a-2cf3d752ee94">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1a5dde00-0c62-4366-ba21-25328c5c0416"/>
+				</reportElement>
+				<text><![CDATA[utrosakVarijabilniBezPopusta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="0" width="100" height="1" uuid="aacf34c5-b066-4307-aaf0-31023335cad7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="96a48ecc-e69e-4cb8-8d7a-e8991773c3fe"/>
+				</reportElement>
+				<text><![CDATA[utrosakVarijabilniPopust]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="0" width="100" height="1" uuid="2fd2a5bd-fbff-4d12-bb28-842881341610">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ded0215d-4ece-4c9f-b3eb-555fa6d6bd29"/>
+				</reportElement>
+				<text><![CDATA[utrosakVarijabilniBezPdv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="0" width="100" height="1" uuid="23474304-c765-42f7-9587-74e60faa0df9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="63e258f0-ad5f-4299-9ecd-0708d5df0241"/>
+				</reportElement>
+				<text><![CDATA[pdv2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="405" y="0" width="100" height="1" uuid="9f7cd935-8bf3-4b3a-bb33-c25015a7e3ec">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d322d85-e789-4f24-85dd-7a5c6a944817"/>
+				</reportElement>
+				<text><![CDATA[utrosakVarijabilniPdv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="446" y="0" width="100" height="1" uuid="474e9175-9c8c-4910-9e67-bacec1352bf8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="95d9c408-7a6a-4b67-bc02-c89b568169e5"/>
+				</reportElement>
+				<text><![CDATA[pdv1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="0" width="100" height="1" uuid="cb100504-188d-4f58-b6f1-ce5240579856">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e30716e7-498a-4fed-8957-19204544bbfa"/>
+				</reportElement>
+				<text><![CDATA[stanPovrsina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="206" y="0" width="100" height="1" uuid="dd354bd4-3252-40a5-ac4c-5a08ff76fd1e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="45cc29b0-9fa8-4f4f-b1f0-f240597c23b4"/>
+				</reportElement>
+				<text><![CDATA[cenaFix]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="0" width="100" height="1" uuid="63952e8a-94f9-4a16-9179-7d8a0da683c5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33d007f3-dab2-4d02-9dd3-0f9badf2bd6e"/>
+				</reportElement>
+				<text><![CDATA[utrosakFiksniBezPopusta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="0" width="100" height="1" uuid="187ccf6f-ee2b-4faa-95e6-c2df6fa781b8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="39d21e28-8404-475e-b5e9-822f05df71be"/>
+				</reportElement>
+				<text><![CDATA[utrosakFiksniPopust]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="0" width="100" height="1" uuid="6c284111-eac2-4476-839b-bf8d2a397306">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9f54bc1e-bb9d-490a-a90a-d0f9641e3f41"/>
+				</reportElement>
+				<text><![CDATA[utrosakFiksniBezPdv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="446" y="0" width="100" height="1" uuid="8c46c670-f225-4c44-9b26-6aecb9e02a01">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="06990049-b1d3-43fe-b0b9-b1b998e8b04d"/>
+				</reportElement>
+				<text><![CDATA[pdv1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="0" width="100" height="1" uuid="f155ba70-a64d-4308-bd4d-3500b56996b2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="85615406-1a57-43d5-86cd-174bfed33111"/>
+				</reportElement>
+				<text><![CDATA[stanPovrsina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="0" width="100" height="1" uuid="ec6a72c4-6e22-480f-aebf-84f359b47280">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="65614a12-a0e5-4753-a101-2c5f8f236b89"/>
+				</reportElement>
+				<text><![CDATA[utrosakOdrzavanjeBezPdv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="0" width="100" height="1" uuid="9240ffaa-6c18-4bab-ac1c-a52138b6937b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4f261a24-0685-4e18-8d20-8447e79cb0de"/>
+				</reportElement>
+				<text><![CDATA[utrosakOdrzavanjePdv]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="0" width="100" height="1" uuid="324b8a3e-286c-4493-8f35-7f32f6001c36">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e2446403-2dd7-4539-bd7a-9cc6f522a348"/>
+				</reportElement>
+				<text><![CDATA[popust]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="119" y="0" width="100" height="1" uuid="9250e1ce-8b03-479d-886d-79eec9f1f5dc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e1cca28-f791-431e-b889-6ed8e3244420"/>
+				</reportElement>
+				<text><![CDATA[period]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="298" y="0" width="100" height="1" uuid="0c2e1e91-750d-4944-8f48-6dac18d5a118">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e02dfd99-1c40-422f-aa17-85e8412b20f5"/>
+				</reportElement>
+				<text><![CDATA[valutaPlacanja]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="761" splitType="Stretch">
+			<textField>
+				<reportElement x="250" y="66" width="80" height="12" uuid="acafd787-a6b9-4c0b-a085-c1e72d69f086">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Adresa:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="82" width="70" height="12" uuid="f4a451aa-067c-4103-b31d-88cc4c890044">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f2a8de89-dcfa-4f30-a8a6-fc1535fb3dbf"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stanUlica}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="82" width="30" height="12" uuid="c5468815-3e9a-4a87-8adc-fd4132b701b8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f76515dc-ed73-4243-a67e-e776bcfdc506"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stanUlaz}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="82" width="50" height="12" uuid="ca502e81-f516-4d28-bb2f-a7f45553add1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e1743695-b2a8-4dc7-bf1a-6ecc40cfd34b"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stanBroj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="385" y="529" width="68" height="12" uuid="b54f0d47-1e36-4d12-8cac-2c9afd542df3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c2041c36-e29f-4f65-abfc-2930978d3701"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stanSifra}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="140" width="553" height="1" uuid="5b89b61c-c552-457c-9a89-fc4f2fa4d8fa"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="0" y="142" width="108" height="12" uuid="4ff774c7-ea11-438b-8530-142e01168b0e">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Potrošnja:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="159" width="177" height="12" uuid="db13531d-42b9-4472-8682-278f20c1b7d5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Staro stanje podstanice [kWh]"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="174" width="100" height="12" uuid="e5060a62-ecab-48e4-8bca-fa6d3cc774ef">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dfdb9653-c779-44e6-87a5-7d9d19f4068e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{podstanicaStaroStanje} ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="207" y="254" width="99" height="12" uuid="d3d4c7b0-3b3a-48b0-b9c6-dd94f87b17c0"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ukupna površina m2"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="196" width="176" height="12" uuid="717ceeb7-276a-4bea-a0bb-e35e1f42021b"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Novo stanje podstanice [kWh] "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="214" width="100" height="12" uuid="276bff1f-2d00-4264-89b6-00d27f61b100">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a9e44e20-9230-4465-a38c-c31358c338cf"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{podstanicaNovoStanje} ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="234" width="199" height="12" uuid="1e24c723-6913-4242-8dd4-28136c96b57f"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Potrošnja za obračunski period [kWh]"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="254" width="100" height="12" uuid="286a0c70-c25d-4836-b10f-330fb6db9f1e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac1f73b8-c41f-4b33-9adb-8bc87c485ebc"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{podstanicaRazlikaStanja} ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="208" y="273" width="100" height="12" uuid="c2af5656-98e0-4595-9835-85a2f2c2664a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac5c0719-b016-4588-9eb5-3b8cb3542dfa"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{podstanicaUkupnaPovrsina} ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="323" width="80" height="12" uuid="17f7a150-2187-4d73-b289-87edfad0b2d6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Opis"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="322" width="50" height="12" uuid="2186369f-69d8-46f5-a461-1c6329e2ccd5"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Površina"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="323" width="54" height="12" uuid="1dd4b4c1-3d2c-4eba-91f5-5127ef73de69"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Utrošak"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="322" width="46" height="12" uuid="a9077bb8-c25b-4dff-b18a-ec3b82895d53"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cena"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="323" width="46" height="12" uuid="71f6cdb9-1be4-4432-8b69-272ce0fb8273"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Vredn."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="322" width="47" height="12" uuid="c629d117-4d2e-4274-bc42-4512adb9b2aa"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Popust"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="337" width="50" height="12" uuid="a57bb43e-f05e-4fc3-bec3-977813a08dfe"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["stana m2"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="337" width="54" height="12" uuid="9df33bbb-e808-419c-9766-3c2350a2cb74"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["kwh"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="337" width="46" height="12" uuid="b9275e85-0417-4b2d-bfd7-014ac111002c"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["din."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="337" width="46" height="12" uuid="60e8fc9a-164f-4d59-a003-98b754e7b828"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["din."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="337" width="47" height="12" uuid="6df745a0-e1b5-4a92-8d7f-644521ccfdad"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["din."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="363" y="322" width="57" height="12" uuid="c9214bbb-6bf2-4538-8f91-f91d65b7ae0d"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Vred."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="363" y="337" width="57" height="12" uuid="5e39e20c-8b9f-42c0-b2d7-0ed3af84a9e4"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["din."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="322" width="73" height="12" uuid="12632bb2-fa40-4e65-ad9e-95df1bfbda0e"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["   PDV"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="337" width="27" height="12" uuid="1b1f54c4-514a-441c-b7d1-de3476b0c645"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["%"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="337" width="46" height="12" uuid="1e47106b-6b04-4aaa-886c-f7f7e6beaf81"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["din."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="322" width="60" height="12" uuid="20ee9561-31c1-4038-90d4-7d83222c560d"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ukupno"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="337" width="60" height="12" uuid="a86fda77-4b58-48b8-ba39-cc5146a4449e"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["din."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="-10" width="429" height="14" uuid="adc6c27d-4a56-4836-9587-c7ba60b36500">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["MAŠINSKI FAKULTET - NIŠ, A. Medvedeva 14, Telefon: 018 - 500-674"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="23" width="430" height="14" uuid="2207dc36-d437-4810-9723-b6ee0587008a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tekući račun: 840-2696760-36  kod Uprave za Trezor, Niš"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="62" width="553" height="1" uuid="cf34eb00-65fd-43ac-9a45-b1281aa44512"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="106" y="40" width="236" height="12" uuid="15fbf1bc-ef9e-44f9-b8fa-287d74d0bbba">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RAČUN ZA USLUGE CENTRALNOG GREJANJA "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="102" width="69" height="12" uuid="eaab60d6-2e23-44b2-90f0-5ece888d0b0b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Šifra korisnika"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="352" width="120" height="12" uuid="8cf1b648-8ad2-44ad-8163-ba8f0744301b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1. Tekuće zaduženje:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="368" width="110" height="12" uuid="dca40648-c714-4199-9723-3b4bb0b16daf"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1.1 Varijabilno:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="368" width="50" height="12" uuid="4a8db344-b9c2-4ffb-b35a-1ef8f32fb186">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e23138de-3204-47de-ae3e-0c56b6d81b40"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stanPovrsina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="368" width="46" height="12" uuid="3f969002-a172-4b7b-874f-fae9f322b2bc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="47e8bddd-2247-45b4-909a-6d70182f21aa"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cenaKwh}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="492" y="368" width="59" height="12" uuid="dad6678e-7492-4bb4-83d2-bfb41940309a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8ac09446-f1d5-476e-8c18-0a4b7dbe7c97"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakVarijabilni}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="368" width="46" height="12" uuid="33b0a08a-da26-43b0-bf18-1e73ed407bba">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1a5dde00-0c62-4366-ba21-25328c5c0416"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakVarijabilniBezPopusta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="368" width="48" height="12" uuid="b0acd5f5-17e6-4d4f-bf39-71fc8f60e7cc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="96a48ecc-e69e-4cb8-8d7a-e8991773c3fe"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakVarijabilniPopust}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="368" width="56" height="12" uuid="c3d9a5ab-2a9d-45c8-a843-a0a18248dab3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ded0215d-4ece-4c9f-b3eb-555fa6d6bd29"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakVarijabilniBezPdv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="368" width="45" height="12" uuid="9fdba76d-2f33-4820-8e4f-943d8acdc5ff">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8d322d85-e789-4f24-85dd-7a5c6a944817"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakVarijabilniPdv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="396" width="27" height="12" uuid="25c1101b-46db-454e-b205-090678d02adb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="95d9c408-7a6a-4b67-bc02-c89b568169e5"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pdv1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="9" y="382" width="111" height="12" uuid="ac309b61-4c05-46cf-98eb-2bceeeb68cc5"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["1.2 Fiksno:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="382" width="50" height="12" uuid="8d7f0890-3035-41ce-a0f9-1294bfd5ca0e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e30716e7-498a-4fed-8957-19204544bbfa"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stanPovrsina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="382" width="46" height="12" uuid="6d3290ac-83ac-46fe-8fd5-d7043663fa68">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="45cc29b0-9fa8-4f4f-b1f0-f240597c23b4"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iskljucen}.equals("true") ? $F{cenaFix} : $F{cenaFixIskljucen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="382" width="46" height="12" uuid="2b2a33e7-b4a7-41f2-8ff2-33d8686dba7e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="33d007f3-dab2-4d02-9dd3-0f9badf2bd6e"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakFiksniBezPopusta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="316" y="382" width="48" height="12" uuid="b2edbe67-6aea-4aa8-8585-05c009255a87">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="39d21e28-8404-475e-b5e9-822f05df71be"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakFiksniPopust}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="364" y="382" width="56" height="12" uuid="8c5e8db9-cf1f-4a80-a22b-53cceb455105">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9f54bc1e-bb9d-490a-a90a-d0f9641e3f41"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakFiksniBezPdv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="382" width="45" height="12" uuid="c76df143-57d9-4424-aa45-a60456f6f27a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bcc70c67-c942-4900-af8a-3857fdd7d0d7"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakFiksniPdv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="492" y="382" width="59" height="12" uuid="018e948d-684b-422d-b59b-f782ee4d1ebd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8ad39608-71e4-4e4e-87a8-ac0ae6a911b7"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakFiksni}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="396" width="120" height="12" uuid="bf7d5823-a245-4521-9cca-f5a3566b35fc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["2. Održavanje:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="396" width="50" height="12" uuid="0bab2543-e89b-48d7-97a7-2e8f02fb9996">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="85615406-1a57-43d5-86cd-174bfed33111"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stanPovrsina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="224" y="396" width="46" height="12" uuid="c73ad05a-9915-411a-add9-49a22a835f22">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dcf4d6a4-9c1a-4207-b304-9adcc20a69f6"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cenaOdrzavanje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="396" width="46" height="12" uuid="3fba8b58-ec71-47a2-8f8e-5309d5930f83">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="65614a12-a0e5-4753-a101-2c5f8f236b89"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakOdrzavanjeBezPdv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="369" width="27" height="12" uuid="5652f9f6-285c-41da-a8ff-89ae6d3bc835">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94370175-0380-4326-a4be-11d9b89c248a"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pdv2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="396" width="45" height="12" uuid="3a85a742-10da-449a-9ed4-203dded83d11">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac1a3245-af30-4717-b215-d25803811a42"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakOdrzavanjePdv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="492" y="396" width="59" height="12" uuid="f601185b-48d2-4ac6-88f8-7e10b662eeed">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a3697cc6-ecb8-45f8-a747-1744889aff69"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakOdrzavanje}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="309" width="553" height="1" uuid="758f6340-e06b-4b79-8a57-3fec0f42e72c"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="0" y="410" width="270" height="12" uuid="17aafbf7-dfcf-4115-982f-3d413a614ead">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["3. Ukupno tekuće zaduženje za obračunski period: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="492" y="410" width="59" height="12" uuid="d438e87b-984c-488d-9b6e-a854a5d74daf">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="15059839-468d-4674-8015-639e30126ace"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zaduzenjePoRacunu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="424" width="290" height="12" uuid="b8d173db-b01b-40dc-beb8-950375c6e791"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["4. Dug iz prethodnog perioda"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="424" width="59" height="12" uuid="bbad3e75-2be3-4970-8956-1121cb9eca24">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="4f6cda64-1df2-464a-b744-af55a4a76c1e"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dugIzPrethodnogPerioda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="438" width="291" height="12" uuid="33aa7eb1-a1e4-4561-a618-111deee161f3"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["5. Kamata za neredovne platiše"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="438" width="59" height="12" uuid="1b01971f-0327-43c3-aec0-24414f3c5541"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["0.00"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="452" width="191" height="12" uuid="bd87f7cf-a8d8-4473-bc7c-e10127af5dcd"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ukupno za plaćanje"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="452" width="59" height="12" uuid="8a6e9a23-5ff4-4d8e-9249-24b75321f616">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8f2bcb8d-4cc4-474b-9acd-8aaf64c1f0df"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zaPlacanje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="368" width="53" height="12" uuid="46d24750-1b05-4612-8e71-aae7741edc99">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0d1491ff-6e04-4b81-8880-cfb4f82e88af"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{racunUtrosakKwh}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="82" width="168" height="12" uuid="bb482edf-c4d8-4a6f-941b-831816e562ba">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a27baec6-247d-4f63-8539-07c34ac49f7c"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vlasnikImePrezimeNaziv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="338" y="40" width="140" height="12" uuid="d96c1d56-040c-4f6b-bc68-15fadb00699d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="d1587a89-4515-4451-aa4a-bc2a7d06f1d6"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA["za mesec: " + $F{period}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="491" width="70" height="12" uuid="738b9e44-1b78-4727-b2ff-ec83d2a70e63"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Datum računa: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="491" width="84" height="12" uuid="61372333-ce97-4178-b807-2c67394bcd93">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1e1cca28-f791-431e-b889-6ed8e3244420"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datumRacuna}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="170" y="491" width="78" height="12" uuid="c8477bb3-4b0d-43e5-b763-21cee37085da"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Valuta plaćanja: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="249" y="492" width="88" height="12" uuid="b057df31-127f-414c-887f-2d3c97539c63">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e02dfd99-1c40-422f-aa17-85e8412b20f5"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valutaPlacanja}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="378" y="492" width="111" height="12" uuid="47909b86-6c59-4698-852f-332898e2c716"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Uplate sa datumom: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="489" y="492" width="59" height="12" uuid="43cdc1a9-7978-4ac1-bdcf-c1b2d680d861">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="01729bfc-464f-4d16-b893-48df8ff842eb"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datumSaldiranja}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="510" width="170" height="12" uuid="656970b3-0c33-4762-b6a3-56e5d609dfea"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Uplatu izvršiti na žiro račun br. "]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-2" y="479" width="563" height="1" uuid="997ebe18-f4f1-4f2e-930b-44741f0dc83d"/>
+			</line>
+			<textField>
+				<reportElement x="1" y="570" width="553" height="30" uuid="9048c9bd-00b5-44b1-9198-e70045b3810c"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["U ovom delu možete preuzeti QR kode za plaćanje računa. Molimo Vas proverite podatke plaćanja nakon očitavanja koda. Mašinski fakultet ne snosi odgovornost u pogledu očitavanja koda."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="6" width="430" height="14" uuid="4c4fe08d-5714-4746-a94e-da5cd57650be">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PIB:100662813, MB: 07174713"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="66" width="80" height="12" uuid="e4468385-a863-41c6-94d4-8329b5646517">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Prezime i ime: "]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="-1" y="600" width="130" height="130" uuid="aec038cf-57ac-449b-95eb-86f24f53fa9a">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[$F{imgQr}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="208" y="159" width="177" height="15" uuid="d43b87b8-b27f-48c7-80ba-ec865c085f2b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Potrošnja po svim merilima"
+]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="208" y="194" width="100" height="12" uuid="d0023c04-ea27-4303-9079-d57812ef166f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dfdb9653-c779-44e6-87a5-7d9d19f4068e"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noviUdeoUZajednickoj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="208" y="216" width="176" height="12" uuid="0bace23a-3f4a-4521-aa08-a3a36eb3699b"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Zajednička potrošnja [kWh] "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="208" y="234" width="100" height="12" uuid="29082454-7b82-45ed-95ed-b3198dea0d31">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a9e44e20-9230-4465-a38c-c31358c338cf"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noviZajednickaPotrosnja}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="232" width="205" height="12" uuid="21a8288d-af21-449b-a849-150d18c266d1"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Potrošnja za obračunski period [kWh]"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="251" width="100" height="12" uuid="2168bf61-4ef3-4654-811b-ba120545ba37">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac5c0719-b016-4588-9eb5-3b8cb3542dfa"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{novipotrosnjazaPeriod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="159" width="190" height="12" uuid="f8984f48-ac48-427f-942c-e9436a06d33a">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Staro stanje merila korisnika [kWh]"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="174" width="100" height="12" uuid="a39f5f22-adf2-433b-9ce1-323134821af8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="dfdb9653-c779-44e6-87a5-7d9d19f4068e"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noviStaroStanje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="196" width="190" height="12" uuid="d9cf3b8c-4603-454e-addc-660bd783dd15"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Novo stanje merila korisnika [kWh] "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="214" width="100" height="12" uuid="21a82535-5594-4645-b712-d4ca78fd1a1b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a9e44e20-9230-4465-a38c-c31358c338cf"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noviNovoStanje}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="272" width="202" height="12" uuid="e92cb2fb-d32f-4369-ab8c-089d8c30bbf2"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Udeo u zajedničkoj potrošnji [kWh]"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="290" width="100" height="12" uuid="7c02f263-b376-4cbe-9202-0184a2ebb01d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac5c0719-b016-4588-9eb5-3b8cb3542dfa"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{noviUdeoUZajednickoj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="529" width="378" height="12" uuid="dc6ffe76-edcb-4f8f-a698-15bf7631de3e"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Prilikom plaćanja računa kao poziv na broj obavezno upisati šifru kupca: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="120" width="68" height="12" uuid="9ac3d757-c9b1-4ee7-9b41-4658f97c4a02">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c2041c36-e29f-4f65-abfc-2930978d3701"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stanSifra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="437" y="680" width="70" height="12" uuid="84f4679b-2261-4fee-98e8-6c80dfc93a39"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fakturisao"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="199" y="154" width="1" height="144" uuid="0b5ce138-bf4a-4639-9b5b-5138bfb589a4"/>
+			</line>
+			<line>
+				<reportElement x="361" y="154" width="1" height="144" uuid="580ee838-8e37-43cf-bc01-2d33fd20900d"/>
+			</line>
+			<textField>
+				<reportElement x="208" y="174" width="177" height="15" uuid="b19cbd65-ecdf-47ab-9d4c-4c53ee6e9819">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["kWh"
+]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="400" y="716" width="129" height="1" uuid="0805ca43-2382-406a-acd1-7b6c965391d9"/>
+			</line>
+			<textField>
+				<reportElement x="173" y="510" width="170" height="12" uuid="c3b2b489-dab9-4260-8b02-644ecc0278a9"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["840-2696760-36"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="159" y="710" width="378" height="12" uuid="a92fdd60-73f4-490a-91ec-7ca29a669e08"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Račun je važeći bez potpisa i pečata."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="550" width="378" height="12" uuid="47e4c5f9-7a81-4457-8f0c-8f5f8d472625"/>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Za redovna izmirenja računa, odobrava se popust od 5%."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="418" y="383" width="27" height="12" uuid="8d6012e8-0fac-4dba-9cf4-c703b1c216ae">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94370175-0380-4326-a4be-11d9b89c248a"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pdv2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="363" y="396" width="46" height="12" uuid="4bd93315-ce57-4e55-8012-741e20f2131d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="65614a12-a0e5-4753-a101-2c5f8f236b89"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{utrosakOdrzavanjeBezPdv}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
