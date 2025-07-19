@@ -32,7 +32,6 @@
         "parametriIstorija": "Параметри - историја",
         "opomena": "Опомена",
         "ostaliRacuni": "Остали рачуни",
-
         "utuzenje": "Утужење",
         "stavkeUtuzenja": "Ставке утужења",
         "ugovorRate": "Уговор - рате",
@@ -163,7 +162,9 @@
       "reset": "Очисти",
       "stampanje": "Штампање",
       "details": "Детаљније",
-      "rekapitulacija": "Рекапитулација"
+      "rekapitulacija": "Рекапитулација",
+	  "previousracun": "Претходни",
+	  "nextracun": "Следећи"
     },
     "detail": {
       "field": "Polje",

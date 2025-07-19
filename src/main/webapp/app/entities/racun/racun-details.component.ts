@@ -8,6 +8,8 @@ export default class RacunDetails extends Vue {
   @Inject('racunService') private racunService: () => RacunService;
   public racun: IRacun = {};
   public loaded: boolean = false;
+  public List<Racun> prevnext = null;
+  public Long left = 0, right = 0;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -22,10 +24,58 @@ export default class RacunDetails extends Vue {
       .find(racunId)
       .then(res => {
         this.racun = res;
+		this.prevnext = res.prevNextRacuni;
         this.loaded = true;
+		this.checkRacunId();
       });
   }
 
+  public checkRacunId() {
+	
+	if (this.prevnext.length == 1) {
+		
+		if (this.prevnext[0].id < this.racun.id) {
+			this.left = this.prevnext[0].id
+			this.right = this.racun.id;
+		} else (this.prevnext[0].id > this.racun.id) {
+			this.left = this.racun.id;
+			this.right = this.prevnext[0].id;
+		} 
+	} else {
+		
+		this.left = this.prevnext[0].id
+		this.right = this.prevnext[1].id
+		
+	}
+	
+  } 
+  public previousRacun() {
+	
+	console.log(this.prevnext);
+     this.racunService()
+       .find(this.left)
+       .then(res => {
+         this.racun = res;
+  	     this.prevnext = res.prevNextRacuni;
+         this.loaded = true;
+		 this.checkRacunId();
+       });
+   }
+   
+   public nextRacun() {
+	  this.checkRacunId();
+	  console.log(this.prevnext);
+      this.racunService()
+        .find(this.right)
+        .then(res => {
+          this.racun = res;
+   	      this.prevnext = res.prevNextRacuni;
+          this.loaded = true;
+		  this.checkRacunId();
+        });
+    }
+  
+  
   public stampanje(): void {
     this.racunService()
       .stampanjeZaJedanRacun(this.racun.id)

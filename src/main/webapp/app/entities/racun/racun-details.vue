@@ -236,6 +236,20 @@
                         class="btn btn-primary">
                     <span v-text="$t('entity.action.stampanje')"></span>
                 </button>
+                
+                
+                  <button type="button" 
+                        v-on:click="previousRacun()"
+                        class="btn btn-primary">
+                    <span v-text="$t('entity.action.previousracun')"></span>
+                </button>
+                
+                <button type="button" 
+                        v-on:click="nextRacun()"
+                        class="btn btn-primary">
+                    <span v-text="$t('entity.action.nextracun')"></span>
+                </button>
+                
                 <!--
                 <router-link v-if="racun.id" :to="{name: 'RacunEdit', params: {racunId: racun.id}}" tag="button" class="btn btn-primary">
                     <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')"> Edit</span>

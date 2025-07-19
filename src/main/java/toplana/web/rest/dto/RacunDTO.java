@@ -3,6 +3,7 @@ package toplana.web.rest.dto;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
@@ -84,7 +85,16 @@ public class RacunDTO {
 	private Double NoviZajednickaPotrosnja;
 	
 	
+	private List<Racun> prevNextRacuni;
 	
+
+	public List<Racun> getPrevNextRacuni() {
+		return prevNextRacuni;
+	}
+
+	public void setPrevNextRacuni(List<Racun> prevNextRacuni) {
+		this.prevNextRacuni = prevNextRacuni;
+	}
 
 	public Double getNoviUdeoUZajednickoj() {
 		return NoviUdeoUZajednickoj;
@@ -186,7 +196,7 @@ public class RacunDTO {
     	this.NoviUdeoUZajednickoj = 0.0;
     	this.NoviPotrosnjaPoSvimMerilima = 0.0;
     	this.NoviZajednickaPotrosnja = 0.0;
-    	
+    	this.prevNextRacuni = null;
 	}
 
 	 

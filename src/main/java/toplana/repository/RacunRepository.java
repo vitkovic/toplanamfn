@@ -25,6 +25,19 @@ public interface RacunRepository extends JpaRepository<Racun, Long>, JpaSpecific
 	
 	List<Racun> findAllByNacrtRacunaId(Long nacrtRacunaId);
 	
+	@Query(value = 
+		    "(SELECT r.* FROM racun r " +
+		    "JOIN stan s ON r.stan_id = s.id " +
+		    "WHERE s.id < :Idr ORDER BY s.id DESC LIMIT 1) " +
+		    "UNION ALL " +
+		    "(SELECT r.* FROM racun r " +
+		    "JOIN stan s ON r.stan_id = s.id " +
+		    "WHERE s.id > :Idr ORDER BY s.id ASC LIMIT 1)",
+		    nativeQuery = true)
+		List<Racun> getPreviousAndNextById(@Param("Idr") Long Idr);
+
+	
+	
 	@Query(value="SELECT r FROM Racun r join r.stan s join s.vlasnik v"
 			+ " WHERE r.datumRacuna BETWEEN :startDate AND :endDate"
 			+ " and v.brojRacuna = :brojRacuna "
