@@ -156,9 +156,7 @@ public class RacunService  {
     	List<RacunStampanje> racuniStampanje = new ArrayList<RacunStampanje>();
     	Locale loc = new Locale("SH");
     	// ovaj
-		BigDecimal zajednickostanjepodstanice = new BigDecimal(0.0);
-		BigDecimal ukupnapotrosnjapoStanu  = new BigDecimal(0.0);
-		BigDecimal udeozajednickepotrosnje = new BigDecimal(0.0);
+		
 		
 		
 		
@@ -167,121 +165,20 @@ public class RacunService  {
     		
     		r.getNacrtRacuna().getStanjaPodstaniceZaRacune();
     		RacunDTO rDTO = new RacunDTO(r);
-    		
-    		
-   // 		rDTO.getStan().setZadnjaStanja(stanstanjeRepository.getLastStatesForStan(rDTO.getStan().getId()));
     		Podstanica pn = r.getStan().getPodstanica();
     		
     		if (pn.getId() > 1105) {   
     			
     		
-    			pn.setUkupnapovrsina(stanRepository.findKvSumPodstanicaId(pn.getId()));
-            	
-            	
-            	 
-            	LocalDate today = LocalDate.now();
-                LocalDate previousMonth = today.minusMonths(1); 
-                int previousMonthNumber = previousMonth.getMonthValue(); 
-               
-                // !!! Proracun ukupne potrosnje po stanu
-                List <StanStanje> vrednostipotrosnje = stanRepository.findPotrosnjaPodstanicaId(pn.getId(),previousMonthNumber);
-                		
-                String sifra="";
-                String temp = "";
-                String vrednost="";
-                Map<String, String> m = new HashMap<>();
-                for(int i=0;i<vrednostipotrosnje.size();i++){
-                	
-                	
-                	try {
-                		
-                		StanStanje ss = (StanStanje)vrednostipotrosnje.get(i);
-                		System.out.println(ss);
-                		
-                		 sifra = ss.getSifra().trim();
-                		 if (i == 0) temp = sifra;
-                		 
-                		 if (sifra.equalsIgnoreCase(temp)) {
-                			 vrednost+= ss.getVrednost() + ";";
-                		 } else {
-                			 vrednost = ss.getVrednost().toString() + ";";
-                		 }
-                		
-                		 m.put(ss.getSifra(), vrednost);
-                		
-                		
-    	            	System.out.println(vrednost);
-    	            	temp = sifra;
-                	} catch (Exception e) {
-                		e.printStackTrace();
-                	}
-                	
-                } 
-                
-                String map="";
-                BigDecimal suma = new BigDecimal(.0);
-                
-                for (String key : m.keySet()) {
-                    map = key + "...." + m.get(key);
-                    
-                    String value = m.get(key);
-                    
-                    String[] vrednosti = value.split(";");
-                    
-                    Long val = Math.abs(Long.valueOf(vrednosti[1]) - Long.valueOf(vrednosti[0]));
-                    
-                    suma = suma.add(BigDecimal.valueOf(val));
-                    
-                    
-                  //  System.out.println(map + "    #####################################################################################################");
-                   // System.out.println(suma + "    #####################################################################################################");
-                }
-                
-               
-                
-          
-            	pn.setUkupnapotrosnjapostanu(suma.doubleValue());
-    			
-    			rDTO.getStan().setZadnjaStanja(stanstanjeRepository.getLastStatesForStan(rDTO.getStan().getId()));
-	    		rDTO.setNoviStaroStanje(rDTO.getStan().getZadnjaStanja().get(0));
-	    		rDTO.setNoviNovoStanje(rDTO.getStan().getZadnjaStanja().get(1));
-	    		rDTO.setNovipotrosnjazaPeriod(rDTO.getNoviNovoStanje() - rDTO.getNoviStaroStanje());
-	    		NacrtRacuna nc = r.getNacrtRacuna();
-	    		StanjaPodstaniceZaRacun spr = null;
-	    		//Podstanica pn = r.getStan().getPodstanica();
-	    		Stan stan = r.getStan();
-	    		
-	    		for(StanjaPodstaniceZaRacun spz : nc.getStanjaPodstaniceZaRacune()) {
-	    			spr = spz;
-	        	}   
-	    	 
-	    		
-	    		System.out.println(pn + " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"  );
-	    		
-	    		// ovaj    
-	    		zajednickostanjepodstanice = (spr.getNovoStanje().getStanje().subtract(spr.getStaroStanje().getStanje())).multiply(BigDecimal.valueOf(1000.00)).setScale(2, RoundingMode.HALF_UP);;
-	    		// ovaj
-	    		ukupnapotrosnjapoStanu =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
-	    		
-	    		BigDecimal ukupnapotrosnja =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
-	    		
-	    		BigDecimal ukupnapovrsina = BigDecimal.valueOf(pn.getUkupnapovrsina()).setScale(2, RoundingMode.HALF_UP);
-				// Povrsina svih stanova
-				
-				
-				BigDecimal udeostananum = stan.getPovrsina().divide(ukupnapovrsina,5, RoundingMode.HALF_UP).setScale(5);
-				
-				BigDecimal udeostana = udeostananum.multiply(BigDecimal.valueOf(100.00)).setScale(3, RoundingMode.HALF_UP);
-				// Procentualni udeo stana
-				
-				
-	            // ovaj		
-				udeozajednickepotrosnje = udeostana.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
+    			this.NoviCalculateData(rDTO, pn, r);
 			
     		}  else {
     			rDTO.setNoviStaroStanje(0.0);
 	    		rDTO.setNoviNovoStanje(0.0);
 	    		rDTO.setNovipotrosnjazaPeriod(0.0);
+	    		rDTO.setNoviUdeoUZajednickoj(0.0);
+	    		rDTO.setNoviPotrosnjaPoSvimMerilima(0.0);
+	    		rDTO.setNoviZajednickaPotrosnja(0.0);
     		}
 			
 			// Za stan deo koji se odnosi na udeo zajednicke potrosnje - J5
@@ -332,12 +229,10 @@ public class RacunService  {
     				rDTO.getUkupnoZaduzenje().toString(), "1", a, rDTO.getPopust().toString(),
     				rDTO.getStan().isUkljucen(), rDTO.getPopust() == null ? false : true, rDTO.getCenaFixIskljucen().toString(), rDTO.getPeriod(),
     				rDTO.getSlikaQrStan(), rDTO.getImgQr(), rDTO.getStan().getVlasnik().getEmail(), rDTO.getNoviStaroStanje(), rDTO.getNoviNovoStanje(), rDTO.getNovipotrosnjazaPeriod(),
-    				udeozajednickepotrosnje.doubleValue(), ukupnapotrosnjapoStanu.doubleValue(), zajednickostanjepodstanice.doubleValue()
+    				rDTO.getNoviUdeoUZajednickoj(),rDTO.getNoviPotrosnjaPoSvimMerilima(), rDTO.getNoviZajednickaPotrosnja()
     				);    				
     		racuniStampanje.add(rs); 
     		
-    	  
-    		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+  rDTO.getStan().getSifra());
     		
     	}
     	
@@ -345,7 +240,129 @@ public class RacunService  {
     	
     }
     
-    
+    public void NoviCalculateData(RacunDTO rDTO, Podstanica pn, Racun r) {
+    	
+    	BigDecimal zajednickostanjepodstanice = new BigDecimal(0.0);
+		BigDecimal ukupnapotrosnjapoStanu  = new BigDecimal(0.0);
+		BigDecimal udeozajednickepotrosnje = new BigDecimal(0.0);
+		
+    	
+    	
+    	pn.setUkupnapovrsina(stanRepository.findKvSumPodstanicaId(pn.getId()));
+    	
+    	
+   	 
+    	LocalDate today = LocalDate.now();
+        LocalDate previousMonth = today.minusMonths(1); 
+        int previousMonthNumber = previousMonth.getMonthValue(); 
+       
+        // !!! Proracun ukupne potrosnje po stanu
+        List <StanStanje> vrednostipotrosnje = stanRepository.findPotrosnjaPodstanicaId(pn.getId(),previousMonthNumber);
+        		
+        String sifra="";
+        String temp = "";
+        String vrednost="";
+        Map<String, String> m = new HashMap<>();
+        for(int i=0;i<vrednostipotrosnje.size();i++){
+        	
+        	
+        	try {
+        		
+        		StanStanje ss = (StanStanje)vrednostipotrosnje.get(i);
+        		System.out.println(ss);
+        		
+        		 sifra = ss.getSifra().trim();
+        		 if (i == 0) temp = sifra;
+        		 
+        		 if (sifra.equalsIgnoreCase(temp)) {
+        			 vrednost+= ss.getVrednost() + ";";
+        		 } else {
+        			 vrednost = ss.getVrednost().toString() + ";";
+        		 }
+        		
+        		 m.put(ss.getSifra(), vrednost);
+        		
+        		
+            	System.out.println(vrednost);
+            	temp = sifra;
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
+        	
+        } 
+        
+        String map="";
+        BigDecimal suma = new BigDecimal(.0);
+        
+        for (String key : m.keySet()) {
+            map = key + "...." + m.get(key);
+            
+            String value = m.get(key);
+            
+            String[] vrednosti = value.split(";");
+            
+            Long val = Math.abs(Long.valueOf(vrednosti[1]) - Long.valueOf(vrednosti[0]));
+            
+            suma = suma.add(BigDecimal.valueOf(val));
+            
+            
+          //  System.out.println(map + "    #####################################################################################################");
+           // System.out.println(suma + "    #####################################################################################################");
+        }
+        
+       
+        
+  
+    	pn.setUkupnapotrosnjapostanu(suma.doubleValue());
+		
+		rDTO.getStan().setZadnjaStanja(stanstanjeRepository.getLastStatesForStan(rDTO.getStan().getId()));
+		rDTO.setNoviStaroStanje(rDTO.getStan().getZadnjaStanja().get(0));
+		rDTO.setNoviNovoStanje(rDTO.getStan().getZadnjaStanja().get(1));
+		rDTO.setNovipotrosnjazaPeriod(rDTO.getNoviNovoStanje() - rDTO.getNoviStaroStanje());
+		NacrtRacuna nc = r.getNacrtRacuna();
+		StanjaPodstaniceZaRacun spr = null;
+		//Podstanica pn = r.getStan().getPodstanica();
+		Stan stan = r.getStan();
+		
+		for(StanjaPodstaniceZaRacun spz : nc.getStanjaPodstaniceZaRacune()) {
+			spr = spz;
+    	}   
+	 
+		
+		System.out.println(pn + " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"  );
+		
+		// ovaj    
+		zajednickostanjepodstanice = (spr.getNovoStanje().getStanje().subtract(spr.getStaroStanje().getStanje())).multiply(BigDecimal.valueOf(1000.00)).setScale(2, RoundingMode.HALF_UP);;
+		// ovaj
+		ukupnapotrosnjapoStanu =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
+		
+		BigDecimal ukupnapotrosnja =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
+		
+		BigDecimal ukupnapovrsina = BigDecimal.valueOf(pn.getUkupnapovrsina()).setScale(2, RoundingMode.HALF_UP);
+		// Povrsina svih stanova
+		
+		
+		BigDecimal udeostananum = stan.getPovrsina().divide(ukupnapovrsina,5, RoundingMode.HALF_UP).setScale(5);
+		
+		BigDecimal udeostana = udeostananum.multiply(BigDecimal.valueOf(100.00)).setScale(3, RoundingMode.HALF_UP);
+		// Procentualni udeo stana
+		
+		
+        // ovaj		
+		udeozajednickepotrosnje = udeostana.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
+		
+		
+	
+		rDTO.setNoviUdeoUZajednickoj(udeozajednickepotrosnje.doubleValue());
+		rDTO.setNoviPotrosnjaPoSvimMerilima(ukupnapotrosnjapoStanu.doubleValue());
+		rDTO.setNoviZajednickaPotrosnja(zajednickostanjepodstanice.doubleValue());
+		
+		
+		
+    	
+    }
+ 
+ 
 
 
 }
