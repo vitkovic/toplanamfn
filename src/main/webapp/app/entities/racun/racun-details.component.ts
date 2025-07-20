@@ -51,27 +51,30 @@ export default class RacunDetails extends Vue {
   } 
   public previousRacun() {
 	
-	console.log(this.prevnext);
-     this.racunService()
+	this.checkRacunId();
+	this.$router.push({name: 'RacunView', params: {racunId: this.left} });
+	
+	 this.racunService()
        .find(this.left)
        .then(res => {
          this.racun = res;
   	     this.prevnext = res.prevNextRacuni;
          this.loaded = true;
-		 this.checkRacunId();
+		
        });
    }
    
    public nextRacun() {
+	
 	  this.checkRacunId();
-	  console.log(this.prevnext);
-      this.racunService()
+	  this.$router.push({name: 'RacunView', params: {racunId: this.right} });
+	
+	    this.racunService()
         .find(this.right)
         .then(res => {
           this.racun = res;
-   	      this.prevnext = res.prevNextRacuni;
+		  this.prevnext = res.prevNextRacuni;
           this.loaded = true;
-		  this.checkRacunId();
         });
     }
   

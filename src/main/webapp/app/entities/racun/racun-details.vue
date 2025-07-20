@@ -226,11 +226,17 @@
         
         <div class="col-12" style="margin-top:20px">
             <div v-if="racun">
-                <button type="submit"
+               <!-- <button type="submit"
                         v-on:click.prevent="previousState()"
                         class="btn btn-info">
                     <font-awesome-icon icon="arrow-left"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.back')"> Back</span>
-                </button>
+                </button>-->
+                
+                <router-link :to="{name: 'Racun'}"  tag="button" class="btn btn-info">
+                  <font-awesome-icon icon="arrow-left"></font-awesome-icon>
+                                <span v-text="$t('entity.action.back')">Back</span>
+                </router-link>
+                
                 <button type="button" 
                         v-on:click="stampanje()"
                         class="btn btn-primary">
@@ -242,13 +248,18 @@
                         v-on:click="previousRacun()"
                         class="btn btn-primary">
                     <span v-text="$t('entity.action.previousracun')"></span>
-                </button>
+                </button>              
                 
                 <button type="button" 
                         v-on:click="nextRacun()"
                         class="btn btn-primary">
                     <span v-text="$t('entity.action.nextracun')"></span>
                 </button>
+                <router-link v-if="!racun.proknjizen" :to="{name: 'RacunEdit', params: {racunId: racun.id}}"  tag="button" class="btn btn-warning">
+                  <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
+                </router-link>
+                
                 
                 <!--
                 <router-link v-if="racun.id" :to="{name: 'RacunEdit', params: {racunId: racun.id}}" tag="button" class="btn btn-primary">

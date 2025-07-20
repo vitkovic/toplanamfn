@@ -337,22 +337,22 @@
     Logo styles
     ========================================================================== */
 .navbar-brand.logo {
-  padding: 5px 15px;
+  padding: 0px 0px;
 }
 
 .logo .logo-img {
-  height: 45px;
+  height: 80px;
   display: inline-block;
   vertical-align: middle;
-  width: 70px;
+  
 }
 
 .logo-img {
   height: 100%;
-  background: url("../../../content/images/Logo-MFN.jpg") no-repeat center
+  background: url("../../../content/images/Logo-MFNW.png") no-repeat center
     center;
   background-size: contain;
   width: 100%;
-  filter: drop-shadow(0 0 0.05rem white);
+  
 }
 </style>
