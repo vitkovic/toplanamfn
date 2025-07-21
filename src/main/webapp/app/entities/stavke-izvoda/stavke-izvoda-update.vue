@@ -12,10 +12,10 @@
                                v-model="stavkeIzvoda.pozivOdobrenja"  required
                                :class="{'valid': !$v.stavkeIzvoda.pozivOdobrenja.$invalid, 'invalid': $v.stavkeIzvoda.pozivOdobrenja.$invalid }"/>
                     </div>
-                    <div class="col-1">
+                    <div class="col-2">
                         <span class="font-weight-bold" v-text="$t('toplanaApp.stavkeIzvoda.rasporedjena')"></span>
                     </div>
-                    <div class="col-1">
+                    <div class="col-2">
                         <span class="font-weight-bold">
                             {{ stavkeIzvoda.rasporedjena ? 'Да' : 'Не' }}
                         </span>
