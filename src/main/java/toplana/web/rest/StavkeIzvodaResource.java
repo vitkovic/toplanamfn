@@ -128,6 +128,14 @@ public class StavkeIzvodaResource {
         Stan stan = stanRepository.findBySifra(sifraStana);
         if(stan != null) {
         	stavkeIzvoda.setRasporedjena(true);        	
+        	Transakcija td = stavkeIzvodaTransakcija.getStavkeIzvoda().getTransakcija();
+        	
+        	if (td.getId() != null && td.getId() > 0) {
+        		
+        		transakcijaRepository.delete(td);
+        		
+        	}
+        	
         	
         	Transakcija t = new Transakcija(stavkeIzvoda, stan, sp);
         	Transakcija tResult = transakcijaRepository.save(t);
@@ -147,6 +155,15 @@ public class StavkeIzvodaResource {
         		if(ostaliRacuni != null) {
         			stavkeIzvoda.setRasporedjena(true);        	
                 	
+        			Transakcija td = stavkeIzvodaTransakcija.getStavkeIzvoda().getTransakcija();
+                	
+                	if (td.getId() != null && td.getId() > 0) {
+                		
+                		transakcijaRepository.delete(td);
+                		
+                	}
+        			
+        			
                 	Transakcija t = new Transakcija(stavkeIzvoda, ostaliRacuni, sp);
                 	Transakcija tResult = transakcijaRepository.save(t);
                 	stavkeIzvoda.setTransakcija(tResult);
@@ -164,6 +181,14 @@ public class StavkeIzvodaResource {
         		if(ostaliRacuni != null) {
 	        		stavkeIzvoda.setRasporedjena(true);        	
 	            	
+	        		Transakcija td = stavkeIzvodaTransakcija.getStavkeIzvoda().getTransakcija();
+	            	
+	            	if (td.getId() != null && td.getId() > 0) {
+	            		
+	            		transakcijaRepository.delete(td);
+	            		
+	            	}
+	        		
 	            	Transakcija t = new Transakcija(stavkeIzvoda, ostaliRacuni, sp);
 	            	Transakcija tResult = transakcijaRepository.save(t);
 	            	stavkeIzvoda.setTransakcija(tResult);
