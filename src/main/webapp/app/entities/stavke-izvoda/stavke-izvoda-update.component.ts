@@ -63,7 +63,7 @@ export default class StavkeIzvodaUpdate extends Vue {
   public sifraPromene: ISifraPromene = new SifraPromene();
 
   public izvods: IIzvod[] = [];
-  public isSaving = false;
+  public isSaving = true;
   public currentLanguage = '';
   public RACUN_ZADUZENJA = RACUN_ZADUZENJA;
   public stavkeIzvodaTransakcija = {
@@ -108,7 +108,7 @@ export default class StavkeIzvodaUpdate extends Vue {
       this.stavkeIzvodaService()
         .knjizenje(this.stavkeIzvodaTransakcija)
         .then(param => {
-          this.isSaving = false;
+		  this.isSaving = false;
           this.$router.go(-1);
           const message = this.$t('toplanaApp.stavkeIzvoda.updated', { param: param.id });
           this.alertService().showAlert(message, 'info');
@@ -133,10 +133,12 @@ export default class StavkeIzvodaUpdate extends Vue {
       .find(stavkeIzvodaId)
       .then(res => {
         this.stavkeIzvoda = res.stavkeIzvoda;
-        this.sifraPromene = res.sifraPromene;
-        if(!this.sifraPromene){
+		console.log(this.stavkeIzvoda)
+	
+	    if(!this.sifraPromene){
           this.sifraPromene = this.sifraPromenes[0];
-        }
+        } else
+		   this.sifraPromene = this.stavkeIzvoda.transakcija.sifraPromene;
       });
   }
 
@@ -148,7 +150,7 @@ export default class StavkeIzvodaUpdate extends Vue {
     this.transakcijaService()
       .retrieve()
       .then(res => {
-        this.transakcijas = res.data;
+		this.transakcijas = res.data;
       });
     this.transakcijaStaraService()
       .retrieve()
