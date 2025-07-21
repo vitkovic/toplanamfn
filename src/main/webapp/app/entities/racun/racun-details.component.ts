@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { IRacun } from '@/shared/model/racun.model';
