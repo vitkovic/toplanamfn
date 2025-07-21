@@ -255,7 +255,7 @@
                         class="btn btn-primary">
                     <span v-text="$t('entity.action.nextracun')"></span>
                 </button>
-                <router-link v-if="!racun.proknjizen" :to="{name: 'RacunEdit', params: {racunId: racun.id}}"  tag="button" class="btn btn-warning">
+                <router-link  :to="{name: 'RacunEdit', params: {racunId: racun.id}}"  tag="button" class="btn btn-warning">
                   <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
                 </router-link>

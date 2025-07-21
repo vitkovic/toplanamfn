@@ -173,7 +173,7 @@
                                 <font-awesome-icon icon="eye"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
                             </router-link>
-                            <router-link v-if="!racun.proknjizen" :to="{name: 'RacunEdit', params: {racunId: racun.id}}"  tag="button" class="btn btn-primary btn-sm edit">
+                            <router-link  :to="{name: 'RacunEdit', params: {racunId: racun.id}}"  tag="button" class="btn btn-primary btn-sm edit">
                                 <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
                             </router-link>

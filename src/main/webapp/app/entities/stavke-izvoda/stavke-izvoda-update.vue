@@ -126,7 +126,7 @@
                 
                 
                 
-                <div>ovo je {{isSaving}}
+                <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
                         <span v-text="$t('entity.action.cancel')">Cancel</span>
                     </button>
