@@ -68,13 +68,13 @@
                     </div>
                 </div><hr>
                 <div class="row" style="margin-bottom:20px">
-                    <div class="col-2">
+                    <div class="col-1">
                         <span class="font-weight-bold" v-text="$t('toplanaApp.stavkeIzvoda.nazivIMesto')"></span>
                     </div>
                     <div class="col-3">
                         {{stavkeIzvoda.nazivZaduzenja}}
                     </div>
-                    <div class="col-1">
+                    <div class="col-2">
                         <span class="font-weight-bold" v-text="$t('toplanaApp.stavkeIzvoda.odobrenje')"></span>
                     </div>
                     <div class="col-2">       
