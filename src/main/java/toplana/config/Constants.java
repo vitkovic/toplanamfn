@@ -11,6 +11,7 @@ public final class Constants {
     public static final String SYSTEM_ACCOUNT = "system";
     public static final String DEFAULT_LANGUAGE = "sr";
     public static final String ANONYMOUS_USER = "anonymoususer";
+    public static final String RACUN_OSTALI_TROSKOVI_BEZ_STANA = "090100009";
 
     private Constants() {
     }

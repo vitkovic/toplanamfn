@@ -1,5 +1,6 @@
 package toplana.web.rest;
 
+import toplana.config.Constants;
 import toplana.domain.Racun;
 import toplana.domain.Stan;
 import toplana.domain.Transakcija;
@@ -87,7 +88,7 @@ public class TransakcijaResource {
         if (transakcija.getId() != null) {
             throw new BadRequestAlertException("A new transakcija cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        if (transakcija.getStan().getSifra().equalsIgnoreCase("090100009"))transakcija.setStan(null);
+        if (transakcija.getStan().getSifra().equalsIgnoreCase(Constants.RACUN_OSTALI_TROSKOVI_BEZ_STANA))transakcija.setStan(null);
         
         Transakcija result = transakcijaService.save(transakcija);
         return ResponseEntity.created(new URI("/api/transakcijas/" + result.getId()))
@@ -175,7 +176,7 @@ public class TransakcijaResource {
     	
     	List<TransakcijaStanUkupnoDTO> transakcije = null;
     	
-    	if(search.getSifraStana() != null && search.getSifraStana().trim().equals("090100009")) {
+    	if(search.getSifraStana() != null && search.getSifraStana().trim().equals(Constants.RACUN_OSTALI_TROSKOVI_BEZ_STANA)) {
     		System.out.println("*******************************************************************************************************************************" + search.getSifraStana());
     		
     		transakcije = transakcijaService.findAllOR(search);
