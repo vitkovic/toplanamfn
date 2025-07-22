@@ -196,7 +196,7 @@ export default class Transakcija extends mixins(AlertMixin) {
 	  console.log(this.transakcije);
       this.isFetching = false;
       this.totalItems = Number(res.headers['x-total-count']);
-	  if (this.totalItems > 0 && this.RACUN_OSTALI_TROSKOVI_BEZ_STANA == this.search.sifraStana) {
+	  if (this.totalItems > 0 && RACUN_OSTALI_TROSKOVI_BEZ_STANA == this.search.sifraStana) {
 		this.fields = this.fieldsort;
 	  }
       //this.queryCount = this.totalItems;      
