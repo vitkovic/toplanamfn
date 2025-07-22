@@ -9,7 +9,7 @@ import PodstanicaService from '../podstanica/podstanica.service';
 import { IPodstanica } from '@/shared/model/podstanica.model';
 import TipPotrosacaService from '../tip-potrosaca/tip-potrosaca.service';
 import { ITipPotrosaca } from '@/shared/model/tip-potrosaca.model';
-
+import { RACUN_OSTALI_TROSKOVI_BEZ_STANA } from '@/constants';
 
 import TransakcijaService from './transakcija.service';
 
@@ -65,6 +65,7 @@ export default class Transakcija extends mixins(AlertMixin) {
   
 
   public fields: any[] = [];
+  public fieldsort: any[] = [];
   //computed properties
   get rows() {      
     return this.transakcije.length;
@@ -105,6 +106,8 @@ export default class Transakcija extends mixins(AlertMixin) {
   }
   public mounted(): void {
     //this.retrieveAllTransakcijas();
+	
+   /*
     this.fields = [
       {key:'sifra', label:this.$t('toplanaApp.transakcija.sifra'), sortable:true},
       {key:'prezime', label:this.$t('toplanaApp.vlasnik.prezime'), sortable:true},
@@ -113,6 +116,26 @@ export default class Transakcija extends mixins(AlertMixin) {
       {key:'stanje', label:this.$t('toplanaApp.transakcija.stanje'),sortable:true},
       {key:'actions', label:""}
     ]
+	*/
+	
+	this.fields = [
+	      {key:'sifra', label:this.$t('toplanaApp.transakcija.sifra'), sortable:true},
+	      {key:'prezime', label:this.$t('toplanaApp.vlasnik.prezime'), sortable:true,thClass:'fieldWidth'},
+	      {key:'duguje', label:this.$t('toplanaApp.transakcija.duguje'), sortable:true},
+	      {key:'potrazuje', label:this.$t('toplanaApp.transakcija.potrazuje'), sortable:true},
+	      {key:'stanje', label:this.$t('toplanaApp.transakcija.stanje'),sortable:true},
+	      {key:'actions', label:this.$t('toplanaApp.transakcija.akcije'),sortable:false}
+	    ]
+	
+	this.fieldsort = [
+	     {key:'sifra', label:this.$t('toplanaApp.transakcija.sifra'), sortable:true},
+	     {key:'opis', label:this.$t('toplanaApp.transakcija.opis'), sortable:true, thClass:'fieldWidth'},
+	     {key:'duguje', label:this.$t('toplanaApp.transakcija.duguje'), sortable:true},
+	     {key:'potrazuje', label:this.$t('toplanaApp.transakcija.potrazuje'), sortable:true},
+	     {key:'actions', label:this.$t('toplanaApp.transakcija.akcije'),sortable:false}
+	   ]
+	
+	
   }
 
   public prikaziDetalje(sifra:string): void {
@@ -138,9 +161,8 @@ export default class Transakcija extends mixins(AlertMixin) {
       .then(
         res => {
           this.transakcije = res.data;
-		  console.log(res.data);
-          this.totalItems = Number(res.headers['x-total-count']);
-          this.queryCount = this.totalItems;
+	      this.totalItems = Number(res.headers['x-total-count']);
+    	  this.queryCount = this.totalItems;
           this.isFetching = false;
         },
         err => {
@@ -171,9 +193,12 @@ export default class Transakcija extends mixins(AlertMixin) {
     .then(res => {    
       this.margina = false;
       this.transakcije = res.data;
-	  console.log(res.data);
+	  console.log(this.transakcije);
       this.isFetching = false;
-      //this.totalItems = Number(res.headers['x-total-count']);
+      this.totalItems = Number(res.headers['x-total-count']);
+	  if (this.totalItems > 0 && this.RACUN_OSTALI_TROSKOVI_BEZ_STANA == this.search.sifraStana) {
+		this.fields = this.fieldsort;
+	  }
       //this.queryCount = this.totalItems;      
       //this.isFetching = false;
     });

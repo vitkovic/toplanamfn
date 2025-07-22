@@ -12,7 +12,16 @@ public class TransakcijaStanUkupnoDTO {
 	private Long stanId;
 	private String prezime;
 	private String datum;
-		
+	private String opis;
+	
+	public String getOpis() {
+		return opis;
+	}
+
+	public void setOpis(String opis) {
+		this.opis = opis;
+	}
+
 	public String getDatum() {
 		return datum;
 	}
@@ -53,6 +62,14 @@ public class TransakcijaStanUkupnoDTO {
 		this.duguje = duguje;
 		this.potrazuje = potrazuje;		
 		this.sifra = sifra;		
+	}
+	
+	public TransakcijaStanUkupnoDTO(String datum, String opis, BigDecimal duguje, BigDecimal potrazuje, String sifra) {
+		this.datum = datum;
+		this.duguje = duguje;
+		this.potrazuje = potrazuje;		
+		this.sifra = sifra;	
+		this.opis = opis;
 	}
 	
 	public TransakcijaStanUkupnoDTO(BigDecimal duguje, BigDecimal potrazuje, BigDecimal stanje,  String sifra, String prezime) {

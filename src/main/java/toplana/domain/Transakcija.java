@@ -54,6 +54,7 @@ import java.time.LocalDate;
 					targetClass=TransakcijaStanUkupnoDTO.class,
 					columns={
 							@ColumnResult(name="datum", type=String.class),
+							@ColumnResult(name="opis", type=String.class),
 							@ColumnResult(name="duguje", type=BigDecimal.class),
 							@ColumnResult(name="potrazuje", type=BigDecimal.class),
 							@ColumnResult(name="sifra", type=String.class),
@@ -166,7 +167,7 @@ import java.time.LocalDate;
 	
 	
 	@NamedNativeQuery(name="Transakcija.searchOR", 
-	query="SELECT t.datum, t.duguje as duguje, t.potrazuje as potrazuje, t.ostali_racuni_id, ort.sifra "
+	query="SELECT t.datum, t.opis,  t.duguje as duguje, t.potrazuje as potrazuje, t.ostali_racuni_id, ort.sifra "
 				+ "	from transakcija t, ostali_racuni ort "
 				+ "	where t.ostali_racuni_id = ort.id and ort.sifra = :sifra"
 				+ "	", 	resultSetMapping="or"),

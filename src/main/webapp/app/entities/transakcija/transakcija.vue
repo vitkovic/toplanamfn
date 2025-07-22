@@ -139,13 +139,13 @@
                     <b-form-input v-model="filter" type="search" :placeholder="potrazi"></b-form-input>
                 </b-col>
             </b-row>
-            <b-row style="margin-top:10px">
+            <b-row style="margin-left:0px;margin-top:10px">                     
                 <b-col>
                     <b-table striped 
                         :items="transakcije" 
                         :filter="filter" 
                         :per-page="perPage" 
-                        :fields="fields"
+                        :fields="fieldsort"
                         :current-page="currentPage" >
                             <template v-slot:cell(actions)="data">
                                 <b-button variant="info" @click="prikaziDetalje(data.item.sifra)">
@@ -187,3 +187,8 @@
 
 <script lang="ts" src="./transakcija.component.ts">
 </script>
+<style>
+ .fieldWidth {
+      width: 30%
+    }
+</style>
