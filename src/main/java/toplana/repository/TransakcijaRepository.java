@@ -64,6 +64,9 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			@Param("stanUkljucen") Boolean stanUkljucen
 			);
 	
+	@Query(nativeQuery = true) 
+	List<TransakcijaStanUkupnoDTO> searchOR(@Param("sifra") String sifra);
+	
 	@Query(nativeQuery = true)
 	List<TransakcijaZaStanDTO> searchForAnalitickiDnevnik(@Param("datumOdNotExists") Integer datumOdNotExists,@Param("datumOd") LocalDate datumOd,
 			@Param("datumDoNotExists") Integer datumDoNotExists,@Param("datumDo") LocalDate datumDo,

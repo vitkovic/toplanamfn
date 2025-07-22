@@ -30,7 +30,7 @@
                         <span v-text="$t('toplanaApp.transakcija.adresa')"></span>
                     </div>
                     <div class="col-6">
-                        <span v-if="transakcija.stan.id">{{transakcija.stan.ulica}} {{transakcija.stan.ulaz}}/{{transakcija.stan.broj}}, {{transakcija.stan.postanskiBroj}} {{transakcija.stan.grad}}</span>
+                        <span v-if="transakcija.stan.id && transakcija.stan.id > 0">{{transakcija.stan.ulica}} {{transakcija.stan.ulaz}}/{{transakcija.stan.broj}}, {{transakcija.stan.postanskiBroj}} {{transakcija.stan.grad}}</span>
                     </div>
                 </div>
                 <div class="row" style="margin-top:20px;">

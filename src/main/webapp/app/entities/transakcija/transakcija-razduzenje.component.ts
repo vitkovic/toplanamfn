@@ -25,6 +25,8 @@ import AlertService from '@/shared/alert/alert.service';
 import { ITransakcija, Transakcija } from '@/shared/model/transakcija.model';
 import TransakcijaService from './transakcija.service';
 
+import { RACUN_OSTALI_TROSKOVI_BEZ_STANA } from '@/constants';
+
 const validations: any = {
   sifra:{required},
   
@@ -79,6 +81,7 @@ export default class TransakcijaRazduzenje extends Vue {
   public isSaving = false;
   public currentLanguage = '';
   public ispravnaSifra = false;
+  public or = '';
   public stan = {
     id:null,
     sifra:'',
@@ -151,6 +154,31 @@ export default class TransakcijaRazduzenje extends Vue {
   }
 
   public getStan(): void{    
+	
+	if (this.sifra == RACUN_OSTALI_TROSKOVI_BEZ_STANA) {
+				this.ispravnaSifra = true;
+				this.$notify({"Racun nije vezan sa stanom - " + RACUN_OSTALI_TROSKOVI_BEZ_STANA, type:'warning', duration:10000});
+				this.or = RACUN_OSTALI_TROSKOVI_BEZ_STANA;
+				const vlasniknov = {
+								  ime: "",
+								  prezime: ""
+								};
+				const stannov = {
+				  id: -1,
+				  sifra: RACUN_OSTALI_TROSKOVI_BEZ_STANA,
+				  adresa:null
+				  vlasnik: vlasniknov
+				};
+				const ostaliracuni = {
+					id: 20656
+				}
+				
+				this.transakcija.stan = stannov;
+				this.transakcija.ostali
+				this.transakcija.ostaliRacuni = ostaliracuni
+				return;
+	}
+	
     this.ispravnaSifra = false;
     this.stanService()
       .findZaSifru(this.sifra)
@@ -167,7 +195,10 @@ export default class TransakcijaRazduzenje extends Vue {
             this.transakcija.stan.sifra = this.transakcija.ostaliRacuni.sifra;
             this.transakcija.status = this.transakcija.ostaliRacuni.stan.status;
             this.ispravnaSifra = true;
-          }
+          } else if (  this.transakcija.stan.sifra == RACUN_OSTALI_TROSKOVI_BEZ_STANA)  {
+			
+			this.ispravnaSifra = true;
+		  }
         }else{
           //this.clear();
           this.ispravnaSifra = false;
@@ -178,7 +209,7 @@ export default class TransakcijaRazduzenje extends Vue {
         this.dugujePotrazujeDto = res.dugujePotrazujeDto;
       })
       .catch(error => {
-        this.ispravnaSifra = false;
+	    this.ispravnaSifra = false;
         var message:string = this.getMessageFromHeader(error.response);
         this.$notify({text:message, type:'error', duration:10000});
       });

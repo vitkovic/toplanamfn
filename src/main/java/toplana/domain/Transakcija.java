@@ -47,6 +47,22 @@ import java.time.LocalDate;
 				)
 		}
 	),
+	
+	@SqlResultSetMapping(name="or", 
+	classes={
+			@ConstructorResult(
+					targetClass=TransakcijaStanUkupnoDTO.class,
+					columns={
+							@ColumnResult(name="datum", type=String.class),
+							@ColumnResult(name="duguje", type=BigDecimal.class),
+							@ColumnResult(name="potrazuje", type=BigDecimal.class),
+							@ColumnResult(name="sifra", type=String.class),
+					}
+			)
+	}
+),
+	
+	
 	@SqlResultSetMapping(name="ac", 
 	classes={
 			@ConstructorResult(
@@ -147,6 +163,13 @@ import java.time.LocalDate;
 				+ "	left join stan s on s.id = t.stan_id "
 				+ "	group by t.stan_id, s.sifra", 
 	resultSetMapping="ab"),
+	
+	
+	@NamedNativeQuery(name="Transakcija.searchOR", 
+	query="SELECT t.datum, t.duguje as duguje, t.potrazuje as potrazuje, t.ostali_racuni_id, ort.sifra "
+				+ "	from transakcija t, ostali_racuni ort "
+				+ "	where t.ostali_racuni_id = ort.id and ort.sifra = :sifra"
+				+ "	", 	resultSetMapping="or"),
 	
 	@NamedNativeQuery(name="Transakcija.search", 
 	  query="SELECT coalesce(sum(duguje),0) as dugovanje, coalesce(sum(potrazuje),0) as potrazivanje, "

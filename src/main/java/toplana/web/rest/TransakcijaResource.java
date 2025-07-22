@@ -87,6 +87,8 @@ public class TransakcijaResource {
         if (transakcija.getId() != null) {
             throw new BadRequestAlertException("A new transakcija cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        if (transakcija.getStan().getSifra().equalsIgnoreCase("090100009"))transakcija.setStan(null);
+        
         Transakcija result = transakcijaService.save(transakcija);
         return ResponseEntity.created(new URI("/api/transakcijas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -170,7 +172,19 @@ public class TransakcijaResource {
     public List<TransakcijaStanUkupnoDTO> getAllRacunsCriteria(@RequestBody SearchTransakcijaDTO search, Pageable pageable) {   
 	    //TransakcijaSpecification transakcijaSpec = transakcijaService.createSpecification(search);
 	    //List<TransakcijaStanUkupnoDTO> transakcije = transakcijaCustomRepository.findAllSumed(transakcijaSpec);
-    	List<TransakcijaStanUkupnoDTO> transakcije = transakcijaService.findAllSumed(search);
+    	
+    	List<TransakcijaStanUkupnoDTO> transakcije = null;
+    	
+    	if(search.getSifraStana() != null && search.getSifraStana().trim().equals("090100009")) {
+    		System.out.println("*******************************************************************************************************************************" + search.getSifraStana());
+    		
+    		transakcije = transakcijaService.findAllOR(search);
+    
+    	} else {
+    	
+    	  transakcije = transakcijaService.findAllSumed(search);
+    	
+    	}
 	    return transakcije;
     }
     

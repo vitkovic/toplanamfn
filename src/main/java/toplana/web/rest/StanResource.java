@@ -164,6 +164,7 @@ public class StanResource {
     public ResponseEntity<List<Stan>> getAllStansWithoutPageable() {
         log.debug("REST request to get a page of Stans");
         List<Stan> stanovi = stanRepository.findAll();
+      
         
         return ResponseEntity.ok().body(stanovi);
     }

@@ -7,7 +7,7 @@ export const VERSION = process.env.VERSION;
 export const SERVER_API_URL = process.env.SERVER_API_URL;
 export const BUILD_TIMESTAMP = process.env.BUILD_TIMESTAMP;
 export const RACUN_ZADUZENJA = '840-0000002696760-36';
-
+export const RACUN_OSTALI_TROSKOVI_BEZ_STANA = '090100009';
 // Errors
 export const PROBLEM_BASE_URL = 'https://www.jhipster.tech/problem';
 export const EMAIL_ALREADY_USED_TYPE = PROBLEM_BASE_URL + '/email-already-used';

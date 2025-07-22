@@ -91,6 +91,7 @@ export default class OstaliRacuniUpdate extends Vue {
       .then(res => {
         debugger
         this.stans = res.data;
+	
       });
   }
 }

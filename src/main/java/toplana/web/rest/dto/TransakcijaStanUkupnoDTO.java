@@ -11,7 +11,16 @@ public class TransakcijaStanUkupnoDTO {
 	private String sifra;
 	private Long stanId;
 	private String prezime;
+	private String datum;
 		
+	public String getDatum() {
+		return datum;
+	}
+
+	public void setDatum(String datum) {
+		this.datum = datum;
+	}
+
 	public TransakcijaStanUkupnoDTO(BigDecimal duguje, BigDecimal potrazuje, Long stanId, String sifra) {
 		this.duguje = duguje;
 		this.potrazuje = potrazuje;		
@@ -33,7 +42,14 @@ public class TransakcijaStanUkupnoDTO {
 		
 	}
 	
-	public TransakcijaStanUkupnoDTO(BigDecimal duguje, BigDecimal potrazuje) {
+	public TransakcijaStanUkupnoDTO(BigDecimal duguje, BigDecimal potrazuje, String sifra) {
+		this.duguje = duguje;
+		this.potrazuje = potrazuje;		
+		this.sifra = sifra;		
+	}
+	
+	public TransakcijaStanUkupnoDTO(String datum, BigDecimal duguje, BigDecimal potrazuje, String sifra) {
+		this.datum = datum;
 		this.duguje = duguje;
 		this.potrazuje = potrazuje;		
 		this.sifra = sifra;		

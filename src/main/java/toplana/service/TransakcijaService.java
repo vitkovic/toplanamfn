@@ -243,6 +243,18 @@ public class TransakcijaService {
     	
     	return out;
     }
+ 
+ 	public List<TransakcijaStanUkupnoDTO> findAllOR(SearchTransakcijaDTO search){
+ 		String sifra = "";
+ 		if(search.getSifraStana() != null) {
+    		sifra =  search.getSifraStana() ;
+    	}
+ 	//	System.out.println("********************************************************************" + sifra);
+ 		List<TransakcijaStanUkupnoDTO> out = transakcijaRepository.searchOR(sifra);
+ 		
+ 		//System.out.println("********************************************************************" + out);
+    	return out;
+ 	}
     
     /**
      * Trazi sve transakcije za zadate kriterijume, ali sumirano

@@ -184,6 +184,8 @@ export default class TransakcijaService {
         });
     });
   }
+  
+  
 
   
   public update(entity: ITransakcija): Promise<ITransakcija> {

@@ -138,6 +138,7 @@ export default class Transakcija extends mixins(AlertMixin) {
       .then(
         res => {
           this.transakcije = res.data;
+		  console.log(res.data);
           this.totalItems = Number(res.headers['x-total-count']);
           this.queryCount = this.totalItems;
           this.isFetching = false;
@@ -170,6 +171,7 @@ export default class Transakcija extends mixins(AlertMixin) {
     .then(res => {    
       this.margina = false;
       this.transakcije = res.data;
+	  console.log(res.data);
       this.isFetching = false;
       //this.totalItems = Number(res.headers['x-total-count']);
       //this.queryCount = this.totalItems;      
