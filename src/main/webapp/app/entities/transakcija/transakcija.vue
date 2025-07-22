@@ -145,7 +145,7 @@
                         :items="transakcije" 
                         :filter="filter" 
                         :per-page="perPage" 
-                        :fields="fieldsort"
+                        :fields="fields"
                         :current-page="currentPage" >
                             <template v-slot:cell(actions)="data">
                                 <b-button variant="info" @click="prikaziDetalje(data.item.sifra)">

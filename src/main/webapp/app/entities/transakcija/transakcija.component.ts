@@ -63,7 +63,7 @@ export default class Transakcija extends mixins(AlertMixin) {
   }
 
   
-
+  public fieldsbase: any[] = [];
   public fields: any[] = [];
   public fieldsort: any[] = [];
   //computed properties
@@ -118,7 +118,7 @@ export default class Transakcija extends mixins(AlertMixin) {
     ]
 	*/
 	
-	this.fields = [
+	this.fieldsbase = [
 	      {key:'sifra', label:this.$t('toplanaApp.transakcija.sifra'), sortable:true},
 	      {key:'prezime', label:this.$t('toplanaApp.vlasnik.prezime'), sortable:true,thClass:'fieldWidth'},
 	      {key:'duguje', label:this.$t('toplanaApp.transakcija.duguje'), sortable:true},
@@ -195,9 +195,10 @@ export default class Transakcija extends mixins(AlertMixin) {
       this.transakcije = res.data;
 	  console.log(this.transakcije);
       this.isFetching = false;
-      this.totalItems = Number(res.headers['x-total-count']);
-	  if (this.totalItems > 0 && RACUN_OSTALI_TROSKOVI_BEZ_STANA == this.search.sifraStana) {
+      if (RACUN_OSTALI_TROSKOVI_BEZ_STANA == this.search.sifraStana) {
 		this.fields = this.fieldsort;
+	  } else {
+		this.fields = this.fieldsbase;
 	  }
       //this.queryCount = this.totalItems;      
       //this.isFetching = false;
