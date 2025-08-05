@@ -9,6 +9,7 @@ public class SearchRacunDTO {
 	private LocalDate datumDo;
     private String sifraStana;
     private String prezime;
+    private String ime;
     private boolean azuriran;
     private boolean proknjizen;
     private Podstanica podstanica;
@@ -73,7 +74,13 @@ public class SearchRacunDTO {
 		this.prezime = prezime;
 	}
 
-	
+	public String getIme() {
+		return ime;
+	}
+
+	public void setIme(String ime) {
+		this.ime = ime;
+	}
     
     
     

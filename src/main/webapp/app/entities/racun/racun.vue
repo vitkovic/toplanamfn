@@ -89,6 +89,9 @@
                     <div class="col-3">
                         <label v-text="$t('toplanaApp.vlasnik.prezime')"></label>                      
                     </div>
+                      <div class="col-3">
+                        <label v-text="$t('toplanaApp.vlasnik.ime')"></label>                      
+                    </div>
                     <div class="col-1"></div>
                     <div class="col-1"></div>
                 </div>
@@ -104,6 +107,11 @@
                     <div class="col-3">
                         <input type="text" class="form-control" name="prezime" id="prezime"
                                 v-model="search.prezime"  
+                                /> 
+                    </div>
+                     <div class="col-3">
+                        <input type="text" class="form-control" name="ime" id="ime"
+                                v-model="search.ime"  
                                 /> 
                     </div>
                     <div class="col-1"></div>

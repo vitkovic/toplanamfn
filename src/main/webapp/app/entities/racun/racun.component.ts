@@ -38,7 +38,8 @@ export default class Racun extends mixins(AlertMixin) {
     azuriran:  false,
     proknjizen:  false,
     podstanica: null, 
-    prezime: ""
+    prezime: "",
+	ime:""
   }
 
   beforeRouteEnter(to, from, next) {
@@ -191,6 +192,7 @@ export default class Racun extends mixins(AlertMixin) {
     this.podstanicaService()
       .retrieve()
       .then(res => {
+		console.log(res.data);
         this.podstanice = res.data;
       });    
   }

@@ -218,6 +218,10 @@ public class RacunResource {
 	    	racunSpec.add(new SearchCriteria("Vlasnik", "prezime", search.getPrezime(), SearchOperation.MATCH));
 	    }
 	    
+	    if(search.getIme() != null && !search.getIme().trim().equals("")) {
+	    	racunSpec.add(new SearchCriteria("Vlasnik", "ime", search.getIme(), SearchOperation.MATCH));
+	    }
+	    
 	    return racunSpec;
     }
     

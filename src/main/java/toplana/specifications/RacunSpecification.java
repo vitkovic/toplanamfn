@@ -9,6 +9,7 @@ import toplana.domain.Vlasnik;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -31,6 +32,9 @@ public class RacunSpecification implements Specification<Racun> {
 
     @Override
     public Predicate toPredicate(Root<Racun> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+    	
+    	
+    	System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
     	
     	Join<Stan, Racun> stanRacun = root.join("stan");
     	Join<Vlasnik,Stan> vlasnikStan = stanRacun.join("vlasnik");
@@ -74,11 +78,23 @@ public class RacunSpecification implements Specification<Racun> {
 /**********************************************************************************************/        		
         	}else if(criteria.getEntityName().equals("Vlasnik")) {// ako je polje iz klase Vlasnik
 /**********************************************************************************************/
+        		
         		if (criteria.getOperation().equals(SearchOperation.MATCH)) {
-                    predicates.add(builder.like(
-                            builder.upper(vlasnikStan.get(criteria.getKey())),
-                            "%" + criteria.getValue().toString().toUpperCase() + "%"));
-                }        		
+        			
+        			System.out.println("%%%%%%%%%%%%%%%%%%%%%%%" + criteria.getKey());
+        			Expression<String> fieldExpr = builder.function(
+        				    "unaccent", String.class,
+        				    builder.upper(vlasnikStan.get(criteria.getKey()))
+        				);
+
+        				Expression<String> paramExpr = builder.function(
+        				    "unaccent", String.class,
+        				    builder.literal("%" + criteria.getValue().toString().toUpperCase() + "%")
+        				);
+
+        				predicates.add(builder.like(fieldExpr, paramExpr));
+                } 
+                       		
 /**********************************************************************************************/        		
         	}else if(criteria.getEntityName().equals("Podstanica")) {// ako je polje iz klase Podstanica
 /**********************************************************************************************/
