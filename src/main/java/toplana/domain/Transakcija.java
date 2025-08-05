@@ -74,6 +74,7 @@ import java.time.LocalDate;
 							@ColumnResult(name="stanje", type=BigDecimal.class),
 							@ColumnResult(name="krajnjaSifra", type=String.class),
 							@ColumnResult(name="krajnjiNaziv", type=String.class),
+							@ColumnResult(name="krajnjiNazivIme", type=String.class),
 					}
 			)
 		}
@@ -183,7 +184,12 @@ import java.time.LocalDate;
 	  		+ "		when t.stan_id is not null then v.prezime "
 	  		+ "		when t.stan_id is null and o.stan_id is not null then o.naziv "
 	  		+ "		when t.stan_id is null and o.stan_id is null then '' "
-	  		+ "end as krajnjiNaziv "
+	  		+ "end as krajnjiNaziv, "
+	  		+ "case "
+	  		+ "		when t.stan_id is not null then v.ime "
+	  		+ "		when t.stan_id is null and o.stan_id is not null then o.naziv "
+	  		+ "		when t.stan_id is null and o.stan_id is null then '' "
+	  		+ "end as krajnjiNazivIme "
 	  		+ "from transakcija t "
 	  		+ "left join stan s on s.id = t.stan_id "
 	  		+ "left join vlasnik v on v.id = s.vlasnik_id "
@@ -198,9 +204,16 @@ import java.time.LocalDate;
 	  		+ "     END) "
 	  		+ "and (1 = :prezimeNotExists or "
 	  		+ "	 CASE "
-	  		+ "        WHEN t.stan_id is not null then lower(v.prezime) like lower( :prezime )"
-	  		+ "	 	   when t.stan_id is null then lower(o.naziv) like lower( :prezime )"
+	  		+ "        WHEN t.stan_id IS NOT NULL THEN unaccent(lower(v.prezime)) LIKE unaccent(lower(:prezime))"
+	  		+ "	 	   WHEN t.stan_id IS NULL THEN unaccent(lower(o.naziv)) LIKE unaccent(lower(:prezime))"
 	  		+ "  END)	"
+	  		
+	  		+ "and (1 = :imeNotExists or "
+	  		+ "	 CASE "
+	  		+ "        WHEN t.stan_id IS NOT NULL THEN unaccent(lower(v.ime)) LIKE unaccent(lower(:ime))"
+	  		+ "	 	   WHEN t.stan_id IS NULL THEN unaccent(lower(o.naziv)) LIKE unaccent(lower(:ime))"
+	  		+ "  END)	"
+
 	  		+ "and (1 = :podstanicaNotExists or "
 	  		+ "	 CASE "
 	  		+ "        WHEN t.stan_id is not null then s.podstanica_id = :podstanicaId "
@@ -222,7 +235,7 @@ import java.time.LocalDate;
 	  		
 	  		
 	  		+ "  END)	"	  		
-	  		+ "group by krajnjaSifra, krajnjiNaziv", resultSetMapping="ac"),
+	  		+ "group by krajnjaSifra, krajnjiNaziv, krajnjiNazivIme", resultSetMapping="ac"),
 	
 	@NamedNativeQuery(name="Transakcija.searchForDnevnik", 
 	  query="SELECT coalesce(sum(duguje),0) as dugovanje, coalesce(sum(potrazuje),0) as potrazivanje, "
@@ -249,9 +262,16 @@ import java.time.LocalDate;
 	  		+ "     END) "
 	  		+ "and (1 = :prezimeNotExists or "
 	  		+ "	 CASE "
-	  		+ "        WHEN t.stan_id is not null then lower(v.prezime) like lower( :prezime )"
-	  		+ "	 	   when t.stan_id is null then lower(o.naziv) like lower( :prezime )"
+	  		+ "        WHEN t.stan_id IS NOT NULL THEN unaccent(lower(v.prezime)) LIKE unaccent(lower(:prezime))"
+	  		+ "	 	   WHEN t.stan_id IS NULL THEN unaccent(lower(o.naziv)) LIKE unaccent(lower(:prezime))"
 	  		+ "  END)	"
+	  		
+	  		+ "and (1 = :imeNotExists or "
+	  		+ "	 CASE "
+	  		+ "        WHEN t.stan_id IS NOT NULL THEN unaccent(lower(v.ime)) LIKE unaccent(lower(:ime))"
+	  		+ "	 	   WHEN t.stan_id IS NULL THEN unaccent(lower(o.naziv)) LIKE unaccent(lower(:ime))"
+	  		+ "  END)	"
+	  		
 	  		+ "and (1 = :podstanicaNotExists or "
 	  		+ "	 CASE "
 	  		+ "        WHEN t.stan_id is not null then s.podstanica_id = :podstanicaId "

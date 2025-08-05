@@ -11,8 +11,33 @@ public class DugujePotrazujeReoni {
 	private BigDecimal potrazuje;
 	private TipPotrosaca tipPotrosaca;
 	private int tipPotrosacaInteger;
+	private String ime;
+	private String prezimeime = "";
 	
-	
+	public String getIme() {
+		return ime;
+	}
+
+
+
+	public void setIme(String ime) {
+		this.ime = ime;
+	}
+
+
+
+	public String getPrezimeime() {
+		return prezimeime;
+	}
+
+
+
+	public void setPrezimeime(String prezimeime) {
+		this.prezimeime = prezimeime;
+	}
+
+
+
 	public DugujePotrazujeReoni() {
 		super();
 	}

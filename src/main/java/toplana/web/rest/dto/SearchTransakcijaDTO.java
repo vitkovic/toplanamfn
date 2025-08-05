@@ -12,7 +12,25 @@ public class SearchTransakcijaDTO {
     private boolean ukljucen;    
     private Podstanica podstanica; 
     private String prezime;
-    private List<Long> reoni;
+    private String ime;
+    private String prezimeime = "";
+    public String getPrezimeime() {
+		return prezimeime;
+	}
+
+	public void setPrezimeime(String prezimeime) {
+		this.prezimeime = prezimeime;
+	}
+
+	public String getIme() {
+		return ime;
+	}
+
+	public void setIme(String ime) {
+		this.ime = ime;
+	}
+
+	private List<Long> reoni;
     
 	public SearchTransakcijaDTO() {
 		super();

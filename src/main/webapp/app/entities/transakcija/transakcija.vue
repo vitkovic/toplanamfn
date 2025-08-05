@@ -53,7 +53,7 @@
                                 <label v-text="$t('toplanaApp.racun.doDatuma')"></label>
                             </div>
                             <div class="col-6">
-                               <label v-text="$t('toplanaApp.vlasnik.prezime')"></label> 
+                               <label v-text="$t('toplanaApp.vlasnik.prezimeime')"></label> 
                             </div>
                         </div>
                         <div class="row">
@@ -98,7 +98,8 @@
                                 <b-form-checkbox style="margin-top:10px;"
                                     id="checkbox-1"
                                     v-model="search.ukljucen"
-                                    name="checkbox-1"                                    
+                                    name="checkbox-1"   
+                                                                    
                                     >
                                     <span v-text="$t('toplanaApp.stan.ukljucenoGrejanje')"></span>
                                 </b-form-checkbox>

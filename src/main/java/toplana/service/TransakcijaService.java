@@ -274,6 +274,12 @@ public class TransakcijaService {
     	int prezimeNotExists = 1;
     	String prezime = "";
     	
+    	int imeNotExists = 1;
+    	String ime = "";
+    	
+    	int prezimeImeNotExists = 1;
+    	String prezimeime = "";
+    	
     	int podstanicaNotExists = 1;
     	Long podstanicaId = 0L;
     	
@@ -295,9 +301,32 @@ public class TransakcijaService {
     		sifra = "%" + search.getSifraStana() + "%";
     	}
     	
+    	
+    	 search.setPrezime(search.getPrezime().trim());
+	   	 
+    	 String[] prezimeComplex = search.getPrezime().split(String.valueOf(" "));
+		 
+		 System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime());
+		 
+		 if (prezimeComplex != null && prezimeComplex.length > 1) {
+			 prezimeImeNotExists = 0;
+			 search.setPrezime(prezimeComplex[0]);
+			 search.setIme(prezimeComplex[1]);
+			 
+			 prezimeime = "%" + search.getPrezime() + " " + search.getIme() + "%";
+			 
+			
+			 
+		 } 
+    	
     	if(search.getPrezime() != null && !search.getPrezime().trim().equals("")) {
     		prezimeNotExists = 0;
     		prezime = "%" + search.getPrezime() + "%";
+    	}
+    	
+    	if(search.getIme() != null && !search.getIme().trim().equals("")) {
+    		imeNotExists = 0;
+    		ime = "%" + search.getIme() + "%";
     	}
     	
     	if(search.getPodstanica() != null) {
@@ -310,8 +339,11 @@ public class TransakcijaService {
     		tipPotrosacaIds.addAll(search.getReoni());
     	}    	
     	
+    	
+    	 System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime() + "     ime:" +search.getIme());
+    	
     	List<TransakcijaStanUkupnoDTO> out = transakcijaRepository.search(datumOdNotExists,datumOd, datumDoNotExists, 
-    			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime, podstanicaNotExists, podstanicaId,
+    			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime, imeNotExists, ime,  podstanicaNotExists, podstanicaId,
     			tipPotrosacaNotExists,tipPotrosacaIds, search.isUkljucen());
     	return out;
     }
@@ -334,6 +366,12 @@ public class TransakcijaService {
     	int prezimeNotExists = 1;
     	String prezime = "";
     	
+    	int imeNotExists = 1;
+    	String ime = "";
+    	
+    	int prezimeImeNotExists = 1;
+    	String prezimeime = "";
+    	
     	int podstanicaNotExists = 1;
     	Long podstanicaId = 0L;
     	
@@ -355,10 +393,33 @@ public class TransakcijaService {
     		sifra = "%" + search.getSifraStana() + "%";
     	}
     	
-    	if(search.getPrezime() != null && !search.getPrezime().trim().equals("")) {
-    		prezimeNotExists = 0;
-    		prezime = "%" + search.getPrezime() + "%";
-    	}
+    	
+    	 String[] prezimeComplex = search.getPrezime().split(String.valueOf(" "));
+    	 
+    //	 System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime());
+    	 
+    	 if (prezimeComplex != null && prezimeComplex.length > 1) {
+    		 prezimeImeNotExists = 0;
+    		 search.setPrezime(prezimeComplex[0]);
+    		 search.setIme(prezimeComplex[1]);
+    		 
+    		 prezimeime = "%" + search.getPrezime() + " " + search.getIme() + "%";
+    		 
+    	 } 
+    	
+	 	if(search.getPrezime() != null && !search.getPrezime().trim().equals("")) {
+ 			prezimeNotExists = 0;
+ 			prezime = "%" + search.getPrezime() + "%";
+    	
+    	 }
+	 	
+	 	if(search.getIme() != null && !search.getIme().trim().equals("")) {
+ 			imeNotExists = 0;
+ 			ime = "%" + search.getIme() + "%";
+    	
+    	 }
+	 	
+	 	
     	
     	if(search.getPodstanica() != null) {
     		podstanicaNotExists = 0;
@@ -371,7 +432,7 @@ public class TransakcijaService {
     	}    	
     	
     	List<TransakcijaZaStanDTO> out = transakcijaRepository.searchForAnalitickiDnevnik(datumOdNotExists,datumOd, datumDoNotExists, 
-    			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime, podstanicaNotExists, podstanicaId,
+    			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime, imeNotExists, ime, podstanicaNotExists, podstanicaId,
     			tipPotrosacaNotExists,tipPotrosacaIds);
     	return out;
     }
@@ -389,6 +450,12 @@ public class TransakcijaService {
     	int prezimeNotExists = 1;
     	String prezime = "";
     	
+    	int imeNotExists = 1;
+    	String ime = "";
+    	
+    	int prezimeImeNotExists = 1;
+    	String prezimeime = "";
+    	
     	int podstanicaNotExists = 1;
     	Long podstanicaId = 0L;
     	
@@ -410,6 +477,31 @@ public class TransakcijaService {
     		sifra = "%" + search.getSifraStana() + "%";
     	}
     	
+   	 String[] prezimeComplex = search.getPrezime().split(String.valueOf(" "));
+	 
+     //	 System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime());
+     	 
+     	 if (prezimeComplex != null && prezimeComplex.length > 1) {
+     		 prezimeImeNotExists = 0;
+     		 search.setPrezime(prezimeComplex[0]);
+     		 search.setIme(prezimeComplex[1]);
+     		 
+     		 prezimeime = "%" + search.getPrezime() + " " + search.getIme() + "%";
+     		 
+     	 } 
+     	
+ 	 	if(search.getPrezime() != null && !search.getPrezime().trim().equals("")) {
+  			prezimeNotExists = 0;
+  			prezime = "%" + search.getPrezime() + "%";
+     	
+     	 }
+ 	 	
+ 	 	if(search.getIme() != null && !search.getIme().trim().equals("")) {
+  			imeNotExists = 0;
+  			ime = "%" + search.getIme() + "%";
+     	
+     	 }
+    	
     	if(search.getPrezime() != null && !search.getPrezime().trim().equals("")) {
     		prezimeNotExists = 0;
     		prezime = "%" + search.getPrezime() + "%";
@@ -425,8 +517,11 @@ public class TransakcijaService {
     		tipPotrosacaIds.addAll(search.getReoni());
     	}    	
     	
+   	 
+   //	 System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime());
+    	
     	List<DugujePotrazujeReoni> out = transakcijaRepository.findSumForDnevnik(datumOdNotExists,datumOd, datumDoNotExists, 
-    			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime, podstanicaNotExists, podstanicaId,
+    			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime, imeNotExists, ime,  podstanicaNotExists, podstanicaId,
     			tipPotrosacaNotExists,tipPotrosacaIds);
     	return out;
     }

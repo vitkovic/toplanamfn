@@ -4,6 +4,8 @@ package toplana.domain;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +30,11 @@ public class Vlasnik implements Serializable {
     @Column(name = "prezime")
     private String prezime;
 
-    @Column(name = "broj_racuna")
+    @Transient
+    @JsonIgnoreProperties // optional: skip during serialization if needed
+    private String prezimeime;
+    
+ 	@Column(name = "broj_racuna")
     private String brojRacuna;
 
     @Column(name = "partija_racuna")
@@ -45,6 +51,15 @@ public class Vlasnik implements Serializable {
     private Set<Stan> stans = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
+    
+    public String getPrezimeime() {
+ 		return prezimeime;
+ 	}
+
+ 	public void setPrezimeime(String prezimeime) {
+ 		this.prezimeime = prezimeime;
+ 	}
+ 	
     public Long getId() {
         return id;
     }

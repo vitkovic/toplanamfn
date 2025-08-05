@@ -13,9 +13,27 @@ public class TransakcijaStanUkupnoDTO {
 	private String prezime;
 	private String datum;
 	private String opis;
+	private String ime;
+	private String prezimeime = "";
 	
 	public String getOpis() {
 		return opis;
+	}
+
+	public String getIme() {
+		return ime;
+	}
+
+	public void setIme(String ime) {
+		this.ime = ime;
+	}
+
+	public String getPrezimeime() {
+		return prezimeime;
+	}
+
+	public void setPrezimeime(String prezimeime) {
+		this.prezimeime = prezimeime;
 	}
 
 	public void setOpis(String opis) {
@@ -36,7 +54,7 @@ public class TransakcijaStanUkupnoDTO {
 		this.sifra = sifra;		
 	}
 	
-	public TransakcijaStanUkupnoDTO(BigDecimal duguje, BigDecimal potrazuje,  String prezime, String sifra) {
+	public TransakcijaStanUkupnoDTO(BigDecimal duguje, BigDecimal potrazuje,  String prezime, String ime, String sifra) {
 		this.duguje = duguje;
 		this.potrazuje = potrazuje;		
 		this.sifra = sifra;		
@@ -72,7 +90,7 @@ public class TransakcijaStanUkupnoDTO {
 		this.opis = opis;
 	}
 	
-	public TransakcijaStanUkupnoDTO(BigDecimal duguje, BigDecimal potrazuje, BigDecimal stanje,  String sifra, String prezime) {
+	public TransakcijaStanUkupnoDTO(BigDecimal duguje, BigDecimal potrazuje, BigDecimal stanje,  String sifra, String prezime, String ime) {
 		this.duguje = duguje;
 		this.potrazuje = potrazuje;		
 		this.sifra = sifra;		
@@ -84,6 +102,8 @@ public class TransakcijaStanUkupnoDTO {
 			this.potrazuje = BigDecimal.ZERO;
 		
 		this.stanje = stanje;
+		this.ime = ime;
+		//this.prezimeime = prezimeime;
 		
 	}
 	

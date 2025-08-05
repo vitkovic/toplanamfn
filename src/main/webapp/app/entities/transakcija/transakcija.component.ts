@@ -56,7 +56,7 @@ export default class Transakcija extends mixins(AlertMixin) {
     datumOd: null ,
     datumDo:null,
     sifraStana: "" ,    
-    ukljucen:  false,    
+    ukljucen:  true,    
     podstanica: null, 
     prezime: "",
     reoni:[]
