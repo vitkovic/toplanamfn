@@ -53,7 +53,8 @@ export default class TransakcijaRazduzenje extends Vue {
 
   public transakcija: ITransakcija = new Transakcija(); 
   public sifra = null;
-  
+  public vlasnikt = [];
+  public vlasniks = '';
 
   @Inject('vrstaTransakcijeService') private vrstaTransakcijeService: () => VrstaTransakcijeService;
 
@@ -91,6 +92,7 @@ export default class TransakcijaRazduzenje extends Vue {
     ulaz:'',
     broj:'',
     vlasnik:{}
+	
   };
 
   public dugujePotrazujeDto  = {
@@ -119,7 +121,9 @@ export default class TransakcijaRazduzenje extends Vue {
       ulaz:0,
       broj:0,
       vlasnik:{}
+	  
     };
+	
     this.currentLanguage = this.$store.getters.currentLanguage;
     this.$store.watch(
       () => this.$store.getters.currentLanguage,
@@ -268,6 +272,7 @@ export default class TransakcijaRazduzenje extends Vue {
       .retrieveRazduzenje()
       .then(res => {
         this.sifraPromenes = res.data;
+		console.log( this.sifraPromenes)
       });
       /*
     this.ceneService()
@@ -280,12 +285,16 @@ export default class TransakcijaRazduzenje extends Vue {
       .then(res => {
         this.stavkeIzvodas = res.data;
       });
+	  */
     this.stanService()
-      .retrieve()
+      .retrieveWithoutPaginationVlasnik()
       .then(res => {
-        this.stans = res.data;
+		
+      //  this.stans = res.data;
+		this.vlasnikt = res.data
+		console.log(this.vlasnikt)
       });
-      */
+     
   }
 
   private getMessageFromHeader(res: any): any {
@@ -294,4 +303,13 @@ export default class TransakcijaRazduzenje extends Vue {
     else
       return;  
   }
+  
+  public getSifra(): void {
+	
+	this.sifra = vlasniks.value;
+	this.$refs.sifraStana.focus();
+	
+  }
+  
+  
 }

@@ -4,17 +4,41 @@
         <div class="col-8">
             <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
                 <h2  id="toplanaApp.transakcija.zaduzenje" v-text="$t('toplanaApp.transakcija.razduzenje')"></h2>
+                
+                
+                 <div class="row" style="margin-top:30px;">
+                    <div class="col-3">
+                        <span v-text="$t('toplanaApp.transakcija.vlasnikt')">Vlasnik</span>
+                    </div>
+                    <div class="col-6">
+                        <select class="form-control" name="vlasniks" id="vlasniks"
+                             v-model="vlasniks" v-on:change="getSifra" 
+                             :class="{'valid': !vlasniks.$invalid, 'invalid':vlasniks.$invalid }"
+                             >
+                               <option value="">Одаберите Власника из Листе</option>
+                                 <option v-bind:value="vlasnik.sifra" v-for="vlasnik in vlasnikt" :key="vlasnik.sifra">  {{ vlasnik.ime }} {{ vlasnik.prezime }} ({{ vlasnik.sifra }})</option>
+                        </select>
+                    </div>
+                </div>
+                
+                
+                
+                
                 <div class="row" style="margin-top:30px;">
                     <div class="col-3">
                         <span v-text="$t('toplanaApp.transakcija.maticniBroj')">Maticni broj:</span>
                     </div>
                     <div class="col-6">
-                        <input type="text" class="form-control" name="sifraStana" id="sifraStana" required
-                             v-model="$v.sifra.$model" v-on:keyup.enter="getStan" v-on:blur="getStan"
+                        <input type="text" class="form-control" name="sifraStana" id="sifraStana" ref="sifraStana" required
+                             v-model="$v.sifra.$model" v-on:keyup.enter="getStan" v-on:blur="getStan" v-on:focus="getStan"
                              :class="{'valid': !$v.sifra.$invalid, 'invalid': $v.sifra.$invalid }"
                              >
                     </div>
+                    
                 </div>
+                
+                
+                
                 <div class="row" style="margin-top:20px;">
                     <div class="col-3">
                         <span v-text="$t('toplanaApp.transakcija.prezimeIIme')"></span>                        

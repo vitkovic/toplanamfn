@@ -7,6 +7,7 @@ import toplana.repository.StanRepository;
 import toplana.repository.TransakcijaRepository;
 import toplana.web.rest.dto.DugujePotrazujeDTO;
 import toplana.web.rest.dto.StanDugujePotrazujeDTO;
+import toplana.web.rest.dto.StanVlasnikDTO;
 import toplana.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -110,6 +111,19 @@ public class StanResource {
         Page<Stan> page = stanRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+    
+    /**
+     * {@code GET  /stans} : get all the stans.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of stans in body.
+     */
+    @GetMapping("/stansv")
+    public ResponseEntity<List<StanVlasnikDTO>> getAllStansVlasnik(Pageable pageable) {
+        log.debug("REST request to get a page of Stans");
+        List<StanVlasnikDTO> stanovi = stanRepository.findStansAndVlasniks();
+        return ResponseEntity.ok().body(stanovi);
     }
 
     /**
