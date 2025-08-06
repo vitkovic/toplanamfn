@@ -195,5 +195,15 @@ export default class Racun extends mixins(AlertMixin) {
 		console.log(res.data);
         this.podstanice = res.data;
       });    
+	  this.search.proknjizen = true;
+	  this.send();
   }
+  
+  
+  public resetSearch() {
+	this.search.proknjizen = ! this.search.proknjizen;
+	this.send();
+  }
+  
+  
 }

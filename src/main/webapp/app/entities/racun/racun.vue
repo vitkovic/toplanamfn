@@ -74,7 +74,7 @@
                         </b-form-checkbox>                    
                     </div>
                     <div class="col-1">
-                        <b-form-checkbox
+                        <b-form-checkbox v-on:change="resetSearch()"
                             id="checkbox-3"
                             v-model="search.proknjizen" 
                             name="checkbox-3"                                                       
