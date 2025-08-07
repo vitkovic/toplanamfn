@@ -286,6 +286,38 @@ public class IzvodResource {
     }
 
     /**
+     * First, update, then get
+     * {@code GET  /izvods/:id} : get the "id" izvod.
+     *
+     * @param id the id of the izvod to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the izvod, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/izvodsknjizi/{id}")
+    public ResponseEntity<Izvod> knjiziIzvod(@PathVariable Long id) {
+        log.debug("REST request to get Izvod : {}", id);
+        izvodRepository.knjiziIzvod(id);
+        Optional<Izvod> izvod = izvodRepository.pronadjiPrekoId(id);
+        return ResponseUtil.wrapOrNotFound(izvod);
+    }
+
+
+    /**
+     * First, update, then get
+     * {@code GET  /izvods/:id} : get the "id" izvod.
+     *
+     * @param id the id of the izvod to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the izvod, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/izvodsrasknjizi/{id}")
+    public ResponseEntity<Izvod> rasknjiziIzvod(@PathVariable Long id) {
+        log.debug("REST request to get Izvod : {}", id);
+        izvodRepository.rasknjiziIzvod(id);
+        Optional<Izvod> izvod = izvodRepository.pronadjiPrekoId(id);
+        return ResponseUtil.wrapOrNotFound(izvod);
+    }
+
+    
+    /**
      * {@code DELETE  /izvods/:id} : delete the "id" izvod.
      *
      * @param id the id of the izvod to delete.

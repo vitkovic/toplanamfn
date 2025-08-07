@@ -22,6 +22,33 @@ export default class IzvodService {
         });
     });
   }
+  
+  
+  public knjiziIzvod(id: number): Promise<IIzvod> {
+      return new Promise<IIzvod>((resolve, reject) => {
+        axios
+          .get(`${baseApiUrl}knjizi/${id}`)
+          .then(res => {
+            resolve(res.data);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
+    }
+  
+	public rasknjiziIzvod(id: number): Promise<IIzvod> {
+	      return new Promise<IIzvod>((resolve, reject) => {
+	        axios
+	          .get(`${baseApiUrl}rasknjizi/${id}`)
+	          .then(res => {
+	            resolve(res.data);
+	          })
+	          .catch(err => {
+	            reject(err);
+	          });
+	      });
+	}
 
   public findPostanska(id: number): Promise<IIzvod> {
     return new Promise<IIzvod>((resolve, reject) => {

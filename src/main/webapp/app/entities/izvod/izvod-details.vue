@@ -109,10 +109,35 @@
                 <router-link v-if="izvod.id" :to="{name: 'IzvodEdit', params: {izvodId: izvod.id}}" tag="button" class="btn btn-primary">
                     <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')"> Edit</span>
                 </router-link>
+                   <button v-if="izvod.id" v-on:click="knjiziIzvod()" tag="button" class="btn btn-danger">
+                    <font-awesome-icon icon="folder"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.knjizenje')"> Knjizenje</span>
+                </button>
+                 
+                <button type="submit"
+                    v-if="izvod.id" v-on:click="rasknjiziIzvod()" tag="button" class="btn btn-warning">
+                    <font-awesome-icon icon="folder-open"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.rasknjizenje')"> Knjizenje</span>
+                </button>
             
         </div>
+        
+        <div>
+    
+  
+    <alert-dialog
+      :visible="isAlertVisible"
+      :message="alertMessage"
+      @ok="onOk"
+      @cancel="onCancel"
+    />
+  </div>
+        
     </div>
+
+
+
 </template>
+
 
 <script lang="ts" src="./izvod-details.component.ts">
 </script>
+
