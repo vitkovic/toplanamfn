@@ -61,6 +61,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -200,7 +202,7 @@ public class NacrtRacunaResource {
             int previousMonthNumber = previousMonth.getMonthValue(); 
            
             
-         //   previousMonthNumber = 6;
+            //previousMonthNumber = 6;
             // !!! Proracun ukupne potrosnje po stanu
             List <StanStanje> vrednostipotrosnje = stanRepository.findPotrosnjaPodstanicaId(p.getId(),previousMonthNumber);
             
@@ -212,21 +214,33 @@ public class NacrtRacunaResource {
           //  System.out.println(vrednostipotrosnjeDTO);
             
             
-            Map<String, List<Long>> grouped = vrednostipotrosnjeDTO.stream()
+            Map<String, Object> grouped = vrednostipotrosnjeDTO.stream()
             	    .collect(Collectors.groupingBy(
             	        StanStanjeDTO::getSifra,
             	        LinkedHashMap::new,
-            	        Collectors.mapping(StanStanjeDTO::getVrednost, Collectors.toList())
+            	        Collectors.collectingAndThen(
+            	                Collectors.toList(),
+            	                list -> list.stream()
+            	                    .sorted(Comparator.comparing(StanStanjeDTO::getDatum).reversed())
+            	                    .limit(2) // keep only the top 2
+            	                    .map(StanStanjeDTO::getVrednost)
+            	                    .collect(Collectors.toList())
+            	            )
             	    ));
 
-            	grouped.forEach((sifra, vrednosti) -> {
-            	    System.out.println(sifra + "=" + String.join(";", vrednosti.stream().map(String::valueOf).collect(Collectors.toList())));
-            	});
+            	
+            	
+        
             		
-            String sifra="";
-            String temp = "";
-            String vrednost="";
             Map<String, String> m = new HashMap<>();
+            
+            grouped.forEach((sifrag, vrednosti) -> {
+            	//System.out.println(sifrag + "=" + String.join(";", vrednosti.stream().map(String::valueOf).collect(Collectors.toList())));
+            	m.put(sifrag, String.join(";", ((Collection<Long>) vrednosti).stream().map(String::valueOf).collect(Collectors.toList())));
+            });
+            
+            
+            /* Stari nacin da se grupisu vrednosti po sifri
             for(int i=0;i<vrednostipotrosnje.size();i++){
             	
             	
@@ -254,10 +268,12 @@ public class NacrtRacunaResource {
             	}
             	
             } 
-            
+            dovdi
+            */ 
             String map="";
             BigDecimal suma = new BigDecimal(.0);
             
+            // calculate sumu svih razlika po stranu - ukupna potrosnja
             for (String key : m.keySet()) {
                 map = key + "...." + m.get(key);
                 
@@ -265,31 +281,24 @@ public class NacrtRacunaResource {
                 
                 String[] vrednosti = value.split(";");
                 
-                Long val = Math.abs(Long.valueOf(vrednosti[1]) - Long.valueOf(vrednosti[0]));
+                Long val = Math.abs(Long.valueOf(vrednosti[0]) - Long.valueOf(vrednosti[1]));
                 
                 suma = suma.add(BigDecimal.valueOf(val));
-                
-                
-              //  System.out.println(map + "    #####################################################################################################");
-               // System.out.println(suma + "    #####################################################################################################");
-            }
+             }
             
-           
-            
-      
-        	p.setUkupnapotrosnjapostanu(suma.doubleValue());
+          	p.setUkupnapotrosnjapostanu(suma.doubleValue()); // ukupna potrosnja po svim stanovima - sumirana razlika potrosnje po svakom stanu
       
         	// DOVDE
         	
         	
         	for(Stan stan : stanoviZaPodstanicu) {
-        		//BigDecimal saldo = transakcijaRepository.getSaldoDoKrajaPrethodnogMesecaZaStan(stan.getId());
+        		
         		
         		
         		if (p.getId() > 1105) { // za nove podstanice
         			
         			 stan.setZadnjaStanja(stanstanjeRepository.getLastStatesForStan(stan.getId()));
-        		//	 System.out.println(stan.getId() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        		
         			
         		}
         		

@@ -8,6 +8,7 @@ import toplana.web.rest.dto.StanVlasnikDTO;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -32,8 +33,8 @@ public interface StanRepository extends JpaRepository<Stan, Long> {
 	
 	@Query(value = "select sstanje from Stan s, StanStanje sstanje "
 			+ "	 where s.podstanica.id = :podstanicaid and s.id = sstanje.stan.id"
-			+ " and date_part('month', sstanje.datum) <= (:month + 1) and date_part('month', sstanje.datum) >= (:month - 1) " 
-			+ "	ORDER BY sstanje.sifra, sstanje.datum")
+			+ " and date_part('month', sstanje.datum) < (:month + 1) and date_part('month', sstanje.datum) >= (:month - 1) " 
+			+ "	ORDER BY sstanje.sifra, sstanje.datum DESC ")
 	List<StanStanje> findPotrosnjaPodstanicaId(@Param("podstanicaid") Long podstanicaid, @Param("month") int month);
 	
 	
@@ -46,7 +47,6 @@ public interface StanRepository extends JpaRepository<Stan, Long> {
 		       "ORDER BY sst.sifra, sst.datum DESC")
 		List<StanStanjeDTO> findStanStanjeDTO(@Param("podstanicaid") Long podstanicaid,
 		                                      @Param("month") int month);
-	
 	
 	
 	@Query(value = "select new toplana.web.rest.dto.StanVlasnikDTO(v.ime, v.prezime, v.email, s.sifra, s.ulica, s.ulaz) FROM Stan s JOIN s.vlasnik v "
