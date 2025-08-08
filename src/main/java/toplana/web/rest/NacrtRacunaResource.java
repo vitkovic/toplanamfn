@@ -203,7 +203,7 @@ public class NacrtRacunaResource {
            
             
             //previousMonthNumber = 6;
-            // !!! Proracun ukupne potrosnje po stanu
+            // !!! Proracun ukupne potrosnje po stanu - nove podstanice
             List <StanStanje> vrednostipotrosnje = stanRepository.findPotrosnjaPodstanicaId(p.getId(),previousMonthNumber);
             
             List <StanStanjeDTO> vrednostipotrosnjeDTO = stanRepository.findStanStanjeDTO(p.getId(),previousMonthNumber); 
