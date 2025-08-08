@@ -206,7 +206,8 @@ public class NacrtRacunaResource {
             // !!! Proracun ukupne potrosnje po stanu
             List <StanStanje> vrednostipotrosnje = stanRepository.findPotrosnjaPodstanicaId(p.getId(),previousMonthNumber);
             
-            List <StanStanjeDTO> vrednostipotrosnjeDTO = stanRepository.findStanStanjeDTO(p.getId(),previousMonthNumber);
+            List <StanStanjeDTO> vrednostipotrosnjeDTO = stanRepository.findStanStanjeDTO(p.getId(),previousMonthNumber); 
+            // mozda treba razmisliti da se definise nativni query, da se izbegne vracanje svih vrednosti
             
             
           //  System.out.println(vrednostipotrosnje);
