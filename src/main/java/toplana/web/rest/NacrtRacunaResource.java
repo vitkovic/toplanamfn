@@ -28,6 +28,7 @@ import toplana.web.rest.dto.NacrtRacunaDTO;
 import toplana.web.rest.dto.RacunStampanje;
 import toplana.web.rest.dto.RekapitulacijaPoPdvDTO;
 import toplana.web.rest.dto.RekapitulacijaPoPdvDelimicnaDTO;
+import toplana.web.rest.dto.StanStanjeDTO;
 import toplana.web.rest.dto.StanjaPodstaniceZaRacunDTO;
 import toplana.web.rest.errors.BadRequestAlertException;
 
@@ -61,10 +62,12 @@ import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.time.YearMonth;
 /**
  * REST controller for managing {@link toplana.domain.NacrtRacuna}.
@@ -196,8 +199,29 @@ public class NacrtRacunaResource {
             LocalDate previousMonth = today.minusMonths(1); 
             int previousMonthNumber = previousMonth.getMonthValue(); 
            
+            
+         //   previousMonthNumber = 6;
             // !!! Proracun ukupne potrosnje po stanu
             List <StanStanje> vrednostipotrosnje = stanRepository.findPotrosnjaPodstanicaId(p.getId(),previousMonthNumber);
+            
+            List <StanStanjeDTO> vrednostipotrosnjeDTO = stanRepository.findStanStanjeDTO(p.getId(),previousMonthNumber);
+            
+            
+          //  System.out.println(vrednostipotrosnje);
+            
+          //  System.out.println(vrednostipotrosnjeDTO);
+            
+            
+            Map<String, List<Long>> grouped = vrednostipotrosnjeDTO.stream()
+            	    .collect(Collectors.groupingBy(
+            	        StanStanjeDTO::getSifra,
+            	        LinkedHashMap::new,
+            	        Collectors.mapping(StanStanjeDTO::getVrednost, Collectors.toList())
+            	    ));
+
+            	grouped.forEach((sifra, vrednosti) -> {
+            	    System.out.println(sifra + "=" + String.join(";", vrednosti.stream().map(String::valueOf).collect(Collectors.toList())));
+            	});
             		
             String sifra="";
             String temp = "";

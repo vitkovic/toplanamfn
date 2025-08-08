@@ -3,6 +3,7 @@ package toplana.repository;
 import toplana.domain.Podstanica;
 import toplana.domain.Stan;
 import toplana.domain.StanStanje;
+import toplana.web.rest.dto.StanStanjeDTO;
 import toplana.web.rest.dto.StanVlasnikDTO;
 
 import java.util.List;
@@ -34,6 +35,19 @@ public interface StanRepository extends JpaRepository<Stan, Long> {
 			+ " and date_part('month', sstanje.datum) <= (:month + 1) and date_part('month', sstanje.datum) >= (:month - 1) " 
 			+ "	ORDER BY sstanje.sifra, sstanje.datum")
 	List<StanStanje> findPotrosnjaPodstanicaId(@Param("podstanicaid") Long podstanicaid, @Param("month") int month);
+	
+	
+	@Query("SELECT new toplana.web.rest.dto.StanStanjeDTO(sst.sifra, sst.datum, sst.vrednost) " +
+		       "FROM StanStanje sst " +
+		       "JOIN sst.stan s " +
+		       "WHERE s.podstanica.id = :podstanicaid " +
+		       "AND date_part('month', sst.datum) < (:month + 1) " +
+		       "AND date_part('month', sst.datum) >= (:month - 1) " +
+		       "ORDER BY sst.sifra, sst.datum DESC")
+		List<StanStanjeDTO> findStanStanjeDTO(@Param("podstanicaid") Long podstanicaid,
+		                                      @Param("month") int month);
+	
+	
 	
 	@Query(value = "select new toplana.web.rest.dto.StanVlasnikDTO(v.ime, v.prezime, v.email, s.sifra, s.ulica, s.ulaz) FROM Stan s JOIN s.vlasnik v "
 			+ "	 ORDER BY s.sifra")
