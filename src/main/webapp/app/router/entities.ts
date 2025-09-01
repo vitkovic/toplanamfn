@@ -101,6 +101,12 @@ const IzvodPostanskaUpdate = () => import('@/entities/izvod/izvod-postanska-upda
 // prettier-ignore
 const IzvodPostanskaDetails = () => import('@/entities/izvod/izvod-postanska-details.vue');
 
+
+
+const NoveStaniceStanja = () => import('@/entities/stanja-podstanice/nove_stanice_stanja.vue');
+
+
+
 // prettier-ignore
 const StavkeIzvoda = () => import('@/entities/stavke-izvoda/stavke-izvoda.vue');
 // prettier-ignore
@@ -546,6 +552,12 @@ export default [
     component: IzvodUpdate,
     meta: { authorities: [Authority.USER] },
   },
+  {
+     path: '/stanjenovestanice/',
+     name: 'StanStanjeImport',
+     component: NoveStaniceStanja,
+     meta: { authorities: [Authority.USER] },
+   },
   {
     path: '/izvod/:izvodId/edit',
     name: 'IzvodEdit',

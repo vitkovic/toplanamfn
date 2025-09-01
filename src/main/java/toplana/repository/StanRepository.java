@@ -53,7 +53,8 @@ public interface StanRepository extends JpaRepository<Stan, Long> {
 			+ "	 ORDER BY s.sifra")
 	List<StanVlasnikDTO> findStansAndVlasniks();    
 	
-	
+	  // Bulk lookup
+    List<Stan> findAllBySifraIn(List<String> sifre);
 	
 	
 	// SELECT sifra,vrednost,datum FROM public.stan_stanje

@@ -5,6 +5,7 @@ import buildPaginationQueryOpts from '@/shared/sort/sorts';
 import { IStanjaPodstanice } from '@/shared/model/stanja-podstanice.model';
 
 const baseApiUrl = 'api/stanja-podstanices';
+const uploadApiUrl = 'api/nstanice-upload';
 
 export default class StanjaPodstaniceService {
   public find(id: number): Promise<IStanjaPodstanice> {
@@ -99,4 +100,21 @@ export default class StanjaPodstaniceService {
         });
     });
   }
+  
+  public sendFile(entity: FormData): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+        axios
+          .post(`${uploadApiUrl}`, entity, {headers: {
+            "Content-Type": "multipart/form-data"
+          }})
+          .then(res => {
+            resolve(res.data);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
+    }
+  
+  
 }

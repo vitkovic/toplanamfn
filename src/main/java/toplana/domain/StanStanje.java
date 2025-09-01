@@ -2,6 +2,8 @@ package toplana.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import toplana.web.rest.dto.StanStanjeDTO;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -17,7 +19,48 @@ public class StanStanje implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
+    public StanStanje() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public StanStanje(Long id, @NotNull String sifra, @NotNull LocalDate datum, @NotNull Long vrednost, Stan stan) {
+		super();
+		this.id = id;
+		this.sifra = sifra;
+		this.datum = datum;
+		this.vrednost = vrednost;
+		this.stan = stan;
+	}
+	
+	public StanStanje(@NotNull String sifra, @NotNull LocalDate datum, @NotNull Long vrednost, Stan stan) {
+		super();
+		this.sifra = sifra;
+		this.datum = datum;
+		this.vrednost = vrednost;
+		this.stan = stan;
+	}
+	
+	
+	public StanStanje(StanStanjeDTO ssd) {
+		super();
+		this.sifra = ssd.getSifra();
+		this.datum = ssd.getDatum();
+		this.vrednost = ssd.getVrednost();
+		
+	}
+	
+	public StanStanje(StanStanjeDTO ssd, Stan stan) {
+		super();
+		this.sifra = ssd.getSifra();
+		this.datum = ssd.getDatum();
+		this.vrednost = ssd.getVrednost();
+		this.stan = stan;
+		
+	}
+
+
+	@Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
@@ -37,7 +80,7 @@ public class StanStanje implements Serializable {
    
 
     @ManyToOne
-    @JoinColumn(name="stan_id",referencedColumnName="id", insertable=false, updatable=false)
+    @JoinColumn(name="stan_id",referencedColumnName="id", insertable=true, updatable=false)
     @JsonIgnoreProperties(value = "stanStanjes", allowSetters = true)
     private Stan stan;
 

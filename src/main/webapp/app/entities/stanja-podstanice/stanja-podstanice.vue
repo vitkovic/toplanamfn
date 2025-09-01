@@ -7,7 +7,13 @@
                 <span  v-text="$t('toplanaApp.stanjaPodstanice.home.createLabel')">
                     Create a new Stanja Podstanice
                 </span>
-            </router-link>
+            </router-link><br>
+               <router-link :to="{name: 'StanStanjeImport'}" tag="button" id="jh-create-entity" class="btn btn-warning float-right jh-create-entity create-izvod">
+                <font-awesome-icon icon="plus"></font-awesome-icon>
+                <span  v-text="$t('toplanaApp.stanjaPodstanice.home.createLabelNove')">
+                    Ubaci nova stanja NOVIH podstanica
+                </span>
+            </router-link><br>
         </h2>
         <b-alert :show="dismissCountDown"
             dismissible

@@ -4,11 +4,13 @@
       "home": {
         "title": "Стања на подстаницама",
         "createLabel": "Креирање нових стања подстаница",
+		"createLabelNove": "Учитавање нових стања СТАНОВА нових подстаница",
         "createOrEditLabel": "Креирање и измена стања подстаница",
         "notFound": "Није пронађено ни једно стање"
       },
       "created": "Креирано је ново стање подстанице са ид ознаком {{ param }}",
       "updated": "Stanja Podstanice pod nazivom {{ param }} je ažuriran",
+	  "uploaded": "Стања Станова Нових Подстаница су учитана!",
       "deleted": "Stanja Podstanice pod nazivom {{ param }} je obrisan",
       "delete": {
         "question": "Да ли сте сигурни да желите да обришете стање подстанице са ид ознаком {{ id }}?"
