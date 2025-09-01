@@ -71,11 +71,7 @@ export default class IzvodUpdate extends Vue {
 		this.isSaving = false;
 		console.log(err.response)
 		   if (err?.response?.status === 400) {
-			const msg =
-			err?.response?.data?.title || 
-			  err?.response?.data?.detail ||
-			  err?.message ||
-			  (this.$t('toplanaApp.error.badRequest') as string);
+			const msg =  (this.$t('toplanaApp.error.badRequest') as string);
 
 			this.alertService().showAlert(String(msg), 'danger'); // or showHttpError(this, err.response)
 		    

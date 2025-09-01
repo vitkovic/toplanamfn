@@ -1,7 +1,11 @@
 {
+  "toplanaApp": {
+	"error":{
+	"badRequest":"Проблем са датотеком! Проверите да ли сте учитали праву датотеку!"
+	}
+  },
   "error": {
-	"badRequest":"Проблем са датотеком!",
-    "title": "Greška!",
+	"title": "Greška!",
     "http": {
       "400": "Bad request.",
       "403": "Nemate dozvolu za pristupanje ovoj stranici.",
