@@ -1,5 +1,6 @@
 {
   "error": {
+	"badRequest":"Проблем са датотеком!",
     "title": "Greška!",
     "http": {
       "400": "Bad request.",

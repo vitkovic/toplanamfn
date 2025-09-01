@@ -231,7 +231,6 @@ public class StanjaPodstaniceResource {
     	    }
     	    final String original = file.getOriginalFilename();
     	    if (original == null || !original.toLowerCase().endsWith(".csv")) {
-    	    	System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
     	        throw new BadRequestAlertException("Only CSV files are accepted", ENTITY_NAME, "invalidformat");
     	    }
     		

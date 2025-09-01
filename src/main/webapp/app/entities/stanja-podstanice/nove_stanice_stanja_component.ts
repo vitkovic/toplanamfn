@@ -69,12 +69,11 @@ export default class IzvodUpdate extends Vue {
       })
 	  .catch(err => {
 		this.isSaving = false;
-		console.log(err)
+		console.log(err.response)
 		   if (err?.response?.status === 400) {
 			const msg =
-			  err?.response?.data?.detail ||                // ← your text from server
-			  (this.$t(err?.response?.data?.message) as string) || // e.g., error.stanmissing
-			  err?.response?.data?.title ||
+			err?.response?.data?.title || 
+			  err?.response?.data?.detail ||
 			  err?.message ||
 			  (this.$t('toplanaApp.error.badRequest') as string);
 
@@ -82,7 +81,7 @@ export default class IzvodUpdate extends Vue {
 		    
 		   }
 		   // Generic handler
-		   this.alertService().showAlert(err?.message || 'Unexpected error', 'danger');
+		 //  this.alertService().showAlert(err?.message || 'Unexpected error', 'danger');
 	      
 		   this.$nextTick(() => setTimeout(() => this.$router.go(-1), 50));
        });
