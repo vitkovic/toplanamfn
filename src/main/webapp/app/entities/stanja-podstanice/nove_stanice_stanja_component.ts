@@ -34,7 +34,7 @@ export default class IzvodUpdate extends Vue {
   public stavkeIzvodas: IStavkeIzvoda[] = [];
   public isSaving = false;
   public currentLanguage = '';
-  public file1:Blob = new Blob();
+  public file1: File | null = null;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -68,28 +68,24 @@ export default class IzvodUpdate extends Vue {
         this.alertService().showAlert(message, 'info');
       })
 	  .catch(err => {
-		  if (err?.response?.status === 400) {
-		        // Try to show a useful backend message if present
-		        const msg =
-		          err.response.data?.message ||
-		          err.response.data?.title ||
-		          this.$t('toplanaApp.error.badRequest');
-		        this.alertService().showAlert(String(msg), 'danger');
-	
-		        // Optional: show field validation details if your backend sends them
-		        const fieldErrors = err.response.data?.fieldErrors;
-		        if (Array.isArray(fieldErrors) && fieldErrors.length) {
-		          const details = fieldErrors
-		            .map((fe: any) => `${fe.field}: ${fe.message}`)
-		            .join('\n');
-		          this.alertService().showAlert(details, 'danger');
-		        }
-		      } else if (this.alertService && typeof this.alertService().showHttpError === 'function') {
-		        this.alertService().showHttpError(this, err.response);
-		      } else {
-		        this.alertService().showAlert(err?.message || 'Unexpected error', 'danger');
-		      }
-		    });
+		this.isSaving = false;
+		console.log(err)
+		   if (err?.response?.status === 400) {
+			const msg =
+			  err?.response?.data?.detail ||                // ← your text from server
+			  (this.$t(err?.response?.data?.message) as string) || // e.g., error.stanmissing
+			  err?.response?.data?.title ||
+			  err?.message ||
+			  (this.$t('toplanaApp.error.badRequest') as string);
+
+			this.alertService().showAlert(String(msg), 'danger'); // or showHttpError(this, err.response)
+		    
+		   }
+		   // Generic handler
+		   this.alertService().showAlert(err?.message || 'Unexpected error', 'danger');
+	      
+		   this.$nextTick(() => setTimeout(() => this.$router.go(-1), 50));
+       });
 	    
   }
 

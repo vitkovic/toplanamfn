@@ -224,6 +224,18 @@ public class StanjaPodstaniceResource {
     		    .toUri();
 
     	try {
+    		
+    		
+    		if (file.isEmpty()) {
+    	        throw new BadRequestAlertException("Empty upload", ENTITY_NAME, "fileempty");
+    	    }
+    	    final String original = file.getOriginalFilename();
+    	    if (original == null || !original.toLowerCase().endsWith(".csv")) {
+    	    	System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+    	        throw new BadRequestAlertException("Only CSV files are accepted", ENTITY_NAME, "invalidformat");
+    	    }
+    		
+    		
     		String fileName = file.getOriginalFilename();
     		 BufferedReader reader = null;
     		// extract zip
@@ -306,7 +318,8 @@ public class StanjaPodstaniceResource {
     	            .collect(Collectors.toList());
 
     	        if (!missing.isEmpty()) {
-    	            throw new IllegalStateException("No Stan found for sifre: " + missing);
+    	            // Make this a proper 400 with detail the frontend can show
+    	            throw new BadRequestAlertException("No Stan found for sifre: " + missing, ENTITY_NAME, "stanmissing");
     	        }
 
     	        // 4) Build entities
@@ -349,12 +362,20 @@ public class StanjaPodstaniceResource {
  
     	        this.stanstanjaRepository.saveAll(stanStanja);
     	     
-    	   } catch (Exception e) {
-	            e.printStackTrace();
-	        
+    	} catch (BadRequestAlertException e) {
+    	    // Preserve your own 400s (detail + message key)
+    	    throw e;
 
-	        		return ResponseEntity.status(HttpStatus.BAD_REQUEST).location(target).build();
-	        }
+    	} catch (java.io.UncheckedIOException | java.io.IOException e) {
+    	    // IO-specific, send clear 400 with a distinct key
+    	    log.warn("Upload IO error", e);
+    	    throw new BadRequestAlertException("Cannot read uploaded file", ENTITY_NAME, "ioerror");
+
+    	} catch (Exception e) {
+    	    // Unknown processing error
+    	    log.warn("Upload failed", e);
+    	    throw new BadRequestAlertException("Could not process the uploaded file", ENTITY_NAME, "fileprocess");
+    	}
     	  
     	
     		return ResponseEntity.status(HttpStatus.OK).location(target).build();
