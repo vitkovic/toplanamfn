@@ -1,5 +1,6 @@
 package toplana.web.rest;
 
+import toplana.FormPS;
 import toplana.domain.NacrtRacuna;
 import toplana.domain.Racun;
 import toplana.domain.Stan;
@@ -323,16 +324,22 @@ public class RacunResource {
     	
     	ByteArrayResource aa = new ByteArrayResource(outputStream.toByteArray());	     	   	     	
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("content-type", "text/plain; charset=utf-8");
-        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-        headers.add("Pragma", "no-cache");
-        headers.add("Expires", "0");
+    	FormPS ps = new FormPS();
+    	
+    	ByteArrayResource bb = ps.createFile(aa);
+    	
+    	
+    	HttpHeaders headers = new HttpHeaders();
+    	headers.add("Content-Type", "text/plain; charset=utf-8");
+    	headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+    	headers.add("Pragma", "no-cache");
+    	headers.add("Expires", "0");
+
         
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .body(aa);
+                .body(bb);
     }  
     
 

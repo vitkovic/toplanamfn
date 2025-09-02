@@ -114,7 +114,9 @@ export default class RacunBanka extends Vue {
           var fileURL = window.URL.createObjectURL(new Blob([res]));
           var fileLink = document.createElement('a');
           fileLink.href = fileURL;
-          fileLink.setAttribute('download', 'Postanska.txt');
+		  const formatted = '_' + 
+		    (this.mesec.getMonth() + 1).toString().padStart(2, "0") + "_" + this.mesec.getFullYear();
+          fileLink.setAttribute('download', 'Postanska' + formatted + '.txt');
           document.body.appendChild(fileLink);
           fileLink.click();
         });

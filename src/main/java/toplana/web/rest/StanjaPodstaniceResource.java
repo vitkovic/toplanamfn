@@ -252,11 +252,13 @@ public class StanjaPodstaniceResource {
     		 
     		 fileName = tempFileName;
     		 
+    		 /*
     		 String destDir = "c:/toplana/novestanicestanja/"+fileName+TodayasString+"/";
 		     Path destPath = Paths.get(destDir);
 		     if (Files.notExists(destPath)) {
 		                Files.createDirectories(destPath);
 		     }
+		     */
 		    		
 		     InputStream inputStream =  new BufferedInputStream(file.getInputStream());  
     	     reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));  // direktno citanje   
