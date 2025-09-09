@@ -134,6 +134,10 @@
                     :disabled="!isSaving" class="btn btn-primary">
                         <span v-text="$t('entity.action.knjizenje')">Save</span>
                     </button>
+                    <button type="button" id="save-entity" v-on:click="knjizenjePodela()"
+                    :disabled="!isSaving" class="btn btn-info">
+                        <span v-text="$t('entity.action.knjizenjePodela')">Podela</span>
+                    </button>
                 </div>
             </form>
         </div>

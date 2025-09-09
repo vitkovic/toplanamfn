@@ -6,6 +6,7 @@ import { IStavkeIzvoda } from '@/shared/model/stavke-izvoda.model';
 
 const baseApiUrl = 'api/stavke-izvodas';
 const baseApiUrlKnjizenje = 'api/stavke-izvodas-knjizenje';
+const baseApiUrlKnjizenjePodela = 'api/stavke-izvodas-knjizenje-podela';
 
 export default class StavkeIzvodaService {
   public find(id: number): Promise<any> {
@@ -75,7 +76,7 @@ export default class StavkeIzvodaService {
 
   public knjizenje(entity: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      axios
+	  axios
         .put(`${baseApiUrlKnjizenje}`, entity)
         .then(res => {
           resolve(res.data);
@@ -85,4 +86,17 @@ export default class StavkeIzvodaService {
         });
     });
   }
+  
+  public knjizenjePodela(entity: any): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+	    axios
+          .put(`${baseApiUrlKnjizenjePodela}`, entity)
+          .then(res => {
+            resolve(res.data);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
+    }
 }

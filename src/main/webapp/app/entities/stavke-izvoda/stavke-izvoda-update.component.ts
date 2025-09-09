@@ -120,6 +120,35 @@ export default class StavkeIzvodaUpdate extends Vue {
         });;
     } 
   }
+  
+  public knjizenjePodela(): void {
+      this.isSaving = true;
+      this.stavkeIzvodaTransakcija.stavkeIzvoda = this.stavkeIzvoda;
+      this.stavkeIzvodaTransakcija.sifraPromene = this.sifraPromene;
+     
+      
+  	//if (this.stavkeIzvodaTransakcija.stavkeIzvoda.sifra.length > 0) {
+  	//		this.stavkeIzvodaTransakcija.stavkeIzvoda.sifra = this.stavkeIzvodaTransakcija.stavkeIzvoda.sifra.replace(/\D/g, '');
+  	//}
+      
+      
+      debugger
+      if (this.stavkeIzvoda.id) {
+        this.stavkeIzvodaService()
+          .knjizenjePodela(this.stavkeIzvodaTransakcija)
+          .then(param => {
+  		  this.isSaving = false;
+            this.$router.go(-1);
+            const message = this.$t('toplanaApp.stavkeIzvoda.updated', { param: param.id });
+            this.alertService().showAlert(message, 'info');
+          })
+          .catch(error => {
+            var message:string = this.getMessageFromHeader(error.response);
+            this.$notify({text:message, type:'error', duration:10000});
+            this.isSaving = false;
+          });;
+      } 
+    }
 
   private getMessageFromHeader(res: any): any {
     if(res.headers['x-toplanaapp-alert'])

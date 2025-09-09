@@ -8,6 +8,7 @@ import toplana.domain.Transakcija;
 import toplana.repository.OstaliRacuniRepository;
 import toplana.repository.StanRepository;
 import toplana.repository.StavkeIzvodaRepository;
+import toplana.repository.SifraPromeneRepository;
 import toplana.repository.TransakcijaRepository;
 import toplana.web.rest.dto.StavkeIzvodaTransakcijaDTO;
 import toplana.web.rest.errors.BadRequestAlertException;
@@ -51,13 +52,15 @@ public class StavkeIzvodaResource {
     private final StanRepository stanRepository;
     private final TransakcijaRepository transakcijaRepository;
     private final OstaliRacuniRepository ostaliRacuniRepository;
+    private final SifraPromeneRepository sifraPromeneRepository;
     
 	public StavkeIzvodaResource(StavkeIzvodaRepository stavkeIzvodaRepository, StanRepository stanRepository,
-			TransakcijaRepository transakcijaRepository, OstaliRacuniRepository ostaliRacuniRepository) {
+			TransakcijaRepository transakcijaRepository, OstaliRacuniRepository ostaliRacuniRepository, SifraPromeneRepository sifraPromeneRepository) {
 		this.stavkeIzvodaRepository = stavkeIzvodaRepository;
 		this.stanRepository = stanRepository;
 		this.transakcijaRepository = transakcijaRepository;
 		this.ostaliRacuniRepository = ostaliRacuniRepository;
+		this.sifraPromeneRepository = sifraPromeneRepository;
 	}
 
 	/**
@@ -110,10 +113,10 @@ public class StavkeIzvodaResource {
     public ResponseEntity<StavkeIzvodaTransakcijaDTO> knjizenjeStavkeIzvoda(@RequestBody StavkeIzvodaTransakcijaDTO stavkeIzvodaTransakcija) throws URISyntaxException {
         log.debug("REST request to knjizenje StavkeIzvoda : {}", stavkeIzvodaTransakcija);
         
-       
+        System.out.println("*******************************((((((((((((((((((((((((((((((((((((((((#############################################");
         if (stavkeIzvodaTransakcija.getStavkeIzvoda().getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
+        }   
         
         String sifraStana = stavkeIzvodaTransakcija.getStavkeIzvoda().getPozivOdobrenja();
         String tempSifraStana = sifraStana; 
@@ -122,7 +125,16 @@ public class StavkeIzvodaResource {
         	return ResponseEntity.badRequest().headers(HeaderUtil.createAlert(applicationName, "toplanaApp.stavkeIzvoda.sifraStanaNePostoji", "")).body(stavkeIzvodaTransakcija);
         }
         
-        SifraPromene sp = stavkeIzvodaTransakcija.getSifraPromene();
+        
+        SifraPromene spDto = stavkeIzvodaTransakcija.getSifraPromene();
+        if (spDto == null || spDto.getId() == null) {
+            throw new BadRequestAlertException("SifraPromene id is required", ENTITY_NAME, "sifrapromene.idnull");
+        }
+        // attach to persistence context (does not hit DB for JPA impls that support it)
+        SifraPromene sp = sifraPromeneRepository.getReferenceById(spDto.getId());
+        
+        
+       // SifraPromene sp = stavkeIzvodaTransakcija.getSifraPromene();
         StavkeIzvoda stavkeIzvoda = stavkeIzvodaTransakcija.getStavkeIzvoda();
         
         Stan stan = stanRepository.findBySifra(sifraStana);
@@ -204,6 +216,68 @@ public class StavkeIzvodaResource {
         	return ResponseEntity.badRequest().headers(HeaderUtil.createAlert(applicationName, "toplanaApp.stavkeIzvoda.sifraStanaNePostoji", "")).body(stavkeIzvodaTransakcija);
 
         }
+        
+        
+    }
+    
+    /**
+     * !!! Knjizenje jedne po jedne stavke u izvodu. Dolazi se sa strane stavke izvoda update - !!! Dodatak za naknadnu podelu svote novca
+     * @param stavkeIzvoda
+     * @return
+     * @throws URISyntaxException
+     */
+    @PutMapping("/stavke-izvodas-knjizenje-podela")
+    public ResponseEntity<StavkeIzvodaTransakcijaDTO> knjizenjeStavkeIzvodaPodela(@RequestBody StavkeIzvodaTransakcijaDTO stavkeIzvodaTransakcija) throws URISyntaxException {
+        log.debug("REST request to knjizenje StavkeIzvoda : {}", stavkeIzvodaTransakcija);
+        System.out.println("*******************************(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((");
+       
+        if (stavkeIzvodaTransakcija.getStavkeIzvoda().getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        
+        String sifraStana = stavkeIzvodaTransakcija.getStavkeIzvoda().getPozivOdobrenja();
+        String tempSifraStana = sifraStana; 
+                    
+        if(sifraStana == null || sifraStana.length() == 0) {
+        	return ResponseEntity.badRequest().headers(HeaderUtil.createAlert(applicationName, "toplanaApp.stavkeIzvoda.sifraStanaNePostoji", "")).body(stavkeIzvodaTransakcija);
+        }
+        
+        SifraPromene sp = stavkeIzvodaTransakcija.getSifraPromene();
+        StavkeIzvoda stavkeIzvoda = stavkeIzvodaTransakcija.getStavkeIzvoda();
+        
+        Stan stan = stanRepository.findBySifra(sifraStana);
+       
+        		
+        		sifraStana = tempSifraStana;
+        		//ako je uneta sifra centra ili sl.
+        		OstaliRacuni ostaliRacuni = ostaliRacuniRepository.findBySifra(sifraStana);
+        		if(ostaliRacuni != null) {
+	        		stavkeIzvoda.setRasporedjena(true);        	
+	            	
+	        		Transakcija td = stavkeIzvodaTransakcija.getStavkeIzvoda().getTransakcija();
+	            	
+	        		/* ne treba da brise jer ovde dodaje drugi deo novca
+	            	if (td != null && td.getId() != null && td.getId() > 0) {
+	            		
+	            		transakcijaRepository.delete(td);
+	            		
+	            	}
+	            	*/
+	        		
+	            	
+	        		Transakcija t = new Transakcija(stavkeIzvoda, ostaliRacuni, sp);
+	            	Transakcija tResult = transakcijaRepository.save(t);
+	            	stavkeIzvoda.setTransakcija(tResult);
+	            	stavkeIzvoda.setId(null);
+	            	StavkeIzvoda result = stavkeIzvodaRepository.save(stavkeIzvoda);
+	            	
+	            	return ResponseEntity.ok()
+	                        .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, stavkeIzvoda.getId().toString()))
+	                        .body(stavkeIzvodaTransakcija);
+       
+                } else {
+                	return ResponseEntity.badRequest().headers(HeaderUtil.createAlert(applicationName, "toplanaApp.stavkeIzvoda.sifraStanaNePostoji", "")).body(stavkeIzvodaTransakcija);
+                }
         
         
     }

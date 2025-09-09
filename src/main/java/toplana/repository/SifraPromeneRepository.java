@@ -20,4 +20,6 @@ public interface SifraPromeneRepository extends JpaRepository<SifraPromene, Long
 	
 	@Query(value="select sp from SifraPromene sp order by sp.tipPromene desc, broj asc")
 	List<SifraPromene> findAllOrderByTipPromeneAndBroj();
+
+	SifraPromene getReferenceById(Long id);
 }
