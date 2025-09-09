@@ -7,7 +7,7 @@ import { IStavkeIzvoda } from '@/shared/model/stavke-izvoda.model';
 
 import AlertService from '@/shared/alert/alert.service';
 import { IIzvod, Izvod } from '@/shared/model/izvod.model';
-import IzvodService from './izvod.service';
+import IzvodService from '@/entities/izvod/izvod.service';
 
 import { IStanjaPodstanice } from '@/shared/model/stanja-podstanice.model';
 import StanjaPodstaniceService from './stanja-podstanice.service';
