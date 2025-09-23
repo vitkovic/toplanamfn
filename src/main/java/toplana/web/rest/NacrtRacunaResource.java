@@ -202,7 +202,7 @@ public class NacrtRacunaResource {
             int previousMonthNumber = previousMonth.getMonthValue(); 
            
             
-            //previousMonthNumber = 6;
+            //previousMonthNumber = 7;
             // !!! Proracun ukupne potrosnje po stanu - nove podstanice
             List <StanStanje> vrednostipotrosnje = stanRepository.findPotrosnjaPodstanicaId(p.getId(),previousMonthNumber);
             
@@ -212,7 +212,7 @@ public class NacrtRacunaResource {
             
           //  System.out.println(vrednostipotrosnje);
             
-          //  System.out.println(vrednostipotrosnjeDTO);
+         // System.out.println(vrednostipotrosnjeDTO);
             
             
             Map<String, Object> grouped = vrednostipotrosnjeDTO.stream()
@@ -236,7 +236,6 @@ public class NacrtRacunaResource {
             Map<String, String> m = new HashMap<>();
             
             grouped.forEach((sifrag, vrednosti) -> {
-            	//System.out.println(sifrag + "=" + String.join(";", vrednosti.stream().map(String::valueOf).collect(Collectors.toList())));
             	m.put(sifrag, String.join(";", ((Collection<Long>) vrednosti).stream().map(String::valueOf).collect(Collectors.toList())));
             });
             
@@ -273,6 +272,12 @@ public class NacrtRacunaResource {
             */ 
             String map="";
             BigDecimal suma = new BigDecimal(.0);
+            
+            
+            for (Map.Entry<String, String> entry : m.entrySet()) {
+                System.out.println(entry.getKey() + " = " + entry.getValue());
+            }
+            
             
             // calculate sumu svih razlika po stranu - ukupna potrosnja
             for (String key : m.keySet()) {
