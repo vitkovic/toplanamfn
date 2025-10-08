@@ -182,7 +182,7 @@ public class Racun implements Serializable {
     	
     	
     	if (p.getId() > 1105) {
-    		System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+    	//	System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
     	
     		
     	}
@@ -191,14 +191,14 @@ public class Racun implements Serializable {
     		
     		if (p.getId() > 1105) { // 1105 treba definisati kao varijablu u parametrima i obrisati ove posebne id stanova
     			
-    			
+    		/*	
     			System.out.println(p.getId() + "********************************************************************************" + spr.getNovoStanje().getStanje());
     			System.out.println(p.getId() + "********************************************************************************" + spr.getStaroStanje().getStanje());
     			System.out.println(p.getId() + "********************************************************************************" + saldo);
     			System.out.println(p.getId() + "********************************************************************************" + saldo);
     			System.out.println(p.getId() + "********************************************************************************" + saldo);
     	    	
-    			
+    			*/
     			
     			
     			
@@ -294,7 +294,7 @@ public class Racun implements Serializable {
 		}
     	//ako je saldo negativan ili jednak 0
     	if((this.ukupnoZaduzenje.compareTo(new BigDecimal("0.")) <= 0 && this.stan.getTipPotrosaca().getTip() != 5) || 
-    			((this.ukupnoZaduzenje.doubleValue() <= 0.05 && this.ukupnoZaduzenje.doubleValue() <= 0.0) && this.stan.getTipPotrosaca().getTip() != 5)) {
+    			((this.ukupnoZaduzenje.doubleValue() <= 0.05 && this.ukupnoZaduzenje.doubleValue() >= 0.0) && this.stan.getTipPotrosaca().getTip() != 5)) {
     		
     		this.popust = nacrtRacuna.getPopust();
     		
