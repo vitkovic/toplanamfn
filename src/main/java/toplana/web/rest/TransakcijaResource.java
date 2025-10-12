@@ -3,6 +3,7 @@ package toplana.web.rest;
 import toplana.config.Constants;
 import toplana.domain.Racun;
 import toplana.domain.Stan;
+import toplana.domain.StanjaPodstaniceZaRacun;
 import toplana.domain.Transakcija;
 import toplana.repository.StanRepository;
 import toplana.repository.TransakcijaCustomRepository;
@@ -11,6 +12,7 @@ import toplana.service.TransakcijaService;
 import toplana.specifications.RacunSpecification;
 import toplana.specifications.TransakcijaSpecification;
 import toplana.web.rest.dto.DugujePotrazujeReoni;
+import toplana.web.rest.dto.RacunDTO;
 import toplana.web.rest.dto.RekapitulacijaSifraPromeneDatumDTO;
 import toplana.web.rest.dto.SearchRacunDTO;
 import toplana.web.rest.dto.SearchTransakcijaDTO;
@@ -43,6 +45,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.StreamSupport;
 
 /**
@@ -148,6 +151,7 @@ public class TransakcijaResource {
     public ResponseEntity<Transakcija> getTransakcija(@PathVariable Long id) {
         log.debug("REST request to get Transakcija : {}", id);
         Optional<Transakcija> transakcija = transakcijaService.findOne(id);
+        
         return ResponseUtil.wrapOrNotFound(transakcija);
     }
 
@@ -254,10 +258,17 @@ public class TransakcijaResource {
         log.debug("REST request to get a page of Transakcije zbirno za stan");
         TransakcijeZaStanZbirnoDTO trans = null;
         Stan stan = stanRepository.findBySifra(sifraStana);
+        
+        
+        
+        List<Stan> stanPN = stanRepository.getPreviousAndNextById(stan.getSifra());
+    
         if(stan != null) {        
         	trans = transakcijaService.findAllByStanOrderByDatum(stan);
+        	trans.setPrevNextTransakcije(stanPN);
         }else {
         	trans = transakcijaService.findAllByDodatniRacunOrderByDatum(sifraStana);
+        	trans.setPrevNextTransakcije(stanPN);
         }
         
         

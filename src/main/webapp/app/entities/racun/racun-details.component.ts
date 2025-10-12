@@ -24,6 +24,7 @@ export default class RacunDetails extends Vue {
     this.racunService()
       .find(racunId)
       .then(res => {
+		console.log(res);
         this.racun = res;
 		this.prevnext = res.prevNextRacuni;
         this.loaded = true;
@@ -32,6 +33,7 @@ export default class RacunDetails extends Vue {
   }
 
   public checkRacunId() {
+	//console.log(this.prevnext);
 	
 	if (this.prevnext.length == 1) {
 		
@@ -53,7 +55,7 @@ export default class RacunDetails extends Vue {
   public previousRacun() {
 	
 	this.checkRacunId();
-	this.$router.push({name: 'RacunView', params: {racunId: this.left} });
+	var target = {name: 'RacunView', params: {racunId: this.left} };
 	
 	 this.racunService()
        .find(this.left)
@@ -63,12 +65,24 @@ export default class RacunDetails extends Vue {
          this.loaded = true;
 		
        });
+	   
+	   if (
+	   		  this.$route.name !== target.name ||
+	   		  this.$route.params.sifra !== target.params.racunId
+	   		) {
+	   		  this.$router.push(target);
+	   		  const href = this.$router.resolve(target).href;
+	   			  // or replace current history entry:
+	   		  window.location.replace(href); 
+	   		}
+	   
+	   
    }
    
    public nextRacun() {
 	
 	  this.checkRacunId();
-	  this.$router.push({name: 'RacunView', params: {racunId: this.right} });
+	  var target = {name: 'RacunView', params: {racunId: this.right} };
 	
 	    this.racunService()
         .find(this.right)
@@ -77,6 +91,17 @@ export default class RacunDetails extends Vue {
 		  this.prevnext = res.prevNextRacuni;
           this.loaded = true;
         });
+		
+		if (
+			   		  this.$route.name !== target.name ||
+			   		  this.$route.params.sifra !== target.params.racunId
+			   		) {
+			   		  this.$router.push(target);
+			   		  const href = this.$router.resolve(target).href;
+			   			  // or replace current history entry:
+			   		  window.location.replace(href); 
+			   		}
+			   
     }
   
   

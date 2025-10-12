@@ -115,6 +115,18 @@
                 <router-link v-if="transakcija.id" :to="{name: 'TransakcijaEdit', params: {transakcijaId: transakcija.id}}" tag="button" class="btn btn-primary">
                     <font-awesome-icon icon="pencil-alt"></font-awesome-icon>&nbsp;<span v-text="$t('entity.action.edit')"> Edit</span>
                 </router-link>
+                 
+                  <button type="button" 
+                        v-on:click="previousStan()"
+                        class="btn btn-primary">
+                    <span v-text="$t('entity.action.previousracun')"></span>
+                </button>              
+                
+                <button type="button" 
+                        v-on:click="nextStan()"
+                        class="btn btn-primary">
+                    <span v-text="$t('entity.action.nextracun')"></span>
+                </button>
                 <b-button  v-on:click="stampanje()"
                         variant="info"
                         class="btn ">                    

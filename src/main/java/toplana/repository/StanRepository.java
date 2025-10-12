@@ -1,6 +1,7 @@
 package toplana.repository;
 
 import toplana.domain.Podstanica;
+import toplana.domain.Racun;
 import toplana.domain.Stan;
 import toplana.domain.StanStanje;
 import toplana.web.rest.dto.StanStanjeDTO;
@@ -63,4 +64,17 @@ public interface StanRepository extends JpaRepository<Stan, Long> {
 	@Query(value = "select sifra,vrednost,datum from stan_stanje "
 			+ "	ORDER BY sifra,datum DESC ", nativeQuery=true)
 	List<Object> findPotrosnjaPodstanicaId(@Param("podstanicaid") Long podstanicaid, @Param("month") Integer month);*/
+    
+   @Query(value = " ( " +
+			  " SELECT s.* FROM stan s WHERE s.sifra < :Idr ORDER BY s.sifra DESC LIMIT 1 " +
+			  "  ) " +
+			  "  UNION ALL " +
+			  " ( " +
+			  " SELECT s.* FROM stan s WHERE s.sifra > :Idr ORDER BY s.sifra ASC  LIMIT 1 ) " 
+			  , nativeQuery = true)
+		List<Stan> getPreviousAndNextById(@Param("Idr") String Idr);
+
+    
+    
+    
 }

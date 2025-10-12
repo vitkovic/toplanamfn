@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import toplana.domain.OstaliRacuni;
+import toplana.domain.Racun;
 import toplana.domain.Stan;
+import toplana.domain.Transakcija;
 
 public class TransakcijeZaStanZbirnoDTO {
 	
@@ -15,8 +17,18 @@ public class TransakcijeZaStanZbirnoDTO {
 	private BigDecimal potrazujeUkupno;
 	private BigDecimal saldoUkupno;
 	
+	private List<Stan> prevNextTransakcije;
+	
 	public TransakcijeZaStanZbirnoDTO() {
 		super();
+	}
+
+	public List<Stan> getPrevNextTransakcije() {
+		return prevNextTransakcije;
+	}
+
+	public void setPrevNextTransakcije(List<Stan> prevNextTransakcije) {
+		this.prevNextTransakcije = prevNextTransakcije;
 	}
 
 	public Stan getStan() {

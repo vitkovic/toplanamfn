@@ -35,7 +35,8 @@ export default class TransakcijaSveDetails extends Vue {
   @Inject('transakcijaService') private transakcijaService: () => TransakcijaService;
   public transakcija: ITransakcija = {};
   public sifra = '';
-
+  public List<Stan> prevnext = [];
+  public Long left = 0, right = 0;
   public search = {
     datumOd: null ,
     datumDo:null,
@@ -56,12 +57,74 @@ export default class TransakcijaSveDetails extends Vue {
       }
     });
   }
+  public checkStanSifra() {
+  console.log(this.prevnext);
 
+  if (this.prevnext.length == 1) {
+  	
+  	if (this.prevnext[0].sifra < to.params.sifra) {
+  		this.left = this.prevnext[0].sifra
+  		this.right = to.params.sifra;
+  	} else (this.prevnext[0].sifra > to.params.sifra) {
+  		this.left = to.params.sifra;
+  		this.right = this.prevnext[0].sifra;
+  	} 
+  } else {
+  	
+  	this.left = this.prevnext[0].sifra
+  	this.right = this.prevnext[1].sifra
+  	
+  }
+  public previousStan() {
+
+  	this.checkStanSifra();
+  //	this.$router.push({name: 'TransakcijaSveDetails', params: {sifra: this.left} });
+	     const target = { name: 'TransakcijaSveDetails', params: {sifra: this.left}, query: { r: Date.now() }};
+
+		if (
+		  this.$route.name !== target.name ||
+		  this.$route.params.sifra !== target.params.sifra
+		) {
+		
+		  this.$router.push(target);
+		  const href = this.$router.resolve(target).href;
+		  			  // or replace current history entry:
+		  		  window.location.replace(href); 
+		}
+
+  
+  }
+    
+  public nextStan() {
+	
+	    this.checkStanSifra();
+	 	//this.$router.push({name: 'TransakcijaSveDetails', params: {sifra: this.right} });
+		
+		
+		const target = { name: 'TransakcijaSveDetails', params: {sifra: this.right}, query: { r: Date.now() } };
+
+		if (
+		  this.$route.name !== target.name ||
+		  this.$route.params.sifra !== target.params.sifra
+		) {
+		  this.$router.push(target);
+		  const href = this.$router.resolve(target).href;
+			  // or replace current history entry:
+		  window.location.replace(href); 
+		}
+		
+  }
+   
+   
   public retrieveSveTransakcije(sifra) {
     this.transakcijaService()
       .findAllForStan(sifra)
       .then(res => {        
-        this.transakcijaZbirno = res.data;
+	    this.transakcijaZbirno = res.data;
+		console.log(this.transakcijaZbirno);
+		this.transakcijaZbirno.stan.prevNextStan = this.transakcijaZbirno.prevNextTransakcije;
+		this.prevnext = this.transakcijaZbirno.prevNextTransakcije;
+		console.log(this.prevnext)
         
       });
   }

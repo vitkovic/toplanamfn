@@ -109,9 +109,19 @@ public class Stan implements Serializable {
 	@javax.persistence.Transient
 	private List<Double> zadnjaStanja;
 	
+	@javax.persistence.Transient
+	private List<Stan> prevNextStan;
 	
 	
-    public List<Double> getZadnjaStanja() {
+    public List<Stan> getPrevNextStan() {
+		return prevNextStan;
+	}
+
+	public void setPrevNextStan(List<Stan> prevNextStan) {
+		this.prevNextStan = prevNextStan;
+	}
+
+	public List<Double> getZadnjaStanja() {
 		return zadnjaStanja;
 	}
 

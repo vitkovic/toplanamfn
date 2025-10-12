@@ -101,5 +101,14 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	List<RekapitulacijaSifraPromeneDatumDTO> sintetickiDnevnik(@Param("datumOdNotExists") Integer datumOdNotExists,@Param("datumOd") LocalDate datumOd,
 			@Param("datumDoNotExists") Integer datumDoNotExists,@Param("datumDo") LocalDate datumDo);
 	
-	
+	@Query(value = 
+		    "(SELECT transakcija.* FROM transakcija t " +
+		    "JOIN stan s ON t.stan_id = s.id " +
+		    "WHERE s.id < :Idr ORDER BY s.id DESC LIMIT 1) " +
+		    "UNION ALL " +
+		    "(SELECT t.* FROM racun t " +
+		    "JOIN stan s ON t.stan_id = s.id " +
+		    "WHERE s.id > :Idr ORDER BY s.id ASC LIMIT 1)",
+		    nativeQuery = true)
+		List<Transakcija> getPreviousAndNextById(@Param("Idr") Long Idr);
 }
