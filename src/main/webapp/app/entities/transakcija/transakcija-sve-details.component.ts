@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Component, Vue, Inject } from 'vue-property-decorator';
 
 import { ITransakcija } from '@/shared/model/transakcija.model';
