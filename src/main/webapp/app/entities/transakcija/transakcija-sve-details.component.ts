@@ -35,7 +35,7 @@ class ITransakcijeZaStanZbirnoDTO {
 export default class TransakcijaSveDetails extends Vue {
   @Inject('transakcijaService') private transakcijaService: () => TransakcijaService;
   public transakcija: ITransakcija = {};
-  public sifra = '';
+  public String sifra = null;
   public List<Stan> prevnext = [];
   public Long left = 0, right = 0;
   public search = {
@@ -54,6 +54,7 @@ export default class TransakcijaSveDetails extends Vue {
     next(vm => {
       if (to.params.sifra) {
         vm.search.sifraStana = to.params.sifra;
+		vm.sifra = to.params.sifra;
         vm.retrieveSveTransakcije(to.params.sifra);
       }
     });
@@ -63,12 +64,12 @@ export default class TransakcijaSveDetails extends Vue {
 
   if (this.prevnext.length == 1) {
   	
-  	if (this.prevnext[0].sifra < to.params.sifra) {
-  		this.left = this.prevnext[0].sifra
-  		this.right = to.params.sifra;
-  	} else (this.prevnext[0].sifra > to.params.sifra) {
-  		this.left = to.params.sifra;
+  	if (this.prevnext[0].sifra < this.sifra) {
+  		this.left = this.sifra;
   		this.right = this.prevnext[0].sifra;
+  	} else (this.prevnext[0].sifra >this.sifra) {
+  		this.left = this.prevnext[0].sifra;
+  		this.right = this.sifra;
   	} 
   } else {
   	

@@ -37,10 +37,10 @@ export default class RacunDetails extends Vue {
 	
 	if (this.prevnext.length == 1) {
 		
-		if (this.prevnext[0].id < this.racun.id) {
+		if (this.prevnext[0].id > this.racun.id) {
 			this.left = this.prevnext[0].id
 			this.right = this.racun.id;
-		} else (this.prevnext[0].id > this.racun.id) {
+		} else (this.prevnext[0].id < this.racun.id) {
 			this.left = this.racun.id;
 			this.right = this.prevnext[0].id;
 		} 
