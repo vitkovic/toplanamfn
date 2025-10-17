@@ -202,7 +202,7 @@ public class NacrtRacunaResource {
             int previousMonthNumber = previousMonth.getMonthValue(); 
            
             
-            //previousMonthNumber = 7;
+            previousMonthNumber = 8;
             // !!! Proracun ukupne potrosnje po stanu - nove podstanice
             List <StanStanje> vrednostipotrosnje = stanRepository.findPotrosnjaPodstanicaId(p.getId(),previousMonthNumber);
             
@@ -309,7 +309,9 @@ public class NacrtRacunaResource {
         		}
         		
         		BigDecimal saldo = transakcijaRepository.getSaldoDoKrajaPrethodnogMesecaZaStanAndValuta(nacrtRacuna.getValutaPlacanja(), stan.getId());
-        		if (saldo.doubleValue() <= 0.02 || saldo.doubleValue() >= -0.02) saldo = new BigDecimal(0.00);
+        		
+        		
+        		if (saldo.doubleValue() <= 0.02 && saldo.doubleValue() >= -0.02) saldo = new BigDecimal(0.00);
         		//ovde dodati sta da se radi kad nema popusta (za neku podstanicu ili vrstu korisnika (reon)
         		Racun racun = new Racun(stan, result, user, saldo, poslednjiDanPrethodnogMeseca,p);
         		racuniZaPodstanicu.add(racun);
