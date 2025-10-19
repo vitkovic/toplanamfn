@@ -59,6 +59,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -202,7 +205,7 @@ public class NacrtRacunaResource {
             int previousMonthNumber = previousMonth.getMonthValue(); 
            
             
-            previousMonthNumber = 8;
+         //   previousMonthNumber = 9;
             // !!! Proracun ukupne potrosnje po stanu - nove podstanice
             List <StanStanje> vrednostipotrosnje = stanRepository.findPotrosnjaPodstanicaId(p.getId(),previousMonthNumber);
             
@@ -310,11 +313,25 @@ public class NacrtRacunaResource {
         		
         		BigDecimal saldo = transakcijaRepository.getSaldoDoKrajaPrethodnogMesecaZaStanAndValuta(nacrtRacuna.getValutaPlacanja(), stan.getId());
         		
-        		
+        		System.out.println("STAN:" + stan.getSifra() + " vrednost: " + saldo + " ******************************************************************************************************************************************************************" );        		
         		if (saldo.doubleValue() <= 0.02 && saldo.doubleValue() >= -0.02) saldo = new BigDecimal(0.00);
         		//ovde dodati sta da se radi kad nema popusta (za neku podstanicu ili vrstu korisnika (reon)
         		Racun racun = new Racun(stan, result, user, saldo, poslednjiDanPrethodnogMeseca,p);
         		racuniZaPodstanicu.add(racun);
+        		
+        		
+/*
+        		Path path = Paths.get("d:\\data.txt");
+        		try {
+					Files.createDirectories(path.getParent());
+					Files.writeString(path, "STAN:" + stan.getSifra() + " vrednost: " + saldo + " Datum valute: " + nacrtRacuna.getValutaPlacanja() ); // UTF-8 by default on Java 11+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} // makes parent dirs if needed
+  */      		
+        		
+        		
         	}
         	racunRepository.saveAll(racuniZaPodstanicu);
         }
