@@ -319,7 +319,7 @@ public class NacrtRacunaResource {
         		Racun racun = new Racun(stan, result, user, saldo, poslednjiDanPrethodnogMeseca,p);
         		racuniZaPodstanicu.add(racun);
         		
-        		
+        		        
 /*
         		Path path = Paths.get("d:\\data.txt");
         		try {

@@ -115,6 +115,8 @@ export default class StavkeIzvodaUpdate extends Vue {
         })
         .catch(error => {
           var message:string = this.getMessageFromHeader(error.response);
+		  console.log(message);
+		  if (message.length == 0 || message.length < 5 ) message = "Error Happened. Contact Administrator";
           this.$notify({text:message, type:'error', duration:10000});
           this.isSaving = false;
         });;

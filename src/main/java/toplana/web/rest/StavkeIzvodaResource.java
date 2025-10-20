@@ -142,7 +142,9 @@ public class StavkeIzvodaResource {
         	stavkeIzvoda.setRasporedjena(true);        	
         	Transakcija td = stavkeIzvodaTransakcija.getStavkeIzvoda().getTransakcija();
         	
-        	if (td != null && td.getId() != null && td.getId() > 0) {
+        	System.out.println(td.getOpis() + " **********************************************");
+        	
+        	if (td != null && td.getId() != null && td.getId() > 0 && td.getOpis() != "Рачун") {
         		
         		transakcijaRepository.delete(td);
         		
@@ -169,7 +171,7 @@ public class StavkeIzvodaResource {
                 	
         			Transakcija td = stavkeIzvodaTransakcija.getStavkeIzvoda().getTransakcija();
                 	
-                	if (td != null && td.getId() != null && td.getId() > 0) {
+                	if (td != null && td.getId() != null && td.getId() > 0 && td.getOpis() != "Рачун") {
                 		
                 		transakcijaRepository.delete(td);
                 		
@@ -195,7 +197,7 @@ public class StavkeIzvodaResource {
 	            	
 	        		Transakcija td = stavkeIzvodaTransakcija.getStavkeIzvoda().getTransakcija();
 	            	
-	            	if (td != null && td.getId() != null && td.getId() > 0) {
+	            	if (td != null && td.getId() != null && td.getId() > 0 && td.getOpis() != "Рачун") {
 	            		
 	            		transakcijaRepository.delete(td);
 	            		
