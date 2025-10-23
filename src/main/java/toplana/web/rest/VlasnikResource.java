@@ -92,12 +92,20 @@ public class VlasnikResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of vlasniks in body.
      */
+    
     @GetMapping("/vlasniks")
     public ResponseEntity<List<Vlasnik>> getAllVlasniks(Pageable pageable) {
         log.debug("REST request to get a page of Vlasniks");
         Page<Vlasnik> page = vlasnikRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+    
+    @GetMapping("/vlasniksall")
+    public ResponseEntity<List<Vlasnik>> getAllVlasniksAll() {
+        log.debug("REST request to get all Vlasniks (no pagination)");
+        List<Vlasnik> list = vlasnikRepository.findAll(); // or .findAll(Sort.by("id"))
+        return ResponseEntity.ok(list);
     }
 
     /**

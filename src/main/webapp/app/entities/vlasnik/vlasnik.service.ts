@@ -5,6 +5,7 @@ import buildPaginationQueryOpts from '@/shared/sort/sorts';
 import { IVlasnik } from '@/shared/model/vlasnik.model';
 
 const baseApiUrl = 'api/vlasniks';
+const baseApiUrlAll = 'api/vlasniksall';
 
 export default class VlasnikService {
   public find(id: number): Promise<IVlasnik> {
@@ -32,6 +33,18 @@ export default class VlasnikService {
         });
     });
   }
+  public retrieveAll(paginationQuery?: any): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+        axios
+          .get(baseApiUrlAll + `?${buildPaginationQueryOpts(paginationQuery)}`)
+          .then(res => {
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
+    }
 
   public delete(id: number): Promise<any> {
     return new Promise<any>((resolve, reject) => {

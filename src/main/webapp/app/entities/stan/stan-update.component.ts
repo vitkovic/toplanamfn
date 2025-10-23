@@ -144,7 +144,9 @@ export default class StanUpdate extends Vue {
     this.stanService()
       .find(stanId)
       .then(res => {
-        this.stan = res;
+		console.log(res)
+		this.stan = res;
+		//this.vlasniks = res.vlasnik;
       });
   }
 
@@ -196,6 +198,7 @@ export default class StanUpdate extends Vue {
     this.vlasnikService()  
       .retrieveAll()
       .then(res => {
+		console.log(res.data)
         this.vlasniks = res.data;
       });
   }

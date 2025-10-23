@@ -115,7 +115,7 @@
                                 <label class="form-control-label" v-text="$t('toplanaApp.stan.vlasnik')" for="stan-vlasnik">Vlasnik</label>
                                 <select class="form-control" id="stan-vlasnik" name="vlasnik" v-model="stan.vlasnik">
                                     <option v-bind:value="null"></option>
-                                    <option v-bind:value="stan.vlasnik && vlasnikOption.id === stan.vlasnik.id ? stan.vlasnik : vlasnikOption" v-for="vlasnikOption in vlasniks" :key="vlasnikOption.id">{{vlasnikOption.prezime}} {{vlasnikOption.ime}} {{vlasnikOption.id}}</option>
+                                    <option v-bind:value="stan.vlasnik && vlasnikOption.id === stan.vlasnik.id ? stan.vlasnik : vlasnikOption" v-for="vlasnikOption in vlasniks" :key="vlasnikOption.id">{{vlasnikOption.prezime}} {{vlasnikOption.ime}} {{vlasnikOption.email}}</option>
                                 </select>
                             </div>
                         </div>
