@@ -142,7 +142,7 @@ public class StavkeIzvodaResource {
         	stavkeIzvoda.setRasporedjena(true);        	
         	Transakcija td = stavkeIzvodaTransakcija.getStavkeIzvoda().getTransakcija();
         	
-        	System.out.println(td.getOpis() + " **********************************************");
+        //	System.out.println(td.getOpis() + " **********************************************");
         	
         	if (td != null && td.getId() != null && td.getId() > 0 && td.getOpis() != "Рачун") {
         		
