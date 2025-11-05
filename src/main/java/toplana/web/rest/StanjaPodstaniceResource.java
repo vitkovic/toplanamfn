@@ -343,7 +343,7 @@ public class StanjaPodstaniceResource {
     	            // Make this a proper 400 with detail the frontend can show
     	        	System.out.println(missing.size());
     	        	System.out.println(missing.get(0));
-    	        	if (missing.size() == 1 && missing.get(0) == "072910004") 
+    	        	if (!(missing.size() == 1 && missing.get(0).equalsIgnoreCase("072910004"))) 
     	        		throw new BadRequestAlertException("No Stan found for sifre: " + missing, ENTITY_NAME, "stanmissing");
     	        	
     	        }
