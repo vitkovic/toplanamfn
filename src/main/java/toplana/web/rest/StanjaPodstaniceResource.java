@@ -63,6 +63,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -265,7 +266,7 @@ public class StanjaPodstaniceResource {
     	     
     	     
     	     //String csvFile = Paths.get(file.getOriginalFilename()).toString();
-    	     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    	     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
 
     	        List<StanStanjeDTO> readings = new ArrayList<>();
 
@@ -281,11 +282,31 @@ public class StanjaPodstaniceResource {
     	                    String pointCode = rawPoint.split("\\|")[0]        // take "07.291.0026"
     	                                             .replace(".", "");       // remove dots → "072910026"
 
-    	                    LocalDateTime time = LocalDateTime.parse(parts[1].trim(), formatter);
-    	                    Double val = Double.parseDouble(parts[2].trim());
-    	                    Long value = val.longValue();
-    	                    readings.add(new StanStanjeDTO(pointCode, time.toLocalDate(), value));
-    	                }
+    	                    if (pointCode.equalsIgnoreCase("072910004")) { 
+    	                    	pointCode = "079990001";
+    	                    }
+    	               
+    	                    // date and time
+    	                    LocalDateTime time = null;
+    	                    String s = parts[1].trim();
+    	                    List<String> patterns = List.of(
+    	                            "M/d/uuuu H:mm",    // 11/1/2025 2:51
+    	                            "M/d/uuuu h:mm a",  // 11/1/2025 2:51 PM
+    	                            "MM/dd/uuuu HH:mm", // 11/01/2025 14:51
+    	                            "MM/dd/uuuu h:mm a" // 11/01/2025 2:51 PM
+    	                        );
+    	                        for (String p : patterns) {
+    	                            try {
+    	                                time =  LocalDateTime.parse(s, DateTimeFormatter.ofPattern(p));
+    	                            } catch (DateTimeParseException ignore) {
+    	                            	log.error(ignore.getMessage());
+    	                            }
+    	                        }
+    	                        
+    	                        Double val = Double.parseDouble(parts[2].trim());
+        	                    Long value = val.longValue();
+        	                    readings.add(new StanStanjeDTO(pointCode, time.toLocalDate(), value));
+    	               }
     	            }
     	        } catch (Exception e) {
     	           throw e;
@@ -320,7 +341,11 @@ public class StanjaPodstaniceResource {
 
     	        if (!missing.isEmpty()) {
     	            // Make this a proper 400 with detail the frontend can show
-    	            throw new BadRequestAlertException("No Stan found for sifre: " + missing, ENTITY_NAME, "stanmissing");
+    	        	System.out.println(missing.size());
+    	        	System.out.println(missing.get(0));
+    	        	if (missing.size() == 1 && missing.get(0) == "072910004") 
+    	        		throw new BadRequestAlertException("No Stan found for sifre: " + missing, ENTITY_NAME, "stanmissing");
+    	        	
     	        }
 
     	        // 4) Build entities
