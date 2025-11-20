@@ -206,12 +206,12 @@ public class Racun implements Serializable {
     			// Razlika prathodnog i novog stanja (I115)
     			
     			
-    			 System.out.println("ZSP: " + zajednickostanjepodstanice);
+    			 System.out.println("Zajednicko stanje Podstanice: " + zajednickostanjepodstanice);
     			
-    			BigDecimal ukupnapotrosnja =BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
+    			BigDecimal ukupnapotrosnja = BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
     			// Suma potrosnji stanova - J115 (I111)
     			
-    			 System.out.println("UP: " + ukupnapotrosnja);
+    			 System.out.println("Ukupna Potrosnja: " + ukupnapotrosnja);
     			
     			BigDecimal ukupnapovrsina = BigDecimal.valueOf(pn.getUkupnapovrsina()).setScale(2, RoundingMode.HALF_UP);
     			// Povrsina svih stanova
@@ -227,27 +227,29 @@ public class Racun implements Serializable {
     			// Procentualni udeo stana
     			
     			
-    			 System.out.println("Udeo Stana: " + udeostana);
+    			 System.out.println("Udeo Stana: " + udeostana + " %");
     			    			
-    			BigDecimal udeozajednickepotrosnje = udeostana.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
+    			BigDecimal udeozajednickepotrosnje = udeostananum.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
     			// Za stan deo koji se odnosi na udeo zajednicke potrosnje - J5
     			
     			
-    			 System.out.println(udeozajednickepotrosnje);
+    			 System.out.println("Udeo Zjednicke Potrosnje: " + udeozajednickepotrosnje);
     			
     			
     			 for(int i=0;i<stan.getZadnjaStanja().size();i++){
-    				 System.out.println(stan.getZadnjaStanja());
+    				 System.out.println(stan.getZadnjaStanja() + "      ZZZZZZSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
     		        } 
     			 
     			 System.out.println(p.getId() + "********************************************************************************" + stan.getId());
-    			BigDecimal sopstvenapotrosnja =BigDecimal.valueOf(stan.getZadnjaStanja().get(1) - stan.getZadnjaStanja().get(0)).setScale(2, RoundingMode.HALF_UP);
+    			BigDecimal sopstvenapotrosnja =BigDecimal.valueOf(stan.getZadnjaStanja().get(0) - stan.getZadnjaStanja().get(1)).setScale(2, RoundingMode.HALF_UP);
     			// Za stan sopstvena potrosnja ocitavanja - I5
     			
     			
-    			 System.out.println(sopstvenapotrosnja );
+    			 System.out.println("Sopstvena potrosnja: " + sopstvenapotrosnja );
     			
     			this.utrosakUKwh = (udeozajednickepotrosnje.add(sopstvenapotrosnja)).setScale(2, RoundingMode.HALF_UP); 
+    			
+    			 System.out.println("Ukupna potrosnja po stanu u kW: " + this.utrosakUKwh );
     			// Ukupna potrosnja po stanu u kW
     			this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFix).setScale(2, RoundingMode.HALF_UP);
     			

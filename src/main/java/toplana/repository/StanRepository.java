@@ -34,7 +34,7 @@ public interface StanRepository extends JpaRepository<Stan, Long> {
 	
 	@Query(value = "select sstanje from Stan s, StanStanje sstanje "
 			+ "	 where s.podstanica.id = :podstanicaid and s.id = sstanje.stan.id"
-			+ " and date_part('month', sstanje.datum) < (:month + 1) and date_part('month', sstanje.datum) >= (:month - 1) " 
+			+ " and date_part('month', sstanje.datum) >= (:month - 1) " 
 			+ "	ORDER BY sstanje.sifra, sstanje.datum DESC ")
 	List<StanStanje> findPotrosnjaPodstanicaId(@Param("podstanicaid") Long podstanicaid, @Param("month") int month);
 	
@@ -43,8 +43,7 @@ public interface StanRepository extends JpaRepository<Stan, Long> {
 		       "FROM StanStanje sst " +
 		       "JOIN sst.stan s " +
 		       "WHERE s.podstanica.id = :podstanicaid " +
-		       "AND date_part('month', sst.datum) < (:month + 1) " +
-		       "AND date_part('month', sst.datum) >= (:month - 1) " +
+		       "AND date_part('month', sst.datum) >= (:month - 1) "  +
 		       "ORDER BY sst.sifra, sst.datum DESC")
 		List<StanStanjeDTO> findStanStanjeDTO(@Param("podstanicaid") Long podstanicaid,
 		                                      @Param("month") int month);

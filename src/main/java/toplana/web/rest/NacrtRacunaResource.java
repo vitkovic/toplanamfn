@@ -294,7 +294,8 @@ public class NacrtRacunaResource {
                 
                 suma = suma.add(BigDecimal.valueOf(val));
              }
-            
+             
+            //System.exit(0);
           	p.setUkupnapotrosnjapostanu(suma.doubleValue()); // ukupna potrosnja po svim stanovima - sumirana razlika potrosnje po svakom stanu
       
         	// DOVDE
