@@ -132,13 +132,14 @@ public class RacunService  {
 			                             
 			for(RacunStampanje r : racuni) { 
 				
-				emailList.add(
-	    			    new MailWithAttachment("nvitko@gmail.com", "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", pdfPutanja + "\\Racun.pdf")
-	    			);
-
+			//	if (r.getVlasnikEmail() != null && r.getVlasnikEmail().length()>0 ) {
+					emailList.add(
+								new MailWithAttachment("nvitko@gmail.com", "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", pdfPutanja + "\\Racun.pdf")
+							);
+			//	}
 				
 			}
-			//mailService.sendMultipleEmails(emailList);
+		//	mailService.sendMultipleEmails(emailList);
 			
 		
 		}catch(Exception e) {
@@ -184,7 +185,7 @@ public class RacunService  {
 			// Za stan deo koji se odnosi na udeo zajednicke potrosnje - J5
     		try {
     			if (QrGeneratorFromText.generateQr(rDTO.getStan().getSifra(),rDTO.getStan().getVlasnik().getIme() + rDTO.getStan().getVlasnik().getPrezime(), 
-    			rDTO.getZaPlacanje(), rDTO.getPozivNaBroj())) {
+    			    rDTO.getZaPlacanje(), rDTO.getPozivNaBroj())) {
     				rDTO.setSlikaQrStan(rDTO.getStan().getSifra() + ".png");
     				rDTO.setImgQr(QrGeneratorFromText.awtImage); // set byte image to transfer - no saving on disk
     				
@@ -349,7 +350,7 @@ public class RacunService  {
 		
 		
         // ovaj		
-		udeozajednickepotrosnje = udeostana.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
+		udeozajednickepotrosnje = udeostananum.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
 		
 		
 	

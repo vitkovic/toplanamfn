@@ -162,6 +162,7 @@ public class MailService {
         
         
         helper.setFrom(fromAddress);
+       // helper.setFrom("toplanamfn@masfak.ni.ac.rs");
         helper.setSubject(mail.getSubject());
         String html = "<h4>Poštovani,</h4><p>"+mail.getBody()+"</p>";
         helper.setText(html, true);
