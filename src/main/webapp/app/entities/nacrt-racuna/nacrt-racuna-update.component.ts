@@ -110,6 +110,7 @@ export default class NacrtRacunaUpdate extends Vue {
 
   public save(): void {
     this.isSaving = true;
+	console.log(this.nacrtRacuna.id + "    ...... id" )
     if (this.nacrtRacuna.id) {
       this.nacrtRacunaService()
         .update(this.nacrtRacuna)

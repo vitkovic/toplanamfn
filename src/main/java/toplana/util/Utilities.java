@@ -17,7 +17,7 @@ public class Utilities {
 	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 	        LocalDate datem = LocalDate.parse(input, formatter);
 		
-	        Date d= Date.from(datem.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	        d= Date.from(datem.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		*/
 		cal.setTime(d);
 		cal.add(Calendar.MONTH, -1);
