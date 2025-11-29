@@ -8,7 +8,11 @@ import toplana.domain.Podstanica;
 public class SearchTransakcijaDTO {
 	private LocalDate datumOd;
 	private LocalDate datumDo;
-    private String sifraStana;    
+    private String sifraStana;  
+    private String sifraOd;
+    private String sifraDo;
+    private String podstanicaOd;
+    private String podstanicaDo;
     private boolean ukljucen;    
     private Podstanica podstanica; 
     private String prezime;
@@ -34,6 +38,38 @@ public class SearchTransakcijaDTO {
     
 	public SearchTransakcijaDTO() {
 		super();
+	}
+
+	public String getSifraOd() {
+		return sifraOd;
+	}
+
+	public void setSifraOd(String sifraOd) {
+		this.sifraOd = sifraOd;
+	}
+
+	public String getSifraDo() {
+		return sifraDo;
+	}
+
+	public void setSifraDo(String sifraDo) {
+		this.sifraDo = sifraDo;
+	}
+
+	public String getPodstanicaOd() {
+		return podstanicaOd;
+	}
+
+	public void setPodstanicaOd(String podstanicaOd) {
+		this.podstanicaOd = podstanicaOd;
+	}
+
+	public String getPodstanicaDo() {
+		return podstanicaDo;
+	}
+
+	public void setPodstanicaDo(String podstanicaDo) {
+		this.podstanicaDo = podstanicaDo;
 	}
 
 	public LocalDate getDatumOd() {

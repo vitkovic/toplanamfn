@@ -17,6 +17,10 @@
       "detail": {
         "title": "Рачун"
       },
+	  "podstanicaOd": "Od Podstanice",
+	  "podstanicaDo": "Do Podstanice",
+	  "sifraOd": "Od stana",
+	  "sifraDo": "Do stana",
       "datumRacuna": "Датум рачуна",
       "period": "Период",
       "utrosakVarijabilni": "Утрошак варијабилни",

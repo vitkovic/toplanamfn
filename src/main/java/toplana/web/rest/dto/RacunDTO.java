@@ -38,7 +38,9 @@ public class RacunDTO {
 	 private BigDecimal pdv1;
 	 private BigDecimal pdv2;
 	 private BigDecimal popust;	    
-	    //Ukupno zaduzenje za prethodni period (saldo u trenutku izdavanja racuna) ovo moze da se promeni ako se kasnije doda neki izvod koji nije bio upisan
+	 private BigDecimal ukupno;
+	
+	 //Ukupno zaduzenje za prethodni period (saldo u trenutku izdavanja racuna) ovo moze da se promeni ako se kasnije doda neki izvod koji nije bio upisan
 	 private BigDecimal ukupnoZaduzenje;
 	 private Boolean proknjizen;
 	    // pokazuje da li je racun manuelno azuriran
@@ -173,6 +175,9 @@ public class RacunDTO {
     		this.utrosakVarijabilniBezPdv = this.utrosakVarijabilniBezPopusta; 
     		this.utrosakFiksniBezPdv = this.utrosakFiksniBezPopusta;
     	}
+    	
+    	this.ukupno = this.utrosakVarijabilniBezPopusta.subtract(this.utrosakVarijabilniPopust).add(this.utrosakFiksniBezPopusta).subtract(this.utrosakFiksniPopust);
+    	
     	
     	this.utrosakVarijabilniPdv = this.utrosakVarijabilniBezPdv.multiply(this.pdv2.divide(new BigDecimal("100."))).setScale(2,RoundingMode.HALF_UP);
     	this.utrosakFiksniPdv = this.utrosakFiksniBezPdv.multiply(this.pdv2.divide(new BigDecimal("100."))).setScale(2,RoundingMode.HALF_UP);
@@ -555,6 +560,13 @@ public class RacunDTO {
 		this.zaduzenjePoRacunu = zaduzenjePoRacunu;
 	}
 	 
-	 
+    public BigDecimal getUkupno() {
+		return ukupno;
+	}
+
+	 public void setUkupno(BigDecimal ukupno) {
+		 this.ukupno = ukupno;
+	 }
+
 	 
 }

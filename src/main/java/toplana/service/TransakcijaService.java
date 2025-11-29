@@ -17,6 +17,7 @@ import toplana.web.rest.dto.SearchTransakcijaDTO;
 import toplana.web.rest.dto.TransakcijaStanUkupnoDTO;
 import toplana.web.rest.dto.TransakcijaZaStanDTO;
 import toplana.web.rest.dto.TransakcijeZaStanZbirnoDTO;
+import toplana.web.rest.dto.RacunDTO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -559,7 +560,7 @@ public class TransakcijaService {
  * @param search
  * @return
  ****************************************************************************************************************/
-    public List<RekapitulacijaSifraPromeneDatumDTO> rekapitulacijaSifraPromeneDatum(SearchTransakcijaDTO search){
+    public List<RekapitulacijaSifraPromeneDatumDTO> rekapitulacijaSifraPromeneDatumOld(SearchTransakcijaDTO search){
     	int datumOdNotExists = 1;
     	LocalDate datumOd = LocalDate.now();
     	
@@ -576,16 +577,59 @@ public class TransakcijaService {
     		datumDo = search.getDatumDo();
     	}
     	
+    	
     	List<RekapitulacijaSifraPromeneDatumDTO> out = transakcijaRepository.rekapitulacijaSifraPromeneDatum(datumOdNotExists,datumOd, datumDoNotExists, 
-    			datumDo);
+    	    		datumDo);
+    	
+    	
+    	
+    //	List<RekapitulacijaSifraPromeneDatumDTO> out = transakcijaRepository.rekapitulacijaSifraPromeneDatum(datumOdNotExists,datumOd, datumDoNotExists, 
+    	//		datumDo);
     	return out;
     }  
+    
+    
+    /***************************************************************************************************************
+     * Rekapitulacija po danima i sifri promene (uplata, blagajna ...    
+     * @param search
+     * @return
+     ****************************************************************************************************************/
+        public List<RacunDTO> rekapitulacijaSifraPromeneDatum(SearchTransakcijaDTO search){
+        	int datumOdNotExists = 1;
+        	LocalDate datumOd = LocalDate.now();
+        	
+        	int datumDoNotExists = 1;
+        	LocalDate datumDo = LocalDate.now();    	    	
+        	
+        	if(search.getDatumOd() != null) {
+        		datumOdNotExists = 0;
+        		datumOd = search.getDatumOd();
+        	}
+        	
+        	if(search.getDatumDo() != null) {
+        		datumDoNotExists = 0;
+        		datumDo = search.getDatumDo();
+        	}
+        	
+        	
+        	
+        	List<RacunDTO> out = transakcijaRepository.rekapitulacijaSifraPromeneDatumRacun(datumOdNotExists,datumOd, datumDoNotExists, datumDo, Integer.valueOf(search.getPodstanicaOd()), Integer.valueOf(search.getPodstanicaDo()),search.getSifraOd(), search.getSifraDo());
+        	
+        	
+        	
+        //	List<RekapitulacijaSifraPromeneDatumDTO> out = transakcijaRepository.rekapitulacijaSifraPromeneDatum(datumOdNotExists,datumOd, datumDoNotExists, 
+        	//		datumDo);
+        	return out;
+        }  
+    
+    
+    
 /****************************************************************************************************************
  * Pravi se PDF sa rekapitulacijom po siframa promene i datumima    
  * @param rps
  * @return
  *****************************************************************************************************************/
-    public String generateReportRekapitulacijaSifraPromeneDatum(List<RekapitulacijaSifraPromeneDatumDTO> rps) {
+    public String generateReportRekapitulacijaSifraPromeneDatum(List<RacunDTO> rps) {
 		 
 		try {
 			

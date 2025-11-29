@@ -41,15 +41,60 @@
                             locale="sr"                            
                         ></b-form-datepicker> 
                     </div>                            
+                </div><br>
+                
+                 <div class="row">
+                    <div class="col-3">                                                
+                        <label v-text="$t('toplanaApp.racun.podstanicaOd')"></label>
+                    </div>  
+                    <div class="col-3">
+                        <label v-text="$t('toplanaApp.racun.podstanicaDo')"></label>
+                    </div>                     
                 </div>
-                        
+                
+                   <div class="row">
+                  <div class="col-3">
+                        <input type="text" class="form-control" name="podstanicaOd" id="podstanicaOd"
+                                v-model="search.podstanicaOd"  
+                                /> 
+                    </div>
+                  <div class="col-3">
+                        <input type="text" class="form-control" name="podstanicaDo" id="podstanicaDo"
+                                v-model="search.podstanicaDo"  
+                                /> 
+                  </div>
+                 </div><br>
+                   <div class="row">
+                    <div class="col-3">                                                
+                        <label v-text="$t('toplanaApp.racun.sifraOd')"></label>
+                    </div>  
+                    <div class="col-3">
+                        <label v-text="$t('toplanaApp.racun.sifraDo')"></label>
+                    </div>                     
+                </div>
+                
+                   <div class="row">
+                  <div class="col-3">
+                        <input type="text" class="form-control" name="sifraOd" id="sifraOd"
+                                v-model="search.sifraOd"  
+                                /> 
+                    </div>
+                  <div class="col-3">
+                        <input type="text" class="form-control" name="sifraDo" id="sifraDo"
+                                v-model="search.sifraDo"  
+                                /> 
+                  </div>
+                 </div>
+                         
+                     
+                     
                 <button type="button" id="save-entity"  :disabled="isFetching" @click="send"
                                     class="btn btn-primary" style="margin-top:20px">
                     <span v-text="$t('entity.action.posalji')">Save</span>
                 </button>                
             </div>
         </div>
-
+     <!--
         <div v-show="rekapitulacije && rekapitulacije.length > 0 && rekapitulacije[0].datum" style="margin-top:10px;">
             <b-row>
                 <b-col md="9">
@@ -89,8 +134,77 @@
             </b-col>            
         </b-row>      
         </div>
-
-
+-->
+         <div class="table-responsive" v-if="racuns && racuns.length > 0">
+            <table class="table table-striped">
+                <thead>
+                
+                <th>Датум Рачуна</th>
+                <th>Варијабилни</th>
+                <th>Фиксни</th>
+                <th>Укупно</th>
+                <th>ПДВ (10%)</th>
+                <th>Одражавање</th>
+                <th>ПДВ (20%)</th>
+                <th>Укупно Задужење</th>
+                <th>За плаћање</th>
+                <th>Шифра</th>
+                <th>Власник</th>
+                <th>Период</th>
+                
+                
+                </thead>
+                <tbody>
+                <tr v-for="racun in racuns"
+                    :key="racun.id">
+                    <!--
+                    <td>
+                        <router-link :to="{name: 'RacunView', params: {racunId: racun.id}}">{{racun.id}}</router-link>
+                    </td>
+                    -->
+                    <td>{{racun.datumRacuna}}</td>
+                    <td>{{racun.utrosakVarijabilni}}</td>
+                    <td>{{racun.utrosakFiksni}}</td>
+                    <td>{{racun.ukupno}}</td>
+                    <td>{{racun.pdv1}}</td>
+                    <td>{{racun.utrosakOdrzavanje}}</td>
+                    <td>{{racun.pdv2}}</td>
+                   <td>{{racun.ukupnoZaduzenje}}</td>
+                    <td>{{racun.zaPlacanje}}</td>
+                    <td>
+                        <div v-if="racun.stan">
+                            <router-link :to="{name: 'StanView', params: {stanId: racun.stan.id}}">{{racun.stan.sifra}}</router-link>
+                        </div>
+                    </td>
+                    <td>{{racun.stan.vlasnik.prezime}} {{racun.stan.vlasnik.ime}}</td>
+                    <td>
+                        <div v-if="racun.nacrtRacuna">
+                            <router-link :to="{name: 'NacrtRacunaView', params: {nacrtRacunaId: racun.nacrtRacuna.id}}">{{racun.nacrtRacuna.period}}</router-link>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <router-link :to="{name: 'RacunView', params: {racunId: racun.id}}" tag="button" class="btn btn-info btn-sm details">
+                                <font-awesome-icon icon="eye"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
+                            </router-link>
+                            <router-link  :to="{name: 'RacunEdit', params: {racunId: racun.id}}"  tag="button" class="btn btn-primary btn-sm edit">
+                                <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.edit')">Edit</span>
+                            </router-link>
+                            <b-button v-if="!racun.proknjizen" v-on:click="prepareRemove(racun)"
+                                   variant="danger"
+                                   class="btn btn-sm"
+                                   v-b-modal.removeEntity>
+                                <font-awesome-icon icon="times"></font-awesome-icon>
+                                <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
+                            </b-button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
 
         
 

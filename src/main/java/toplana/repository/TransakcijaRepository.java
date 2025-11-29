@@ -10,6 +10,7 @@ import toplana.web.rest.dto.DugujePotrazujeReoni;
 import toplana.web.rest.dto.RekapitulacijaSifraPromeneDatumDTO;
 import toplana.web.rest.dto.TransakcijaStanUkupnoDTO;
 import toplana.web.rest.dto.TransakcijaZaStanDTO;
+import toplana.web.rest.dto.RacunDTO;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -96,6 +97,20 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	@Query(nativeQuery = true)
 	List<RekapitulacijaSifraPromeneDatumDTO> rekapitulacijaSifraPromeneDatum(@Param("datumOdNotExists") Integer datumOdNotExists,@Param("datumOd") LocalDate datumOd,
 			@Param("datumDoNotExists") Integer datumDoNotExists,@Param("datumDo") LocalDate datumDo);
+	
+	@Query(name = "Transakcija.rekapitulacijaSifraPromeneDatumRacun", nativeQuery = true)
+	List<RacunDTO> rekapitulacijaSifraPromeneDatumRacun(
+	    @Param("datumOdNotExists") int datumOdNotExists,
+	    @Param("datumOd") LocalDate datumOd,
+	    @Param("datumDoNotExists") int datumDoNotExists,
+	    @Param("datumDo") LocalDate datumDo,
+	    @Param("podstanicaOd") Integer podstanicaOd,
+	    @Param("podstanicaDo") Integer podstanicaDo,
+	    @Param("sifraOd") String sifraOd,
+	    @Param("sifraDo") String sifraDo
+	);
+	
+	
 	
 	@Query(nativeQuery = true)
 	List<RekapitulacijaSifraPromeneDatumDTO> sintetickiDnevnik(@Param("datumOdNotExists") Integer datumOdNotExists,@Param("datumOd") LocalDate datumOd,

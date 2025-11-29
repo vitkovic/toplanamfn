@@ -317,8 +317,8 @@ public class TransakcijaResource {
  * @return
  *********************************************************************************************************/
     @PostMapping("/transakcijas-rekapitulacija-sifra-promene-datum")
-    public List<RekapitulacijaSifraPromeneDatumDTO> rekapitulacijaSifraPromeneDatum(@RequestBody SearchTransakcijaDTO search) {   
-    	List<RekapitulacijaSifraPromeneDatumDTO> out = transakcijaService.rekapitulacijaSifraPromeneDatum(search);
+    public List<RacunDTO> rekapitulacijaSifraPromeneDatum(@RequestBody SearchTransakcijaDTO search) {   
+    	List<RacunDTO> out = transakcijaService.rekapitulacijaSifraPromeneDatum(search);
 	    return out;
     }
 
@@ -332,7 +332,8 @@ public class TransakcijaResource {
     produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> rekapitulacijaSifraPromeneDatumStampanje(@RequestBody SearchTransakcijaDTO search) 
     		throws IOException{
-    	List<RekapitulacijaSifraPromeneDatumDTO> out = transakcijaService.rekapitulacijaSifraPromeneDatum(search);
+    	List<RacunDTO> out = transakcijaService.rekapitulacijaSifraPromeneDatum(search);
+ 
     	String filename = transakcijaService.generateReportRekapitulacijaSifraPromeneDatum(out);
     	File file = new File(filename);
 
@@ -341,9 +342,9 @@ public class TransakcijaResource {
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
         headers.add("Content-Disposition","attachment; filename=\"" + filename +"\"");
-        
+      
         return ResponseEntity
-                .ok()
+                .ok()    
                 .headers(headers)
                 .contentLength(file.length())
                 .contentType(MediaType.parseMediaType("application/pdf"))

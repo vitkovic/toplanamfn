@@ -13,11 +13,21 @@ import { ITipPotrosaca } from '@/shared/model/tip-potrosaca.model';
 
 import TransakcijaService from './transakcija.service';
 
+
+import { IRacun } from '@/shared/model/racun.model';
+import RacunService from './racun.service';
+
+import { IStan } from '@/shared/model/stan.model';
+import StanService from './stan.service';
+
+
 @Component({
   mixins: [Vue2Filters.mixin],
 })
 export default class RekapitulacijaSifraPromeneDatum extends mixins(AlertMixin) {
   @Inject('transakcijaService') private transakcijaService: () => TransakcijaService;
+  public racuns: IRacun = {};
+  public stan: IStan = {};
   
   public isFetching = false;
   public margina = true;
@@ -33,12 +43,17 @@ export default class RekapitulacijaSifraPromeneDatum extends mixins(AlertMixin) 
     sifra: "",
   }] ;
   
+  
   public search = {
     datumOd: null ,
     datumDo:null,
-    sifraStana: "" ,    
+    sifraStana: "" ,   
+	sifraOd: "010410003" ,   
+	sifraDo: "050610006" ,    
     ukljucen:  false,    
     podstanica: null, 
+	podstanicaOd: 1,
+	podstanicaDo: 5, 
     prezime: "",
     reoni:[]
   }
@@ -92,8 +107,8 @@ export default class RekapitulacijaSifraPromeneDatum extends mixins(AlertMixin) 
     this.transakcijaService().rekapitulacijaSifraPromeneDatum(this.search)
     .then(res => {            
       this.margina = false;
-      this.rekapitulacije = res.data;
-      
+      this.racuns = res.data;
+      console.log(this.racuns);
       this.isFetching = false;
     });
   }
