@@ -452,7 +452,7 @@ import java.time.LocalDate;
 	  		+ "group by t.datum, sp.sifra "
 	  		+ "order by t.datum, sp.sifra ", resultSetMapping="af"),
 	
-	
+	/*
 	@NamedNativeQuery(
 		    name = "Transakcija.rekapitulacijaSifraPromeneDatumRacun",
 		    query =
@@ -465,6 +465,25 @@ import java.time.LocalDate;
 		        "inner join podstanica p on s.podstanica_id = p.id " +
 		        "where (1 = :datumOdNotExists or r.datum_racuna >= :datumOd) " +
 		        "  and (1 = :datumDoNotExists or r.datum_racuna <= :datumDo) " +
+		        "  and (p.broj >= :podstanicaOd and p.broj <= :podstanicaDo) " +
+		        "  and (s.sifra >= :sifraOd and s.sifra <= :sifraDo) " +
+		        "order by r.datum_racuna DESC",
+		    resultSetMapping = "ar"
+		),
+	*/
+	
+	
+	@NamedNativeQuery(
+		    name = "Transakcija.rekapitulacijaSifraPromeneDatumRacun",
+		    query =
+		        "select r.*, " +
+		        "       (coalesce(r.utrosak_varijabilni, 0) + " +
+		        "        coalesce(r.utrosak_fiksni, 0) - " +
+		        "        coalesce(r.popust, 0)) as ukupno " +
+		        "from racun r " +
+		        "inner join stan s on r.stan_id = s.id " +
+		        "inner join podstanica p on s.podstanica_id = p.id " +
+		        "where  r.datum_racuna = :datumDo " +
 		        "  and (p.broj >= :podstanicaOd and p.broj <= :podstanicaDo) " +
 		        "  and (s.sifra >= :sifraOd and s.sifra <= :sifraDo) " +
 		        "order by r.datum_racuna DESC",

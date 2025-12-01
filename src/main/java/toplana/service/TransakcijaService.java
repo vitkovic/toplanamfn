@@ -433,7 +433,7 @@ public class TransakcijaService {
     	}    	
     	
     	List<TransakcijaZaStanDTO> out = transakcijaRepository.searchForAnalitickiDnevnik(datumOdNotExists,datumOd, datumDoNotExists, 
-    			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime, imeNotExists, ime, podstanicaNotExists, podstanicaId,
+    			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime,  podstanicaNotExists, podstanicaId,
     			tipPotrosacaNotExists,tipPotrosacaIds);
     	return out;
     }
@@ -522,7 +522,7 @@ public class TransakcijaService {
    //	 System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime());
     	
     	List<DugujePotrazujeReoni> out = transakcijaRepository.findSumForDnevnik(datumOdNotExists,datumOd, datumDoNotExists, 
-    			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime, imeNotExists, ime,  podstanicaNotExists, podstanicaId,
+    			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime,   podstanicaNotExists, podstanicaId,
     			tipPotrosacaNotExists,tipPotrosacaIds);
     	return out;
     }
@@ -613,7 +613,7 @@ public class TransakcijaService {
         	
         	
         	
-        	List<RacunDTO> out = transakcijaRepository.rekapitulacijaSifraPromeneDatumRacun(datumOdNotExists,datumOd, datumDoNotExists, datumDo, Integer.valueOf(search.getPodstanicaOd()), Integer.valueOf(search.getPodstanicaDo()),search.getSifraOd(), search.getSifraDo());
+        	List<RacunDTO> out = transakcijaRepository.rekapitulacijaSifraPromeneDatumRacun(datumDo, Integer.valueOf(search.getPodstanicaOd()), Integer.valueOf(search.getPodstanicaDo()),search.getSifraOd(), search.getSifraDo());
         	
         	
         	

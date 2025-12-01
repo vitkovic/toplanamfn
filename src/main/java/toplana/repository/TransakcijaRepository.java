@@ -74,7 +74,6 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			@Param("datumDoNotExists") Integer datumDoNotExists,@Param("datumDo") LocalDate datumDo,
 			@Param("sifraNotExists") Integer sifraNotExists,  @Param("sifra") String sifra,
 			@Param("prezimeNotExists") Integer prezimeNotExists,@Param("prezime") String prezime,
-			@Param("imeNotExists") Integer imeNotExists,@Param("ime") String ime,
 			@Param("podstanicaNotExists") Integer podstanicaNotExists, @Param("podstanicaId") Long podstanicaId,
 			@Param("tipPotrosacaNotExists") Integer tipPotrosacaNotExists,@Param("tipPotrosacaIds") List<Long> tipPotrosacaIds);
 	
@@ -86,7 +85,7 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			@Param("datumDoNotExists") Integer datumDoNotExists,@Param("datumDo") LocalDate datumDo,
 			@Param("sifraNotExists") Integer sifraNotExists,  @Param("sifra") String sifra,
 			@Param("prezimeNotExists") Integer prezimeNotExists,@Param("prezime") String prezime,
-			@Param("imeNotExists") Integer imeNotExists,@Param("ime") String ime,
+		
 			@Param("podstanicaNotExists") Integer podstanicaNotExists, @Param("podstanicaId") Long podstanicaId,
 			@Param("tipPotrosacaNotExists") Integer tipPotrosacaNotExists,@Param("tipPotrosacaIds") List<Long> tipPotrosacaIds);
 	
@@ -100,9 +99,6 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	
 	@Query(name = "Transakcija.rekapitulacijaSifraPromeneDatumRacun", nativeQuery = true)
 	List<RacunDTO> rekapitulacijaSifraPromeneDatumRacun(
-	    @Param("datumOdNotExists") int datumOdNotExists,
-	    @Param("datumOd") LocalDate datumOd,
-	    @Param("datumDoNotExists") int datumDoNotExists,
 	    @Param("datumDo") LocalDate datumDo,
 	    @Param("podstanicaOd") Integer podstanicaOd,
 	    @Param("podstanicaDo") Integer podstanicaDo,

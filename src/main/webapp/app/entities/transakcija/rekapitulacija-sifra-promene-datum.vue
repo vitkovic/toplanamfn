@@ -16,22 +16,12 @@
             <div class="card-body">
                 <h5 class="card-title"><span v-text="$t('toplanaApp.transakcija.pretraga')"></span></h5>
                 <div class="row">
-                    <div class="col-3">                                                
-                        <label v-text="$t('toplanaApp.racun.odDatuma')"></label>
-                    </div>  
                     <div class="col-3">
                         <label v-text="$t('toplanaApp.racun.doDatuma')"></label>
                     </div>                     
                 </div>
                 <div class="row">
-                    <div class="col-3">
-                        <b-form-datepicker
-                            id="datepicker-dateformat2"
-                            :date-format-options="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
-                            v-model="search.datumOd"
-                            locale="sr"                            
-                        ></b-form-datepicker> 
-                    </div>                                                                           
+                                                                                            
                                                                               
                     <div class="col-3">
                         <b-form-datepicker

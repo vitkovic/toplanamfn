@@ -45,11 +45,10 @@ export default class RekapitulacijaSifraPromeneDatum extends mixins(AlertMixin) 
   
   
   public search = {
-    datumOd: null ,
     datumDo:null,
     sifraStana: "" ,   
-	sifraOd: "010410003" ,   
-	sifraDo: "050610006" ,    
+	sifraOd: "010230001" ,   // prvi stan ya podstanicu 1
+	sifraDo: "040590004" , // zadnji stan za pod. 5    
     ukljucen:  false,    
     podstanica: null, 
 	podstanicaOd: 1,
@@ -113,7 +112,7 @@ export default class RekapitulacijaSifraPromeneDatum extends mixins(AlertMixin) 
     });
   }
 
-  public stampanje(): void {
+  public stampanje(): void {    
     this.isFetching = true;    
       this.transakcijaService()
         .retrieveRekapitulacijaSifrePromeneDatumStampanje(this.search)
