@@ -486,7 +486,7 @@ import java.time.LocalDate;
 		        "where  r.datum_racuna = :datumDo " +
 		        "  and (p.broj >= :podstanicaOd and p.broj <= :podstanicaDo) " +
 		        "  and (s.sifra >= :sifraOd and s.sifra <= :sifraDo) " +
-		        "order by r.datum_racuna DESC",
+		        "order by s.sifra ASC",
 		    resultSetMapping = "ar"
 		),
 	

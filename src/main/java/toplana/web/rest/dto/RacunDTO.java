@@ -86,6 +86,7 @@ public class RacunDTO {
 	private Double NoviPotrosnjaPoSvimMerilima;
 	private Double NoviZajednickaPotrosnja;
 	
+	private String strippedsifra;
 	
 	private List<Racun> prevNextRacuni;
 	
@@ -132,6 +133,16 @@ public class RacunDTO {
 
 	public RacunDTO() {
 		super();
+	}
+
+	
+	
+	public String getStrippedsifra() {
+		return strippedsifra;
+	}
+
+	public void setStrippedsifra(String strippedsifra) {
+		this.strippedsifra = strippedsifra;
 	}
 
 	public RacunDTO(Racun r) {

@@ -9,6 +9,7 @@ import toplana.specifications.RacunSpecification;
 import toplana.specifications.SearchCriteria;
 import toplana.specifications.SearchOperation;
 import toplana.specifications.TransakcijaSpecification;
+import toplana.util.RacunUtils;
 import toplana.web.rest.dto.DugujePotrazujeReoni;
 import toplana.web.rest.dto.RekapitulacijaPoPdvDTO;
 import toplana.web.rest.dto.RekapitulacijaSifraPromeneDatumDTO;
@@ -615,14 +616,20 @@ public class TransakcijaService {
         	
         	List<RacunDTO> out = transakcijaRepository.rekapitulacijaSifraPromeneDatumRacun(datumDo, Integer.valueOf(search.getPodstanicaOd()), Integer.valueOf(search.getPodstanicaDo()),search.getSifraOd(), search.getSifraDo());
         	
-        	
+        	//Sumarize by code
+        	List<RacunDTO> out_sum = RacunUtils.groupAndSumBySifraPrefix(out);
         	
         //	List<RekapitulacijaSifraPromeneDatumDTO> out = transakcijaRepository.rekapitulacijaSifraPromeneDatum(datumOdNotExists,datumOd, datumDoNotExists, 
         	//		datumDo);
-        	return out;
+        	return out_sum;    
         }  
     
     
+        
+    
+      
+        
+        
     
 /****************************************************************************************************************
  * Pravi se PDF sa rekapitulacijom po siframa promene i datumima    
@@ -648,7 +655,7 @@ public class TransakcijaService {
 			//System.out.println("PDF File rekapitulacija Generated !!");
 		}catch(Exception e) {
 			e.printStackTrace();
-		}
+		}  
 		
 		return pdfPutanja + "\\RekapitulacijaPoSiframaPromeneIDatumu.pdf";
     }  

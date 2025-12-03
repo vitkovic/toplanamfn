@@ -132,15 +132,14 @@
                 <th>Датум Рачуна</th>
                 <th>Варијабилни</th>
                 <th>Фиксни</th>
+                <th>Попуст</th>
                 <th>Укупно</th>
                 <th>ПДВ (10%)</th>
-                <th>Одражавање</th>
+                <th>Одржавање</th>
                 <th>ПДВ (20%)</th>
                 <th>Укупно Задужење</th>
-                <th>За плаћање</th>
                 <th>Шифра</th>
-                <th>Власник</th>
-                <th>Период</th>
+               
                 
                 
                 </thead>
@@ -155,23 +154,14 @@
                     <td>{{racun.datumRacuna}}</td>
                     <td>{{racun.utrosakVarijabilni}}</td>
                     <td>{{racun.utrosakFiksni}}</td>
+                    <td>{{racun.popust}}</td>
                     <td>{{racun.ukupno}}</td>
-                    <td>{{racun.pdv1}}</td>
-                    <td>{{racun.utrosakOdrzavanje}}</td>
                     <td>{{racun.pdv2}}</td>
+                    <td>{{racun.utrosakOdrzavanje}}</td>
+                    <td>{{racun.pdv1}}</td>
                    <td>{{racun.ukupnoZaduzenje}}</td>
-                    <td>{{racun.zaPlacanje}}</td>
-                    <td>
-                        <div v-if="racun.stan">
-                            <router-link :to="{name: 'StanView', params: {stanId: racun.stan.id}}">{{racun.stan.sifra}}</router-link>
-                        </div>
-                    </td>
-                    <td>{{racun.stan.vlasnik.prezime}} {{racun.stan.vlasnik.ime}}</td>
-                    <td>
-                        <div v-if="racun.nacrtRacuna">
-                            <router-link :to="{name: 'NacrtRacunaView', params: {nacrtRacunaId: racun.nacrtRacuna.id}}">{{racun.nacrtRacuna.period}}</router-link>
-                        </div>
-                    </td>
+                   <td>{{racun.strippedsifra}}</td>
+                    <!--  <td>{{racun.stan.sifra}}</td>-->
                     <td class="text-right">
                         <div class="btn-group">
                             <router-link :to="{name: 'RacunView', params: {racunId: racun.id}}" tag="button" class="btn btn-info btn-sm details">
