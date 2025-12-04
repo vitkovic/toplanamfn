@@ -77,7 +77,8 @@ public class StavkeIzvodaPostanska implements Serializable {
 	
 	public StavkeIzvodaPostanska(String line) {
 //1      27.04.23     1016970 0010470009            STRAHINIÆ SVETISLAV         BULEVAR NIKOLE TESLE 47/9   18104          9393,30
-	
+//00000000000001700000000025352410470009                           SVETISLAV (MILIVOJE) STRAHINIC010470009           311020252711202500000000000000000009085.69941  27112025 - Nova linija
+	/*
 		String sBroj = line.substring(0,5).trim();
 		String npl = line.substring(5,11).trim();
 		String sValuta = line.substring(11,19).trim();
@@ -88,8 +89,7 @@ public class StavkeIzvodaPostanska implements Serializable {
 		String adresa = line.substring(82,108).trim();
 		String posta = line.substring(108,116).trim();
 		String sIznos = line.substring(116).trim().replace(",", ".");
-	/*	
-		System.out.println("ЋЧШЂЖ");
+	    System.out.println("ЋЧШЂЖ");
 		System.out.println(sBroj);
 		System.out.println(npl);
 		System.out.println(sValuta);
@@ -101,11 +101,39 @@ public class StavkeIzvodaPostanska implements Serializable {
 		System.out.println(sIznos);
 		System.out.println("****************************************************************************");
 		*/
-		this.broj = Integer.parseInt(sBroj);
+		
+		
+		// 00000000000001700000000025352410470009                           SVETISLAV (MILIVOJE) STRAHINIC010470009           311020252711202500000000000000000009085.69941  27112025
+
+		// Leva numerička polja (interni brojevi, partija itd.)
+		String partijaRacuna = line.substring(0, 40).trim();        // "0000000000000170000000002"
+		//String polje2 = line.substring(25, 35).trim();       // "5352410470"  (verovatno partija ili sličan ID)
+		//String polje3 = line.substring(35, 40).trim();       // "009"        (nastavak koda)
+
+		// Ime i prezime
+		String ime = line.substring(65, 95).trim()
+		        .replace("Æ", "Ć")
+		        .replace("È", "Č");                          // "SVETISLAV (MILIVOJE) STRAHINIC"
+
+		// Šifra (010470009)
+		String sifra = line.substring(95, 104).trim();       // "010470009"
+
+		// Datumi
+		String sValuta = line.substring(115, 123).trim();    // "31102025"
+		//String datumDo = line.substring(123, 131).trim();    // "27112025"
+
+		// Iznos (bez vodećim nulama)
+		String sIznos = line.substring(131, 160).trim().replace(",", ".");
+		sIznos = sIznos.replaceFirst("^0+(?!$)", "");   // uklanja sve vodeće nule
+
+		// Još jedan datum na kraju (npr. datum dospeća)
+		String datumKraja = line.substring(160).trim();      // "27112025"
+		
+		//this.broj = Integer.parseInt(sBroj);
 		if(npl != null && !npl.isEmpty())
 			this.npl = npl;
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
 		  //convert String to LocalDate		
 		this.valuta = LocalDate.parse(sValuta, formatter);
 		this.brojTekucegRacuna = partijaRacuna;

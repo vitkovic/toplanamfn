@@ -50,7 +50,7 @@ public class FormPS {
         String DPO = ""; // ddMMyyyy
         String RP  = ""; // ddMMyyyy
         String IZ  = ""; // left-padded to length 22 (string)
-        String SVZ = "RSD";
+        String SVZ = "941 ";
         String DSZ = ""; // ddMMyyyy
     }
 
