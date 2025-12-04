@@ -106,7 +106,7 @@ public class StavkeIzvodaPostanska implements Serializable {
 		// 00000000000001700000000025352410470009                           SVETISLAV (MILIVOJE) STRAHINIC010470009           311020252711202500000000000000000009085.69941  27112025
 
 		// Leva numerička polja (interni brojevi, partija itd.)
-		String partijaRacuna = line.substring(0, 40).trim();        // "0000000000000170000000002"
+		String partijaRacuna = line.substring(0, 30).trim();        // "0000000000000170000000002"
 		//String polje2 = line.substring(25, 35).trim();       // "5352410470"  (verovatno partija ili sličan ID)
 		//String polje3 = line.substring(35, 40).trim();       // "009"        (nastavak koda)
 

@@ -319,14 +319,14 @@ public class RacunResource {
     		String zaduzenjeUpis = ("0000000000" + zaduzenje).substring(zaduzenje.length());// dodaju se nule na pocetku
     		String sifra = r.getStan().getSifra();
     		String sifraZaUpis = sifra.substring(0, 2) + "." + sifra.substring(2,5) + "." + sifra.substring(5);
-    		outputStream.writeBytes((r.getStan().getVlasnik().getPartijaRacuna() + sifraZaUpis + zaduzenjeUpis  + "\r\n").getBytes());	
+    		//outputStream.writeBytes((r.getStan().getVlasnik().getPartijaRacuna() + sifraZaUpis + zaduzenjeUpis  + "\r\n").getBytes());	
     	}    	
     	
     	ByteArrayResource aa = new ByteArrayResource(outputStream.toByteArray());	     	   	     	
 
     	FormPS ps = new FormPS();
     	
-    	ByteArrayResource bb = ps.createFile(aa);
+    	ByteArrayResource bb = ps.createFile(racuni);
     	
     	     
     	HttpHeaders headers = new HttpHeaders();

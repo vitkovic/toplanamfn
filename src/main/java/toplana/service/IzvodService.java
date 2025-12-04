@@ -50,27 +50,33 @@ public class IzvodService {
 		if (fname != null) {
 	        fname = Paths.get(fname).getFileName().toString();  // samo ime bez putanje
 	    }
+		
 		String number = null;
+		
 		try {
-			String name = "T25_07174713___20251025_20251127"; // new name of izvod file
+			String name = fname; // new name of izvod file
 
 			int start = 0;
 			int end = 0;
 			
-			String charFN = name.substring(4); 
+			char charFN = name.charAt(4); 
+			int index = 0;
 			
-			if (charFN.equalsIgnoreCase("0")) {
-			
+			if ("0".equalsIgnoreCase(String.valueOf(charFN))) {
+			    index = 4;
 				start = name.indexOf("T25_0");
-				end = name.indexOf("_", start+4);
+				end = name.indexOf("_", start+index);
 			} else {
+				index = 4;
 				start = name.indexOf("T25_");
-			    end = name.indexOf("_", start+3);
+			    end = name.indexOf("_", start+index);
 			}
 	
-			number = name.substring(start+4, end);
-		} catch (Exception ex) {
+			number = name.substring(start + index, end);
 			
+			System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^             " + start + end +  " " + number);
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 		
 		

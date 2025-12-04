@@ -56,6 +56,7 @@
                         </table>                        
                     </div>
                     <hr class="new3">
+                   <!--
                     <div class="row mt-4">
                         <div class="col-sm-2 offset-sm-6">
                             УКУПНО ЗА УСЛУГУ:
@@ -79,7 +80,7 @@
                         <div class="col-sm-4 text-right">
                             {{izvod.ukupnoPlacenih | currency('')}}
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
                 
