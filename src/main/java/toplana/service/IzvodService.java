@@ -54,12 +54,11 @@ public class IzvodService {
 		try {
 			String name = "T25_07174713___20251025_20251127"; // new name of izvod file
 
-			int startc = name.indexOf("T25_");
-			
 			int start = 0;
 			int end = 0;
 			
 			String charFN = name.substring(4); 
+			
 			if (charFN.equalsIgnoreCase("0")) {
 			
 				start = name.indexOf("T25_0");
