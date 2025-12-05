@@ -17,6 +17,7 @@ export default class StavkeIzvodaDetails extends Vue {
   }
 
   public retrieveStavkeIzvoda(stavkeIzvodaId) {
+	//alert("kuku");
     this.stavkeIzvodaService()
       .find(stavkeIzvodaId)
       .then(res => {

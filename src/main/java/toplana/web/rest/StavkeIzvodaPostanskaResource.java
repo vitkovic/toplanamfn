@@ -118,7 +118,8 @@ public class StavkeIzvodaPostanskaResource {
        
         
         String sifraStana = stavkeIzvoda.getBrojPartijePoverioc();
-        sifraStana = sifraStana.substring(1);
+        
+       // sifraStana = sifraStana.substring(1);
         
         Stan stan = stanRepository.findBySifra(sifraStana);
         if(stan != null) {

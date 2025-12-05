@@ -160,6 +160,7 @@ export default class StavkeIzvodaUpdate extends Vue {
   }
 
   public retrieveStavkeIzvoda(stavkeIzvodaId): void {
+	//alert("kuku");
     this.stavkeIzvodaService()
       .find(stavkeIzvodaId)
       .then(res => {
@@ -171,7 +172,7 @@ export default class StavkeIzvodaUpdate extends Vue {
         } else
 		   this.sifraPromene = this.stavkeIzvoda.transakcija.sifraPromene;
       });
-  }
+  }      
 
   public previousState(): void {
     this.$router.go(-1);

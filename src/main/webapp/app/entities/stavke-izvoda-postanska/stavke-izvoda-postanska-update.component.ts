@@ -103,6 +103,7 @@ export default class StavkeIzvodaUpdate extends Vue {
       .find(stavkeIzvodaId)
       .then(res => {
         this.stavkeIzvoda = res;
+		console.log(res);
       });
   }
 
