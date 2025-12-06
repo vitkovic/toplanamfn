@@ -253,10 +253,13 @@ public class RacunService  {
     	
     	
    	 
-    	LocalDate today = LocalDate.now();
-        LocalDate previousMonth = today.minusMonths(1); 
-        int previousMonthNumber = previousMonth.getMonthValue(); 
-       
+ //   	LocalDate today = LocalDate.now();
+  //      LocalDate previousMonth = today.minusMonths(1); 
+  //      int previousMonthNumber = previousMonth.getMonthValue();
+        
+        int previousMonthNumber = rDTO.getDatumRacuna().getMonth().getValue();
+        
+        
         // !!! Proracun ukupne potrosnje po stanu
         List <StanStanje> vrednostipotrosnje = stanRepository.findPotrosnjaPodstanicaId(pn.getId(),previousMonthNumber);
         		
@@ -289,15 +292,15 @@ public class RacunService  {
         	} catch (Exception e) {
         		e.printStackTrace();
         	}
-        	
-        } 
+        	    
+        }    
         
         String map="";
         BigDecimal suma = new BigDecimal(.0);
         
         for (String key : m.keySet()) {
             map = key + "...." + m.get(key);
-            
+            System.out.println(map);
             String value = m.get(key);
             
             String[] vrednosti = value.split(";");
