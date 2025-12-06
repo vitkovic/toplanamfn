@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { mixins } from 'vue-class-component';
 
 import { Component, Vue, Inject } from 'vue-property-decorator';
