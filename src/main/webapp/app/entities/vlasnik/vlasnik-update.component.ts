@@ -17,6 +17,7 @@ const validations: any = {
     partijaRacuna: {},
     naziv: {},
     email: {},
+    psr: {},
   },
 };
 

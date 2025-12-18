@@ -44,8 +44,11 @@ public class VlasnikResourceIT {
     private static final String DEFAULT_NAZIV = "AAAAAAAAAA";
     private static final String UPDATED_NAZIV = "BBBBBBBBBB";
 
-    private static final String DEFAULT_EMAIL = "JLVInd@cUi.HH";
-    private static final String UPDATED_EMAIL = "9DYX@uBuK.YLxylQ";
+    private static final String DEFAULT_EMAIL = "T@R.oPIq";
+    private static final String UPDATED_EMAIL = "HDHvuW@EQb.HmTy";
+
+    private static final String DEFAULT_PSR = "AAAAAAAAAA";
+    private static final String UPDATED_PSR = "BBBBBBBBBB";
 
     @Autowired
     private VlasnikRepository vlasnikRepository;
@@ -71,7 +74,8 @@ public class VlasnikResourceIT {
             .brojRacuna(DEFAULT_BROJ_RACUNA)
             .partijaRacuna(DEFAULT_PARTIJA_RACUNA)
             .naziv(DEFAULT_NAZIV)
-            .email(DEFAULT_EMAIL);
+            .email(DEFAULT_EMAIL)
+            .psr(DEFAULT_PSR);
         return vlasnik;
     }
     /**
@@ -87,7 +91,8 @@ public class VlasnikResourceIT {
             .brojRacuna(UPDATED_BROJ_RACUNA)
             .partijaRacuna(UPDATED_PARTIJA_RACUNA)
             .naziv(UPDATED_NAZIV)
-            .email(UPDATED_EMAIL);
+            .email(UPDATED_EMAIL)
+            .psr(UPDATED_PSR);
         return vlasnik;
     }
 
@@ -116,6 +121,7 @@ public class VlasnikResourceIT {
         assertThat(testVlasnik.getPartijaRacuna()).isEqualTo(DEFAULT_PARTIJA_RACUNA);
         assertThat(testVlasnik.getNaziv()).isEqualTo(DEFAULT_NAZIV);
         assertThat(testVlasnik.getEmail()).isEqualTo(DEFAULT_EMAIL);
+        assertThat(testVlasnik.getPsr()).isEqualTo(DEFAULT_PSR);
     }
 
     @Test
@@ -154,7 +160,8 @@ public class VlasnikResourceIT {
             .andExpect(jsonPath("$.[*].brojRacuna").value(hasItem(DEFAULT_BROJ_RACUNA)))
             .andExpect(jsonPath("$.[*].partijaRacuna").value(hasItem(DEFAULT_PARTIJA_RACUNA)))
             .andExpect(jsonPath("$.[*].naziv").value(hasItem(DEFAULT_NAZIV)))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)));
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
+            .andExpect(jsonPath("$.[*].psr").value(hasItem(DEFAULT_PSR)));
     }
     
     @Test
@@ -173,7 +180,8 @@ public class VlasnikResourceIT {
             .andExpect(jsonPath("$.brojRacuna").value(DEFAULT_BROJ_RACUNA))
             .andExpect(jsonPath("$.partijaRacuna").value(DEFAULT_PARTIJA_RACUNA))
             .andExpect(jsonPath("$.naziv").value(DEFAULT_NAZIV))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL));
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
+            .andExpect(jsonPath("$.psr").value(DEFAULT_PSR));
     }
     @Test
     @Transactional
@@ -201,7 +209,8 @@ public class VlasnikResourceIT {
             .brojRacuna(UPDATED_BROJ_RACUNA)
             .partijaRacuna(UPDATED_PARTIJA_RACUNA)
             .naziv(UPDATED_NAZIV)
-            .email(UPDATED_EMAIL);
+            .email(UPDATED_EMAIL)
+            .psr(UPDATED_PSR);
 
         restVlasnikMockMvc.perform(put("/api/vlasniks")
             .contentType(MediaType.APPLICATION_JSON)
@@ -218,6 +227,7 @@ public class VlasnikResourceIT {
         assertThat(testVlasnik.getPartijaRacuna()).isEqualTo(UPDATED_PARTIJA_RACUNA);
         assertThat(testVlasnik.getNaziv()).isEqualTo(UPDATED_NAZIV);
         assertThat(testVlasnik.getEmail()).isEqualTo(UPDATED_EMAIL);
+        assertThat(testVlasnik.getPsr()).isEqualTo(UPDATED_PSR);
     }
 
     @Test

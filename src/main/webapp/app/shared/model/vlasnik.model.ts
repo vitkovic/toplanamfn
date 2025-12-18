@@ -8,6 +8,7 @@ export interface IVlasnik {
   partijaRacuna?: string;
   naziv?: string;
   email?: string;
+  psr?: string;
   stans?: IStan[];
 }
 
@@ -20,6 +21,7 @@ export class Vlasnik implements IVlasnik {
     public partijaRacuna?: string,
     public naziv?: string,
     public email?: string,
+    public psr?: string,
     public stans?: IStan[]
   ) {}
 }

@@ -7,7 +7,6 @@ import Vue from 'vue';
 //Dodao Dragan
 import Notifications from 'vue-notification';
 
-
 import { faPencilAlt, faFolderOpen } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
@@ -92,8 +91,8 @@ Vue.use(DatePicker);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 library.add(faPencilAlt, faFolderOpen);
-import { faFolder } from '@fortawesome/free-solid-svg-icons'
-library.add(faFolder)
+import { faFolder } from '@fortawesome/free-solid-svg-icons';
+library.add(faFolder);
 
 Vue.component('jhi-item-count', JhiItemCountComponent);
 Vue.component('jhi-sort-indicator', JhiSortIndicatorComponent);
@@ -101,8 +100,6 @@ Vue.component('infinite-loading', InfiniteLoading);
 
 const i18n = config.initI18N(Vue);
 const store = config.initVueXStore(Vue);
-
-
 
 const alertService = new AlertService(store);
 const translationService = new TranslationService(store, i18n);

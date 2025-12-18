@@ -101,11 +101,7 @@ const IzvodPostanskaUpdate = () => import('@/entities/izvod/izvod-postanska-upda
 // prettier-ignore
 const IzvodPostanskaDetails = () => import('@/entities/izvod/izvod-postanska-details.vue');
 
-
-
 const NoveStaniceStanja = () => import('@/entities/stanja-podstanice/nove_stanice_stanja.vue');
-
-
 
 // prettier-ignore
 const StavkeIzvoda = () => import('@/entities/stavke-izvoda/stavke-izvoda.vue');
@@ -553,11 +549,11 @@ export default [
     meta: { authorities: [Authority.USER] },
   },
   {
-     path: '/stanjenovestanice/',
-     name: 'StanStanjeImport',
-     component: NoveStaniceStanja,
-     meta: { authorities: [Authority.USER] },
-   },
+    path: '/stanjenovestanice/',
+    name: 'StanStanjeImport',
+    component: NoveStaniceStanja,
+    meta: { authorities: [Authority.USER] },
+  },
   {
     path: '/izvod/:izvodId/edit',
     name: 'IzvodEdit',
@@ -912,6 +908,31 @@ export default [
     path: '/stan-stanje/:stanStanjeId/view',
     name: 'StanStanjeView',
     component: StanStanjeDetails,
+    meta: { authorities: [Authority.USER] },
+  },
+
+  {
+    path: '/vlasnik',
+    name: 'Vlasnik',
+    component: Vlasnik,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/vlasnik/new',
+    name: 'VlasnikCreate',
+    component: VlasnikUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/vlasnik/:vlasnikId/edit',
+    name: 'VlasnikEdit',
+    component: VlasnikUpdate,
+    meta: { authorities: [Authority.USER] },
+  },
+  {
+    path: '/vlasnik/:vlasnikId/view',
+    name: 'VlasnikView',
+    component: VlasnikDetails,
     meta: { authorities: [Authority.USER] },
   },
 

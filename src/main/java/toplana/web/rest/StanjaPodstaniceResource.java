@@ -289,23 +289,43 @@ public class StanjaPodstaniceResource {
     	                    // date and time
     	                    LocalDateTime time = null;
     	                    String s = parts[1].trim();
-    	                    List<String> patterns = List.of(
-    	                            "M/d/uuuu H:mm",    // 11/1/2025 2:51
-    	                            "M/d/uuuu h:mm a",  // 11/1/2025 2:51 PM
-    	                            "MM/dd/uuuu HH:mm", // 11/01/2025 14:51
-    	                            "MM/dd/uuuu h:mm a" // 11/01/2025 2:51 PM
-    	                        );
-    	                        for (String p : patterns) {
-    	                            try {
-    	                                time =  LocalDateTime.parse(s, DateTimeFormatter.ofPattern(p));
-    	                            } catch (DateTimeParseException ignore) {
-    	                            	log.error(ignore.getMessage());
-    	                            }
+
+    	                    List<DateTimeFormatter> formatters = List.of(
+    	                        DateTimeFormatter.ofPattern("M/d/uuuu H:mm"),        // 11/1/2025 2:51
+    	                        DateTimeFormatter.ofPattern("M/d/uuuu H:mm:ss"),     // 11/1/2025 2:51:34
+    	                        DateTimeFormatter.ofPattern("M/d/uuuu h:mm a"),      // 11/1/2025 2:51 PM
+    	                        DateTimeFormatter.ofPattern("M/d/uuuu h:mm:ss a"),   // 11/1/2025 2:51:34 PM
+
+    	                        DateTimeFormatter.ofPattern("MM/dd/uuuu HH:mm"),     // 11/01/2025 14:51
+    	                        DateTimeFormatter.ofPattern("MM/dd/uuuu HH:mm:ss"),  // 11/01/2025 14:51:45
+    	                        DateTimeFormatter.ofPattern("MM/dd/uuuu h:mm a"),    // 11/01/2025 2:51 PM
+    	                        DateTimeFormatter.ofPattern("MM/dd/uuuu h:mm:ss a"), // 11/01/2025 2:51:45 PM
+
+    	                        DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm"),     // 2025/11/30 14:51
+    	                        DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss"),  // 2025/11/30 14:51:45
+    	                        DateTimeFormatter.ofPattern("uuuu/MM/dd h:mm a"),    // 2025/11/30 2:51 PM
+    	                        DateTimeFormatter.ofPattern("uuuu/MM/dd h:mm:ss a")  // 2025/11/30 2:51:45 PM
+    	                    );
+
+    	                    for (DateTimeFormatter f : formatters) {
+    	                        try {
+    	                            time = LocalDateTime.parse(s, f);
+    	                            break; // IMPORTANT: stop at first success
+    	                        } catch (DateTimeParseException ignore) {
+    	                            // don't spam error logs for expected failures
+    	                            // log.debug("Failed parse {} with {}", s, f);
     	                        }
-    	                        
-    	                        Double val = Double.parseDouble(parts[2].trim());
-        	                    Long value = val.longValue();
-        	                    readings.add(new StanStanjeDTO(pointCode, time.toLocalDate(), value));
+    	                    }
+
+    	                    if (time == null) {
+    	                        throw new IllegalArgumentException("Unsupported datetime format: '" + s + "'");
+    	                    }
+
+    	                    // value parsing (also safer if CSV sometimes uses commas)
+    	                    double val = Double.parseDouble(parts[2].trim().replace(",", "."));
+    	                    long value = (long) val;
+
+    	                    readings.add(new StanStanjeDTO(pointCode, time.toLocalDate(), value));
     	               }
     	            }
     	        } catch (Exception e) {
@@ -317,7 +337,7 @@ public class StanjaPodstaniceResource {
     	            .collect(Collectors.toMap(
     	                StanStanjeDTO::getSifra,   // key mapper (point code)
     	                Function.identity(),       // value mapper (the DTO itself)
-    	                BinaryOperator.maxBy(Comparator.comparing(StanStanjeDTO::getDatum)) // merge: keep later
+    	                BinaryOperator.minBy(Comparator.comparing(StanStanjeDTO::getDatum)) // merge: keep later
     	            ));
     	        
     	        List<StanStanje> StanStanjaS = new ArrayList<>();
@@ -378,7 +398,7 @@ public class StanjaPodstaniceResource {
 
     	            System.out.printf("%-12s | %-19s | %8d | %s%n",
     	                s.getSifra(),
-    	                String.valueOf(s.getDatum()),   // or format with DateTimeFormatter if you like
+    	                String.valueOf(s.getDatum()),   
     	                s.getVrednost(),
     	                stanInfo
     	            );

@@ -18,11 +18,11 @@
       },
       "ime": "Ime",
       "prezime": "Prezime",
-	  "prezimeime": "Vlasnik (prezime je obavezno)",
       "brojRacuna": "Broj Racuna",
       "partijaRacuna": "Partija Racuna",
       "naziv": "Naziv",
       "email": "Email",
+      "psr": "Psr",
       "stan": "Stan"
     }
   }

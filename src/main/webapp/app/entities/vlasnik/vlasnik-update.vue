@@ -44,6 +44,11 @@
                             </small>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="form-control-label" v-text="$t('toplanaApp.vlasnik.psr')" for="vlasnik-psr">Psr</label>
+                        <input type="text" class="form-control" name="psr" id="vlasnik-psr"
+                            :class="{'valid': !$v.vlasnik.psr.$invalid, 'invalid': $v.vlasnik.psr.$invalid }" v-model="$v.vlasnik.psr.$model" />
+                    </div>
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

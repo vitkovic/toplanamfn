@@ -158,15 +158,15 @@
       "save": "Сачувај",
       "view": "Преглед",
       "knjizenje": "Књижење",
-	  "knjizenjePodela": "Део Књижења",
-	  "rasknjizenje": "Раскњижење",
+      "knjizenjePodela": "Део Књижења",
+      "rasknjizenje": "Раскњижење",
       "posalji": "Пошаљи",
       "reset": "Очисти",
       "stampanje": "Штампање",
       "details": "Детаљније",
       "rekapitulacija": "Рекапитулација",
-	  "previousracun": "Претходни",
-	  "nextracun": "Следећи"
+      "previousracun": "Претходни",
+      "nextracun": "Следећи"
     },
     "detail": {
       "field": "Polje",

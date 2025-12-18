@@ -4,8 +4,6 @@ package toplana.domain;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,11 +28,7 @@ public class Vlasnik implements Serializable {
     @Column(name = "prezime")
     private String prezime;
 
-    @Transient
-    @JsonIgnoreProperties // optional: skip during serialization if needed
-    private String prezimeime;
-    
- 	@Column(name = "broj_racuna")
+    @Column(name = "broj_racuna")
     private String brojRacuna;
 
     @Column(name = "partija_racuna")
@@ -47,19 +41,13 @@ public class Vlasnik implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "psr")
+    private String psr;
+
     @OneToMany(mappedBy = "vlasnik")
     private Set<Stan> stans = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
-    
-    public String getPrezimeime() {
- 		return prezimeime;
- 	}
-
- 	public void setPrezimeime(String prezimeime) {
- 		this.prezimeime = prezimeime;
- 	}
- 	
     public Long getId() {
         return id;
     }
@@ -146,6 +134,19 @@ public class Vlasnik implements Serializable {
         this.email = email;
     }
 
+    public String getPsr() {
+        return psr;
+    }
+
+    public Vlasnik psr(String psr) {
+        this.psr = psr;
+        return this;
+    }
+
+    public void setPsr(String psr) {
+        this.psr = psr;
+    }
+
     public Set<Stan> getStans() {
         return stans;
     }
@@ -199,6 +200,7 @@ public class Vlasnik implements Serializable {
             ", partijaRacuna='" + getPartijaRacuna() + "'" +
             ", naziv='" + getNaziv() + "'" +
             ", email='" + getEmail() + "'" +
+            ", psr='" + getPsr() + "'" +
             "}";
     }
 }

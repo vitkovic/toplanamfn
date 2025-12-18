@@ -31,6 +31,7 @@
                     <th v-on:click="changeOrder('partijaRacuna')"><span v-text="$t('toplanaApp.vlasnik.partijaRacuna')">Partija Racuna</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'partijaRacuna'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('naziv')"><span v-text="$t('toplanaApp.vlasnik.naziv')">Naziv</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'naziv'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('email')"><span v-text="$t('toplanaApp.vlasnik.email')">Email</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'email'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('psr')"><span v-text="$t('toplanaApp.vlasnik.psr')">Psr</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'psr'"></jhi-sort-indicator></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -46,6 +47,7 @@
                     <td>{{vlasnik.partijaRacuna}}</td>
                     <td>{{vlasnik.naziv}}</td>
                     <td>{{vlasnik.email}}</td>
+                    <td>{{vlasnik.psr}}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <router-link :to="{name: 'VlasnikView', params: {vlasnikId: vlasnik.id}}" tag="button" class="btn btn-info btn-sm details">
