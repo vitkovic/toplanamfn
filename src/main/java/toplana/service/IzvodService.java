@@ -95,8 +95,9 @@ public class IzvodService {
 		String datum = null;
 		
 		while ((line = reader.readLine()) != null) {  
-			if (datum == null) datum = line.substring(115, 123).trim(); 
+			// if (datum == null) datum = line.substring(115, 123).trim(); 
 			
+			if (datum == null) datum = line.substring(line.length() - 8);
 			/*
 			if(line.startsWith("*"))//preskace linije koje pocinju *
 				continue;

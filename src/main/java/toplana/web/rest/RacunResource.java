@@ -311,7 +311,9 @@ public class RacunResource {
     	
     	List<Racun> racuni = racunRepository.findAllForMonthAndBrojRacuna(start, end, "908-20001-18");
     	
-    	ByteArrayOutputStream outputStream = new ByteArrayOutputStream();    	
+    	ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    	
+    	/* old
     	for(Racun r : racuni) {
     		BigDecimal ukupnoZaduzenje = r.getUtrosakVarijabilni().add(r.getUtrosakFiksni()).add(r.getUtrosakOdrzavanje());
     		String zaduzenje = ukupnoZaduzenje.toString().replace(".","" ); //uklanja se decimalna tacka  		
@@ -321,7 +323,7 @@ public class RacunResource {
     		String sifraZaUpis = sifra.substring(0, 2) + "." + sifra.substring(2,5) + "." + sifra.substring(5);
     		//outputStream.writeBytes((r.getStan().getVlasnik().getPartijaRacuna() + sifraZaUpis + zaduzenjeUpis  + "\r\n").getBytes());	
     	}    	
-    	
+    	*/
     	ByteArrayResource aa = new ByteArrayResource(outputStream.toByteArray());	     	   	     	
 
     	FormPS ps = new FormPS();

@@ -42,10 +42,10 @@ public class FormPS {
             String bup = "0000000000000170";
 
             // 2) BUN — partija vlasnika, padded left
-            String bun = leftPad(r.getStan().getVlasnik().getPartijaRacuna(), 14, '0');
+            String bun = leftPad(r.getStan().getVlasnik().getPsr(), 23, '0');
 
             // 3) SKS — sifra stana, padded right to 35
-            String sks = rightPad(r.getStan().getSifra(), 35, ' ');
+            String sks = rightPad("", 35, ' ');
 
             // 4) IME I PREZIME — padded right to 30
             String imePrezime =
