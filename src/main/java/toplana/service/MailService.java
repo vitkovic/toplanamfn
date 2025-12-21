@@ -108,7 +108,7 @@ public class MailService {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
     }
-    
+    /*
     @Async
     public void sendMultipleEmails(List<MailWithAttachment> emails) {
         for (MailWithAttachment mail : emails) {
@@ -120,7 +120,57 @@ public class MailService {
             }
         }
     }
+    */
     @Async
+    public void sendMultipleEmails(List<MailWithAttachment> emails) {
+        final int maxAttempts = 5;        // probaj 5 puta po email-u
+        final long baseDelayMs = 1000L;   // 1s start
+        final long maxDelayMs = 60000L;   // max 60s između pokušaja
+        final long throttleMs = 150L;     // blago usporenje između mailova (da ne udariš M365 throttling)
+
+        for (MailWithAttachment mail : emails) {
+            int attempt = 0;
+            while (true) {
+                attempt++;
+                try {
+                    // (važna napomena dole) ovo je tvoja postojeća metoda
+                    sendMailWithAttachment(mail);
+
+                    log.info("✅ Sent email to {} (attempt {}/{})", mail.getTo(), attempt, maxAttempts);
+                    break; // uspeh -> sledeći mail
+
+                } catch (MessagingException | MailException ex) {
+                    boolean lastTry = (attempt >= maxAttempts);
+                    log.warn("❌ Failed email to {} (attempt {}/{}): {}",
+                        mail.getTo(), attempt, maxAttempts, ex.getMessage());
+
+                    if (lastTry) {
+                        // ne rušimo batch, samo nastavljamo dalje
+                        log.error("🚫 Giving up on {} after {} attempts", mail.getTo(), maxAttempts);
+                        break;
+                    }
+
+                    // exponential backoff + cap
+                    long delay = Math.min(maxDelayMs, baseDelayMs * (1L << (attempt - 1))); // 1s,2s,4s,8s,16s...
+                    // mali jitter da ne “udari” sve u isto vreme
+                    delay = delay + (long) (Math.random() * 250);
+
+                    sleepQuietly(delay);
+                }
+            }
+
+            sleepQuietly(throttleMs);
+        }
+    }
+
+    private void sleepQuietly(long ms) {
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+        }
+    }
+    
     private void sendMailWithAttachment(MailWithAttachment mail) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, StandardCharsets.UTF_8.name());
@@ -132,11 +182,11 @@ public class MailService {
         }
 
         // Inspect raw input
-        System.out.println(">>> RAW to address: [" + toAddress + "]");
-        System.out.println(">>> Char-by-char analysis:");
+    //    System.out.println(">>> RAW to address: [" + toAddress + "]");
+    //    System.out.println(">>> Char-by-char analysis:");
         for (int i = 0; i < toAddress.length(); i++) {
             char c = toAddress.charAt(i);
-            System.out.printf("Char[%d] = '%c' (ASCII: %d)\n", i, c, (int) c);
+          //  System.out.printf("Char[%d] = '%c' (ASCII: %d)\n", i, c, (int) c);
         }
 
         // Stronger sanitization
@@ -144,7 +194,7 @@ public class MailService {
                                     .replaceAll("[\\r\\n\\t]", "")     // remove newlines/tabs
                                     .trim();
 
-        System.out.println(">>> Sanitized to address: [" + sanitized + "]");
+   //     System.out.println(">>> Sanitized to address: [" + sanitized + "]");
 
         // Validate with InternetAddress parser (more robust)
         try {
@@ -175,7 +225,7 @@ public class MailService {
         helper.addAttachment(attachment.getName(), new FileSystemResource(attachment));
 
         javaMailSender.send(message);
-        System.out.println("✅ Email sent to: " + sanitized);
+    //    System.out.println("✅ Email sent to: " + sanitized);
     }
     
     

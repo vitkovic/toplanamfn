@@ -26,6 +26,13 @@ management:
         enabled: false
 
 spring:
+  task:
+    execution:
+      pool:
+        core-size: 5
+        max-size: 5
+        queue-capacity: 2000
+        thread-name-prefix: mail-
   devtools:
     restart:
       enabled: false
@@ -57,7 +64,10 @@ spring:
           auth: true
           starttls:
             enable: true
-            required: true 
+            required: true
+        connectiontimeout: 10000
+        timeout: 10000
+        writetimeout: 10000	 
   thymeleaf:
     cache: true
 putanja:

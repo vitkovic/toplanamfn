@@ -178,6 +178,18 @@ export default class NacrtRacunaUpdate extends Vue {
         });
     } 
   }
+  
+  public smail(): void {
+      this.isSaving = true;
+      if (this.nacrtRacuna.id) {
+        this.nacrtRacunaService()
+          .smail(this.nacrtRacuna.id)
+          .then(res => {
+            this.isSaving = false;
+         
+          });
+      } 
+    }
 
   public retrieveNacrtRacuna(nacrtRacunaId): void {
     this.nacrtRacunaService()

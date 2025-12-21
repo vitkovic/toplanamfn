@@ -548,6 +548,19 @@ public class NacrtRacunaResource {
                 .body(new InputStreamResource(new FileInputStream(file)));
     }  
     
+    
+    
+    @RequestMapping(value = "/smail/{nacrtRacunaId}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamResource> sendMails(@PathVariable Long nacrtRacunaId)
+            throws IOException {
+    	List<Racun> racuni = racunRepository.findAllByNacrtRacunaId(nacrtRacunaId);
+    	racunService.setStampa(true);
+    	String filename = racunService.createRacuneZaStampanje(racuni);
+    	return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "toplanaApp.nacrtRacuna.mails.nisu", "")).build();
+    }  
+    
 /**********************************************************************************************************
 * Kreiranje suma po racunu, za prikaz rekapitulaciju razreza po PDF tarifama     
 * Ulaz je tekuci mesec

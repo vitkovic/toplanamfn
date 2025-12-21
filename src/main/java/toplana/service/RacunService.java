@@ -54,7 +54,11 @@ public class RacunService  {
     
     private String downFileName;
     
-    private final MailService mailService;
+    private boolean stampa = false;
+    
+    
+
+	private final MailService mailService;
     
     
     private final StanStanjeRepository stanstanjeRepository;
@@ -71,7 +75,14 @@ public class RacunService  {
 		this.stanRepository = stanRepository;
 	}
 
+	public boolean isStampa() {
+		return stampa;
+	}
 
+
+	public void setStampa(boolean stampa) {
+		this.stampa = stampa;
+	}
 
 
 	public void setDownFileName(String downFileName) {
@@ -129,18 +140,18 @@ public class RacunService  {
 			// Export the report to a PDF file
 			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\Racun.pdf");
 			
-			                             
-			for(RacunStampanje r : racuni) { 
-				
-			//	if (r.getVlasnikEmail() != null && r.getVlasnikEmail().length()>0 ) {
-					emailList.add(
-								new MailWithAttachment("nvitko@gmail.com", "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", pdfPutanja + "\\Racun.pdf")
-							);
-			//	}
-				
+			if (this.stampa) {                             
+				for(RacunStampanje r : racuni) { 
+					
+					if (r.getVlasnikEmail() != null && r.getVlasnikEmail().length()>0 ) {
+						emailList.add(
+									new MailWithAttachment(r.getVlasnikEmail(), "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", pdfPutanja + "\\Racun.pdf")
+								);
+					}
+					
+				}
+				mailService.sendMultipleEmails(emailList);
 			}
-		//	mailService.sendMultipleEmails(emailList);
-			
 		
 		}catch(Exception e) {
 			e.printStackTrace();

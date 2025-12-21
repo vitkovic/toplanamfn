@@ -7,6 +7,7 @@ import { INacrtRacuna } from '@/shared/model/nacrt-racuna.model';
 const baseApiUrl = 'api/nacrt-racunas';
 const basePriprema = 'api/racuniPriprema';
 const baseStampanje = 'api/stampanje';
+const baseMail = 'api/smail';
 const baseApiUrlRekapitulacija = "api/racuni-rekapitulacija-po-pdv";
 const baseStampanjeRekapitulacija = "api/racuni-rekapitulacija-po-pdv-stampanje";
 
@@ -49,6 +50,19 @@ export default class NacrtRacunaService {
         });
     });
   }
+  
+  public smail(nacrtRacunaId: number): Promise<any> {
+     return new Promise<any>((resolve, reject) => {
+       axios
+         .get(`${baseStampanje}/${nacrtRacunaId}`, {responseType:'blob'})
+         .then(res => {
+           resolve(res.data);
+         })
+         .catch(err => {
+           reject(err);
+         });
+     });
+   }
 
   public stampanjeRekapitulacije(nacrtRacunaId: number): Promise<any> {
     return new Promise<any>((resolve, reject) => {

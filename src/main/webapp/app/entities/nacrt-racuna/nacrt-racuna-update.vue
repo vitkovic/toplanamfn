@@ -300,6 +300,10 @@
                         v-on:click="stampanje()">
                         <span v-text="$t('entity.action.stampanje')"></span>
                     </button>
+                     <button v-if="nacrtRacuna.id" type="button" id="smail" class="btn btn-primary" 
+                        v-on:click="smail()" :disabled="true">
+                        <span v-text="$t('entity.action.smail')"></span>
+                    </button>
                 </div>
             </form>
         </div>
