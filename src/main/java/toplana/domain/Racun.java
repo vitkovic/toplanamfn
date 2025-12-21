@@ -182,7 +182,7 @@ public class Racun implements Serializable {
     	
     	
     	if (p.getId() > 1105) {
-    	//	System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+    	//	// System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
     	
     		
     	}
@@ -192,11 +192,11 @@ public class Racun implements Serializable {
     		if (p.getId() > 1105) { // 1105 treba definisati kao varijablu u parametrima i obrisati ove posebne id stanova
     			
     		/*	
-    			System.out.println(p.getId() + "********************************************************************************" + spr.getNovoStanje().getStanje());
-    			System.out.println(p.getId() + "********************************************************************************" + spr.getStaroStanje().getStanje());
-    			System.out.println(p.getId() + "********************************************************************************" + saldo);
-    			System.out.println(p.getId() + "********************************************************************************" + saldo);
-    			System.out.println(p.getId() + "********************************************************************************" + saldo);
+    			// System.out.println(p.getId() + "********************************************************************************" + spr.getNovoStanje().getStanje());
+    			// System.out.println(p.getId() + "********************************************************************************" + spr.getStaroStanje().getStanje());
+    			// System.out.println(p.getId() + "********************************************************************************" + saldo);
+    			// System.out.println(p.getId() + "********************************************************************************" + saldo);
+    			// System.out.println(p.getId() + "********************************************************************************" + saldo);
     	    	
     			*/
     			
@@ -206,20 +206,20 @@ public class Racun implements Serializable {
     			// Razlika prathodnog i novog stanja (I115)
     			
     			
-    			 System.out.println("Zajednicko stanje Podstanice: " + zajednickostanjepodstanice);
+    			 // System.out.println("Zajednicko stanje Podstanice: " + zajednickostanjepodstanice);
     			
     			BigDecimal ukupnapotrosnja = BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
     			// Suma potrosnji stanova - J115 (I111)
     			
-    			 System.out.println("Ukupna Potrosnja: " + ukupnapotrosnja);
+    			 // System.out.println("Ukupna Potrosnja: " + ukupnapotrosnja);
     			
     			BigDecimal ukupnapovrsina = BigDecimal.valueOf(pn.getUkupnapovrsina()).setScale(2, RoundingMode.HALF_UP);
     			// Povrsina svih stanova
     			
     			
-    			 System.out.println("Ukupna Povrsina:" + ukupnapovrsina);
+    			 // System.out.println("Ukupna Povrsina:" + ukupnapovrsina);
     			 
-    			 System.out.println("Stan Povrsina:" + stan.getPovrsina());
+    			 // System.out.println("Stan Povrsina:" + stan.getPovrsina());
     			
     			BigDecimal udeostananum = stan.getPovrsina().divide(ukupnapovrsina,5, RoundingMode.HALF_UP).setScale(5);
     			
@@ -227,29 +227,29 @@ public class Racun implements Serializable {
     			// Procentualni udeo stana
     			
     			
-    			 System.out.println("Udeo Stana: " + udeostana + " %");
+    			 // System.out.println("Udeo Stana: " + udeostana + " %");
     			    			
     			BigDecimal udeozajednickepotrosnje = udeostananum.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
     			// Za stan deo koji se odnosi na udeo zajednicke potrosnje - J5
     			
     			
-    			 System.out.println("Udeo Zjednicke Potrosnje: " + udeozajednickepotrosnje);
+    			 // System.out.println("Udeo Zjednicke Potrosnje: " + udeozajednickepotrosnje);
     			
     			
     			 for(int i=0;i<stan.getZadnjaStanja().size();i++){
-    				 System.out.println(stan.getZadnjaStanja() + "      ZZZZZZSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+    				 // System.out.println(stan.getZadnjaStanja() + "      ZZZZZZSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
     		        } 
     			 
-    			 System.out.println(p.getId() + "********************************************************************************" + stan.getId());
+    			 // System.out.println(p.getId() + "********************************************************************************" + stan.getId());
     			BigDecimal sopstvenapotrosnja =BigDecimal.valueOf(stan.getZadnjaStanja().get(0) - stan.getZadnjaStanja().get(1)).setScale(2, RoundingMode.HALF_UP);
     			// Za stan sopstvena potrosnja ocitavanja - I5
     			
     			
-    			 System.out.println("Sopstvena potrosnja: " + sopstvenapotrosnja );
+    			 // System.out.println("Sopstvena potrosnja: " + sopstvenapotrosnja );
     			
     			this.utrosakUKwh = (udeozajednickepotrosnje.add(sopstvenapotrosnja)).setScale(2, RoundingMode.HALF_UP); 
     			
-    			 System.out.println("Ukupna potrosnja po stanu u kW: " + this.utrosakUKwh );
+    			 // System.out.println("Ukupna potrosnja po stanu u kW: " + this.utrosakUKwh );
     			// Ukupna potrosnja po stanu u kW
     			this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFix).setScale(2, RoundingMode.HALF_UP);
     			
@@ -264,15 +264,15 @@ public class Racun implements Serializable {
     		
     		if (p.getId() > 1105) {
     			
-    			System.out.println("ISKLJUCEN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    			// System.out.println("ISKLJUCEN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     			
     			this.utrosakUKwh = new BigDecimal("0.");
     			this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFixIskljucen).setScale(2, RoundingMode.HALF_UP);
     			
     			
-    			System.out.println("Varijabila:" + utrosakUKwh);
+    			// System.out.println("Varijabila:" + utrosakUKwh);
     			 
-    			 System.out.println("Fiksni:" + this.utrosakFiksni);
+    			 // System.out.println("Fiksni:" + this.utrosakFiksni);
     			
     			
     		} else {
@@ -300,7 +300,7 @@ public class Racun implements Serializable {
     		
     		this.popust = nacrtRacuna.getPopust();
     		
-    		 System.out.println(p.getId() + " Popust ********************************************************************************" + this.popust);
+    		 // System.out.println(p.getId() + " Popust ********************************************************************************" + this.popust);
     		
     		if (p.getId() > 1105) {
     			
@@ -321,14 +321,14 @@ public class Racun implements Serializable {
     	
     	if (p.getId() > 1105) {
     		
-    		System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+    		// System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
     		
     		this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
 			this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
 			this.utrosakOdrzavanje = new BigDecimal("0.");
 			
 			
-			System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+this.utrosakFiksni);
+			// System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+this.utrosakFiksni);
 			
 			
 			
