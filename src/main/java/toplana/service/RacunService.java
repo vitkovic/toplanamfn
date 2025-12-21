@@ -165,7 +165,7 @@ public class RacunService  {
 		return pdfPutanja + "\\Racun.pdf";
     } 
     
-	// dovde
+	// dovde slanje mailova za pojedinacnog korisnika, ali svima
    
     public String generateReport(List<RacunStampanje> racuni) {
 		 
