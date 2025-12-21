@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -112,6 +113,59 @@ public class RacunService  {
 		
 		return pdfPutanja + "\\Rekapitulacija.pdf";
     }
+	// pojedinacno slanje emailova za vise korisnika
+	
+	public String generateReportStampanje(List<RacunStampanje> racuni) {
+		 
+		try {
+			List<MailWithAttachment> emailList = new ArrayList<>();
+			
+			if (this.stampa) {                             
+				for(RacunStampanje r : racuni) { 
+					
+					if (r.getVlasnikEmail() != null && r.getVlasnikEmail().length()>0 ) {
+						emailList.add(
+									new MailWithAttachment(r.getVlasnikEmail(), "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", this.generateIndRacun(r))
+								);
+					}
+					
+				}
+				mailService.sendMultipleEmails(emailList);
+			}
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return pdfPutanja + "\\Racun.pdf";
+    }
+	
+	public String generateIndRacun(RacunStampanje r) {
+		 
+		try {
+			ClassPathResource cl = new ClassPathResource("/jasper/Racun6.jrxml");
+			//File file = ResourceUtils.getFile("classpath:jasper/Racun2.jrxml");
+			InputStream input = cl.getInputStream();//new FileInputStream(file);
+			// Compile the Jasper report from .jrxml to .japser
+			JasperReport jasperReport = JasperCompileManager.compileReport(input);
+			// Get your data source
+			List<RacunStampanje> lr = Collections.singletonList(r);
+			JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(lr);
+			// Add parameters
+			Map<String, Object> parameters = new HashMap<>();
+			//parameters.put("createdBy", "JavaHelper.org");
+			// Fill the report
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+			// Export the report to a PDF file
+			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\Racun.pdf");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return pdfPutanja + "\\Racun.pdf";
+    } 
+    
+	// dovde
    
     public String generateReport(List<RacunStampanje> racuni) {
 		 
