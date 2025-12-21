@@ -41,6 +41,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -436,6 +437,12 @@ public class TransakcijaService {
     	List<TransakcijaZaStanDTO> out = transakcijaRepository.searchForAnalitickiDnevnik(datumOdNotExists,datumOd, datumDoNotExists, 
     			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime,  podstanicaNotExists, podstanicaId,
     			tipPotrosacaNotExists,tipPotrosacaIds);
+    	out.sort(
+    		    Comparator.comparing(
+    		        TransakcijaZaStanDTO::getSifraStana,
+    		        Comparator.nullsLast(String::compareTo)
+    		    )
+    		);
     	return out;
     }
     
