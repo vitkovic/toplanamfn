@@ -99,7 +99,8 @@ server:
     enabled: true
     mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
     min-response-size: 1024
-
+    undertow:
+      no-request-timeout: 800000
 # ===================================================================
 # JHipster specific properties
 #

@@ -55,7 +55,7 @@ public class RacunService  {
     
     private String downFileName;
     
-    private boolean stampa = false;
+    private boolean smail = false;
     
     
 
@@ -76,13 +76,13 @@ public class RacunService  {
 		this.stanRepository = stanRepository;
 	}
 
-	public boolean isStampa() {
-		return stampa;
+	public boolean isSmail() {
+		return smail;
 	}
 
 
-	public void setStampa(boolean stampa) {
-		this.stampa = stampa;
+	public void setSmail(boolean smail) {
+		this.smail = smail;
 	}
 
 
@@ -106,7 +106,7 @@ public class RacunService  {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 			// Export the report to a PDF file
 			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\Rekapitulacija.pdf");
-			//System.out.println("PDF File rekapitulacija Generated !!");
+			//// System.out.println("PDF File rekapitulacija Generated !!");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -115,12 +115,12 @@ public class RacunService  {
     }
 	// pojedinacno slanje emailova za vise korisnika
 	
-	public String generateReportStampanje(List<RacunStampanje> racuni) {
+	public String generateReportSmail(List<RacunStampanje> racuni) {
 		 
 		try {
 			List<MailWithAttachment> emailList = new ArrayList<>();
 			
-			if (this.stampa) {                             
+			if (this.smail) {                             
 				for(RacunStampanje r : racuni) { 
 					
 					if (r.getVlasnikEmail() != null && r.getVlasnikEmail().length()>0 ) {
@@ -194,18 +194,6 @@ public class RacunService  {
 			// Export the report to a PDF file
 			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\Racun.pdf");
 			
-			if (this.stampa) {                             
-				for(RacunStampanje r : racuni) { 
-					
-					if (r.getVlasnikEmail() != null && r.getVlasnikEmail().length()>0 ) {
-						emailList.add(
-									new MailWithAttachment(r.getVlasnikEmail(), "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", pdfPutanja + "\\Racun.pdf")
-								);
-					}
-					
-				}
-				mailService.sendMultipleEmails(emailList);
-			}
 		
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -301,8 +289,10 @@ public class RacunService  {
     		
     		
     	}
-    	
-    	return this.generateReport(racuniStampanje);
+    	if (this.smail) {
+    	 return this.generateReportSmail(racuniStampanje);
+    	} else
+    	 return this.generateReport(racuniStampanje);
     	
     }
     
@@ -338,7 +328,7 @@ public class RacunService  {
         	try {
         		
         		StanStanje ss = (StanStanje)vrednostipotrosnje.get(i);
-        		System.out.println(ss);
+        	//	// System.out.println(ss);
         		
         		 sifra = ss.getSifra().trim();
         		 if (i == 0) temp = sifra;
@@ -352,7 +342,7 @@ public class RacunService  {
         		 m.put(ss.getSifra(), vrednost);
         		
         		
-            	System.out.println(vrednost);
+            //	// System.out.println(vrednost);
             	temp = sifra;
         	} catch (Exception e) {
         		e.printStackTrace();
@@ -365,7 +355,7 @@ public class RacunService  {
         
         for (String key : m.keySet()) {
             map = key + "...." + m.get(key);
-            System.out.println(map);
+          //  // System.out.println(map);
             String value = m.get(key);
             
             String[] vrednosti = value.split(";");
@@ -375,8 +365,8 @@ public class RacunService  {
             suma = suma.add(BigDecimal.valueOf(val));
             
             
-          //  System.out.println(map + "    #####################################################################################################");
-           // System.out.println(suma + "    #####################################################################################################");
+          //  // System.out.println(map + "    #####################################################################################################");
+           // // System.out.println(suma + "    #####################################################################################################");
         }
         
        
@@ -398,7 +388,7 @@ public class RacunService  {
     	}   
 	 
 		
-		System.out.println(pn + " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"  );
+		// System.out.println(pn + " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"  );
 		
 		// ovaj    
 		zajednickostanjepodstanice = (spr.getNovoStanje().getStanje().subtract(spr.getStaroStanje().getStanje())).multiply(BigDecimal.valueOf(1000.00)).setScale(2, RoundingMode.HALF_UP);;
