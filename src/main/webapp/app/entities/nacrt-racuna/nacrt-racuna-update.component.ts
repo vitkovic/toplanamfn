@@ -112,16 +112,23 @@ export default class NacrtRacunaUpdate extends Vue {
   public save(): void {
     this.isSaving = true;
 //	console.log(this.nacrtRacuna.id + "    ...... id" )
+
+	this.alertVariant = 'info';
+	this.alertMessage = 'Генерисање pdf рачуна је у току. Молим сачекајте...';
+
+
     if (this.nacrtRacuna.id) {
       this.nacrtRacunaService()
         .update(this.nacrtRacuna)
         .then(param => {
           this.isSaving = false;
+		  this.alertMessage = null;
           this.$router.go(-1);
           const message = this.$t('toplanaApp.nacrtRacuna.updated', { param: param.id });
           this.alertService().showAlert(message, 'info');
         })
         .catch(error => {
+		  this.alertMessage = null;
           var message:string = this.getMessageFromHeader(error.response);
           this.$notify({text:message, type:'error', duration:10000});
         });
@@ -130,12 +137,14 @@ export default class NacrtRacunaUpdate extends Vue {
         .create(this.nacrtRacuna)
         .then(param => {
           this.isSaving = false;
+		  this.alertMessage = null;
           this.$router.go(-1);
           const message = this.$t('toplanaApp.nacrtRacuna.created', { param: param.id });
           this.alertService().showAlert(message, 'success');
         //}
         })
         .catch(error => {
+		  this.alertMessage = null;
           var message:string = this.getMessageFromHeader(error.response);
           if(message)
             this.$notify({text:message, type:'error', duration:10000});
@@ -165,7 +174,7 @@ export default class NacrtRacunaUpdate extends Vue {
   public stampanje(): void {
     this.isSaving = true;
 	this.alertVariant = 'info';
-	this.alertMessage = 'Генерисање рачуна је у току. Молим сачекајте...';
+	this.alertMessage = 'Генерисање pdf рачуна је у току. Молим сачекајте...';
 	
 	window.scrollTo({ top: 0, behavior: 'smooth' });
 	
