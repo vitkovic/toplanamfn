@@ -74,7 +74,7 @@ public class IzvodService {
 	
 			number = name.substring(start + index, end);
 			
-			System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^             " + start + end +  " " + number);
+			//System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^             " + start + end +  " " + number);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -150,16 +150,16 @@ public class IzvodService {
 		if(line.contains("UKUPNO ZA USLUGU")) {
 			String ukupnoZaUslugu = line.substring(118).trim().replace(",",".");
 			izvod.setUkupnoZaUslugu(new BigDecimal(ukupnoZaUslugu));
-			System.out.println(izvod.getUkupnoZaUslugu());
+			//System.out.println(izvod.getUkupnoZaUslugu());
 		}else if(line.contains("UKUPNO NEPLA")) {
 			String ukupnoNeplacenih = line.substring(118).trim().replace(",",".");
 			izvod.setUkupnoNeplacenih(new BigDecimal(ukupnoNeplacenih));
-			System.out.println(izvod.getUkupnoNeplacenih());
+			//System.out.println(izvod.getUkupnoNeplacenih());
 		}else if(line.contains("TOTAL PLA")) {
 			if(izvod.getUkupnoPlacenih() == null) {
 				String ukupnoPlacenih = line.substring(118).trim().replace(",",".");
 				izvod.setUkupnoPlacenih(new BigDecimal(ukupnoPlacenih));
-				System.out.println(izvod.getUkupnoPlacenih());
+				//System.out.println(izvod.getUkupnoPlacenih());
 			}
 		}else if(line.contains("DATUM RADA")) {
 			if(izvod.getDatumIzvodaZaglavlje() == null) {
@@ -167,7 +167,7 @@ public class IzvodService {
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy.");
 				  //convert String to LocalDate		
 				izvod.setDatumIzvodaZaglavlje(LocalDate.parse(sDdatumIzvoda, formatter));								
-				System.out.println(izvod.getDatumIzvodaZaglavlje());
+				//System.out.println(izvod.getDatumIzvodaZaglavlje());
 			}
 		}
 		*/
@@ -176,7 +176,7 @@ public class IzvodService {
 		sIznos = sIznos.replaceFirst("^0+(?!$)", "");   // uklanja sve vodeće nule
 		izvod.setUkupnoZaUslugu(new BigDecimal(sIznos));
 		
-		System.out.println(izvod.getUkupnoZaUslugu());
+		//System.out.println(izvod.getUkupnoZaUslugu());
 		
 		
 		

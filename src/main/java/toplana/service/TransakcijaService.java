@@ -252,10 +252,10 @@ public class TransakcijaService {
  		if(search.getSifraStana() != null) {
     		sifra =  search.getSifraStana() ;
     	}
- 	//	System.out.println("********************************************************************" + sifra);
+ 	//	//System.out.println("********************************************************************" + sifra);
  		List<TransakcijaStanUkupnoDTO> out = transakcijaRepository.searchOR(sifra);
  		
- 		//System.out.println("********************************************************************" + out);
+ 		////System.out.println("********************************************************************" + out);
     	return out;
  	}
     
@@ -309,7 +309,7 @@ public class TransakcijaService {
 	   	 
     	 String[] prezimeComplex = search.getPrezime().split(String.valueOf(" "));
 		 
-		 System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime());
+		 //System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime());
 		 
 		 if (prezimeComplex != null && prezimeComplex.length > 1) {
 			 prezimeImeNotExists = 0;
@@ -343,7 +343,7 @@ public class TransakcijaService {
     	}    	
     	
     	
-    	 System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime() + "     ime:" +search.getIme());
+    	 //System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime() + "     ime:" +search.getIme());
     	
     	List<TransakcijaStanUkupnoDTO> out = transakcijaRepository.search(datumOdNotExists,datumOd, datumDoNotExists, 
     			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime, imeNotExists, ime,  podstanicaNotExists, podstanicaId,
@@ -399,7 +399,7 @@ public class TransakcijaService {
     	
     	 String[] prezimeComplex = search.getPrezime().split(String.valueOf(" "));
     	 
-    //	 System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime());
+    //	 //System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime());
     	 
     	 if (prezimeComplex != null && prezimeComplex.length > 1) {
     		 prezimeImeNotExists = 0;
@@ -488,7 +488,7 @@ public class TransakcijaService {
     	
    	 String[] prezimeComplex = search.getPrezime().split(String.valueOf(" "));
 	 
-     //	 System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime());
+     //	 //System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime());
      	 
      	 if (prezimeComplex != null && prezimeComplex.length > 1) {
      		 prezimeImeNotExists = 0;
@@ -527,7 +527,7 @@ public class TransakcijaService {
     	}    	
     	
    	 
-   //	 System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime());
+   //	 //System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime());
     	
     	List<DugujePotrazujeReoni> out = transakcijaRepository.findSumForDnevnik(datumOdNotExists,datumOd, datumDoNotExists, 
     			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime,   podstanicaNotExists, podstanicaId,
@@ -555,7 +555,7 @@ public class TransakcijaService {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 			// Export the report to a PDF file
 			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\AnDnevnik.pdf");
-			//System.out.println("PDF File rekapitulacija Generated !!");
+			////System.out.println("PDF File rekapitulacija Generated !!");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -659,7 +659,7 @@ public class TransakcijaService {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 			// Export the report to a PDF file
 			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\RekapitulacijaPoSiframaPromeneIDatumu.pdf");
-			//System.out.println("PDF File rekapitulacija Generated !!");
+			////System.out.println("PDF File rekapitulacija Generated !!");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}  
@@ -687,7 +687,7 @@ public class TransakcijaService {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 			// Export the report to a PDF file
 			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\AnKartica.pdf");
-			//System.out.println("PDF File rekapitulacija Generated !!");
+			////System.out.println("PDF File rekapitulacija Generated !!");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -742,7 +742,7 @@ public class TransakcijaService {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 			// Export the report to a PDF file
 			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\SintetickiDnevnik.pdf");
-			//System.out.println("PDF File rekapitulacija Generated !!");
+			////System.out.println("PDF File rekapitulacija Generated !!");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

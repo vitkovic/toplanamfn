@@ -181,7 +181,7 @@ public class TransakcijaResource {
     	List<TransakcijaStanUkupnoDTO> transakcije = null;
     	
     	if(search.getSifraStana() != null && search.getSifraStana().trim().equals(Constants.RACUN_OSTALI_TROSKOVI_BEZ_STANA)) {
-    		//System.out.println("*******************************************************************************************************************************" + search.getSifraStana());
+    		////System.out.println("*******************************************************************************************************************************" + search.getSifraStana());
     		
     		transakcije = transakcijaService.findAllOR(search);
     		

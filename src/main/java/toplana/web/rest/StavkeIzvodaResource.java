@@ -113,7 +113,7 @@ public class StavkeIzvodaResource {
     public ResponseEntity<StavkeIzvodaTransakcijaDTO> knjizenjeStavkeIzvoda(@RequestBody StavkeIzvodaTransakcijaDTO stavkeIzvodaTransakcija) throws URISyntaxException {
         log.debug("REST request to knjizenje StavkeIzvoda : {}", stavkeIzvodaTransakcija);
         
-        System.out.println("*******************************((((((((((((((((((((((((((((((((((((((((#############################################");
+        //System.out.println("*******************************((((((((((((((((((((((((((((((((((((((((#############################################");
         if (stavkeIzvodaTransakcija.getStavkeIzvoda().getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }   
@@ -142,7 +142,7 @@ public class StavkeIzvodaResource {
         	stavkeIzvoda.setRasporedjena(true);        	
         	Transakcija td = stavkeIzvodaTransakcija.getStavkeIzvoda().getTransakcija();
         	
-        //	System.out.println(td.getOpis() + " **********************************************");
+        //	//System.out.println(td.getOpis() + " **********************************************");
         	
         	if (td != null && td.getId() != null && td.getId() > 0 && td.getOpis() != "Рачун") {
         		
@@ -231,7 +231,7 @@ public class StavkeIzvodaResource {
     @PutMapping("/stavke-izvodas-knjizenje-podela")
     public ResponseEntity<StavkeIzvodaTransakcijaDTO> knjizenjeStavkeIzvodaPodela(@RequestBody StavkeIzvodaTransakcijaDTO stavkeIzvodaTransakcija) throws URISyntaxException {
         log.debug("REST request to knjizenje StavkeIzvoda : {}", stavkeIzvodaTransakcija);
-        System.out.println("*******************************(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((");
+        //System.out.println("*******************************(((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((((");
        
         if (stavkeIzvodaTransakcija.getStavkeIzvoda().getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");

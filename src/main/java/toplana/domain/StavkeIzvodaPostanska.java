@@ -89,17 +89,17 @@ public class StavkeIzvodaPostanska implements Serializable {
 		String adresa = line.substring(82,108).trim();
 		String posta = line.substring(108,116).trim();
 		String sIznos = line.substring(116).trim().replace(",", ".");
-	    System.out.println("ЋЧШЂЖ");
-		System.out.println(sBroj);
-		System.out.println(npl);
-		System.out.println(sValuta);
-		System.out.println(partijaRacuna);
-		System.out.println(sifra);
-		System.out.println(ime);
-		System.out.println(adresa);
-		System.out.println(posta);
-		System.out.println(sIznos);
-		System.out.println("****************************************************************************");
+	    //System.out.println("ЋЧШЂЖ");
+		//System.out.println(sBroj);
+		//System.out.println(npl);
+		//System.out.println(sValuta);
+		//System.out.println(partijaRacuna);
+		//System.out.println(sifra);
+		//System.out.println(ime);
+		//System.out.println(adresa);
+		//System.out.println(posta);
+		//System.out.println(sIznos);
+		//System.out.println("****************************************************************************");
 		*/
 		
 		

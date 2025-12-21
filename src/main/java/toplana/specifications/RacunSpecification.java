@@ -34,7 +34,7 @@ public class RacunSpecification implements Specification<Racun> {
     public Predicate toPredicate(Root<Racun> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
     	
     	
-    	System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+    	//System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
     	
     	Join<Stan, Racun> stanRacun = root.join("stan");
     	Join<Vlasnik,Stan> vlasnikStan = stanRacun.join("vlasnik");
@@ -81,7 +81,7 @@ public class RacunSpecification implements Specification<Racun> {
         		
         		if (criteria.getOperation().equals(SearchOperation.MATCH)) {
         			
-        			System.out.println("%%%%%%%%%%%%%%%%%%%%%%%" + criteria.getKey());
+        			//System.out.println("%%%%%%%%%%%%%%%%%%%%%%%" + criteria.getKey());
         			Expression<String> fieldExpr = builder.function(
         				    "unaccent", String.class,
         				    builder.upper(vlasnikStan.get(criteria.getKey()))

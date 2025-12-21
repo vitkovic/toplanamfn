@@ -2,6 +2,10 @@
 <template>
     <div class="row justify-content-center">
         <div class="col-8">
+        <b-alert v-if="alertMessage" :variant="alertVariant" show>
+  {{ alertMessage }}
+</b-alert>
+
             <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
                 <h2 id="toplanaApp.nacrtRacuna.home.createOrEditLabel" v-text="$t('toplanaApp.nacrtRacuna.home.createOrEditLabel')">Create or edit a NacrtRacuna</h2>
                 <div>
@@ -297,7 +301,7 @@
                         <span v-text="$t('entity.action.knjizenje')"></span>
                     </button>
                     <button v-if="nacrtRacuna.id" type="button" id="stampanje" class="btn btn-primary" 
-                        v-on:click="stampanje()">
+                        v-on:click="stampanje()"  :disabled="isSaving">
                         <span v-text="$t('entity.action.stampanje')"></span>
                     </button>
                      <button v-if="nacrtRacuna.id" type="button" id="smail" class="btn btn-primary" 

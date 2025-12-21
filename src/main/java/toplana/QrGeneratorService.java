@@ -81,7 +81,7 @@ public class QrGeneratorService {
             ByteArrayInputStream bais = new ByteArrayInputStream(response.body()); // convert to bytearray
             bufferedImage = ImageIO.read(bais); // create buffered image for jhipster
             //Files.write(outputPath, response.body());
-            System.out.println("✅ QR code saved to: " + outputPath.toAbsolutePath());
+            //System.out.println("✅ QR code saved to: " + outputPath.toAbsolutePath());
             return bufferedImage;
         } else {
             System.err.println("❌ Failed to generate QR. Status code: " + response.statusCode());

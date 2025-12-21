@@ -60,8 +60,6 @@ public class LatestPointReading {
 
         // Sort by point code
         latestReadings.values().stream()
-                .sorted(Comparator.comparing(r -> r.pointCode))
-                .forEach(r -> System.out.printf("Point: %s | Time: %s | Value: %.2f%n",
-                        r.pointCode, r.time, r.value));
+                .sorted(Comparator.comparing(r -> r.pointCode));
     }
 }

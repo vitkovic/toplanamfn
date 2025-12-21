@@ -361,8 +361,8 @@ public class StanjaPodstaniceResource {
 
     	        if (!missing.isEmpty()) {
     	            // Make this a proper 400 with detail the frontend can show
-    	        	System.out.println(missing.size());
-    	        	System.out.println(missing.get(0));
+    	        	////System.out.println(missing.size());
+    	        	////System.out.println(missing.get(0));
     	        	if (!(missing.size() == 1 && missing.get(0).equalsIgnoreCase("072910004"))) 
     	        		throw new BadRequestAlertException("No Stan found for sifre: " + missing, ENTITY_NAME, "stanmissing");
     	        	
@@ -385,8 +385,8 @@ public class StanjaPodstaniceResource {
     	        
     	        
     	        
-    	        System.out.println("Sifra        | Datum               | Vrednost | Stan(Sifra/ID)");
-    	        System.out.println("-------------+---------------------+----------+----------------");
+    	        ////System.out.println("Sifra        | Datum               | Vrednost | Stan(Sifra/ID)");
+    	        ////System.out.println("-------------+---------------------+----------+----------------");
     	        stanStanja.forEach(s -> {
     	            String stanInfo = "-";
     	            if (s.getStan() != null) {
@@ -396,12 +396,13 @@ public class StanjaPodstaniceResource {
     	                }
     	            }
 
-    	            System.out.printf("%-12s | %-19s | %8d | %s%n",
+    	            /*
+    	            //System.out.printf("%-12s | %-19s | %8d | %s%n",
     	                s.getSifra(),
     	                String.valueOf(s.getDatum()),   
     	                s.getVrednost(),
     	                stanInfo
-    	            );
+    	            );*/
     	        }); 
     	        
     	       

@@ -213,9 +213,9 @@ public class NacrtRacunaResource {
             // mozda treba razmisliti da se definise nativni query, da se izbegne vracanje svih vrednosti
             
             
-          //  System.out.println(vrednostipotrosnje);
+          //  ////System.out.println(vrednostipotrosnje);
             
-         // System.out.println(vrednostipotrosnjeDTO);
+         // ////System.out.println(vrednostipotrosnjeDTO);
             
             
             Map<String, Object> grouped = vrednostipotrosnjeDTO.stream()
@@ -250,7 +250,7 @@ public class NacrtRacunaResource {
             	try {
             		
             		StanStanje ss = (StanStanje)vrednostipotrosnje.get(i);
-            		System.out.println(ss);
+            		////System.out.println(ss);
             		
             		 sifra = ss.getSifra().trim();
             		 if (i == 0) temp = sifra;
@@ -264,7 +264,7 @@ public class NacrtRacunaResource {
             		 m.put(ss.getSifra(), vrednost);
             		
             		
-	            	System.out.println(vrednost);
+	            	////System.out.println(vrednost);
 	            	temp = sifra;
             	} catch (Exception e) {
             		e.printStackTrace();
@@ -278,7 +278,7 @@ public class NacrtRacunaResource {
             
             
             for (Map.Entry<String, String> entry : m.entrySet()) {
-                System.out.println(entry.getKey() + " = " + entry.getValue());
+                ////System.out.println(entry.getKey() + " = " + entry.getValue());
             }
             
             
@@ -314,7 +314,7 @@ public class NacrtRacunaResource {
         		
         		BigDecimal saldo = transakcijaRepository.getSaldoDoKrajaPrethodnogMesecaZaStanAndValuta(nacrtRacuna.getValutaPlacanja(), stan.getId());
         		
-        		System.out.println("STAN:" + stan.getSifra() + " vrednost: " + saldo + " ******************************************************************************************************************************************************************" );        		
+        		////System.out.println("STAN:" + stan.getSifra() + " vrednost: " + saldo + " ******************************************************************************************************************************************************************" );        		
         		if (saldo.doubleValue() <= 0.02 && saldo.doubleValue() >= -0.02) saldo = new BigDecimal(0.00);
         		//ovde dodati sta da se radi kad nema popusta (za neku podstanicu ili vrstu korisnika (reon)
         		Racun racun = new Racun(stan, result, user, saldo, poslednjiDanPrethodnogMeseca,p);
@@ -470,7 +470,7 @@ public class NacrtRacunaResource {
         
         nr.setStanjaPodstaniceZaRacune(svePodstanice); 
         for(int i=0;i<svePodstanice.size();i++){
-            System.out.println(svePodstanice.get(i));
+            ////System.out.println(svePodstanice.get(i));
         } 
         nr.setUkupnaPotrosnja();
         //provera da li za sve podstanice postoji uneto stanje za tekuci mesec

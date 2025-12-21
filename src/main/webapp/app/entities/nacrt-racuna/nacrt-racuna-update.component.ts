@@ -72,7 +72,8 @@ export default class NacrtRacunaUpdate extends Vue {
 
   public isFormDisabled = true;
 
-  
+  public alertMessage: string | null = null;
+  public alertVariant: string = 'info';
 
   beforeRouteEnter(to, from, next) {
     next(vm => {      
@@ -110,7 +111,7 @@ export default class NacrtRacunaUpdate extends Vue {
 
   public save(): void {
     this.isSaving = true;
-	console.log(this.nacrtRacuna.id + "    ...... id" )
+//	console.log(this.nacrtRacuna.id + "    ...... id" )
     if (this.nacrtRacuna.id) {
       this.nacrtRacunaService()
         .update(this.nacrtRacuna)
@@ -140,7 +141,7 @@ export default class NacrtRacunaUpdate extends Vue {
             this.$notify({text:message, type:'error', duration:10000});
           else{  
             const por = this.$t('toplanaApp.nacrtRacuna.upisNijeUspeo')
-            this.$notify({text:JSON.stringify(por), type:'error', duration:-15000});
+            this.$notify({text:JSON.stringify(por), type:'error', duration:15000});
           }
         });
     }
@@ -163,13 +164,19 @@ export default class NacrtRacunaUpdate extends Vue {
 
   public stampanje(): void {
     this.isSaving = true;
+	this.alertVariant = 'info';
+	this.alertMessage = 'Генерисање рачуна је у току. Молим сачекајте...';
+	
+	window.scrollTo({ top: 0, behavior: 'smooth' });
+	
     if (this.nacrtRacuna.id) {
       this.nacrtRacunaService()
         .stampanje(this.nacrtRacuna.id)
         .then(res => {
-          this.isSaving = false;
-
-          var fileURL = window.URL.createObjectURL(new Blob([res]));
+			this.isSaving = false;
+			this.alertMessage = null;
+			
+	      var fileURL = window.URL.createObjectURL(new Blob([res]));
           var fileLink = document.createElement('a');
           fileLink.href = fileURL;
           fileLink.setAttribute('download', 'racuni.pdf');
