@@ -151,7 +151,7 @@
                         <router-link :to="{name: 'RacunView', params: {racunId: racun.id}}">{{racun.id}}</router-link>
                     </td>
                     -->
-                    <td>{{racun.datumRacuna}}</td>
+                    <td>{{ racun.datumRacuna ? racun.datumRacuna : 'Ukupno' }}</td>
                     <td>{{racun.utrosakVarijabilni}}</td>
                     <td>{{racun.utrosakFiksni}}</td>
                     <td>{{racun.popust}}</td>

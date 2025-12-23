@@ -117,12 +117,75 @@ public class RacunUtils {
 	            sum.setUkupno(ukupno);
 	            result.add(sum);
 	        }
+	        
+	        
+	        RacunDTO total = new RacunDTO();
 
+	        BigDecimal utrosakVarijabilni = z();
+	        BigDecimal utrosakFiksni      = z();
+	        BigDecimal utrosakOdrzavanje  = z();
+	        BigDecimal utrosakUKwh        = z();
+
+	        BigDecimal cenaKwh            = z();
+	        BigDecimal cenaFix            = z();
+	        BigDecimal cenaFixIskljucen   = z();
+	        BigDecimal cenaOdrzavanje     = z();
+	        BigDecimal cenaOStalo         = z();
+
+	        BigDecimal pdv1               = z();
+	        BigDecimal pdv2               = z();
+	        BigDecimal popust             = z();
+	        BigDecimal ukupno             = z();
+	        BigDecimal ukupnoZaduzenje    = z();
+	        
+	        for (RacunDTO r : result) {
+
+	            utrosakVarijabilni = utrosakVarijabilni.add(nz(r.getUtrosakVarijabilni()));
+	            utrosakFiksni      = utrosakFiksni.add(nz(r.getUtrosakFiksni()));
+	            utrosakOdrzavanje  = utrosakOdrzavanje.add(nz(r.getUtrosakOdrzavanje()));
+	            utrosakUKwh        = utrosakUKwh.add(nz(r.getUtrosakUKwh()));
+
+	            cenaKwh            = cenaKwh.add(nz(r.getCenaKwh()));
+	            cenaFix            = cenaFix.add(nz(r.getCenaFix()));
+	            cenaFixIskljucen   = cenaFixIskljucen.add(nz(r.getCenaFixIskljucen()));
+	            cenaOdrzavanje     = cenaOdrzavanje.add(nz(r.getCenaOdrzavanje()));
+	            cenaOStalo         = cenaOStalo.add(nz(r.getCenaOStalo()));
+
+	            pdv1               = pdv1.add(nz(r.getPdv1()));
+	            pdv2               = pdv2.add(nz(r.getPdv2()));
+	            popust             = popust.add(nz(r.getPopust()));
+
+	            ukupno             = ukupno.add(nz(r.getUkupno()));
+	            ukupnoZaduzenje    = ukupnoZaduzenje.add(nz(r.getUkupnoZaduzenje()));
+	        }
+	        total.setUtrosakVarijabilni(utrosakVarijabilni);
+	        total.setUtrosakFiksni(utrosakFiksni);
+	        total.setUtrosakOdrzavanje(utrosakOdrzavanje);
+	        total.setUtrosakUKwh(utrosakUKwh);
+
+	        total.setCenaKwh(cenaKwh);
+	        total.setCenaFix(cenaFix);
+	        total.setCenaFixIskljucen(cenaFixIskljucen);
+	        total.setCenaOdrzavanje(cenaOdrzavanje);
+	        total.setCenaOStalo(cenaOStalo);
+
+	        total.setPdv1(pdv1);
+	        total.setPdv2(pdv2);
+	        total.setPopust(popust);
+	        total.setUkupno(ukupno);
+	        total.setUkupnoZaduzenje(ukupnoZaduzenje);
+
+	    
+	        result.add(total);
+	        
 	        return result;
 	    }
 
 
     private static BigDecimal nz(BigDecimal v) {
         return v != null ? v : BigDecimal.ZERO;
+    }
+    private static BigDecimal z() {
+        return BigDecimal.ZERO;
     }
 }
