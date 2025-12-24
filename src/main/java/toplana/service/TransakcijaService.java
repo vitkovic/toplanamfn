@@ -647,7 +647,7 @@ public class TransakcijaService {
 		 
 		try {
 			
-			ClassPathResource cl = new ClassPathResource("/jasper/RecapSifrePromeneDatum.jrxml");
+			ClassPathResource cl = new ClassPathResource("/jasper/Rekapitulacija1.jrxml");
 			InputStream input = cl.getInputStream();
 			// Compile the Jasper report from .jrxml to .japser
 			JasperReport jasperReport = JasperCompileManager.compileReport(input);

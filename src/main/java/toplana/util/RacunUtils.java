@@ -177,11 +177,11 @@ public class RacunUtils {
 
 	    
 	        result.add(total);
-	        
+	           
 	        return result;
-	    }
+	    }              
 
-
+  
     private static BigDecimal nz(BigDecimal v) {
         return v != null ? v : BigDecimal.ZERO;
     }
