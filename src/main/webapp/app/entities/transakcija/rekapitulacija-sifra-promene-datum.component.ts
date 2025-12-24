@@ -36,6 +36,7 @@ export default class RekapitulacijaSifraPromeneDatum extends mixins(AlertMixin) 
   public perPage = 20;
   public currentPage = 1;
 
+  public isSaving = false;
 
   public rekapitulacije = [{
     datum:null,
@@ -43,6 +44,9 @@ export default class RekapitulacijaSifraPromeneDatum extends mixins(AlertMixin) 
     potrazuje: null,
     sifra: "",
   }] ;
+  
+  public alertMessage: string | null = null;
+  public alertVariant: string = 'info';
   
   
   public search = {
@@ -104,9 +108,15 @@ export default class RekapitulacijaSifraPromeneDatum extends mixins(AlertMixin) 
  
   public send(): void {    
     this.isFetching = true;    
-    this.transakcijaService().rekapitulacijaSifraPromeneDatum(this.search)
+
+	this.alertVariant = 'info';
+	this.alertMessage = 'Генерисање рекапитулације је у току. Молим сачекајте...';
+	window.scrollTo({ top: 0, behavior: 'smooth' });
+	
+	this.transakcijaService().rekapitulacijaSifraPromeneDatum(this.search)
     .then(res => {            
       this.margina = false;
+	  this.alertMessage = null;
       this.racuns = res.data;
       console.log(this.racuns);
       this.isFetching = false;
@@ -114,11 +124,17 @@ export default class RekapitulacijaSifraPromeneDatum extends mixins(AlertMixin) 
   }
 
   public stampanje(): void {    
-    this.isFetching = true;    
+    this.isFetching = true;   
+	
+	this.alertVariant = 'info';
+	this.alertMessage = 'Генерисање извештаја је у току. Молим сачекајте...';
+	window.scrollTo({ top: 0, behavior: 'smooth' });
+		 
       this.transakcijaService()
         .retrieveRekapitulacijaSifrePromeneDatumStampanje(this.search)
         .then(res => {
           this.isFetching = false;
+		  this.alertMessage = null;
           var fileURL = window.URL.createObjectURL(new Blob([res]));
           var fileLink = document.createElement('a');
           fileLink.href = fileURL;

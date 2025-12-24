@@ -11,7 +11,9 @@
             {{alertMessage}}
         </b-alert>
         <br/>
-
+		 <b-alert v-if="alertMessage" :variant="alertVariant" show>
+		  {{ alertMessage }}
+		</b-alert>
         <div class="card" :class="{ margine: margina }">            
             <div class="card-body">
                 <h5 class="card-title"><span v-text="$t('toplanaApp.transakcija.pretraga')"></span></h5>
@@ -125,7 +127,12 @@
         </b-row>      
         </div>
 -->
-         <div class="table-responsive" v-if="racuns && racuns.length > 0">
+         <div class="table-responsive" v-if="racuns && racuns.length > 0"><br>
+             <b-button  v-on:click="stampanje()"
+                        variant="info"
+                        class="btn ">                    
+                    <span class="d-none d-md-inline" v-text="$t('entity.action.stampanje')">Stampanje</span>
+                </b-button><br>
             <table class="table table-striped">
                 <thead>
                 
@@ -183,14 +190,15 @@
                     </td>
                 </tr>
                 </tbody>
-            </table>
-        </div>
-
-          <b-button  v-on:click="stampanje()"
+            </table><br>
+                <b-button  v-on:click="stampanje()"
                         variant="info"
                         class="btn ">                    
                     <span class="d-none d-md-inline" v-text="$t('entity.action.stampanje')">Stampanje</span>
                 </b-button>
+        </div>
+
+      
 
         <!--
         <div v-show="transakcije && transakcije.length > 0">
