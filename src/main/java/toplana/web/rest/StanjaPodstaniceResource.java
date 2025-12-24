@@ -337,7 +337,7 @@ public class StanjaPodstaniceResource {
     	            .collect(Collectors.toMap(
     	                StanStanjeDTO::getSifra,   // key mapper (point code)
     	                Function.identity(),       // value mapper (the DTO itself)
-    	                BinaryOperator.minBy(Comparator.comparing(StanStanjeDTO::getDatum)) // merge: keep later
+    	                BinaryOperator.maxBy(Comparator.comparing(StanStanjeDTO::getDatum)) // merge: keep later
     	            ));
     	        
     	        List<StanStanje> StanStanjaS = new ArrayList<>();
@@ -374,12 +374,12 @@ public class StanjaPodstaniceResource {
     	            .map(r -> {
     	                Stan stan = stanBySifra.get(r.getSifra()); // guaranteed non-null
     	                // make sure this constructor sets both fields (dto fields + stan)
-    	                return new StanStanje(
-    	                    r.getSifra(),
-    	                    r.getDatum(),
-    	                    r.getVrednost(),
-    	                    stan
-    	                );
+    	                LocalDate lastDayOfPreviousMonth =
+    	                        LocalDate.now()
+    	                                 .withDayOfMonth(1)
+    	                                 .minusDays(1);
+    	                StanStanje sst = new StanStanje(r.getSifra(),lastDayOfPreviousMonth,r.getVrednost(),stan);
+    	                return sst;
     	            })
     	            .collect(Collectors.toList());
     	        

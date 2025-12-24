@@ -23,7 +23,9 @@
       "naziv": "Naziv",
       "email": "Email",
       "psr": "Psr",
-      "stan": "Stan"
+      "stan": "Stan",
+	  "prezimeIime":"Prezime i Ime",
+	  "prezimeime":"Prezime i Ime"
     }
   }
 }
