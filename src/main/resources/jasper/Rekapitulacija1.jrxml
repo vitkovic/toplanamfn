@@ -221,21 +221,21 @@
 				<textElement>
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{popust}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{pdv2}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="497" y="3" width="79" height="20" uuid="44ea8c9f-cba0-4a28-83e9-988a3e8d7922"/>
 				<textElement>
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cenaOdrzavanje}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{utrosakOdrzavanje}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="576" y="3" width="73" height="20" uuid="5e764bb9-ae90-4819-9b86-d819e0e77fa7"/>
 				<textElement>
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{pdv2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{pdv1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="651" y="3" width="79" height="20" uuid="3a34b0af-795c-44b9-86e5-b68e14fff84f"/>
@@ -245,11 +245,13 @@
 				<textFieldExpression><![CDATA[$F{ukupnoZaduzenje}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="736" y="4" width="79" height="20" uuid="7a8ebce9-7fe4-4f4e-a463-ce5ce84c10cb"/>
+				<reportElement x="736" y="2" width="79" height="20" uuid="7a8ebce9-7fe4-4f4e-a463-ce5ce84c10cb"/>
 				<textElement>
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{strippedsifra}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{strippedsifra} == null
+? ""
+: $F{strippedsifra}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

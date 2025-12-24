@@ -167,7 +167,7 @@
                     <td>{{racun.utrosakOdrzavanje}}</td>
                     <td>{{racun.pdv1}}</td>
                    <td>{{racun.ukupnoZaduzenje}}</td>
-                   <td>{{racun.strippedsifra}}</td>
+                   <td>{{racun.strippedsifra}}</td>   
                     <!--  <td>{{racun.stan.sifra}}</td>-->
                     <td class="text-right">
                         <div class="btn-group">

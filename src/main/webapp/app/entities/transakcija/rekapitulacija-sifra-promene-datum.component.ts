@@ -133,7 +133,7 @@ export default class RekapitulacijaSifraPromeneDatum extends mixins(AlertMixin) 
       this.transakcijaService()
         .retrieveRekapitulacijaSifrePromeneDatumStampanje(this.search)
         .then(res => {
-          this.isFetching = false;
+          this.isFetching = false;     
 		  this.alertMessage = null;
           var fileURL = window.URL.createObjectURL(new Blob([res]));
           var fileLink = document.createElement('a');
