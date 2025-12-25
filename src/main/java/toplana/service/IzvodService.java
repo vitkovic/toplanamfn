@@ -96,16 +96,14 @@ public class IzvodService {
 		String datum = null;
 		
 		while ((line = reader.readLine()) != null) {  
-			int idx = 160; // 0-based index for position 161 
+			int idx0 = 160; // 0-based index for position 161 
+			int idx1 = 161; // 0-based index for position 162 
 
-			char c = line.charAt(idx);
-			if (c != '0' && c != '1') {
-			    throw new IllegalArgumentException(
-			        "Unexpected value at position 161: " + c
-			    );
-			} else if (c == '0') {
-				continue;
-			} 
+			char c0 = line.charAt(idx0);
+			char c1 = line.charAt(idx1);
+			if (c0 == '0' && c1 == '0') {
+		        continue;
+		    }
 			// if (datum == null) datum = line.substring(115, 123).trim(); 
 			
 			if (datum == null) datum = line.substring(line.length() - 10).trim();
