@@ -43,8 +43,9 @@ public class IzvodService {
 	}
 
 	public Izvod readFilePostanska(@RequestParam("file") MultipartFile file ) throws Exception {		
-				
-		String encoding = UniversalDetector.detectCharset(file.getInputStream());
+	    int pisi = 0;
+
+	    String encoding = UniversalDetector.detectCharset(file.getInputStream());
 		
 		String fname = file.getOriginalFilename();
 		if (fname != null) {
@@ -95,6 +96,16 @@ public class IzvodService {
 		String datum = null;
 		
 		while ((line = reader.readLine()) != null) {  
+			int idx = 160; // 0-based index for position 161 
+
+			char c = line.charAt(idx);
+			if (c != '0' && c != '1') {
+			    throw new IllegalArgumentException(
+			        "Unexpected value at position 161: " + c
+			    );
+			} else if (c == '0') {
+				continue;
+			} 
 			// if (datum == null) datum = line.substring(115, 123).trim(); 
 			
 			if (datum == null) datum = line.substring(line.length() - 10).trim();
