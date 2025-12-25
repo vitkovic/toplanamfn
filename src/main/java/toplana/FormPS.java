@@ -68,20 +68,22 @@ public class FormPS {
 
             // -----------------------------
             // FORMIRANJE PS REDA
+            // Ako je racun za mesec za koji se radi negativan (u pretplati) ne ulazi u izvestaj            
             // -----------------------------
-
-            out.append("1")           // TS
-               .append(bup)
-               .append(bun)
-               .append(sks)
-               .append(imePrezime)
-               .append(pnb)
-               .append(dpoStr)
-               .append(rpStr)
-               .append(izPad)
-               .append("941")       // fiksno polje
-               .append(dszStr)
-               .append("\n");
+            if (iz.compareTo(new BigDecimal(0)) == -1) {
+	            out.append("1")           // TS
+	               .append(bup)
+	               .append(bun)
+	               .append(sks)
+	               .append(imePrezime)
+	               .append(pnb)
+	               .append(dpoStr)
+	               .append(rpStr)
+	               .append(izPad)
+	               .append("941")       // fiksno polje
+	               .append(dszStr)
+	               .append("\n");
+            }  
         }
 
         return new ByteArrayResource(out.toString().getBytes());
