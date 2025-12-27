@@ -1,7 +1,13 @@
 package toplana.web.rest;
 
+import toplana.domain.Racun;
 import toplana.domain.Vlasnik;
 import toplana.repository.VlasnikRepository;
+import toplana.specifications.VlasnikSpecification;
+import toplana.specifications.SearchCriteria;
+import toplana.specifications.SearchOperation;
+import toplana.web.rest.dto.SearchRacunDTO;
+import toplana.web.rest.dto.SearchVlasnikDTO;
 import toplana.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -125,4 +131,51 @@ public class VlasnikResource {
         vlasnikRepository.deleteById(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }
+    
+    /***************************************************************************************************************
+     * Pretraga racuna na osnovu zadatog kriterijuma
+     * @param search
+     * @param pageable
+     * @return
+     ****************************************************************************************************************/
+    
+    @PostMapping("/vlasniks/criteria")
+    public ResponseEntity<List<Vlasnik>> getAllVlasniksCriteria(@RequestBody SearchVlasnikDTO search, Pageable pageable) {   
+    	
+	    VlasnikSpecification vlasnikSpec = this.createSpecification(search);
+	    
+	    //msTitleRating.add(new SearchCriteria("sifra", "010230001", SearchOperation.EQUAL));
+	    
+	    //msTitleRating.add(new SearchCriteria("rating", 7, SearchOperation.GREATER_THAN));
+	    
+	    Page<Vlasnik> page = vlasnikRepository.findAll(vlasnikSpec,pageable);
+	    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+	    return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+    
+    /**
+     * Kreira specification na osnovu kriterijuma od klijenta
+     * @param search
+     * @return
+     */
+    private VlasnikSpecification createSpecification(SearchVlasnikDTO search) {
+    	VlasnikSpecification vlasnikSpec = new VlasnikSpecification();
+	   
+	    if(search.getSifraStana() != null && !search.getSifraStana().trim().equals("")) {
+	    	vlasnikSpec.add(new SearchCriteria("Stan", "sifra", search.getSifraStana(), SearchOperation.MATCH));
+	    }
+	   
+	    if(search.getPrezime() != null && !search.getPrezime().trim().equals("")) {
+	    	vlasnikSpec.add(new SearchCriteria("Vlasnik", "prezime", search.getPrezime(), SearchOperation.MATCH));
+	    }
+	    
+	    if(search.getIme() != null && !search.getIme().trim().equals("")) {
+	    	vlasnikSpec.add(new SearchCriteria("Vlasnik", "ime", search.getIme(), SearchOperation.MATCH));
+	    }
+	    
+	    return vlasnikSpec;
+    }
+    
+    
+    
 }

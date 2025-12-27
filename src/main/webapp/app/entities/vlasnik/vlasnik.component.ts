@@ -20,9 +20,17 @@ export default class Vlasnik extends mixins(AlertMixin) {
   public propOrder = 'id';
   public reverse = false;
   public totalItems = 0;
-
+  public margina = false;
   public vlasniks: IVlasnik[] = [];
 
+  public search = {
+     sifraStana: "" ,
+     prezime: "",
+  	 ime:""
+   }
+
+  
+  
   public isFetching = false;
 
   public mounted(): void {
@@ -56,7 +64,41 @@ export default class Vlasnik extends mixins(AlertMixin) {
         }
       );
   }
+  
+  
+  public send(): void {   
+     /* if(this.formDisabled()){
+        const message = this.$t('toplanaApp.racun.morateUnetiNekiPodatak');
+        this.$notify({text:message, type:'error', duration:10000});
+        this.isSaving = false;
+        return;
+      }
+      */
+  	console.log(this.search);
+  	if (this.search.sifraStana.length > 0) {
+  		this.search.sifraStana = this.search.sifraStana.replace(/\D/g, '');
+  	}
+  	//numbersOnly = input.replace(/\D/g, '');
+  	
+  	console.log(this.search);
+      this.isFetching = true;
+      const paginationQuery = {
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort(),
+      };
+      this.vlasnikService().retrieveCriteria(this.search, paginationQuery)
+      .then(res => {    
+        this.margina = false;
+        this.vlasniks = res.data;
+        this.totalItems = Number(res.headers['x-total-count']);
+        this.queryCount = this.totalItems;      
+        this.isFetching = false;
+      });
+      
+    }
 
+  
   public prepareRemove(instance: IVlasnik): void {
     this.removeId = instance.id;
     if (<any>this.$refs.removeEntity) {

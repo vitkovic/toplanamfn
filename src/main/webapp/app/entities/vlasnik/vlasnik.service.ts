@@ -3,7 +3,7 @@ import axios from 'axios';
 import buildPaginationQueryOpts from '@/shared/sort/sorts';
 
 import { IVlasnik } from '@/shared/model/vlasnik.model';
-
+const baseApiUrlCriteria = 'api/vlasniks/criteria';
 const baseApiUrl = 'api/vlasniks';
 
 export default class VlasnikService {
@@ -71,4 +71,16 @@ export default class VlasnikService {
         });
     });
   }
+  public retrieveCriteria(search, paginationQuery?: any): Promise<any> {
+     return new Promise<any>((resolve, reject) => {
+       axios
+         .post(baseApiUrlCriteria + `?${buildPaginationQueryOpts(paginationQuery)}`, search)        
+         .then(res => {
+           resolve(res);
+         })
+         .catch(err => {
+           reject(err);
+         });
+     });
+   }
 }
