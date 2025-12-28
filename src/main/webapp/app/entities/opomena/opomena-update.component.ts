@@ -97,9 +97,9 @@ export default class OpomenaUpdate extends Vue {
 
   public initRelationships(): void {
     this.stanService()
-      .retrieve()
+      .retrieveWithoutPagination()
       .then(res => {
-        this.stans = res.data;
+	    this.stans = res.data;
       });
   }
 }

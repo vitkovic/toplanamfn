@@ -87,7 +87,7 @@ export default class UgovorRateUpdate extends Vue {
 
   public initRelationships(): void {
     this.stanService()
-      .retrieve()
+      .retrieveWithoutPagination()
       .then(res => {
         this.stans = res.data;
       });

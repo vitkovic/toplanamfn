@@ -99,7 +99,7 @@ export default class UtuzenjeUpdate extends Vue {
         this.stavkeUtuzenjas = res.data;
       });
     this.stanService()
-      .retrieve()
+      .retrieveWithoutPagination()
       .then(res => {
         this.stans = res.data;
       });

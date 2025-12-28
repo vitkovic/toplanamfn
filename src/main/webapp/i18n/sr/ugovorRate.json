@@ -2,10 +2,10 @@
   "toplanaApp": {
     "ugovorRate": {
       "home": {
-        "title": "Ugovor Rates",
-        "createLabel": "Kreiraj novi Ugovor Rate",
-        "createOrEditLabel": "Kreirajte ili izmenite Ugovor Rate",
-        "notFound": "No Ugovor Rates found"
+        "title": "Ugovor na Rate",
+        "createLabel": "Kreiraj novi Ugovor na Rate",
+        "createOrEditLabel": "Kreirajte ili izmenite Ugovor na Rate",
+        "notFound": "Nema Ugovora na Rate"
       },
       "created": "Kreiran je novi Ugovor Rate pod nazivom {{ param }}",
       "updated": "Ugovor Rate pod nazivom {{ param }} je ažuriran",

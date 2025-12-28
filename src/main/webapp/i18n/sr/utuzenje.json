@@ -2,10 +2,10 @@
   "toplanaApp": {
     "utuzenje": {
       "home": {
-        "title": "Utuzenjes",
-        "createLabel": "Kreiraj novi Utuzenje",
+        "title": "Utuzenje",
+        "createLabel": "Kreiraj novo Utuženje",
         "createOrEditLabel": "Kreirajte ili izmenite Utuzenje",
-        "notFound": "No Utuzenjes found"
+        "notFound": "Nема Utuženja"
       },
       "created": "Kreiran je novi Utuzenje pod nazivom {{ param }}",
       "updated": "Utuzenje pod nazivom {{ param }} je ažuriran",

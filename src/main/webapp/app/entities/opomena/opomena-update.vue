@@ -104,7 +104,7 @@
                         <label class="form-control-label" v-text="$t('toplanaApp.opomena.stan')" for="opomena-stan">Stan</label>
                         <select class="form-control" id="opomena-stan" name="stan" v-model="opomena.stan">
                             <option v-bind:value="null"></option>
-                            <option v-bind:value="opomena.stan && stanOption.id === opomena.stan.id ? opomena.stan : stanOption" v-for="stanOption in stans" :key="stanOption.id">{{stanOption.id}}</option>
+                            <option v-bind:value="opomena.stan && stanOption.id === opomena.stan.id ? opomena.stan : stanOption" v-for="stanOption in stans" :key="stanOption.id">{{stanOption.sifra}} - {{stanOption.vlasnik.prezime}} {{stanOption.vlasnik.ime}}</option>
                         </select>
                     </div>
                 </div>

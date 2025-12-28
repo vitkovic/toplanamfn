@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 id="page-heading">
-            <span v-text="$t('toplanaApp.stavkeUtuzenja.home.title')" id="stavke-utuzenja-heading">Stavke Utuzenjas</span>
+            <span v-text="$t('toplanaApp.stavkeUtuzenja.home.title')" id="stavke-utuzenja-heading">Stavke Utuzenja</span>
             <router-link :to="{name: 'StavkeUtuzenjaCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-stavke-utuzenja">
                 <font-awesome-icon icon="plus"></font-awesome-icon>
                 <span  v-text="$t('toplanaApp.stavkeUtuzenja.home.createLabel')">

@@ -60,7 +60,7 @@
                         <label class="form-control-label" v-text="$t('toplanaApp.ugovorRate.stan')" for="ugovor-rate-stan">Stan</label>
                         <select class="form-control" id="ugovor-rate-stan" name="stan" v-model="ugovorRate.stan">
                             <option v-bind:value="null"></option>
-                            <option v-bind:value="ugovorRate.stan && stanOption.id === ugovorRate.stan.id ? ugovorRate.stan : stanOption" v-for="stanOption in stans" :key="stanOption.id">{{stanOption.id}}</option>
+                            <option v-bind:value="ugovorRate.stan && stanOption.id === ugovorRate.stan.id ? ugovorRate.stan : stanOption" v-for="stanOption in stans" :key="stanOption.id">{{stanOption.sifra}} - {{stanOption.vlasnik.prezime}} {{stanOption.vlasnik.ime}}</option>
                         </select>
                     </div>
                 </div>

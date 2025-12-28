@@ -39,7 +39,7 @@
                     <td>{{utuzenje.datum}}</td>
                     <td>
                         <div v-if="utuzenje.stan">
-                            <router-link :to="{name: 'StanView', params: {stanId: utuzenje.stan.id}}">{{utuzenje.stan.id}}</router-link>
+                            <router-link :to="{name: 'StanView', params: {stanId: utuzenje.stan.id}}">{{utuzenje.stan.sifra}}</router-link>
                         </div>
                     </td>
                     <td class="text-right">

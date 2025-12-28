@@ -2,10 +2,10 @@
   "toplanaApp": {
     "stavkeUtuzenja": {
       "home": {
-        "title": "Stavke Utuzenjas",
-        "createLabel": "Kreiraj novi Stavke Utuzenja",
-        "createOrEditLabel": "Kreirajte ili izmenite Stavke Utuzenja",
-        "notFound": "No Stavke Utuzenjas found"
+        "title": "Stavke Utuzenja",
+        "createLabel": "Kreiraj nove Stavke Utuženja",
+        "createOrEditLabel": "Kreirajte ili izmenite Stavke Utuženja",
+        "notFound": "Nema stavki utuženja"
       },
       "created": "Kreiran je novi Stavke Utuzenja pod nazivom {{ param }}",
       "updated": "Stavke Utuzenja pod nazivom {{ param }} je ažuriran",

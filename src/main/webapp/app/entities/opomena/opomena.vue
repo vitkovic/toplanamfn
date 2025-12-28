@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 id="page-heading">
-            <span v-text="$t('toplanaApp.opomena.home.title')" id="opomena-heading">Opomenas</span>
+            <span v-text="$t('toplanaApp.opomena.home.title')" id="opomena-heading">Opomena</span>
             <router-link :to="{name: 'OpomenaCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-opomena">
                 <font-awesome-icon icon="plus"></font-awesome-icon>
                 <span  v-text="$t('toplanaApp.opomena.home.createLabel')">

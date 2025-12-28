@@ -2,10 +2,10 @@
   "toplanaApp": {
     "opomena": {
       "home": {
-        "title": "Opomenas",
-        "createLabel": "Kreiraj novi Opomena",
+        "title": "Opomena",
+        "createLabel": "Kreiraj novu Opomenu",
         "createOrEditLabel": "Kreirajte ili izmenite Opomena",
-        "notFound": "No Opomenas found"
+        "notFound": "Nema opomena"
       },
       "created": "Kreiran je novi Opomena pod nazivom {{ param }}",
       "updated": "Opomena pod nazivom {{ param }} je ažuriran",

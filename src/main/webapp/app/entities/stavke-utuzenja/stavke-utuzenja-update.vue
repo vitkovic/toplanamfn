@@ -101,7 +101,7 @@
                         <label class="form-control-label" v-text="$t('toplanaApp.stavkeUtuzenja.utuzenje')" for="stavke-utuzenja-utuzenje">Utuzenje</label>
                         <select class="form-control" id="stavke-utuzenja-utuzenje" name="utuzenje" v-model="stavkeUtuzenja.utuzenje">
                             <option v-bind:value="null"></option>
-                            <option v-bind:value="stavkeUtuzenja.utuzenje && utuzenjeOption.id === stavkeUtuzenja.utuzenje.id ? stavkeUtuzenja.utuzenje : utuzenjeOption" v-for="utuzenjeOption in utuzenjes" :key="utuzenjeOption.id">{{utuzenjeOption.id}}</option>
+                            <option v-bind:value="stavkeUtuzenja.utuzenje && utuzenjeOption.id === stavkeUtuzenja.utuzenje.id ? stavkeUtuzenja.utuzenje : utuzenjeOption" v-for="utuzenjeOption in utuzenjes" :key="utuzenjeOption.id">{{utuzenjeOption.stan.sifra}} - {{utuzenjeOption.stan.vlasnik.prezime}} {{utuzenjeOption.stan.vlasnik.ime}}</option>
                         </select>
                     </div>
                 </div>
