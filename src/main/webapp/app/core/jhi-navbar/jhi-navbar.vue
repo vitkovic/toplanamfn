@@ -156,6 +156,7 @@
                     <b-dropdown-item to="/ugovor-rate">
                         <span v-text="$t('global.menu.entities.ugovorRate')">UgovorRate</span>
                     </b-dropdown-item>
+                    
                 </b-nav-item-dropdown>
 
                 <b-nav-item-dropdown

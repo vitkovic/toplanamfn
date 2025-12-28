@@ -45,6 +45,7 @@ const TransakcijaUpdate = () => import('@/entities/transakcija/transakcija-updat
 const TransakcijaZaduzenje = () => import('@/entities/transakcija/transakcija-zaduzenje.vue');
 const TransakcijaRazduzenje = () => import('@/entities/transakcija/transakcija-razduzenje.vue');
 const TransakcijaSveDetails = () => import('@/entities/transakcija/transakcija-sve-details.vue');
+
 // prettier-ignore
 const TransakcijaDetails = () => import('@/entities/transakcija/transakcija-details.vue');
 // prettier-ignore

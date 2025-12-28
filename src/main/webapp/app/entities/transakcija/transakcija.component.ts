@@ -105,7 +105,7 @@ export default class Transakcija extends mixins(AlertMixin) {
       });      
   }
   public mounted(): void {
-    //this.retrieveAllTransakcijas();
+	
 	
    /*
     this.fields = [
@@ -135,7 +135,8 @@ export default class Transakcija extends mixins(AlertMixin) {
 	     {key:'actions', label:this.$t('toplanaApp.transakcija.akcije'),sortable:false}
 	   ]
 	
-	
+	   this.margina = false;
+	   this.retrieveAllTransakcijas();
   }
 
   public prikaziDetalje(sifra:string): void {
@@ -160,10 +161,13 @@ export default class Transakcija extends mixins(AlertMixin) {
       .retrieveCriteria(this.search, paginationQuery)
       .then(
         res => {
+		  this.margina = false;
           this.transakcije = res.data;
 	      this.totalItems = Number(res.headers['x-total-count']);
     	  this.queryCount = this.totalItems;
           this.isFetching = false;
+		  this.fields = this.fieldsbase;
+		
         },
         err => {
           this.isFetching = false;

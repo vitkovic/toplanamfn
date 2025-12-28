@@ -67,6 +67,17 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			);
 	
 	@Query(nativeQuery = true) 
+	List<TransakcijaStanUkupnoDTO> searchSUM(@Param("datumOdNotExists") Integer datumOdNotExists,@Param("datumOd") LocalDate datumOd,
+			@Param("datumDoNotExists") Integer datumDoNotExists,@Param("datumDo") LocalDate datumDo,
+			@Param("sifraNotExists") Integer sifraNotExists,  @Param("sifra") String sifra,
+			@Param("prezimeNotExists") Integer prezimeNotExists,@Param("prezime") String prezime,
+			@Param("imeNotExists") Integer imeNotExists,@Param("ime") String ime,
+			@Param("podstanicaNotExists") Integer podstanicaNotExists, @Param("podstanicaId") Long podstanicaId,
+			@Param("tipPotrosacaNotExists") Integer tipPotrosacaNotExists,@Param("tipPotrosacaIds") List<Long> tipPotrosacaIds,
+			@Param("stanUkljucen") Boolean stanUkljucen
+			);
+	
+	@Query(nativeQuery = true) 
 	List<TransakcijaStanUkupnoDTO> searchOR(@Param("sifra") String sifra);
 	
 	

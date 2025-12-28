@@ -244,6 +244,50 @@ import java.time.LocalDate;
 	  		+ "  END)	"	  		
 	  		+ "group by krajnjaSifra, krajnjiNaziv, krajnjiNazivIme", resultSetMapping="ac"),
 	
+	@NamedNativeQuery(
+		    name = "Transakcija.searchSUM",
+		    query =
+		        "SELECT "
+		      + "  coalesce(sum(t.duguje),0) as dugovanje, "
+		      + "  coalesce(sum(t.potrazuje),0) as potrazivanje, "
+		      + "  coalesce(sum(t.duguje),0) - coalesce(sum(t.potrazuje),0) as stanje, "
+
+		      + "  s.sifra as krajnjaSifra, "
+		      + "  v.prezime as krajnjiNaziv, "
+		      + "  v.ime as krajnjiNazivIme "
+
+		      + "FROM stan s "
+		      + "LEFT JOIN vlasnik v ON v.id = s.vlasnik_id "
+
+		      + "LEFT JOIN transakcija t "
+		      + "  ON t.stan_id = s.id "
+		      + " AND (:datumOd IS NULL OR t.datum >= :datumOd) "
+		      + " AND (:datumDo IS NULL OR t.datum <= :datumDo) "
+
+		      + "WHERE "
+		      + "  (:sifra IS NULL OR s.sifra LIKE :sifra) "
+
+		      + "AND (:prezime IS NULL OR "
+		      + "     unaccent(lower(v.prezime)) LIKE unaccent(lower(:prezime))) "
+
+		      + "AND (:ime IS NULL OR "
+		      + "     unaccent(lower(v.ime)) LIKE unaccent(lower(:ime))) "
+
+		      + "AND (:podstanicaId IS NULL OR s.podstanica_id = :podstanicaId) "
+
+		      + "AND (:tipPotrosacaIds IS NULL "
+		      + "     OR s.tip_potrosaca_id IN (:tipPotrosacaIds)) "
+
+		      + "AND (:stanUkljucen IS NULL OR s.ukljucen = :stanUkljucen) "
+
+		      + "GROUP BY s.sifra, v.prezime, v.ime",
+		    resultSetMapping = "ac"
+		),
+	
+		
+	
+	
+	
 	@NamedNativeQuery(name="Transakcija.searchForDnevnik", 
 	  query="SELECT coalesce(sum(duguje),0) as dugovanje, coalesce(sum(potrazuje),0) as potrazivanje, "
 	  		+ "coalesce(sum(duguje),0)- coalesce(sum(potrazuje), 0) as stanje, "
