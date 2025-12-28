@@ -21,7 +21,8 @@ export default class StavkeIzvodaDetails extends Vue {
     this.stavkeIzvodaService()
       .find(stavkeIzvodaId)
       .then(res => {
-        this.stavkeIzvoda = res;
+		console.log(res);
+        this.stavkeIzvoda = res.stavkeIzvoda;
       });
   }
 

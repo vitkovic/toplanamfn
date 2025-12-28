@@ -2,7 +2,7 @@
   "toplanaApp": {
     "vlasnik": {
       "home": {
-        "title": "Vlasniks",
+        "title": "Vlasnik",
         "createLabel": "Kreiraj novi Vlasnik",
         "createOrEditLabel": "Kreirajte ili izmenite Vlasnik",
         "notFound": "No Vlasniks found"
