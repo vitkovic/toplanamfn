@@ -138,6 +138,9 @@
                     :disabled="!isSaving" class="btn btn-info">
                         <span v-text="$t('entity.action.knjizenjePodela')">Podela</span>
                     </button>
+                     <b-button variant="info" @click="prikaziDetalje(stavkeIzvoda.pozivOdobrenja)">
+                                    <span v-text="$t('entity.action.transakcije')"></span>
+                     </b-button>
                 </div>
             </form>
         </div>

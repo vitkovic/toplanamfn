@@ -170,7 +170,7 @@ export default class Transakcija extends mixins(AlertMixin) {
 		
         },
         err => {
-          this.isFetching = false;
+          this.isFetching = false;                                       
         }
       );
       

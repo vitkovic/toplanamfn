@@ -55,6 +55,9 @@ export default class TransakcijaRazduzenje extends Vue {
   public sifra = null;
   public vlasnikt = [];
   public vlasniks = '';
+  
+  public vlasnikOpen = false;
+  public vlasnikSelectKey = 0;
 
   @Inject('vrstaTransakcijeService') private vrstaTransakcijeService: () => VrstaTransakcijeService;
 
@@ -215,7 +218,7 @@ export default class TransakcijaRazduzenje extends Vue {
       .catch(error => {
 	    this.ispravnaSifra = false;
         var message:string = this.getMessageFromHeader(error.response);
-        this.$notify({text:message, type:'error', duration:10000});
+        this.$notify({text:message, type:'error', duration:3000});
       });
     //console.log(this.stan.sifra);
   }
@@ -306,10 +309,20 @@ export default class TransakcijaRazduzenje extends Vue {
   
   public getSifra(): void {
 	
-	this.sifra = vlasniks.value;
+	this.sifra = this.vlasniks;
 	this.$refs.sifraStana.focus();
+	
 	
   }
   
+  public onVlasnikSelect(): void {
+    this.getSifra();
+	this.vlasnikSelectKey += 1;
+  }
+  
+  public prikaziDetalje(sifra:string): void {
+  	     this.$router.push({ path: `/transakcija/sve-prikaz/` + sifra });
+  	   }
+  	  
   
 }

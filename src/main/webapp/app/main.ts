@@ -80,6 +80,13 @@ import 'vue2-datepicker/locale/sr';
 import { MonthPicker } from 'vue-month-picker';
 import { MonthPickerInput } from 'vue-month-picker';
 
+
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css'
+
+Vue.component('v-select', vSelect)
+
+
 Vue.component('MonthPicker', MonthPicker);
 Vue.component('MonthPickerInput', MonthPickerInput);
 Vue.use(MonthPicker);

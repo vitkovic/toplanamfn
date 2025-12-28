@@ -11,13 +11,22 @@
                         <span v-text="$t('toplanaApp.transakcija.vlasnikt')">Vlasnik</span>
                     </div>
                     <div class="col-6">
-                        <select class="form-control" name="vlasniks" id="vlasniks"
+                       <!-- <select class="form-control" name="vlasniks" id="vlasniks"
                              v-model="vlasniks" v-on:change="getSifra" 
                              :class="{'valid': !vlasniks.$invalid, 'invalid':vlasniks.$invalid }"
                              >
                                <option value="">Одаберите Власника из Листе</option>
                                  <option v-bind:value="vlasnik.sifra" v-for="vlasnik in vlasnikt" :key="vlasnik.sifra">  {{ vlasnik.ime }} {{ vlasnik.prezime }} ({{ vlasnik.sifra }})</option>
-                        </select>
+                        </select>-->
+                       <v-select
+	  						:key="vlasnikSelectKey"
+	  						v-model="vlasniks"
+						  	:options="vlasnikt"
+						  	:reduce="v => v.sifra"
+						  	:get-option-label="v => `${v.ime} ${v.prezime} (${v.sifra})`"
+						  	placeholder="Одаберите Власника из Листе"
+						  	@input="onVlasnikSelect"
+						/>
                     </div>
                 </div>
                 
@@ -152,6 +161,9 @@
                     <button type="button" id="save-entity" class="btn btn-primary" v-on:click="clear()">
                         <span v-text="$t('entity.action.reset')"></span>
                     </button>
+                     <b-button variant="info" @click="prikaziDetalje(sifra)">
+                                    <span v-text="$t('entity.action.transakcije')"></span>
+                     </b-button>
                 </div>
             </form>
         </div>

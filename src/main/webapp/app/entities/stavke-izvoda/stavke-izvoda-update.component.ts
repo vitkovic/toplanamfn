@@ -20,7 +20,8 @@ import SifraPromeneService from '../sifra-promene/sifra-promene.service';
 
 import { ISifraPromene, SifraPromene } from '@/shared/model/sifra-promene.model';
 
-
+import StanService from '../stan/stan.service';
+import { IStan } from '@/shared/model/stan.model';
 
 const validations: any = {
   stavkeIzvoda: {
@@ -46,7 +47,8 @@ export default class StavkeIzvodaUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('stavkeIzvodaService') private stavkeIzvodaService: () => StavkeIzvodaService;
   public stavkeIzvoda: IStavkeIzvoda = new StavkeIzvoda();
-
+  @Inject('stanService') private stanService: () => StanService;
+  
   @Inject('transakcijaService') private transakcijaService: () => TransakcijaService;
 
   public transakcijas: ITransakcija[] = [];
@@ -62,6 +64,9 @@ export default class StavkeIzvodaUpdate extends Vue {
   public sifraPromenes: ISifraPromene[] = [];
   public sifraPromene: ISifraPromene = new SifraPromene();
 
+  public stans: IStan[] = [];
+  
+  
   public izvods: IIzvod[] = [];
   public isSaving = true;
   public currentLanguage = '';
@@ -70,7 +75,7 @@ export default class StavkeIzvodaUpdate extends Vue {
     stavkeIzvoda: null,
     sifraPromene: null,
   };
-
+  public sifra = null;
   beforeRouteEnter(to, from, next) {
     next(vm => {      
       if (to.params.stavkeIzvodaId) {
@@ -200,6 +205,16 @@ export default class StavkeIzvodaUpdate extends Vue {
       .then(res => {
         this.sifraPromenes = res.data;
     });  
-    
+	
+	
+  
+	public prikaziDetalje(sifra:string): void {
+	     this.$router.push({ path: `/transakcija/sve-prikaz/` + sifra });
+	   }
+	  
+	
+	  
   }
+  
+  
 }
