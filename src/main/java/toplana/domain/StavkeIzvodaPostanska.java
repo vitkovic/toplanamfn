@@ -2,6 +2,7 @@ package toplana.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -144,7 +145,7 @@ public class StavkeIzvodaPostanska implements Serializable {
 		this.ime = ime;
 		this.adresa = adresa;
 		this.posta = posta;		
-		this.iznos = new BigDecimal(sIznos);		
+		this.iznos = new BigDecimal(sIznos).setScale(2, RoundingMode.DOWN);;		
 	}
 
 	public Long getId() {
