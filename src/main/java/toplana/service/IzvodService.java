@@ -53,7 +53,7 @@ public class IzvodService {
 	    }
 		
 		String number = null;
-		
+		/*
 		try {
 			String name = fname; // new name of izvod file
 
@@ -74,11 +74,18 @@ public class IzvodService {
 			}
 	
 			number = name.substring(start + index, end);
+			*/
+			String d1 = fname.substring(15, 23).trim(); // yyyyMMdd
+			String d2 = fname.substring(24, 32).trim(); // yyyyMMdd
+			String n1 = d1.substring(4, 8) + d1.substring(2, 4) + d1.substring(0, 2); // yyyyMMdd
+			String n2 = d2.substring(4, 8) + d2.substring(2, 4) + d2.substring(0, 2); // yyyyMMdd
+
 			
+			number = n1 + n2;
 			//System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^             " + start + end +  " " + number);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		//} catch (Exception ex) {
+			//ex.printStackTrace();
+	//	}
 		
 		
 		String myEncoding = null;
@@ -93,7 +100,7 @@ public class IzvodService {
 		StringBuilder builder = new StringBuilder();  
 		String line;  
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, myEncoding));
-		String datum = null;
+		String datum = d2;
 		
 		while ((line = reader.readLine()) != null) {  
 			int idx0 = 160; // 0-based index for position 161 
@@ -105,8 +112,14 @@ public class IzvodService {
 		        continue;
 		    }
 			// if (datum == null) datum = line.substring(115, 123).trim(); 
+			/*
+			if (datum == null) {
+				int len = line.length();
+				datum = line.substring(len - 8, len);
+			}
 			
-			if (datum == null) datum = line.substring(line.length() - 10).trim();
+			*/
+		//	System.out.println("***********************************************************" + datum);
 			/*
 			if(line.startsWith("*"))//preskace linije koje pocinju *
 				continue;
@@ -134,10 +147,13 @@ public class IzvodService {
 		}  
 		reader.close();
 		try {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
-			izvod.setDatumIzvodaZaglavlje(LocalDate.parse(datum, formatter));
-			izvod.setBrojIzvoda(Integer.valueOf(number));
+			System.out.println("***********************************************************" + datum);
+			datum = datum.strip(); // bolje od trim() (skida i Unicode razmake)
+			izvod.setDatumIzvodaZaglavlje(LocalDate.parse(datum, DateTimeFormatter.BASIC_ISO_DATE)); // yyyyMMdd
+			izvod.setBrojIzvoda(Integer.valueOf(datum));
+			//izvod.setDatumIzvodaZaglavlje(LocalDate.parse(datum, formatter));
 		} catch (Exception ex){
+			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" + datum);
 			izvod.setDatumIzvodaZaglavlje(LocalDate.now());
 			Long l = LocalDate.now().atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
 			izvod.setBrojIzvoda(l.intValue());

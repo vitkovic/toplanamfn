@@ -116,14 +116,17 @@ public class StavkeIzvodaPostanska implements Serializable {
 		        .replace("È", "Č");                          // "SVETISLAV (MILIVOJE) STRAHINIC"
 
 		// Šifra (010470009)
-		String sifra = line.substring(95, 104).trim();       // "010470009"
-
+		//String sifra = line.substring(95, 104).trim();       // "010470009"
+		String sifra = line.substring(106, 115).trim(); 
 		// Datumi
-		String sValuta = line.substring(115, 123).trim();    // "31102025"
+		//String sValuta = line.substring(115, 123).trim();    // "31102025"
+		
+		String sValuta = line.substring(115, 123).trim();
+		
 		//String datumDo = line.substring(123, 131).trim();    // "27112025"
 
 		// Iznos (bez vodećim nulama)
-		String sIznos = line.substring(131, 160).trim().replace(",", ".");
+		String sIznos = line.substring(131, 158).trim().replace(",", ".");
 		sIznos = sIznos.replaceFirst("^0+(?!$)", "");   // uklanja sve vodeće nule
 
 		// Još jedan datum na kraju (npr. datum dospeća)
