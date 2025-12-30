@@ -123,7 +123,8 @@ public class StavkeIzvodaPostanska implements Serializable {
 		//String sValuta = line.substring(115, 123).trim();    // "31102025"
 		
 		String sValuta = line.substring(115, 123).trim();
-		
+		String zavrsniDatum = line.substring(line.length() - 8, line.length());
+		sValuta = zavrsniDatum;
 		//String datumDo = line.substring(123, 131).trim();    // "27112025"
 
 		// Iznos (bez vodećim nulama)
@@ -139,7 +140,19 @@ public class StavkeIzvodaPostanska implements Serializable {
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
 		  //convert String to LocalDate		
-		this.valuta = LocalDate.parse(sValuta, formatter);
+		
+		
+		try {
+			this.valuta = LocalDate.parse(sValuta.strip(), formatter);
+		} catch(Exception ex) 
+		{
+			this.valuta = LocalDate.now();
+		}
+		
+		
+		
+		
+	//	this.valuta = LocalDate.parse(sValuta, formatter);
 		this.brojTekucegRacuna = partijaRacuna;
 		this.brojPartijePoverioc = sifra;
 		this.ime = ime;

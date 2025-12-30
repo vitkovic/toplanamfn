@@ -147,13 +147,13 @@ public class IzvodService {
 		}  
 		reader.close();
 		try {
-			System.out.println("***********************************************************" + datum);
+		//	System.out.println("***********************************************************" + datum);
 			datum = datum.strip(); // bolje od trim() (skida i Unicode razmake)
 			izvod.setDatumIzvodaZaglavlje(LocalDate.parse(datum, DateTimeFormatter.BASIC_ISO_DATE)); // yyyyMMdd
 			izvod.setBrojIzvoda(Integer.valueOf(datum));
 			//izvod.setDatumIzvodaZaglavlje(LocalDate.parse(datum, formatter));
 		} catch (Exception ex){
-			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" + datum);
+	//		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" + datum);
 			izvod.setDatumIzvodaZaglavlje(LocalDate.now());
 			Long l = LocalDate.now().atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli();
 			izvod.setBrojIzvoda(l.intValue());
