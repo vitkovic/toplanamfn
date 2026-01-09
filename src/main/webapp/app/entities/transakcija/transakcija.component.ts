@@ -233,7 +233,7 @@ export default class Transakcija extends mixins(AlertMixin) {
 	//this.propOrder = 'stan.sifra';
 	const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
     if (this.propOrder !== 'id') {
-      result.push('id');
+      result.push('stan.sifra');
     }
    
    

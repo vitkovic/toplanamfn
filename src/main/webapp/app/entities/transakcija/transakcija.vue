@@ -189,6 +189,43 @@
 <script lang="ts" src="./transakcija.component.ts">
 </script>
 <style>
+/* 1. COMPLETELY REMOVE ALL DEFAULT ARROWS (Left and Right) */
+.table.b-table > thead > tr > th::before,
+.table.b-table > thead > tr > th::after {
+    content: none !important;
+    display: none !important;
+}
+
+.table.b-table > thead > tr > th {
+    background-image: none !important; /* Removes JHipster/DataTables images */
+    padding-right: 1rem !important;
+    position: relative;
+}
+
+/* 2. RE-APPLY COLORS FOR THE ACTIVE COLUMN */
+.table.b-table > thead > tr > th[aria-sort="ascending"],
+.table.b-table > thead > tr > th[aria-sort="descending"] {
+    color: #007bff !important;
+    border-bottom: 2px solid #007bff !important;
+}
+
+/* 3. MANUALLY ADD THE RIGHT ARROW ONLY */
+/* This adds a simple triangle on the right side of the active column */
+.table.b-table > thead > tr > th[aria-sort="ascending"]::after {
+    content: '▲' !important;
+    display: inline-block !important;
+    margin-left: 8px;
+    font-size: 0.7rem;
+    vertical-align: middle;
+}
+
+.table.b-table > thead > tr > th[aria-sort="descending"]::after {
+    content: '▼' !important;
+    display: inline-block !important;
+    margin-left: 8px;
+    font-size: 0.7rem;
+    vertical-align: middle;
+}
  .fieldWidth {
       width: 30%
     }
