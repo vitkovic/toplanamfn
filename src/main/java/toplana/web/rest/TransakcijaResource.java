@@ -259,14 +259,16 @@ public class TransakcijaResource {
         TransakcijeZaStanZbirnoDTO trans = null;
         Stan stan = stanRepository.findBySifra(sifraStana);
         
+        System.out.println("******************************" + stan);
         
-        
-        List<Stan> stanPN = stanRepository.getPreviousAndNextById(stan.getSifra());
+     
     
         if(stan != null) {        
+        	List<Stan> stanPN = stanRepository.getPreviousAndNextById(stan.getSifra());
         	trans = transakcijaService.findAllByStanOrderByDatum(stan);
         	trans.setPrevNextTransakcije(stanPN);
         }else {
+        	List<Stan> stanPN = stanRepository.getPreviousAndNextById(sifraStana);
         	trans = transakcijaService.findAllByDodatniRacunOrderByDatum(sifraStana);
         	trans.setPrevNextTransakcije(stanPN);
         }

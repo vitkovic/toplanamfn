@@ -23,7 +23,7 @@ export default class Transakcija extends mixins(AlertMixin) {
   public queryCount: number = null;
   public page = 1;
   public previousPage = 1;
-  public propOrder = 'id';
+  public propOrder = 'stan.sifra';
   public reverse = false;
   public totalItems = 0;
 
@@ -230,10 +230,14 @@ export default class Transakcija extends mixins(AlertMixin) {
   }
 
   public sort(): Array<any> {
-    const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
+	//this.propOrder = 'stan.sifra';
+	const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
     if (this.propOrder !== 'id') {
       result.push('id');
     }
+   
+   
+   
     return result;
   }
 
