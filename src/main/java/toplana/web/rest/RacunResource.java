@@ -149,7 +149,8 @@ public class RacunResource {
         log.debug("REST request to get Racun : {}", id);
         Optional<Racun> racun = racunRepository.findById(id);
         Racun r = racun.get();
-        List<Racun> racunPN = racunRepository.getPreviousAndNextById(r.getStan().getId());
+        LocalDate dt = r.getDatumRacuna();
+        List<Racun> racunPN = racunRepository.getPreviousAndNextById(r.getStan().getId(),dt);
         Set<StanjaPodstaniceZaRacun> a = r.getNacrtRacuna().getStanjaPodstaniceZaRacune();
         RacunDTO out = new RacunDTO(r);
         out.setPrevNextRacuni(racunPN);

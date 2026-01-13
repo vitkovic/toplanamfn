@@ -28,13 +28,13 @@ public interface RacunRepository extends JpaRepository<Racun, Long>, JpaSpecific
 	@Query(value = 
 		    "(SELECT r.* FROM racun r " +
 		    "JOIN stan s ON r.stan_id = s.id " +
-		    "WHERE s.id < :Idr ORDER BY s.id DESC LIMIT 1) " +
+		    "WHERE s.id < :Idr and r.datum_racuna = :Dt ORDER BY s.id DESC LIMIT 1 )  " +
 		    "UNION ALL " +
 		    "(SELECT r.* FROM racun r " +
 		    "JOIN stan s ON r.stan_id = s.id " +
-		    "WHERE s.id > :Idr ORDER BY s.id ASC LIMIT 1)",
+		    "WHERE s.id > :Idr and r.datum_racuna = :Dt ORDER BY s.id ASC LIMIT 1 ) ",
 		    nativeQuery = true)
-		List<Racun> getPreviousAndNextById(@Param("Idr") Long Idr);
+		List<Racun> getPreviousAndNextById(@Param("Idr") Long Idr, @Param("Dt") LocalDate dt);
 
 	
 	
