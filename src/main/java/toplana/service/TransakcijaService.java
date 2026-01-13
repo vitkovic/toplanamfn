@@ -94,7 +94,8 @@ public class TransakcijaService {
     @Transactional(readOnly = true)
     public Page<Transakcija> findAll(Pageable pageable) {
         log.debug("Request to get all Transakcijas");
-        return transakcijaRepository.findAll(pageable);
+        //return transakcijaRepository.findAll(pageable);
+        return transakcijaRepository.findAllWithStan(pageable);
     }
 
 

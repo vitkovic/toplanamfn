@@ -673,7 +673,7 @@
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Tekući račun: 840-2696760-36  kod Uprave za Trezor, Niš"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Tekući račun: 840-32808845-75  kod Uprave za Trezor, Niš"]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="62" width="553" height="1" uuid="cf34eb00-65fd-43ac-9a45-b1281aa44512"/>
@@ -1280,7 +1280,7 @@
 				<textElement>
 					<font fontName="DejaVu Sans" size="10" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA["840-2696760-36"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["840-32808845-75"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="159" y="710" width="378" height="12" uuid="a92fdd60-73f4-490a-91ec-7ca29a669e08"/>

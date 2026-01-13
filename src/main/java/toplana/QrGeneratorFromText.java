@@ -50,7 +50,7 @@ public class QrGeneratorFromText {
     	}
     	  
         String qrText =
-            "K:PR|V:01|C:1|R:840000000174566663|N:MFN AL. Medvedeva 14"
+            "K:PR|V:01|C:1|R:840000003280884575|N:MFN AL. Medvedeva 14"
             + "|I:RSD" + value +"|P:" + senderData 
             + "|SF:189|S:UPLATA PO RAČUNU ZA TOPLOTNU EN"
             + "|RO:" + "00" + sifra;

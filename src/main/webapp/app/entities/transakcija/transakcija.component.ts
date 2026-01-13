@@ -157,6 +157,10 @@ export default class Transakcija extends mixins(AlertMixin) {
       size: this.itemsPerPage,
       sort: this.sort(),
     };
+	
+	
+	console.log('SORT SEND:', paginationQuery.sort);
+	
     this.transakcijaService()
       .retrieveCriteria(this.search, paginationQuery)
       .then(
@@ -167,6 +171,9 @@ export default class Transakcija extends mixins(AlertMixin) {
     	  this.queryCount = this.totalItems;
           this.isFetching = false;
 		  this.fields = this.fieldsbase;
+		  this.$nextTick(() => {
+		     this.simulateSifraClick();
+		   });
 		
         },
         err => {
@@ -175,6 +182,15 @@ export default class Transakcija extends mixins(AlertMixin) {
       );
       
   }
+  
+  public simulateSifraClick():void {
+      const table = this.$refs.tbl;
+
+      if (table && typeof table.sortBy === 'function') {
+        // false = ASC, true = DESC
+        table.sortBy('sifra', false);
+      }
+    }
 
   public send(): void {
     this.search.reoni = [];
@@ -230,15 +246,16 @@ export default class Transakcija extends mixins(AlertMixin) {
   }
 
   public sort(): Array<any> {
-	//this.propOrder = 'stan.sifra';
-	const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
-    if (this.propOrder !== 'id') {
-      result.push('stan.sifra');
-    }
+	const dir = this.reverse ? 'desc' : 'asc';
+	 const result = [`${this.propOrder},${dir}`];
+
+	 // sekundarni sort samo ako nije već isti
+	 if (this.propOrder !== 'id' && this.propOrder !== 'stan.sifra') {
+	   result.push('stan.sifra,asc');
+	 }
+
+	 return result;
    
-   
-   
-    return result;
   }
 
   public loadPage(page: number): void {

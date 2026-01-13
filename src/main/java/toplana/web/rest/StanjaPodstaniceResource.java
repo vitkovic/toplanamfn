@@ -337,8 +337,11 @@ public class StanjaPodstaniceResource {
     	            .collect(Collectors.toMap(
     	                StanStanjeDTO::getSifra,   // key mapper (point code)
     	                Function.identity(),       // value mapper (the DTO itself)
-    	                BinaryOperator.maxBy(Comparator.comparing(StanStanjeDTO::getDatum)) // merge: keep later
+    	                BinaryOperator.minBy(Comparator.comparing(StanStanjeDTO::getDatum)) // merge: keep later
     	            ));
+    	        
+    	        
+    	        // KUKURIKU
     	        
     	        List<StanStanje> StanStanjaS = new ArrayList<>();
     	       // Stan stan = new Stan();

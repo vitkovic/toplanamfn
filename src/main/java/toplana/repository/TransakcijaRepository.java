@@ -132,4 +132,10 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 		    "WHERE s.id > :Idr ORDER BY s.id ASC LIMIT 1)",
 		    nativeQuery = true)
 		List<Transakcija> getPreviousAndNextById(@Param("Idr") Long Idr);
+	
+	 @Query(
+			    value = "select t from Transakcija t left join t.stan s",
+			    countQuery = "select count(t) from Transakcija t"
+			  )
+			  Page<Transakcija> findAllWithStan(Pageable pageable);
 }

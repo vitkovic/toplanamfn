@@ -37,7 +37,7 @@ public class QrGeneratorService {
                 + "\"K\": \"PR\","
                 + "\"V\": \"01\","
                 + "\"C\": \"1\","
-                + "\"R\": \"840000000174566663\","
+                + "\"R\": \"840000003280884575\","
                 + "\"N\": \"MFN AL. Medvedeva 14\","
                 + "\"I\": \"RSD"+value +"\","
                 + "\"P\": \"" + senderData + "\","
@@ -46,7 +46,7 @@ public class QrGeneratorService {
                 + "\"RO\": \"00"+ sifra + "\""
             + "}";
 
-        
+    
         /*
         String json =
                 "{"
