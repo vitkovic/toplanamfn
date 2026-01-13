@@ -114,7 +114,7 @@ export default class NacrtRacunaUpdate extends Vue {
 //	console.log(this.nacrtRacuna.id + "    ...... id" )
 
 	this.alertVariant = 'info';
-	this.alertMessage = 'Генерисање pdf рачуна је у току. Молим сачекајте...';
+	this.alertMessage = 'Генерисање рачуна је у току. Молим сачекајте...';
 	window.scrollTo({ top: 0, behavior: 'smooth' });
 
     if (this.nacrtRacuna.id) {
