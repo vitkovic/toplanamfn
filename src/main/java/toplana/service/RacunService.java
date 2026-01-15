@@ -253,12 +253,16 @@ public class RacunService  {
     		}
     		
     		
-    		
+    		//System.out.println("*****************************************************************************************" + r.getStan().getUkljucen());
+    		//System.out.println("*****************************************************************************************" + r.getCenaFix());
+    		//System.out.println("*****************************************************************************************" + r.getCenaFixIskljucen());
+    		//System.out.println("*****************************************************************************************" + rDTO.isIskljucen());
     		
     		String month = rDTO.getDatumRacuna().getMonth().getDisplayName(TextStyle.FULL, loc);
     		String a = month + " " + Integer.valueOf(rDTO.getDatumRacuna().getYear()).toString().substring(2,4);   		
     		
-    		RacunStampanje rs = new RacunStampanje(1L, rDTO.getStan().getVlasnik().getPrezime(), 
+    		RacunStampanje rs = new RacunStampanje(1L, 
+    				rDTO.getStan().getVlasnik().getPrezime(), 
     				rDTO.getStan().getVlasnik().getIme(), rDTO.getStan().getVlasnik().getNaziv(), 
     				rDTO.getStan().getUlica(),rDTO.getStan().getUlaz() + "", rDTO.getStan().getBroj() + "", 
     				rDTO.getStan().getSifra(), rDTO.getStan().getStatus(), rDTO.getStan().getVlasnik().getBrojRacuna(),
@@ -267,24 +271,51 @@ public class RacunService  {
     				rDTO.getStanjeZaRacun().getNovoStanje().getStanje().toString(),
     				rDTO.getStanjeZaRacun().getNovoStanje().getStanje().subtract(rDTO.getStanjeZaRacun().getStaroStanje().getStanje()).toString(),
     				rDTO.getStanjeZaRacun().getUkupnaPovrsina().toString(), rDTO.getStanjeZaRacun().getUtrosakPoM2().toString(),
-    				rDTO.getStan().getPovrsina().toString(), rDTO.getUtrosakUKwh().toString(),
-    				rDTO.getCenaKwh().toString(), rDTO.getUtrosakVarijabilniBezPopusta().toString(),
-    				rDTO.getUtrosakVarijabilniPopust().toString(), rDTO.getUtrosakVarijabilniBezPdv().toString(),
-    				rDTO.getPdv2().toString(), rDTO.getPdv1().toString(),
-    				rDTO.getUtrosakVarijabilniPdv().toString(),rDTO.getUtrosakVarijabilni().toString(),
-    				rDTO.getCenaFix().toString(), rDTO.getUtrosakFiksniBezPopusta().toString(),
-    				rDTO.getUtrosakFiksniPopust().toString(), rDTO.getUtrosakFiksniBezPdv().toString(), 
-    				rDTO.getUtrosakFiksniPdv().toString(), rDTO.getUtrosakFiksni().toString(),
-    				rDTO.getCenaOdrzavanje().toString(), rDTO.getUtrosakOdrzavanjeBezPdv().toString(),
-    				rDTO.getUtrosakOdrzavanjePdv().toString(), rDTO.getUtrosakOdrzavanje().toString(),
-    				rDTO.getZaduzenjePoRacunu().toString(), rDTO.getUkupnoZaduzenje().toString(),
-    				rDTO.getZaPlacanje().toString(), rDTO.getDatumRacuna().format(formatter),
-    				rDTO.getValutaPlacanja().format(formatter), rDTO.getDatumSaldiranja().format(formatter),
-    				rDTO.getUkupnoZaduzenje().toString(), "1", a, rDTO.getPopust().toString(),
-    				rDTO.getStan().isUkljucen(), rDTO.getPopust() == null ? false : true, rDTO.getCenaFixIskljucen().toString(), rDTO.getPeriod(),
-    				rDTO.getSlikaQrStan(), rDTO.getImgQr(), rDTO.getStan().getVlasnik().getEmail(), rDTO.getNoviStaroStanje(), rDTO.getNoviNovoStanje(), rDTO.getNovipotrosnjazaPeriod(),
-    				rDTO.getNoviUdeoUZajednickoj(),rDTO.getNoviPotrosnjaPoSvimMerilima(), rDTO.getNoviZajednickaPotrosnja()
-    				);    				
+    				rDTO.getStan().getPovrsina().toString(), 
+    				rDTO.getUtrosakUKwh().toString(),
+    				rDTO.getCenaKwh().toString(), 
+    				rDTO.getUtrosakVarijabilniBezPopusta().toString(),
+    				rDTO.getUtrosakVarijabilniPopust().toString(), 
+    				rDTO.getUtrosakVarijabilniBezPdv().toString(),
+    				rDTO.getPdv2().toString(), 
+    				rDTO.getPdv1().toString(),
+    				rDTO.getUtrosakVarijabilniPdv().toString(),
+    				rDTO.getUtrosakVarijabilni().toString(),
+    				rDTO.getCenaFix().toString(), 
+    				rDTO.getUtrosakFiksniBezPopusta().toString(),
+    				rDTO.getUtrosakFiksniPopust().toString(), 
+    				rDTO.getUtrosakFiksniBezPdv().toString(), 
+    				rDTO.getUtrosakFiksniPdv().toString(), 
+    				rDTO.getUtrosakFiksni().toString(),
+    				rDTO.getCenaOdrzavanje().toString(),
+    				rDTO.getUtrosakOdrzavanjeBezPdv().toString(),
+    				rDTO.getUtrosakOdrzavanjePdv().toString(), 
+    				rDTO.getUtrosakOdrzavanje().toString(),
+    				rDTO.getZaduzenjePoRacunu().toString(), 
+    				rDTO.getUkupnoZaduzenje().toString(),
+    				rDTO.getZaPlacanje().toString(), 
+    				rDTO.getDatumRacuna().format(formatter),
+    				rDTO.getValutaPlacanja().format(formatter), 
+    				rDTO.getDatumSaldiranja().format(formatter),     
+    				rDTO.getUkupnoZaduzenje().toString(), 
+    				"1", 
+    				a, 
+    				rDTO.getPopust().toString(),
+    				rDTO.isIskljucen(), 
+    				rDTO.getPopust() == null ? false : true,       
+    				rDTO.getCenaFixIskljucen().toString(), 
+    				rDTO.getPeriod(),
+    				rDTO.getSlikaQrStan(), 
+    				rDTO.getImgQr(), 
+    				rDTO.getStan().getVlasnik().getEmail(),
+    				rDTO.getNoviStaroStanje(), 
+    				rDTO.getNoviNovoStanje(), 
+    				rDTO.getNovipotrosnjazaPeriod(),
+    				rDTO.getNoviUdeoUZajednickoj(),     
+    				rDTO.getNoviPotrosnjaPoSvimMerilima(), 
+    				rDTO.getNoviZajednickaPotrosnja()
+    				); 
+    				
     		racuniStampanje.add(rs); 
     		
     		

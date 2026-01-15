@@ -86,6 +86,8 @@ public class RacunDTO {
 	private Double NoviPotrosnjaPoSvimMerilima;
 	private Double NoviZajednickaPotrosnja;
 	
+	private boolean iskljucen;
+	
 	private String strippedsifra;
 	
 	private List<Racun> prevNextRacuni;
@@ -145,6 +147,15 @@ public class RacunDTO {
 		this.strippedsifra = strippedsifra;
 	}
 
+	
+	public boolean isIskljucen() {
+		return iskljucen;
+	}
+
+	public void setIskljucen(boolean iskljucen) {
+		this.iskljucen = iskljucen;
+	}
+
 	public RacunDTO(Racun r) {
 		this.id = r.getId();
 		this.datumRacuna = r.getDatumRacuna();
@@ -173,7 +184,7 @@ public class RacunDTO {
 		this.transakcijaStara = r.getTransakcijaStara();
 		this.zaduzenjePoRacunu = this.utrosakFiksni.add(this.utrosakVarijabilni).add(this.utrosakOdrzavanje);
 		this.zaPlacanje = this.zaduzenjePoRacunu.add(this.ukupnoZaduzenje);
-		
+		this.iskljucen = r.getStan().getUkljucen();
 		this.utrosakVarijabilniBezPopusta = this.utrosakUKwh.multiply(this.cenaKwh).setScale(2,RoundingMode.HALF_UP);
     	this.utrosakFiksniBezPopusta = stan.getPovrsina().multiply(this.cenaFix).setScale(2,RoundingMode.HALF_UP);
     	this.utrosakOdrzavanjeBezPdv = stan.getPovrsina().multiply(this.cenaOdrzavanje).setScale(2,RoundingMode.HALF_UP);

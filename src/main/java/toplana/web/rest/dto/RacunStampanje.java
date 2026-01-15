@@ -86,8 +86,20 @@ public class RacunStampanje {
 			String cenaOdrzavanje, String utrosakOdrzavanjeBezPdv, String utrosakOdrzavanjePdv,
 			String utrosakOdrzavanje, String zaduzenjePoRacunu, String ukupnoZaduzenje, String zaPlacanje,
 			String datumRacuna, String valutaPlacanja, String datumSaldiranja, String dugIzPrethodnogPerioda,
-			String brojRacuna, String zaMesec, String popust,  boolean iskljucen, boolean dajeSePopust, String cenaFixIskljucen, String period, String qr, BufferedImage bufImg, String email,
-			Double NoviStaroStanje, Double NoviNovoStanje, Double NovipotrosnjazaPeriod, Double NoviUdeoUZajednickoj,Double NoviPotrosnjaPoSvimMerilima, Double NoviZajednickaPotrosnja) {
+			String brojRacuna, String zaMesec, String popust,  
+			boolean iskljucen, 
+			boolean dajeSePopust, 
+			String cenaFixIskljucen, 
+			String period, 
+			String qr, 
+			BufferedImage bufImg, 
+			String email,
+			Double NoviStaroStanje, 
+			Double NoviNovoStanje, 
+			Double NovipotrosnjazaPeriod, 
+			Double NoviUdeoUZajednickoj,
+			Double NoviPotrosnjaPoSvimMerilima, 
+			Double NoviZajednickaPotrosnja) {
 
 		this.id = id;
 		this.vlasnikPrezime = vlasnikPrezime;
@@ -148,6 +160,7 @@ public class RacunStampanje {
 		this.noviUdeoUZajednickoj = NoviUdeoUZajednickoj;
 		this.noviPotrosnjaPoSvimMerilima = NoviPotrosnjaPoSvimMerilima;
 		this.noviZajednickaPotrosnja = NoviZajednickaPotrosnja;
+		this.iskljucen = iskljucen;;
 		  
 		String vPrezime = "";
 		if(this.vlasnikPrezime != null)

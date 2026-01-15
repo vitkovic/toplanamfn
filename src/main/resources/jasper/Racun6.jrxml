@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 6.3.0  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.3.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Racun2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3ce3dc05-53e3-413a-a6c1-7d31d33f9ae1">
 	<parameter name="imgQr" class="java.awt.Image"/>
 	<queryString>
@@ -470,7 +470,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{podstanicaStaroStanje} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{podstanicaStaroStanje}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="207" y="254" width="99" height="12" uuid="d3d4c7b0-3b3a-48b0-b9c6-dd94f87b17c0"/>
@@ -496,7 +496,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{podstanicaNovoStanje} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{podstanicaNovoStanje}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="369" y="234" width="199" height="12" uuid="1e24c723-6913-4242-8dd4-28136c96b57f"/>
@@ -515,7 +515,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{podstanicaRazlikaStanja} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{podstanicaRazlikaStanja}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="208" y="273" width="100" height="12" uuid="c2af5656-98e0-4595-9835-85a2f2c2664a">
@@ -527,7 +527,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{podstanicaUkupnaPovrsina} ]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{podstanicaUkupnaPovrsina}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="323" width="80" height="12" uuid="17f7a150-2187-4d73-b289-87edfad0b2d6">
@@ -810,7 +810,7 @@
 				<textElement>
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{iskljucen}.equals("true") ? $F{cenaFix} : $F{cenaFixIskljucen}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{iskljucen} ? $F{cenaFix} : $F{cenaFixIskljucen}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="270" y="382" width="46" height="12" uuid="2b2a33e7-b4a7-41f2-8ff2-33d8686dba7e">
@@ -1117,8 +1117,7 @@
 				<textElement>
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Potrošnja po svim merilima"
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Potrošnja po svim merilima"]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="208" y="194" width="100" height="12" uuid="d0023c04-ea27-4303-9079-d57812ef166f">
@@ -1130,7 +1129,7 @@
 				<textElement textAlignment="Right">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{noviUdeoUZajednickoj}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{noviPotrosnjaPoSvimMerilima}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="208" y="216" width="176" height="12" uuid="0bace23a-3f4a-4521-aa08-a3a36eb3699b"/>
@@ -1269,8 +1268,7 @@
 				<textElement>
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA["kWh"
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA["kWh"]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="400" y="716" width="129" height="1" uuid="0805ca43-2382-406a-acd1-7b6c965391d9"/>
