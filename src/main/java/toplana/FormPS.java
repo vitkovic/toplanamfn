@@ -60,7 +60,7 @@ public class FormPS {
 
             // 6) IZNOS
             BigDecimal iz = rdto.getZaPlacanje();
-          
+         
             String izStr = normalizeNumberString(iz);
             String izPad = leftPad(izStr, 22, '0');
            
