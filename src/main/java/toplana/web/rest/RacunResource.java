@@ -313,7 +313,6 @@ public class RacunResource {
     	List<Racun> racuni = racunRepository.findAllForMonthAndBrojRacuna(start, end, "908-20001-18");
     	
     	
-    	
     	ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     	
     	/* old
@@ -331,7 +330,7 @@ public class RacunResource {
 
     	FormPS ps = new FormPS();
     	
-    	ByteArrayResource bb = ps.createFile(racuni);
+    	ByteArrayResource bb = ps.createFile(racuni, end);
     	
     	     
     	HttpHeaders headers = new HttpHeaders();

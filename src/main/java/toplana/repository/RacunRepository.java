@@ -3,6 +3,7 @@ package toplana.repository;
 import toplana.domain.Racun;
 import toplana.domain.Stan;
 import toplana.web.rest.dto.DugujePotrazujeDTO;
+import toplana.web.rest.dto.RacunDTO;
 import toplana.web.rest.dto.RekapitulacijaPoPdvDelimicnaDTO;
 
 import java.time.LocalDate;
@@ -45,6 +46,30 @@ public interface RacunRepository extends JpaRepository<Racun, Long>, JpaSpecific
 	List<Racun> findAllForMonthAndBrojRacuna(@Param("startDate") LocalDate startDate, 
 			@Param("endDate") LocalDate endDate,
 			@Param("brojRacuna") String brojRacuna);
+	
+	
+	@Query(
+		    value =
+		        "SELECT " +
+		        "  s.id AS stan_id, s.broj, " +
+		        "  s.sifra, v.ime, v.prezime, v.partija_racuna AS partija, " +
+		        "  COALESCE(SUM(t.duguje),0) - COALESCE(SUM(t.potrazuje),0) AS saldo " +
+		        "FROM stan s " +
+		        "JOIN vlasnik v ON v.id = s.vlasnik_id " +
+		        "LEFT JOIN transakcija t " +
+		        "  ON t.stan_id = s.id " +
+		        "  AND t.datum <= :krajnjiDatum " +
+		        "WHERE v.broj_racuna = :brojRacuna " +
+		        "GROUP BY s.id, s.broj, s.sifra, v.ime, v.prezime, v.partija_racuna " +
+		        "ORDER BY " +
+		        "  NULLIF(regexp_replace(s.sifra, '\\\\D', '', 'g'), '')::bigint, " +
+		        "  s.sifra",
+		    nativeQuery = true
+	)
+		List<Object[]> findStanSaldoRaw(
+		    @Param("krajnjiDatum") java.time.LocalDate krajnjiDatum,
+		    @Param("brojRacuna") String brojRacuna
+		);
 	
 	
 	@Query(nativeQuery = true)

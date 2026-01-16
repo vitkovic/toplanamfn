@@ -10,10 +10,12 @@ import java.util.List;
 import org.springframework.core.io.ByteArrayResource;
 
 import toplana.domain.Racun;
+import toplana.web.rest.dto.RacunDTO;
+import toplana.web.rest.dto.StanSaldoDTO;
 
 public class FormPS {
 
-    public ByteArrayResource createFile(List<Racun> racuni) {
+    public ByteArrayResource createFile(List<Racun> racuni, LocalDate end) {
 
         StringBuilder out = new StringBuilder(1024 * 64);
 
@@ -33,7 +35,7 @@ public class FormPS {
         String dszStr = dsz.format(dmy);
 
         for (Racun r : racuni) {
-
+        	RacunDTO rdto = new RacunDTO(r);
             // -----------------------------
             // POLJA IZ OBJEKATA
             // -----------------------------
@@ -57,12 +59,8 @@ public class FormPS {
             String pnb = rightPad(r.getStan().getSifra(), 20, ' ');
 
             // 6) IZNOS
-            BigDecimal iz =
-                    r.getUtrosakVarijabilni()
-                        .add(r.getUtrosakFiksni())
-                        .add(r.getUtrosakOdrzavanje())
-                        .setScale(2, RoundingMode.DOWN);
-
+            BigDecimal iz = rdto.getZaPlacanje();
+          
             String izStr = normalizeNumberString(iz);
             String izPad = leftPad(izStr, 22, '0');
            
