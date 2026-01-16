@@ -312,6 +312,8 @@ public class RacunResource {
     	
     	List<Racun> racuni = racunRepository.findAllForMonthAndBrojRacuna(start, end, "908-20001-18");
     	
+    	
+    	
     	ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     	
     	/* old

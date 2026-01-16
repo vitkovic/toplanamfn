@@ -65,12 +65,13 @@ public class FormPS {
 
             String izStr = normalizeNumberString(iz);
             String izPad = leftPad(izStr, 22, '0');
-
+           
             // -----------------------------
             // FORMIRANJE PS REDA
             // Ako je racun za mesec za koji se radi negativan (u pretplati) ne ulazi u izvestaj            
             // -----------------------------
-            if (iz.compareTo(new BigDecimal(0)) == -1) {
+            if (iz.compareTo(new BigDecimal(0)) == 1) {
+            	// System.out.println(iz);
 	            out.append("1")           // TS
 	               .append(bup)
 	               .append(bun)
@@ -86,6 +87,7 @@ public class FormPS {
             }  
         }
 
+    //    System.out.println(out);
         return new ByteArrayResource(out.toString().getBytes());
     }
 
