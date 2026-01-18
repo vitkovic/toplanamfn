@@ -17,7 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,8 +30,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing {@link toplana.domain.Vlasnik}.
@@ -138,42 +145,118 @@ public class VlasnikResource {
      * @param pageable
      * @return
      ****************************************************************************************************************/
-    
     @PostMapping("/vlasniks/criteria")
-    public ResponseEntity<List<Vlasnik>> getAllVlasniksCriteria(@RequestBody SearchVlasnikDTO search, Pageable pageable) {   
-    	
-	    VlasnikSpecification vlasnikSpec = this.createSpecification(search);
-	    
-	    //msTitleRating.add(new SearchCriteria("sifra", "010230001", SearchOperation.EQUAL));
-	    
-	    //msTitleRating.add(new SearchCriteria("rating", 7, SearchOperation.GREATER_THAN));
-	    
-	    Page<Vlasnik> page = vlasnikRepository.findAll(vlasnikSpec,pageable);
-	    HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-	    return ResponseEntity.ok().headers(headers).body(page.getContent());
+    public ResponseEntity<List<Vlasnik>> getAllVlasniksCriteria(@RequestBody SearchVlasnikDTO search, Pageable pageable) {
+
+        // 1) Detektuj da li postoji sort po "stanSifra" i smer
+        Sort.Order stanOrder = null;
+        if (pageable.getSort() != null && pageable.getSort().isSorted()) {
+            for (Sort.Order o : pageable.getSort()) {
+                if ("stanSifra".equalsIgnoreCase(o.getProperty())) {
+                    stanOrder = o;
+                    break;
+                }
+            }
+        }
+
+        boolean sortByStanSifra = (stanOrder != null);
+        boolean sortAsc = (stanOrder == null) || stanOrder.isAscending();
+
+        // 2) SPEC (tvoja VlasnikSpecification koristi sortByStanSifra/sortAsc)
+        VlasnikSpecification spec = createSpecification(search, sortByStanSifra, sortAsc);
+
+        // 3) Pageable: ako je sortByStanSifra, SKINI SVE SORTOVE (da Spring ne pregazi orderBy iz Specification)
+        Pageable effectivePageable;
+        if (sortByStanSifra) {
+            effectivePageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+        } else {
+            // normalno: izbaci stanSifra ako se nekad pojavi, ostavi ostale sortove
+            Sort filteredSort = Sort.unsorted();
+            if (pageable.getSort() != null && pageable.getSort().isSorted()) {
+                for (Sort.Order o : pageable.getSort()) {
+                    if (!"stanSifra".equalsIgnoreCase(o.getProperty())) {
+                        filteredSort = filteredSort.and(Sort.by(o));
+                    }
+                }
+            }
+            effectivePageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), filteredSort);
+        }
+
+        // 4) PRVI upit: paginacija
+        Page<Vlasnik> page = vlasnikRepository.findAll(spec, effectivePageable);
+
+        // 5) Pagination headeri
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(
+            ServletUriComponentsBuilder.fromCurrentRequest(), page
+        );
+
+        // 6) IDs sa stranice
+        List<Long> ids = page.getContent().stream()
+            .map(Vlasnik::getId)
+            .collect(Collectors.toList());
+
+        if (ids.isEmpty()) {
+            return ResponseEntity.ok().headers(headers).body(Collections.emptyList());
+        }
+
+        // 7) DRUGI upit: fetch stanova za te vlasnike
+        List<Vlasnik> withStans = vlasnikRepository.findAllWithStansByIdIn(ids);
+
+        // 8) očuvaj redosled iz page-a
+        Map<Long, Vlasnik> byId = withStans.stream()
+            .collect(Collectors.toMap(Vlasnik::getId, Function.identity()));
+
+        List<Vlasnik> ordered = ids.stream()
+            .map(byId::get)
+            .filter(Objects::nonNull)
+            .collect(Collectors.toList());
+
+        return ResponseEntity.ok().headers(headers).body(ordered);
     }
+
+
     
     /**
      * Kreira specification na osnovu kriterijuma od klijenta
      * @param search
      * @return
      */
-    private VlasnikSpecification createSpecification(SearchVlasnikDTO search) {
-    	VlasnikSpecification vlasnikSpec = new VlasnikSpecification();
-	   
-	    if(search.getSifraStana() != null && !search.getSifraStana().trim().equals("")) {
-	    	vlasnikSpec.add(new SearchCriteria("Stan", "sifra", search.getSifraStana(), SearchOperation.MATCH));
-	    }
-	   
-	    if(search.getPrezime() != null && !search.getPrezime().trim().equals("")) {
-	    	vlasnikSpec.add(new SearchCriteria("Vlasnik", "prezime", search.getPrezime(), SearchOperation.MATCH));
-	    }
-	    
-	    if(search.getIme() != null && !search.getIme().trim().equals("")) {
-	    	vlasnikSpec.add(new SearchCriteria("Vlasnik", "ime", search.getIme(), SearchOperation.MATCH));
-	    }
-	    
-	    return vlasnikSpec;
+    private VlasnikSpecification createSpecification(
+            SearchVlasnikDTO search,
+            boolean sortByStanSifra,
+            boolean sortAsc) {
+
+        VlasnikSpecification spec =
+            new VlasnikSpecification(sortByStanSifra, sortAsc);
+
+        if (search.getSifraStana() != null && !search.getSifraStana().trim().isEmpty()) {
+            spec.add(new SearchCriteria(
+                "Stan",
+                "sifra",
+                search.getSifraStana().trim(),
+                SearchOperation.MATCH
+            ));
+        }
+
+        if (search.getPrezime() != null && !search.getPrezime().trim().isEmpty()) {
+            spec.add(new SearchCriteria(
+                "Vlasnik",
+                "prezime",
+                search.getPrezime().trim(),
+                SearchOperation.MATCH
+            ));
+        }
+
+        if (search.getIme() != null && !search.getIme().trim().isEmpty()) {
+            spec.add(new SearchCriteria(
+                "Vlasnik",
+                "ime",
+                search.getIme().trim(),
+                SearchOperation.MATCH
+            ));
+        }
+
+        return spec;
     }
     
     

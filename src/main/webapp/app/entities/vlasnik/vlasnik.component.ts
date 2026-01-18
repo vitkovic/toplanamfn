@@ -43,7 +43,10 @@ export default class Vlasnik extends mixins(AlertMixin) {
   }
 
   public retrieveAllVlasniks(): void {
-    this.isFetching = true;
+    
+	this.send();
+	/*
+	this.isFetching = true;
 
     const paginationQuery = {
       page: this.page - 1,
@@ -55,6 +58,7 @@ export default class Vlasnik extends mixins(AlertMixin) {
       .then(
         res => {
           this.vlasniks = res.data;
+		  console.log(res.data);
           this.totalItems = Number(res.headers['x-total-count']);
           this.queryCount = this.totalItems;
           this.isFetching = false;
@@ -63,9 +67,16 @@ export default class Vlasnik extends mixins(AlertMixin) {
           this.isFetching = false;
         }
       );
+	  
+	  */
   }
   
-  
+  public firstStanSifra(vlasnik): void {
+       if (!vlasnik.stans || vlasnik.stans.length === 0) {
+         return '-';
+       }
+       return vlasnik.stans[0].sifra || '-';
+  }
   public send(): void {   
      /* if(this.formDisabled()){
         const message = this.$t('toplanaApp.racun.morateUnetiNekiPodatak');
@@ -91,6 +102,7 @@ export default class Vlasnik extends mixins(AlertMixin) {
       .then(res => {    
         this.margina = false;
         this.vlasniks = res.data;
+		console.log(res.data);
         this.totalItems = Number(res.headers['x-total-count']);
         this.queryCount = this.totalItems;      
         this.isFetching = false;
