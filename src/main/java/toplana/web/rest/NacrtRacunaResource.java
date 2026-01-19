@@ -41,6 +41,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -530,7 +531,11 @@ public class NacrtRacunaResource {
             throws IOException {
     	
     	
-    	List<Racun> racuni = racunRepository.findAllByNacrtRacunaId(nacrtRacunaId);
+    	//List<Racun> racuni = racunRepository.findAllByNacrtRacunaId(nacrtRacunaId);
+    	
+    	List<Racun> racuni = racunRepository.findAllByNacrtRacunaIdOrderByStanSifraNumNative(nacrtRacunaId);
+    	
+    	
     	String filename = racunService.createRacuneZaStampanje(racuni);
     	File file = new File(filename);   	       
 

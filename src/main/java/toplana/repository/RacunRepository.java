@@ -9,6 +9,7 @@ import toplana.web.rest.dto.RekapitulacijaPoPdvDelimicnaDTO;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -25,6 +26,19 @@ public interface RacunRepository extends JpaRepository<Racun, Long>, JpaSpecific
 	List<Racun> findByAzuriranAndNacrtRacunaId(Boolean azuriran, Long nacrtRacunaId);
 	
 	List<Racun> findAllByNacrtRacunaId(Long nacrtRacunaId);
+	
+	List<Racun> findAllByNacrtRacunaId(Long nacrtRacunaId, Sort sort);
+	
+	
+	@Query(value =
+		       "select r.* " +
+		       "from racun r " +
+		       "join stan s on s.id = r.stan_id " +
+		       "where r.nacrt_racuna_id = :id " +
+		       "order by cast(s.sifra as integer)",
+		       nativeQuery = true)
+		List<Racun> findAllByNacrtRacunaIdOrderByStanSifraNumNative(@Param("id") Long id);
+	
 	
 	@Query(value = 
 		    "(SELECT r.* FROM racun r " +
