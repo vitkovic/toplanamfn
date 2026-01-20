@@ -76,7 +76,7 @@
                 <span v-text="$t('toplanaApp.racun.utrosak')"></span>
             </div>
             <div class="col-2">            
-                {{racun.stanjeZaRacun.novoStanje.stanje - racun.stanjeZaRacun.staroStanje.stanje}} kwh
+                {{(racun.stanjeZaRacun.novoStanje.stanje - racun.stanjeZaRacun.staroStanje.stanje).toFixed(2)}} kwh
             </div>
             <div class="col-3">            
                 {{racun.stanjeZaRacun.ukupnaPovrsina}} m2
