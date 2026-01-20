@@ -30,7 +30,7 @@ public interface RacunRepository extends JpaRepository<Racun, Long>, JpaSpecific
 	List<Racun> findAllByNacrtRacunaId(Long nacrtRacunaId, Sort sort);
 	
 	
-	@Query(value =
+	@Query(value = 
 		       "select r.* " +
 		       "from racun r " +
 		       "join stan s on s.id = r.stan_id " +

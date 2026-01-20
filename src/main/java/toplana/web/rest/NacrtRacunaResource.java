@@ -300,7 +300,7 @@ public class NacrtRacunaResource {
           	p.setUkupnapotrosnjapostanu(suma.doubleValue()); // ukupna potrosnja po svim stanovima - sumirana razlika potrosnje po svakom stanu
       
         	// DOVDE
-        	
+        	 
         	
         	for(Stan stan : stanoviZaPodstanicu) {
         		
