@@ -296,7 +296,7 @@ public class Racun implements Serializable {
 		}
     	//ako je saldo negativan ili jednak 0
     	if((this.ukupnoZaduzenje.compareTo(new BigDecimal("0.")) <= 0 && this.stan.getTipPotrosaca().getTip() != 5) || 
-    			((this.ukupnoZaduzenje.doubleValue() <= 0.05 && this.ukupnoZaduzenje.doubleValue() >= 0.05) && this.stan.getTipPotrosaca().getTip() != 5)) {
+    			((this.ukupnoZaduzenje.doubleValue() <= 0.05 && this.ukupnoZaduzenje.doubleValue() >= 0) && this.stan.getTipPotrosaca().getTip() != 5)) {
     		
     		this.popust = nacrtRacuna.getPopust();
     		
