@@ -52,8 +52,6 @@
                     <td>{{stan.ulaz}}</td>
                     <td>{{stan.broj}}</td>
                     <td>{{ stan.ukljucen ? 'Да' : 'Не' }}</td>                    
-                    
-                    
                     <td>
                         <div v-if="stan.tipPotrosaca">
                             <router-link :to="{name: 'TipPotrosacaView', params: {tipPotrosacaId: stan.tipPotrosaca.id}}">{{stan.tipPotrosaca.tip}}</router-link>
