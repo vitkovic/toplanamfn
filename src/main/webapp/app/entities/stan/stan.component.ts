@@ -47,7 +47,8 @@ export default class Stan extends mixins(AlertMixin) {
       .then(
         res => {
           this.stans = res.data;
-          this.totalItems = Number(res.headers['x-total-count']);
+		//  this.stans = res.data.map(item => Object.assign(new Stan(), item));
+		  this.totalItems = Number(res.headers['x-total-count']);
           this.queryCount = this.totalItems;
           this.isFetching = false;
         },

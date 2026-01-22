@@ -145,7 +145,8 @@ export default class StanUpdate extends Vue {
       .find(stanId)
       .then(res => {
 		console.log(res)
-		this.stan = res;
+		//this.stan = res;
+		this.stan = Object.assign(new Stan(), res);
 		//this.vlasniks = res.vlasnik;
       });
   }

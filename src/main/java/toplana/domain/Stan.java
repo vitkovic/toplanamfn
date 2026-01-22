@@ -101,6 +101,10 @@ public class Stan implements Serializable {
     @JsonIgnoreProperties(value = "stans", allowSetters = true)
     private Vlasnik vlasnik;
 	
+    
+    //private String status;
+    
+    
 								
 	@OneToOne(mappedBy = "stan")
     @JsonIgnore
@@ -466,6 +470,8 @@ public class Stan implements Serializable {
 		this.ostaliRacuni = ostaliRacuni;
 	}
 
+	@Transient
+	@JsonIgnore
 	public String getStatus() {
     	String out = "" + this.podstanica.getBroj() + this.getUkljucenKaoString();
     	return out;

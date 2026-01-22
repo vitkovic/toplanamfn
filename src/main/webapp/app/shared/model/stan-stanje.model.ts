@@ -16,6 +16,6 @@ export class StanStanje implements IStanStanje {
     public datum?: Date,
     public vrednost?: number,
     public stan_id?: number,
-    public stan?: IStan
+	public stan?: IStan
   ) {}
 }

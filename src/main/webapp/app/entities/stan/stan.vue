@@ -36,7 +36,7 @@
                     <th v-on:click="changeOrder('tipPotrosaca.id')"><span v-text="$t('toplanaApp.stan.tipPotrosaca')">Tip Potrosaca</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'tipPotrosaca.id'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('podstanica.id')"><span v-text="$t('toplanaApp.stan.podstanica')">Podstanica</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'podstanica.id'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('vlasnik.id')"><span v-text="$t('toplanaApp.stan.vlasnik')">Vlasnik</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'vlasnik.id'"></jhi-sort-indicator></th>
-					<th v-on:click="changeOrder('brojMerila')"><span v-text="$t('toplanaApp.stan.brojMerila')">Broj Merila</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="brojMerila"></jhi-sort-indicator></th>
+					<th v-on:click="changeOrder('brojMerila')"><span v-text="$t('toplanaApp.stan.brojMerila')">Broj Merila</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" field-name="brojMerila"></jhi-sort-indicator></th>
 					<th></th>
 					
                 </tr>
@@ -69,7 +69,7 @@
                             <router-link :to="{name: 'VlasnikView', params: {vlasnikId: stan.vlasnik.id}}">{{stan.vlasnik.prezime}} {{stan.vlasnik.ime}}</router-link>
                         </div>
                     </td>
-					<td>{{stan.brojMerila}}</td>
+					<td>{{ stan.brojMerila || '' }}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <router-link :to="{name: 'StanView', params: {stanId: stan.id}}" tag="button" class="btn btn-info btn-sm details">
