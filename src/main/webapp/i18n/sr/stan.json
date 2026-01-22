@@ -4,7 +4,7 @@
       "home": {
         "title": "Станови",
         "createLabel": "Креирање новог стана",
-        "createOrEditLabel": "Креиранје и измена стана",
+        "createOrEditLabel": "Креирање и измена стана",
         "notFound": "Није пронађен ни један стан"
       },
       "created": "Kreiran je novi Stan pod nazivom {{ param }}",

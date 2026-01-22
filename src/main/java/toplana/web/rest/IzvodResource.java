@@ -184,7 +184,7 @@ public class IzvodResource {
 		                fileFromFolder = fileFound.orElseThrow().toFile();
 		            } catch (IOException e) {
 		                e.printStackTrace();
-		            }
+		            }    
 		            
 		           reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileFromFolder), "UTF-8"));
     		} else {

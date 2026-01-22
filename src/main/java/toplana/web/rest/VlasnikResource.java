@@ -112,6 +112,21 @@ public class VlasnikResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+    
+    /**
+     * {@code GET  /vlasniks} : get all the vlasniks.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of vlasniks in body.
+     */
+    @GetMapping("/vlasniksall")
+    public ResponseEntity<List<Vlasnik>> getAllVlasniksAll() {
+        
+        log.debug("REST request to get all Vlasniks");
+
+        return ResponseEntity.ok(
+                vlasnikRepository.findAll(Sort.by(Sort.Direction.ASC, "prezime"))
+            );    }
 
     /**
      * {@code GET  /vlasniks/:id} : get the "id" vlasnik.

@@ -12,7 +12,7 @@
                     </div>
                     <div class="col-6">
                        <!-- <select class="form-control" name="vlasniks" id="vlasniks"
-                             v-model="vlasniks" v-on:change="getSifra" 
+                             v-model="vlasniks" @keyup.enter="getSifra" 
                              :class="{'valid': !vlasniks.$invalid, 'invalid':vlasniks.$invalid }"
                              >
                                <option value="">Одаберите Власника из Листе</option>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="col-6">
                         <input type="text" class="form-control" name="sifraStana" id="sifraStana" ref="sifraStana" required
-                             v-model="$v.sifra.$model" v-on:keyup.enter="getStan" v-on:blur="getStan" v-on:focus="getStan"
+                             v-model="$v.sifra.$model" @keyup.enter="getStan" 
                              :class="{'valid': !$v.sifra.$invalid, 'invalid': $v.sifra.$invalid }"
                              >
                     </div>
@@ -53,7 +53,7 @@
                         <span v-text="$t('toplanaApp.transakcija.prezimeIIme')"></span>                        
                     </div>
                     <div class="col-6">
-                        <span v-if="transakcija.ostaliRacuni">{{transakcija.ostaliRacuni.naziv}}</span> 
+                        <span v-if="transakcija.ostaliRacuni">{{transakcija.stan.vlasnik.prezime}} {{transakcija.stan.vlasnik.ime}}</span> 
                         <span v-if="transakcija.ostaliRacuni && transakcija.ostaliRacuni.stan">{{transakcija.stan.vlasnik.prezime}} {{transakcija.stan.vlasnik.ime}}</span>
                         <span v-if="!transakcija.ostaliRacuni && transakcija.stan">{{transakcija.stan.vlasnik.prezime}} {{transakcija.stan.vlasnik.ime}}</span>
                     </div>

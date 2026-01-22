@@ -161,31 +161,29 @@ export default class TransakcijaRazduzenje extends Vue {
   }
 
   public getStan(): void{    
-	
-	if (this.sifra == RACUN_OSTALI_TROSKOVI_BEZ_STANA) {
-				this.ispravnaSifra = true;
-				this.$notify({"Racun nije vezan sa stanom - " + RACUN_OSTALI_TROSKOVI_BEZ_STANA, type:'warning', duration:10000});
-				this.or = RACUN_OSTALI_TROSKOVI_BEZ_STANA;
-				const vlasniknov = {
-								  ime: "",
-								  prezime: ""
-								};
-				const stannov = {
-				  id: -1,
-				  sifra: RACUN_OSTALI_TROSKOVI_BEZ_STANA,
-				  adresa:null
-				  vlasnik: vlasniknov
-				};
-				const ostaliracuni = {
-					id: 20656
-				}
-				
-				this.transakcija.stan = stannov;
-				this.transakcija.ostali
-				this.transakcija.ostaliRacuni = ostaliracuni
-				return;
+	console.log('getStan CALL', Date.now(), 'sifra=', JSON.stringify(this.sifra));
+	if (this.sifra === RACUN_OSTALI_TROSKOVI_BEZ_STANA) {
+	  console.log('BEz stana');
+
+	  this.ispravnaSifra = true;
+	  this.$notify({ text: `Racun nije vezan sa stanom - ${RACUN_OSTALI_TROSKOVI_BEZ_STANA}`, type: 'warning', duration: 10000 });
+
+	  const vlasniknov = { ime: '', prezime: 'Ostali troskovi' };
+
+	  const stannov = {
+	    id: -1,
+	    sifra: RACUN_OSTALI_TROSKOVI_BEZ_STANA,
+	    adresa: null,
+	    vlasnik: vlasniknov,
+	  };
+
+	  this.transakcija.stan = stannov;
+	  this.transakcija.ostaliRacuni = { id: 20656 };
+	  
+
+	  return;
 	}
-	
+	console.log("i daljer tu");
     this.ispravnaSifra = false;
     this.stanService()
       .findZaSifru(this.sifra)

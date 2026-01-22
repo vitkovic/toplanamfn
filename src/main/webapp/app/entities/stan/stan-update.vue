@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <div class="col-8">
             <form name="editForm" role="form" novalidate v-on:submit.prevent="save()" >
-                <h2 id="toplanaApp.stan.home.createOrEditLabel" v-text="$t('toplanaApp.stan.home.createOrEditLabel')">Create or edit a Stan</h2>
+                <h2 id="toplanaApp.stan.home.createOrEditLabel" v-text="$t('toplanaApp.stan.home.createOrEditLabel')">Креирање Стана</h2>
                 <div>
                     <div class="form-group" v-if="stan.id">
                         <label for="id" v-text="$t('global.field.id')">ID</label>
