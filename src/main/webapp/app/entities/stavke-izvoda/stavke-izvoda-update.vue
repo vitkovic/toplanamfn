@@ -27,13 +27,13 @@
                     </div>
                     <div class="col-3">
                         <select class="form-control" id="transakcija-sifraPromene" name="sifraPromene" 
-                        v-model="sifraPromene" required
+                        v-model="sifraPromene" @change="onSifraPromeneChanged" required
                         :class="{'valid': !$v.sifraPromene.$invalid, 'invalid': $v.sifraPromene.$invalid }">                        
                             
                             <option v-bind:value="sifraPromene && sifraPromeneOption.id === sifraPromene.id ? sifraPromene : sifraPromeneOption" v-for="sifraPromeneOption in sifraPromenes" :key="sifraPromeneOption.id">{{sifraPromeneOption.sifra}}</option>
                         </select>
                     </div>
-
+					
   					 <div class="col-2">
                         <span class="font-weight-bold" v-text="$t('toplanaApp.stavkeIzvoda.racun')"></span>
                     </div>
@@ -41,9 +41,21 @@
                         {{stavkeIzvoda.racunZaduzenja}}
                     </div>
 
-                </div><hr>
+                </div>
 
-               
+				<div class="row" style="margin-bottom:20px" v-if="isOstaloSelected">
+									  <div class="col-2">
+									    <span class="font-weight-bold">Остало - опис</span>
+									  </div>
+									  <div class="col-6">
+									    <input
+									      type="text"
+									      class="form-control"
+									      v-model="stavkeIzvoda.opis"
+									      placeholder="Унеси шта је 'Остало'..."
+									    />
+									  </div>
+									</div>  <hr>             
 
 
                 <div class="row" style="margin-bottom:20px">

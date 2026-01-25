@@ -95,7 +95,17 @@ export default class StavkeIzvodaUpdate extends Vue {
     );
   }
 
-  
+  private OSTALO_IDS = new Set([2459, 2703]); // prilagodi ako treba
+
+  get isOstaloSelected(): boolean {
+    return !!this.sifraPromene && this.OSTALO_IDS.has(this.sifraPromene.id);
+  }
+
+  public onSifraPromeneChanged(): void {
+    if (!this.isOstaloSelected) {
+      this.stavkeIzvoda.opis = null; // ili ''
+    }
+  }
 
   public knjizenje(): void {
     this.isSaving = true;
