@@ -21,7 +21,7 @@ public class Vlasnik implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
-
+  
     @Column(name = "ime")
     private String ime;
 

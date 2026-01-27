@@ -9,6 +9,8 @@ import AlertService from '@/shared/alert/alert.service';
 import { IVlasnik, Vlasnik } from '@/shared/model/vlasnik.model';
 import VlasnikService from './vlasnik.service';
 
+import { required, email } from 'vuelidate/lib/validators';
+
 const validations: any = {
   vlasnik: {
     ime: {},
@@ -16,7 +18,7 @@ const validations: any = {
     brojRacuna: {},
     partijaRacuna: {},
     naziv: {},
-    email: {},
+    email: {email},
     psr: {},
   },
 };
@@ -55,6 +57,10 @@ export default class VlasnikUpdate extends Vue {
   }
 
   public save(): void {
+	
+	
+	
+	
     this.isSaving = true;
     if (this.vlasnik.id) {
       this.vlasnikService()
