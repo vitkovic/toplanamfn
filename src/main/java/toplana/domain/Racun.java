@@ -294,8 +294,9 @@ public class Racun implements Serializable {
 			this.utrosakOdrzavanje = stan.getPovrsina().multiply(this.cenaOdrzavanje).setScale(2, RoundingMode.HALF_UP);
     	
 		}
-    	//ako je saldo negativan ili jednak 0
-    	if((this.ukupnoZaduzenje.compareTo(new BigDecimal("0.")) <= 0.5 && this.stan.getTipPotrosaca().getTip() != 5)) {
+    	//ako je saldo negativan ili manji ili jednak 0.5
+    	
+    	if((this.ukupnoZaduzenje.compareTo(new BigDecimal("0.5")) <= 0 && this.stan.getTipPotrosaca().getTip() != 5)) {
     		
     		this.popust = nacrtRacuna.getPopust();
     		
