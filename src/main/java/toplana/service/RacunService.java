@@ -120,13 +120,29 @@ public class RacunService  {
 		try {
 			List<MailWithAttachment> emailList = new ArrayList<>();
 			
+			List<String> whoSend = new ArrayList<>();
+			
+			whoSend.add("goran.janevski@masfak.ni.ac.rs");
+			whoSend.add("dejan.mitrovic@masfak.ni.ac.rs");
+			whoSend.add("julijana.simonovic@masfak.ni.ac.rs");
+			whoSend.add("dragan.stojanovic2312@gmail.com");
+			whoSend.add("nikola.korunovic@masfak.ni.ac.rs");
+			
+			
+			
 			if (this.smail) {                             
 				for(RacunStampanje r : racuni) { 
 					
 					if (r.getVlasnikEmail() != null && r.getVlasnikEmail().length()>0 ) {
-						emailList.add(
-									new MailWithAttachment(r.getVlasnikEmail(), "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", this.generateIndRacun(r))
-								);
+						
+						if (whoSend.stream().anyMatch(s -> s.equalsIgnoreCase(r.getVlasnikEmail()))) {
+							
+							System.out.println("Saljemo mail: " + r.getVlasnikEmail());
+						
+							//	emailList.add(
+								//	new MailWithAttachment(r.getVlasnikEmail(), "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", this.generateIndRacun(r))
+							//	);
+						}
 					}
 					
 				}
