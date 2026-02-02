@@ -136,7 +136,7 @@ public class RacunService  {
 			whoSend.add("dragan.stojanovic2312@gmail.com");
 			whoSend.add("nikola.korunovic@masfak.ni.ac.rs");
 			System.setProperty("mail.smtp.localhost", "masfak.ni.ac.rs");
-			System.setProperty("mail.smtp.localaddress", "127.0.0.1");
+			//System.setProperty("mail.smtp.localaddress", "127.0.0.1");
 			                         
 				for(RacunStampanje r : racuni) { 
 					
