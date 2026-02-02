@@ -65,6 +65,7 @@ spring:
           starttls:
             enable: true
             required: true
+          localhost: masfak.ni.ac.rs
         connectiontimeout: 10000
         timeout: 10000
         writetimeout: 10000	 
