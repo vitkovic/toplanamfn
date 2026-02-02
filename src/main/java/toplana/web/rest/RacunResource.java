@@ -243,7 +243,7 @@ public class RacunResource {
     	
     	RacunSpecification racunSpec = this.createSpecification(search);
     	List<Racun> racuni = racunRepository.findAll(racunSpec);
-    	String filename = racunService.createRacuneZaStampanje(racuni);
+    	String filename = racunService.createRacuneZaStampanje(racuni,false);
     	File file = new File(filename);   	       
 
         HttpHeaders headers = new HttpHeaders();
@@ -277,7 +277,7 @@ public class RacunResource {
     	Optional<Racun> r = racunRepository.findById(id);
     	List<Racun> racuni = new ArrayList<Racun>();
     	racuni.add(r.get());
-    	String filename = racunService.createRacuneZaStampanje(racuni);
+    	String filename = racunService.createRacuneZaStampanje(racuni,false);
     	File file = new File(filename);   	       
     	
         HttpHeaders headers = new HttpHeaders();

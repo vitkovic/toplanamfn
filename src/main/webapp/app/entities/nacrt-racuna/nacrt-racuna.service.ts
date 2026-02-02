@@ -54,7 +54,7 @@ export default class NacrtRacunaService {
   public smail(nacrtRacunaId: number): Promise<any> {
      return new Promise<any>((resolve, reject) => {
        axios
-         .get(`${baseStampanje}/${nacrtRacunaId}`)
+         .get(`${baseMail}/${nacrtRacunaId}`)
          .then(res => {
            resolve(res.data);
          })

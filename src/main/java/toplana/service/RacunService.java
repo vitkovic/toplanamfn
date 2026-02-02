@@ -129,12 +129,13 @@ public class RacunService  {
 			whoSend.add("dragan.stojanovic2312@gmail.com");
 			whoSend.add("nikola.korunovic@masfak.ni.ac.rs");
 			
-			
-			
-			if (this.smail) {                             
+			                         
 				for(RacunStampanje r : racuni) { 
 					
+					System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM        Saljemo mail: " + r.getVlasnikEmail());
+					
 					if (r.getVlasnikEmail() != null && r.getVlasnikEmail().length()>0 ) {
+						
 						
 						if (whoSend.stream().anyMatch(s -> s.equalsIgnoreCase(r.getVlasnikEmail()))) {
 							
@@ -148,7 +149,7 @@ public class RacunService  {
 					
 				}
 				mailService.sendMultipleEmails(emailList);
-			}
+		
 		
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -219,7 +220,7 @@ public class RacunService  {
 		return pdfPutanja + "\\Racun.pdf";
     }
     
-    public String createRacuneZaStampanje(List<Racun> racuni) {
+    public String createRacuneZaStampanje(List<Racun> racuni, boolean smail) {
     	
     	String outputFileName =  null;
     	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");  
@@ -228,10 +229,11 @@ public class RacunService  {
     	Locale loc = new Locale("SH");
     	// ovaj
 		
-		
-		
-		
-		
+    	if (smail)
+    		return null;
+    	
+    	
+    	
     	for(Racun r : racuni) {
     		
     		r.getNacrtRacuna().getStanjaPodstaniceZaRacune();
@@ -337,7 +339,7 @@ public class RacunService  {
     		
     		
     	}
-    	if (this.smail) {
+    	if(smail) {
     	 return this.generateReportSmail(racuniStampanje);
     	} else
     	 return this.generateReport(racuniStampanje);

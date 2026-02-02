@@ -536,7 +536,7 @@ public class NacrtRacunaResource {
     	List<Racun> racuni = racunRepository.findAllByNacrtRacunaIdOrderByStanSifraNumNative(nacrtRacunaId);
     	
     	
-    	String filename = racunService.createRacuneZaStampanje(racuni);
+    	String filename = racunService.createRacuneZaStampanje(racuni,false);
     	File file = new File(filename);   	       
 
         HttpHeaders headers = new HttpHeaders();
@@ -561,8 +561,7 @@ public class NacrtRacunaResource {
     public ResponseEntity<InputStreamResource> sendMails(@PathVariable Long nacrtRacunaId)
             throws IOException {
     	List<Racun> racuni = racunRepository.findAllByNacrtRacunaId(nacrtRacunaId);
-    	racunService.setSmail(true);
-    	String filename = racunService.createRacuneZaStampanje(racuni);
+    	String filename = racunService.createRacuneZaStampanje(racuni, true);
     	return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "toplanaApp.nacrtRacuna.mails.nisu", "")).build();
     }  
     
