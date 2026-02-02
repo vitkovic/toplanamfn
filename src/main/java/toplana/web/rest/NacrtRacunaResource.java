@@ -556,8 +556,7 @@ public class NacrtRacunaResource {
     
     
     @RequestMapping(value = "/smail/{nacrtRacunaId}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_PDF_VALUE)
+            method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> sendMails(@PathVariable Long nacrtRacunaId)
             throws IOException {
     	List<Racun> racuni = racunRepository.findAllByNacrtRacunaId(nacrtRacunaId);

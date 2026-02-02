@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
@@ -115,6 +116,12 @@ public class RacunService  {
     }
 	// pojedinacno slanje emailova za vise korisnika
 	
+	
+
+	
+	
+	
+	
 	public String generateReportSmail(List<RacunStampanje> racuni) {
 		 
 		try {
@@ -128,22 +135,19 @@ public class RacunService  {
 			whoSend.add("julijana.simonovic@masfak.ni.ac.rs");
 			whoSend.add("dragan.stojanovic2312@gmail.com");
 			whoSend.add("nikola.korunovic@masfak.ni.ac.rs");
-			
+			System.setProperty("mail.smtp.localhost", "masfak.ni.ac.rs");
+			System.setProperty("mail.smtp.localaddress", "127.0.0.1");
 			                         
 				for(RacunStampanje r : racuni) { 
-					
-					System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM        Saljemo mail: " + r.getVlasnikEmail());
 					
 					if (r.getVlasnikEmail() != null && r.getVlasnikEmail().length()>0 ) {
 						
 						
 						if (whoSend.stream().anyMatch(s -> s.equalsIgnoreCase(r.getVlasnikEmail()))) {
-							
-							System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM        Saljemo mail: " + r.getVlasnikEmail());
 						
-							//	emailList.add(
-								//	new MailWithAttachment(r.getVlasnikEmail(), "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", this.generateIndRacun(r))
-							//	);
+								emailList.add(
+								new MailWithAttachment(r.getVlasnikEmail(), "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", this.generateIndRacun(r))
+							);
 						}
 					}
 					
@@ -229,8 +233,7 @@ public class RacunService  {
     	Locale loc = new Locale("SH");
     	// ovaj
 		
-    	if (smail)
-    		return null;
+  
     	
     	
     	

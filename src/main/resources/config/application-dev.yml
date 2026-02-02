@@ -18,6 +18,8 @@ logging:
     ROOT: DEBUG
     io.github.jhipster: DEBUG
     toplana: DEBUG
+    org.springframework.mail: DEBUG
+    org.springframework.boot.autoconfigure.mail: DEBUG
     #org.hibernate.SQL: DEBUG
     #org.hibernate.type.descriptor.sql: TRACE
 
@@ -59,7 +61,7 @@ spring:
     host: smtp.office365.com
     port: 587
     username: toplanamfn@masfak.ni.ac.rs
-    password: Jovana&Danijela..Kuku
+    password: Toplana2025
     properties:
       mail:
         from: toplanamfn@masfak.ni.ac.rs
@@ -68,6 +70,7 @@ spring:
           starttls:
             enable: true
             required: true
+          localhost: masfak.ni.ac.rs
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
