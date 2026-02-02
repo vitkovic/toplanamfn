@@ -122,6 +122,7 @@ public class RacunService  {
 			
 			List<String> whoSend = new ArrayList<>();
 			
+			// kad prodje provera ovo treba obrisati
 			whoSend.add("goran.janevski@masfak.ni.ac.rs");
 			whoSend.add("dejan.mitrovic@masfak.ni.ac.rs");
 			whoSend.add("julijana.simonovic@masfak.ni.ac.rs");
@@ -137,7 +138,7 @@ public class RacunService  {
 						
 						if (whoSend.stream().anyMatch(s -> s.equalsIgnoreCase(r.getVlasnikEmail()))) {
 							
-							System.out.println("Saljemo mail: " + r.getVlasnikEmail());
+							System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM        Saljemo mail: " + r.getVlasnikEmail());
 						
 							//	emailList.add(
 								//	new MailWithAttachment(r.getVlasnikEmail(), "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", this.generateIndRacun(r))
