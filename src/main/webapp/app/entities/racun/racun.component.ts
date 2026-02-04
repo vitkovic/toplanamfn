@@ -145,6 +145,32 @@ export default class Racun extends mixins(AlertMixin) {
       });
   }
 
+  
+  public stampanje(): void {
+      this.isSaving = true;
+  	this.alertVariant = 'info';
+  	this.alertMessage = 'Генерисање pdf рачуна је у току. Молим сачекајте...';
+  	
+  	window.scrollTo({ top: 0, behavior: 'smooth' });
+  	
+      if (this.nacrtRacuna.id) {
+        this.nacrtRacunaService()
+          .stampanjeNR(this.nacrtRacuna.id)
+          .then(res => {
+  			this.isSaving = false;
+  			this.alertMessage = null;
+  			
+  	      var fileURL = window.URL.createObjectURL(new Blob([res]));
+            var fileLink = document.createElement('a');
+            fileLink.href = fileURL;
+            fileLink.setAttribute('download', 'racuni.pdf');
+            document.body.appendChild(fileLink);
+            fileLink.click();
+          });
+      } 
+    }
+  
+ /*
   public stampanje(): void {
     this.racunService()
       .stampanje(this.search)
@@ -158,7 +184,7 @@ export default class Racun extends mixins(AlertMixin) {
           fileLink.click();
         });      
   }
-
+*/
   public sort(): Array<any> {
     const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
     if (this.propOrder !== 'id') {

@@ -126,4 +126,21 @@ export default class RacunService {
         });
     });
   }
+  public stampanjeNR(nacrtRacunaId: number): Promise<any> {
+     return new Promise<any>((resolve, reject) => {
+       axios
+         .get(`${baseStampanje}/${nacrtRacunaId}`, {responseType:'blob'})
+         .then(res => {
+           resolve(res.data);
+         })
+         .catch(err => {
+           reject(err);
+         });
+     });
+   }
+   
+  
+  
+  
+  
 }

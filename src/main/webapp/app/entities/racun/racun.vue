@@ -216,8 +216,8 @@
                 <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
             </div>
         </div>
-        <button v-show="racuns && racuns.length > 0" type="button" id="stampanje" @click="stampanje" :disabled="isSaving" class="btn btn-primary" style="margin-top:20px">
-            <span v-text="$t('entity.action.stampanje')">Save</span>
+       <!-- <button v-show="racuns && racuns.length > 0" type="button" id="stampanje" @click="stampanje" :disabled="isSaving" class="btn btn-primary" style="margin-top:20px">
+            <span v-text="$t('entity.action.stampanje')">Save</span>-->
         </button>
     </div>
 </template>
