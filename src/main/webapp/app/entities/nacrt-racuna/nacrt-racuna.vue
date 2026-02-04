@@ -1,5 +1,7 @@
 <template>
     <div>
+    
+    
         <h2 id="page-heading">
             <span v-text="$t('toplanaApp.nacrtRacuna.home.title')" id="nacrt-racuna-heading">Nacrt Racunas</span>
             <router-link :to="{name: 'NacrtRacunaCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-nacrt-racuna">
@@ -9,6 +11,9 @@
                 </span>
             </router-link>
         </h2>
+        <b-alert v-if="alertMessage" :variant="alertVariant" show>
+  			{{ alertMessage }}
+		</b-alert>
         <b-alert :show="dismissCountDown"
             dismissible
             :variant="alertType"
@@ -51,6 +56,10 @@
                             <router-link :to="{name: 'RekapitulacijaPdv', params: {nacrtRacunaId: nacrtRacuna.id}}"  tag="button" class="btn btn-info btn-sm edit ml-1">
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.rekapitulacija')">rekapitulacija</span>
                             </router-link>
+                               <button  type="button" id="stampanje" class="btn btn-primary" 
+                        			v-on:click="stampanje(nacrtRacuna.id)">
+                        		<span v-text="$t('entity.action.stampanje')"></span>
+                    		</button>
                             <b-button v-if="!nacrtRacuna.proknjizen" v-on:click="prepareRemove(nacrtRacuna)"
                                    variant="danger"
                                    class="btn btn-sm"
@@ -58,6 +67,7 @@
                                 <font-awesome-icon icon="times"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
                             </b-button>
+                            
                         </div>
                     </td>
                 </tr>

@@ -22,7 +22,7 @@ export default class NacrtRacuna extends mixins(AlertMixin) {
   public totalItems = 0;
 
   public nacrtRacunas: INacrtRacuna[] = [];
-
+  public alertMessage: string | null = null;
   public isFetching = false;
 
   public mounted(): void {
@@ -85,6 +85,39 @@ export default class NacrtRacuna extends mixins(AlertMixin) {
         }
       });
   }
+  
+  public stampanje(sid): void {
+    if (!sid) {
+      return;
+    }
+
+    this.isSaving = true;
+    this.alertVariant = 'info';
+    this.alertMessage = 'Генерисање pdf рачуна је у току. Молим сачекајте...';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    this.nacrtRacunaService()
+      .stampanje(sid)
+      .then(res => {
+        this.isSaving = false;
+        this.alertMessage = null;
+
+        const fileURL = window.URL.createObjectURL(new Blob([res], { type: 'application/pdf' }));
+        const fileLink = document.createElement('a');
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', `racun_${sid}.pdf`);
+        document.body.appendChild(fileLink);
+        fileLink.click();
+        fileLink.remove();
+        window.URL.revokeObjectURL(fileURL);
+      })
+      .catch(() => {
+        this.isSaving = false;
+        this.alertVariant = 'danger';
+        this.alertMessage = 'Грешка при генерисању PDF-а.';
+      });
+  }
+    
 
   public sort(): Array<any> {
     const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
