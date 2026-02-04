@@ -197,11 +197,17 @@ export default class NacrtRacunaUpdate extends Vue {
   
   public smail(): void {
       this.isSaving = true;
+	  this.alertVariant = 'info';
+	  this.alertMessage = 'Слање електронске поште је у току. Молим сачекајте...';
+	
+	  window.scrollTo({ top: 0, behavior: 'smooth' });
+		
       if (this.nacrtRacuna.id) {
         this.nacrtRacunaService()
           .smail(this.nacrtRacuna.id)
           .then(res => {
             this.isSaving = false;
+			this.alertMessage = null;
          
           });
       } 

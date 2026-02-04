@@ -25,6 +25,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import toplana.web.rest.dto.MailWithAttachment;
 import java.io.File;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.FileSystemResource;
 /**
  * Service for sending emails.
  * <p>
@@ -216,14 +218,29 @@ public class MailService {
         helper.setSubject(mail.getSubject());
         String html = "<h4>Poštovani,</h4><p>"+mail.getBody()+"</p>";
         helper.setText(html, true);
+        
+        
+        if (mail.hasBlobAttachment()) {
 
-        File attachment = new File(mail.getAttachmentPath());
-        if (!attachment.exists()) {
-            throw new MessagingException("Attachment file not found: " + mail.getAttachmentPath());
+            helper.addAttachment(
+                mail.getAttachmentFileName(),
+                new ByteArrayResource(mail.getAttachmentBytes())
+            );
+
+        } else {
+
+            File attachment = new File(mail.getAttachmentPath());
+            if (!attachment.exists()) {
+                throw new MessagingException("Attachment file not found: " + mail.getAttachmentPath());
+            }
+
+            helper.addAttachment(
+                attachment.getName(),
+                new FileSystemResource(attachment)
+            );
         }
-
-        helper.addAttachment(attachment.getName(), new FileSystemResource(attachment));
-
+        
+       
         javaMailSender.send(message);
     //    //System.out.println("✅ Email sent to: " + sanitized);
     }

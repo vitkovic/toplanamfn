@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
+import java.text.Normalizer;
 import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
@@ -130,11 +131,12 @@ public class RacunService  {
 			List<String> whoSend = new ArrayList<>();
 			
 			// kad prodje provera ovo treba obrisati
-			whoSend.add("goran.janevski@masfak.ni.ac.rs");
-			whoSend.add("dejan.mitrovic@masfak.ni.ac.rs");
-			whoSend.add("julijana.simonovic@masfak.ni.ac.rs");
-			whoSend.add("dragan.stojanovic2312@gmail.com");
-			whoSend.add("nikola.korunovic@masfak.ni.ac.rs");
+		//	whoSend.add("goran.janevski@masfak.ni.ac.rs");
+		//	whoSend.add("dejan.mitrovic@masfak.ni.ac.rs");
+	//		whoSend.add("julijana.simonovic@masfak.ni.ac.rs");
+			whoSend.add("nvitko@gmail.com");
+			whoSend.add("nikola.vitkovich@gmail.com");
+		//	whoSend.add("nikola.korunovic@masfak.ni.ac.rs");
 			System.setProperty("mail.smtp.localhost", "masfak.ni.ac.rs");
 			//System.setProperty("mail.smtp.localaddress", "127.0.0.1");
 			                         
@@ -144,9 +146,18 @@ public class RacunService  {
 						
 						
 						if (whoSend.stream().anyMatch(s -> s.equalsIgnoreCase(r.getVlasnikEmail()))) {
-						
+							
+							byte[] pdf = generateIndRacunBlob(r);
+							 // napravi filename (bar minimalno unikatno)
+				            String fileName = "Racun_za_grejanje_" + r.getStanSifra() + "_" + r.getDatumRacuna().replaceAll("\\W+", "_") + ".pdf";
 								emailList.add(
-								new MailWithAttachment(r.getVlasnikEmail(), "Račun za toplotnu energiju za " + r.getPeriod(), "Račun je u prilogu elektronske pošte.", this.generateIndRacun(r))
+										new MailWithAttachment(
+											    r.getVlasnikEmail(),
+											    "Račun za toplotnu energiju za " + r.getPeriod(),
+											    "Račun je u prilogu elektronske pošte.",
+											    pdf,
+											    fileName
+											)
 							);
 						}
 					}
@@ -159,7 +170,7 @@ public class RacunService  {
 			e.printStackTrace();
 		}
 		
-		return pdfPutanja + "\\Racun.pdf";
+		return "uradjeno";
     }
 	
 	public String generateIndRacun(RacunStampanje r) {
@@ -178,14 +189,74 @@ public class RacunService  {
 			//parameters.put("createdBy", "JavaHelper.org");
 			// Fill the report
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+			
+			
+			String safeName = toSafeFilePart(r.getVlasnikIme());
+			String safeSurname = toSafeFilePart(r.getVlasnikPrezime());
+			String safePeriod = toSafeFilePart(r.getValutaPlacanja());
+
+			// opcionalno: nešto stvarno jedinstveno
+			String unique = String.valueOf(r.getId()); // ili r.getBrojRacuna()
+
+			String fileName = String.format(
+			    "Racun_%s_%s_%s_%s.pdf",
+			    safeName,
+			    safeSurname,
+			    safePeriod,
+			    unique
+			);
+
+		     String fullPath = pdfPutanja + "\\" + fileName;
+		           
+			
 			// Export the report to a PDF file
-			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\Racun.pdf");
+			JasperExportManager.exportReportToPdfFile(jasperPrint, fullPath);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		return pdfPutanja + "\\Racun.pdf";
-    } 
+    }
+	
+	public byte[] generateIndRacunBlob(RacunStampanje r) {
+	    try {
+	        ClassPathResource cl = new ClassPathResource("/jasper/Racun6.jrxml");
+	        InputStream input = cl.getInputStream();
+
+	        JasperReport jasperReport = JasperCompileManager.compileReport(input);
+
+	        JRBeanCollectionDataSource source =
+	            new JRBeanCollectionDataSource(Collections.singletonList(r));
+
+	        Map<String, Object> parameters = new HashMap<>();
+
+	        JasperPrint jasperPrint =
+	            JasperFillManager.fillReport(jasperReport, parameters, source);
+
+	        // ⬅⬅⬅ BLOB, nema fajla
+	        return JasperExportManager.exportReportToPdf(jasperPrint);
+
+	    } catch (Exception e) {
+	        throw new RuntimeException("PDF generation failed for racun " + r.getId(), e);
+	    }
+	}
+	
+
+
+	private String toSafeFilePart(String input) {
+	    if (input == null || input.trim().isEmpty()) {
+	        return "unknown";
+	    }
+
+	    String normalized = Normalizer.normalize(input, Normalizer.Form.NFD)
+	        .replaceAll("\\p{InCombiningDiacriticalMarks}+", ""); // č ć ž š đ → c c z s dj
+
+	    return normalized
+	        .toLowerCase(Locale.ROOT)
+	        .replaceAll("[^a-z0-9]+", "_")   // sve ostalo → _
+	        .replaceAll("^_+|_+$", "");      // trim _
+	}
+
     
 	// dovde slanje mailova za pojedinacnog korisnika, ali svima
    

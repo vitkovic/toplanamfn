@@ -560,7 +560,7 @@ public class NacrtRacunaResource {
     public ResponseEntity<InputStreamResource> sendMails(@PathVariable Long nacrtRacunaId)
             throws IOException {
     	List<Racun> racuni = racunRepository.findAllByNacrtRacunaId(nacrtRacunaId);
-    	String filename = racunService.createRacuneZaStampanje(racuni, true);
+    	String done = racunService.createRacuneZaStampanje(racuni, true);
     	return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "toplanaApp.nacrtRacuna.mails.nisu", "")).build();
     }  
     
