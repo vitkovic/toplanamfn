@@ -131,12 +131,11 @@ public class RacunService  {
 			List<String> whoSend = new ArrayList<>();
 			
 			// kad prodje provera ovo treba obrisati
-		//	whoSend.add("goran.janevski@masfak.ni.ac.rs");
-		//	whoSend.add("dejan.mitrovic@masfak.ni.ac.rs");
-	//		whoSend.add("julijana.simonovic@masfak.ni.ac.rs");
-			whoSend.add("nvitko@gmail.com");
-			whoSend.add("nikola.vitkovich@gmail.com");
-		//	whoSend.add("nikola.korunovic@masfak.ni.ac.rs");
+			whoSend.add("gocky.jane@gmail.com");
+			whoSend.add("dejan.mitrovic@masfak.ni.ac.rs");
+			whoSend.add("julijana.simonovic@masfak.ni.ac.rs");
+			whoSend.add("nikola.korunovic@masfak.ni.ac.rs");
+			whoSend.add("dragan.stojanovic2312@gmail.com");
 			System.setProperty("mail.smtp.localhost", "masfak.ni.ac.rs");
 			//System.setProperty("mail.smtp.localaddress", "127.0.0.1");
 			                         
