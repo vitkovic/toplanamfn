@@ -131,20 +131,23 @@ public class RacunService  {
 			List<String> whoSend = new ArrayList<>();
 			
 			// kad prodje provera ovo treba obrisati
+			/*
 			whoSend.add("gocky.jane@gmail.com");
 			whoSend.add("dejan.mitrovic@masfak.ni.ac.rs");
 			whoSend.add("julijana.simonovic@masfak.ni.ac.rs");
 			whoSend.add("nikola.korunovic@masfak.ni.ac.rs");
-			whoSend.add("dragan.stojanovic2312@gmail.com");
+			
+			whoSend.add("gocky.jane@gmail.com");
+			*/
 			System.setProperty("mail.smtp.localhost", "masfak.ni.ac.rs");
-			//System.setProperty("mail.smtp.localaddress", "127.0.0.1");
+			
 			                         
 				for(RacunStampanje r : racuni) { 
 					
 					if (r.getVlasnikEmail() != null && r.getVlasnikEmail().length()>0 ) {
 						
 						
-						if (whoSend.stream().anyMatch(s -> s.equalsIgnoreCase(r.getVlasnikEmail()))) {
+				//		if (whoSend.stream().anyMatch(s -> s.equalsIgnoreCase(r.getVlasnikEmail()))) {
 							
 							byte[] pdf = generateIndRacunBlob(r);
 							 // napravi filename (bar minimalno unikatno)
@@ -153,12 +156,12 @@ public class RacunService  {
 										new MailWithAttachment(
 											    r.getVlasnikEmail(),
 											    "Račun za toplotnu energiju za " + r.getPeriod(),
-											    "Račun je u prilogu elektronske pošte.",
+											    "Račun je u prilogu elektronske pošte. <br><br>Trenutno je slanje elektronske pošte u procesu testiranja. Pošaljite prigovor na toplanamfn@masfak.ni.ac.rs, ako vidite neka neslaganja sa odstampanim računom.",
 											    pdf,
 											    fileName
 											)
 							);
-						}
+					//	}
 					}
 					
 				}
