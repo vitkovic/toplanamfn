@@ -334,10 +334,11 @@ public class RacunService  {
 	    		rDTO.setNoviPotrosnjaPoSvimMerilima(0.0);
 	    		rDTO.setNoviZajednickaPotrosnja(0.0);
     		}
-			
+    		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("MMM-yy", Locale.ENGLISH);
+    		String shortdtm= rDTO.getDatumRacuna().format(fmt).toUpperCase();
 			// Za stan deo koji se odnosi na udeo zajednicke potrosnje - J5
     		try {
-    			if (QrGeneratorFromText.generateQr(rDTO.getStan().getSifra(),rDTO.getStan().getVlasnik().getIme() + rDTO.getStan().getVlasnik().getPrezime(), 
+    			if (QrGeneratorFromText.generateQr(rDTO.getStan().getSifra(),rDTO.getStan().getVlasnik().getIme() + " " +rDTO.getStan().getVlasnik().getPrezime(), shortdtm,
     			    rDTO.getZaPlacanje(), rDTO.getPozivNaBroj())) {
     				rDTO.setSlikaQrStan(rDTO.getStan().getSifra() + ".png");
     				rDTO.setImgQr(QrGeneratorFromText.awtImage); // set byte image to transfer - no saving on disk

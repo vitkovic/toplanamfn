@@ -34,7 +34,7 @@ public class QrGeneratorFromText {
 	
 	   private static final Logger logger = LoggerFactory.getLogger( QrGeneratorFromText.class);
 
-    public static boolean generateQr(String sifra,String senderData, BigDecimal ammount, String pozivnaBroj) throws IOException, WriterException {
+    public static boolean generateQr(String sifra,String senderData, String dtm, BigDecimal ammount, String pozivnaBroj) throws IOException, WriterException {
       
     	
     	boolean serviceCreated = false;
@@ -52,7 +52,7 @@ public class QrGeneratorFromText {
         String qrText =
             "K:PR|V:01|C:1|R:840000003280884575|N:MFN AL. Medvedeva 14"
             + "|I:RSD" + value +"|P:" + senderData 
-            + "|SF:189|S:UPLATA PO RAČUNU ZA TOPLOTNU EN"
+            + "|SF:189|S:UPLATA ZA TOPLOTNU ENERGIJU "+dtm
             + "|RO:" + "00" + sifra;
 
         
@@ -133,7 +133,7 @@ public class QrGeneratorFromText {
     
     public static void main(String[] args) {
     	try {
-			generateQr("3455678","Djoka", new BigDecimal(1000.45), "00");
+			generateQr("3455678","Djoka", "",new BigDecimal(1000.45), "00");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
