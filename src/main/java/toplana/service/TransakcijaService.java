@@ -297,8 +297,7 @@ public class TransakcijaService {
     	
     	String sifraOd = null;
     	String sifraDo = null;
-    	BigDecimal saldoOd = null;
-    	BigDecimal saldoDo = null;
+    
     	
     	
     	List<TransakcijaStanUkupnoDTO> out = null;
@@ -370,8 +369,13 @@ public class TransakcijaService {
     	    sifraDo = search.getSifraDo();
     	}
     	
-    	if (search.getSaldoOd() != null) saldoOd.setScale(2);
-    	if (search.getSaldoDo() != null) saldoDo.setScale(2);
+    	final BigDecimal saldoOdFinal =
+    		    search.getSaldoOd() == null ? null : search.getSaldoOd().setScale(2);
+
+    	final BigDecimal saldoDoFinal =
+    		    search.getSaldoDo() == null ? null : search.getSaldoDo().setScale(2);
+
+    	
     	
     	if(sifraOd != null) {
     		
@@ -379,10 +383,7 @@ public class TransakcijaService {
 		    			datumDo, prezimeNotExists, prezime, imeNotExists, ime,  podstanicaNotExists, podstanicaId,
 		    			tipPotrosacaNotExists,tipPotrosacaIds, search.isUkljucen(), sifraOd, sifraDo);
     	    	 
-    	    	 out.removeIf(r ->
-    	    	    (saldoOd != null && r.getStanje() != null && r.getStanje().compareTo(saldoOd) < 0) ||
-    	    	    (saldoDo != null && r.getStanje() != null && r.getStanje().compareTo(saldoDo) > 0)
-    	    	);
+    	    
 		    	
     	
     	} else {
@@ -394,6 +395,14 @@ public class TransakcijaService {
     	}
     		
     		
+	   	 out.removeIf(r ->
+		    (saldoOdFinal != null && r.getStanje() != null && r.getStanje().compareTo(saldoOdFinal) < 0) ||
+		    (saldoDoFinal != null && r.getStanje() != null && r.getStanje().compareTo(saldoDoFinal) > 0)
+	   	 );
+    	
+    	
+    	
+    	
     	
     	return out;
     }
