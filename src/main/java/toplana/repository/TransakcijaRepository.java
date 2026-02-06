@@ -13,6 +13,7 @@ import toplana.web.rest.dto.TransakcijaZaStanDTO;
 import toplana.web.rest.dto.RacunDTO;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -65,6 +66,21 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			@Param("tipPotrosacaNotExists") Integer tipPotrosacaNotExists,@Param("tipPotrosacaIds") List<Long> tipPotrosacaIds,
 			@Param("stanUkljucen") Boolean stanUkljucen
 			);
+	
+	@Query(nativeQuery = true) 
+	List<TransakcijaStanUkupnoDTO> searchSpec(@Param("datumOdNotExists") Integer datumOdNotExists,@Param("datumOd") LocalDate datumOd,
+			@Param("datumDoNotExists") Integer datumDoNotExists,@Param("datumDo") LocalDate datumDo,
+			@Param("prezimeNotExists") Integer prezimeNotExists,@Param("prezime") String prezime,
+			@Param("imeNotExists") Integer imeNotExists,@Param("ime") String ime,
+			@Param("podstanicaNotExists") Integer podstanicaNotExists, @Param("podstanicaId") Long podstanicaId,
+			@Param("tipPotrosacaNotExists") Integer tipPotrosacaNotExists,@Param("tipPotrosacaIds") List<Long> tipPotrosacaIds,
+			@Param("stanUkljucen") Boolean stanUkljucen,
+			@Param("sifraOd") String sifraOd,
+			@Param("sifraDo") String sifraDo
+			);
+	
+	
+	
 	
 	@Query(nativeQuery = true) 
 	List<TransakcijaStanUkupnoDTO> searchSUM(@Param("datumOdNotExists") Integer datumOdNotExists,@Param("datumOd") LocalDate datumOd,

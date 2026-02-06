@@ -244,6 +244,71 @@ import java.time.LocalDate;
 	  		+ "  END)	"	  		
 	  		+ "group by krajnjaSifra, krajnjiNaziv, krajnjiNazivIme", resultSetMapping="ac"),
 	
+	
+	@NamedNativeQuery(
+			name="Transakcija.searchSpec",
+			query=
+			"SELECT coalesce(sum(duguje),0) as dugovanje, coalesce(sum(potrazuje),0) as potrazivanje, " +
+			"       coalesce(sum(duguje),0)- coalesce(sum(potrazuje), 0) as stanje, " +
+			"       coalesce(s.sifra, o.sifra) as krajnjaSifra, " +
+			"       case " +
+			"         when t.stan_id is not null then v.prezime " +
+			"         when t.stan_id is null and o.stan_id is not null then o.naziv " +
+			"         when t.stan_id is null and o.stan_id is null then '' " +
+			"       end as krajnjiNaziv, " +
+			"       case " +
+			"         when t.stan_id is not null then v.ime " +
+			"         when t.stan_id is null and o.stan_id is not null then o.naziv " +
+			"         when t.stan_id is null and o.stan_id is null then '' " +
+			"       end as krajnjiNazivIme " +
+			"from transakcija t " +
+			"left join stan s on s.id = t.stan_id " +
+			"left join vlasnik v on v.id = s.vlasnik_id " +
+			"left join ostali_racuni o on t.ostali_racuni_id = o.id " +
+			"left join stan s1 on o.stan_id = s1.id " +
+			"where (1 = :datumOdNotExists or t.datum >= :datumOd) " +
+			"  and (1 = :datumDoNotExists or t.datum <= :datumDo) " +
+
+			/* OPSEG ŠIFARA (novo) */
+			"  and (:sifraOd is null or coalesce(s.sifra, o.sifra) >= :sifraOd) " +
+			"  and (:sifraDo is null or coalesce(s.sifra, o.sifra) <= :sifraDo) " +
+
+			"  and (1 = :prezimeNotExists or " +
+			"       case " +
+			"         when t.stan_id IS NOT NULL THEN unaccent(lower(v.prezime)) LIKE unaccent(lower(:prezime)) " +
+			"         when t.stan_id IS NULL THEN unaccent(lower(o.naziv)) LIKE unaccent(lower(:prezime)) " +
+			"       end) " +
+			"  and (1 = :imeNotExists or " +
+			"       case " +
+			"         when t.stan_id IS NOT NULL THEN unaccent(lower(v.ime)) LIKE unaccent(lower(:ime)) " +
+			"         when t.stan_id IS NULL THEN unaccent(lower(o.naziv)) LIKE unaccent(lower(:ime)) " +
+			"       end) " +
+			"  and (1 = :podstanicaNotExists or " +
+			"       case " +
+			"         when t.stan_id is not null then s.podstanica_id = :podstanicaId " +
+			"         when t.stan_id is null then s1.podstanica_id = :podstanicaId " +
+			"       end) " +
+			"  and (1 = :tipPotrosacaNotExists or " +
+			"       case " +
+			"         when t.stan_id is not null then s.tip_potrosaca_id in (:tipPotrosacaIds) " +
+			"         when t.stan_id is null then s1.tip_potrosaca_id in (:tipPotrosacaIds) " +
+			"       end) " +
+			"  and (case " +
+			"         when t.stan_id is not null then s.ukljucen = :stanUkljucen " +
+			"         when t.stan_id is null and t.ostali_racuni_id is not null and s1.id is not null then s1.ukljucen = :stanUkljucen " +
+			"         when t.stan_id is null and t.ostali_racuni_id is not null and s1.id is null then true " +
+			"       end) " +
+			"group by krajnjaSifra, krajnjiNaziv, krajnjiNazivIme",
+			resultSetMapping="ac"
+			),
+
+
+
+
+
+	
+	
+	
 	@NamedNativeQuery(
 		    name = "Transakcija.searchSUM",
 		    query =

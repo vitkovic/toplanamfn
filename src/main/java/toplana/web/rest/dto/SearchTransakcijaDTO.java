@@ -1,5 +1,7 @@
 package toplana.web.rest.dto;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,7 +20,29 @@ public class SearchTransakcijaDTO {
     private String prezime;
     private String ime;
     private String prezimeime = "";
-    public String getPrezimeime() {
+    private BigDecimal saldoOd;
+    private BigDecimal saldoDo;
+    
+    
+    
+    
+    public BigDecimal getSaldoOd() {
+		return saldoOd;
+	}
+
+	public void setSaldoOd(BigDecimal saldoOd) {
+		this.saldoOd = saldoOd;
+	}
+
+	public BigDecimal getSaldoDo() {
+		return saldoDo;
+	}
+
+	public void setSaldoDo(BigDecimal saldoDo) {
+		this.saldoDo = saldoDo;
+	}
+
+	public String getPrezimeime() {
 		return prezimeime;
 	}
 

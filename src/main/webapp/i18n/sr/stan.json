@@ -37,7 +37,11 @@
       "reoni":"Реони",
       "adresa":"Адреса",
       "ukljucenoGrejanje":"Укључено грејање",
-      "brojMerila":"Број Мерила"
+      "brojMerila":"Број Мерила",
+	  "sifraOd":"Шифра Од",
+	  "sifraDo":"Шифра До",
+	  "saldoOd":"Салдо Од",
+	  "saldoDo":"Салдо До"
     }
   }
 }

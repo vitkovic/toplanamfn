@@ -1,6 +1,7 @@
 package toplana.web.rest.dto;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import toplana.domain.Stan;
 
@@ -16,6 +17,48 @@ public class TransakcijaStanUkupnoDTO {
 	private String ime;
 	private String prezimeime = "";
 	
+	
+	private String sifraOd;
+    private String sifraDo;
+    private BigDecimal saldoOd;
+    private BigDecimal saldoDo;
+    
+    
+    
+    
+    
+	public String getSifraOd() {
+		return sifraOd;
+	}
+
+	public void setSifraOd(String sifraOd) {
+		this.sifraOd = sifraOd;
+	}
+
+	public String getSifraDo() {
+		return sifraDo;
+	}
+
+	public void setSifraDo(String sifraDo) {
+		this.sifraDo = sifraDo;
+	}
+
+	public BigDecimal getSaldoOd() {
+		return saldoOd;
+	}
+
+	public void setSaldoOd(BigDecimal saldoOd) {
+		this.saldoOd = saldoOd;
+	}
+
+	public BigDecimal getSaldoDo() {
+		return saldoDo;
+	}
+
+	public void setSaldoDo(BigDecimal saldoDo) {
+		this.saldoDo = saldoDo;
+	}
+
 	public String getOpis() {
 		return opis;
 	}

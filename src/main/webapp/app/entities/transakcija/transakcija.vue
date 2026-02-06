@@ -32,7 +32,7 @@
                             <div class="col-6">
                                 <label v-text="$t('toplanaApp.stan.sifra')"></label>
                             </div>
-                        </div>
+                          </div>
                         <div class="row">
                             <div class="col-6">
                                 <b-form-datepicker
@@ -46,7 +46,8 @@
                                 <input type="text" class="form-control" name="sifra" id="sifra"
                                 v-model="search.sifraStana"  
                                 />
-                            </div>
+                              </div>
+                          
                         </div>
                         <div class="row">
                             <div class="col-6">
@@ -124,6 +125,64 @@
                         </div>                        
                     </div>                                    
                 </div>
+                
+                
+                    <div class="row">
+                       <div class="col-9">
+                       <hr/>
+                         <div class="row">
+                              <div class="col-3">
+                                <label v-text="$t('toplanaApp.stan.sifraOd')"></label>
+                            </div>
+                               <div class="col-3">
+                                <label v-text="$t('toplanaApp.stan.sifraDo')"></label>
+                            </div>
+                       </div>
+                         
+                         <div class="row">
+                           <div class="col-3">
+                                <input type="text" class="form-control" name="sifraOd" id="sifraOd"
+                                v-model="search.sifraOd"  
+                                />
+                            </div>
+                           <div class="col-3">
+                                <input type="text" class="form-control" name="sifraDo" id="sifraDo"
+                                v-model="search.sifraDo"  
+                                />
+                          </div>
+                       </div>
+                       </div>
+                    </div>
+                
+                 <div class="row">
+                       <div class="col-9">
+                       <hr/>
+                         <div class="row">
+                              <div class="col-3">
+                                <label v-text="$t('toplanaApp.stan.saldoOd')"></label>
+                            </div>
+                               <div class="col-3">
+                                <label v-text="$t('toplanaApp.stan.saldoDo')"></label>
+                            </div>
+                       </div>
+                         
+                         <div class="row">
+                           <div class="col-3">
+                                <input type="text" class="form-control" name="saldoOd" id="saldoOd"
+                                v-model="search.saldoOd"  
+                                />
+                            </div>
+                           <div class="col-3">
+                                <input type="text" class="form-control" name="saldoDo" id="saldoDo"
+                                v-model="search.saldoDo"  
+                                />
+                          </div>
+                       </div>
+                       </div>
+                    </div>
+                
+                
+                
                 <button type="button" id="save-entity"  :disabled="isFetching" @click="send"
                                     class="btn btn-primary" style="margin-top:20px">
                     <span v-text="$t('entity.action.posalji')">Save</span>

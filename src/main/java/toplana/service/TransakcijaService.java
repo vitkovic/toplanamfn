@@ -39,6 +39,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -290,6 +291,19 @@ public class TransakcijaService {
     	int tipPotrosacaNotExists = 1;
     	List<Long> tipPotrosacaIds = new ArrayList<Long>();
     	
+    	
+    	
+    	// dodatno pretrazivanje
+    	
+    	String sifraOd = null;
+    	String sifraDo = null;
+    	BigDecimal saldoOd = null;
+    	BigDecimal saldoDo = null;
+    	
+    	
+    	List<TransakcijaStanUkupnoDTO> out = null;
+    	
+    	
     	if(search.getDatumOd() != null) {
     		datumOdNotExists = 0;
     		datumOd = search.getDatumOd();
@@ -344,11 +358,43 @@ public class TransakcijaService {
     	}    	
     	
     	
-    	 //System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ "+ search.getPrezime() + "     ime:" +search.getIme());
+    
     	
-    	List<TransakcijaStanUkupnoDTO> out = transakcijaRepository.search(datumOdNotExists,datumOd, datumDoNotExists, 
-    			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime, imeNotExists, ime,  podstanicaNotExists, podstanicaId,
-    			tipPotrosacaNotExists,tipPotrosacaIds, search.isUkljucen());
+    // Nova pretraga	
+    	
+    	if (search.getSifraOd() != null && !search.getSifraOd().isBlank()) {
+    	    sifraOd = search.getSifraOd();
+    	}
+
+    	if (search.getSifraDo() != null && !search.getSifraDo().isBlank()) {
+    	    sifraDo = search.getSifraDo();
+    	}
+    	
+    	if (search.getSaldoOd() != null) saldoOd.setScale(2);
+    	if (search.getSaldoDo() != null) saldoDo.setScale(2);
+    	
+    	if(sifraOd != null) {
+    		
+    	    	 out = transakcijaRepository.searchSpec(datumOdNotExists,datumOd, datumDoNotExists, 
+		    			datumDo, prezimeNotExists, prezime, imeNotExists, ime,  podstanicaNotExists, podstanicaId,
+		    			tipPotrosacaNotExists,tipPotrosacaIds, search.isUkljucen(), sifraOd, sifraDo);
+    	    	 
+    	    	 out.removeIf(r ->
+    	    	    (saldoOd != null && r.getStanje() != null && r.getStanje().compareTo(saldoOd) < 0) ||
+    	    	    (saldoDo != null && r.getStanje() != null && r.getStanje().compareTo(saldoDo) > 0)
+    	    	);
+		    	
+    	
+    	} else {
+    		
+    			out = transakcijaRepository.search(datumOdNotExists,datumOd, datumDoNotExists, 
+        			datumDo,sifraNotExists, sifra, prezimeNotExists, prezime, imeNotExists, ime,  podstanicaNotExists, podstanicaId,
+        			tipPotrosacaNotExists,tipPotrosacaIds, search.isUkljucen());
+    		
+    	}
+    		
+    		
+    	
     	return out;
     }
     
