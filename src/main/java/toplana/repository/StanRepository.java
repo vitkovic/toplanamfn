@@ -31,6 +31,11 @@ public interface StanRepository extends JpaRepository<Stan, Long> {
 			+ "	 where s.podstanica_id = :podstanicaid and s.ukljucen", nativeQuery=true)
 	Double findKvSumPodstanicaId(@Param("podstanicaid") Long podstanicaid);
 	
+	@Query(value = "select SUM(s.povrsina) from stan s "
+			+ "	 where s.podstanica_id = :podstanicaid ", nativeQuery=true)
+	Double findKvSumPodstanicaIdN(@Param("podstanicaid") Long podstanicaid);
+	
+	
 	
 	@Query(value = "select sstanje from Stan s, StanStanje sstanje "
 			+ "	 where s.podstanica.id = :podstanicaid and s.id = sstanje.stan.id"
