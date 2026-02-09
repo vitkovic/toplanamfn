@@ -40,6 +40,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -773,8 +774,68 @@ public class TransakcijaService {
     		datumDo = search.getDatumDo();
     	}
     	
-    	List<RekapitulacijaSifraPromeneDatumDTO> out = transakcijaRepository.sintetickiDnevnik(datumOdNotExists,datumOd, datumDoNotExists, 
-    			datumDo);
+    	String sifraOd = null;
+    	String sifraDo = null;
+    	
+    	
+    	
+    
+    	if (search.getSifraOd() != null && !search.getSifraOd().isBlank()) {
+    	    sifraOd = search.getSifraOd();
+    	}
+
+    	if (search.getSifraDo() != null && !search.getSifraDo().isBlank()) {
+    	    sifraDo = search.getSifraDo();
+    	}
+    	
+    	
+    	String sifraOdParam = (sifraOd == null || sifraOd.isBlank()) ? null : sifraOd;
+    	String sifraDoParam = (sifraDo == null || sifraDo.isBlank()) ? null : sifraDo;
+    	
+    	
+    	List<RekapitulacijaSifraPromeneDatumDTO> out = null;
+    	
+    	
+    	final BigDecimal dugujeOdFinal = search.getDugujeOd() == null ? null : search.getDugujeOd().setScale(2, RoundingMode.HALF_UP);
+    	final BigDecimal dugujeDoFinal = search.getDugujeDo() == null ? null : search.getDugujeDo().setScale(2, RoundingMode.HALF_UP);
+    	final BigDecimal potrazujeOdFinal = search.getPotrazujeOd() == null ? null : search.getPotrazujeOd().setScale(2, RoundingMode.HALF_UP);
+    	final BigDecimal potrazujeDoFinal = search.getPotrazujeDo() == null ? null : search.getPotrazujeDo().setScale(2, RoundingMode.HALF_UP);
+
+    
+    	String sifraOdP = (sifraOd == null || sifraOd.isBlank()) ? "" : sifraOd;
+    	String sifraDoP = (sifraDo == null || sifraDo.isBlank()) ? "" : sifraDo;
+
+    	int sifraOdNotExists = (sifraOd == null || sifraOd.isBlank()) ? 1 : 0;
+    	int sifraDoNotExists = (sifraDo == null || sifraDo.isBlank()) ? 1 : 0;
+
+    	BigDecimal dOd = (dugujeOdFinal == null) ? BigDecimal.ZERO : dugujeOdFinal;
+    	BigDecimal dDo = (dugujeDoFinal == null) ? BigDecimal.ZERO : dugujeDoFinal;
+    	int dOdNE = (dugujeOdFinal == null) ? 1 : 0;
+    	int dDoNE = (dugujeDoFinal == null) ? 1 : 0;
+
+    	BigDecimal pOd = (potrazujeOdFinal == null) ? BigDecimal.ZERO : potrazujeOdFinal;
+    	BigDecimal pDo = (potrazujeDoFinal == null) ? BigDecimal.ZERO : potrazujeDoFinal;
+    	int pOdNE = (potrazujeOdFinal == null) ? 1 : 0;
+    	int pDoNE = (potrazujeDoFinal == null) ? 1 : 0;
+
+    	System.out.println("IN: dugujeOd=" + search.getDugujeOd() + " dugujeDo=" + search.getDugujeDo()
+    	 + " potrazujeOd=" + search.getPotrazujeOd() + " potrazujeDo=" + search.getPotrazujeDo());
+
+    	System.out.println("FLAGS: dOdNE=" + dOdNE + " dDoNE=" + dDoNE + " pOdNE=" + pOdNE + " pDoNE=" + pDoNE
+    	 + " dOd=" + dOd + " dDo=" + dDo + " pOd=" + pOd + " pDo=" + pDo);
+    
+    			out = transakcijaRepository.sintetickiDnevnikSearch(
+    		    	    datumOdNotExists, datumOd,
+    		    	    datumDoNotExists, datumDo,
+    		    	    sifraOdNotExists, sifraOdP,
+    		    	    sifraDoNotExists, sifraDoP,
+    		    	    dOdNE, dOd,
+    		    	    dDoNE, dDo,
+    		    	    pOdNE, pOd,
+    		    	    pDoNE, pDo
+    		    	);
+    		    	
+    	
     	return out;
     }  
 /****************************************************************************************************************

@@ -42,7 +42,11 @@
 	  "sifraOd":"Шифра Од",
 	  "sifraDo":"Шифра До",
 	  "saldoOd":"Салдо Од",
-	  "saldoDo":"Салдо До"
+	  "saldoDo":"Салдо До",
+	  "dugujeOd":"Дугује Од",
+	  "dugujeDo":"Дугује До",
+	  "potrazujeOd":"Потражује Од",
+	  "potrazujeDo":"Потражује До"
     }
   }
 }

@@ -23,7 +23,44 @@ public class SearchTransakcijaDTO {
     private BigDecimal saldoOd;
     private BigDecimal saldoDo;
     
-    
+   
+	BigDecimal potrazujeOd;
+	BigDecimal potrazujeDo;
+	BigDecimal dugujeOd;
+	BigDecimal dugujeDo;
+	
+	
+	public BigDecimal getPotrazujeOd() {
+		return potrazujeOd;
+	}
+
+	public void setPotrazujeOd(BigDecimal potrazujeOd) {
+		this.potrazujeOd = potrazujeOd;
+	}
+
+	public BigDecimal getPotrazujeDo() {
+		return potrazujeDo;
+	}
+
+	public void setPotrazujeDo(BigDecimal potrazujeDo) {
+		this.potrazujeDo = potrazujeDo;
+	}
+
+	public BigDecimal getDugujeOd() {
+		return dugujeOd;
+	}
+
+	public void setDugujeOd(BigDecimal dugujeOd) {
+		this.dugujeOd = dugujeOd;
+	}
+
+	public BigDecimal getDugujeDo() {
+		return dugujeDo;
+	}
+
+	public void setDugujeDo(BigDecimal dugujeDo) {
+		this.dugujeDo = dugujeDo;
+	}
     
     
     public BigDecimal getSaldoOd() {

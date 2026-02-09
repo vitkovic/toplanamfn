@@ -131,6 +131,10 @@ import java.time.LocalDate;
 		}
 	),
 	
+	
+	
+	
+	
 	@SqlResultSetMapping(
 		    name = "ar",
 		    entities = @EntityResult(entityClass = Racun.class)
@@ -138,7 +142,7 @@ import java.time.LocalDate;
 	
 	
 	
-	@SqlResultSetMapping(name="ag", 
+	@SqlResultSetMapping(name="ags", 
 	classes={
 			@ConstructorResult(
 					targetClass=RekapitulacijaSifraPromeneDatumDTO.class,
@@ -146,6 +150,21 @@ import java.time.LocalDate;
 							@ColumnResult(name="datum", type=LocalDate.class),							
 							@ColumnResult(name="dugovanje", type=BigDecimal.class),
 							@ColumnResult(name="potrazivanje", type=BigDecimal.class),
+							@ColumnResult(name="sifrastana", type=String.class),
+							
+					}
+			)
+		}
+	),
+	
+	@SqlResultSetMapping(name="ag", 
+	classes={
+			@ConstructorResult(
+					targetClass=RekapitulacijaSifraPromeneDatumDTO.class,
+					columns={
+							@ColumnResult(name="datum", type=LocalDate.class),							
+							@ColumnResult(name="duguje", type=BigDecimal.class),
+							@ColumnResult(name="potrazuje", type=BigDecimal.class),
 							
 					}
 			)
@@ -561,6 +580,25 @@ import java.time.LocalDate;
 	  		+ "group by t.datum, sp.sifra "
 	  		+ "order by t.datum, sp.sifra ", resultSetMapping="af"),
 	
+	
+	@NamedNativeQuery(
+			  name="Transakcija.rekapitulacijaSifraPromeneDatumSearch",
+			  query=
+			      "select t.datum, sp.sifra, " +
+			      "       coalesce(sum(t.duguje), 0.00) as dugovanje, " +
+			      "       coalesce(sum(t.potrazuje), 0.00) as potrazivanje " +
+			      "from transakcija t " +
+			      "inner join stan s on s.id = t.stan_id " +
+			      "left join sifra_promene sp on sp.id = t.sifra_promene_id " +
+			      "where (1 = :datumOdNotExists or t.datum >= :datumOd) " +
+			      "  and (1 = :datumDoNotExists or t.datum <= :datumDo) " +
+			      "  and (1 = :sifraStanaOdNotExists or s.sifra >= :sifraStanaOd) " +
+			      "  and (1 = :sifraStanaDoNotExists or s.sifra <= :sifraStanaDo) " +
+			      "group by t.datum, sp.sifra " +
+			      "order by t.datum, sp.sifra",
+			  resultSetMapping="af"
+			),
+	
 	/*
 	@NamedNativeQuery(
 		    name = "Transakcija.rekapitulacijaSifraPromeneDatumRacun",
@@ -607,6 +645,28 @@ import java.time.LocalDate;
 	  		+ "and (1 = :datumDoNotExists or t.datum <= :datumDo ) "  		
 	  		+ "group by t.datum "
 	  		+ "order by t.datum ", resultSetMapping="ag"),
+	
+	
+	@NamedNativeQuery(
+			  name="Transakcija.sintetickiDnevnikSearch",
+			  query=
+			      "select t.datum, " +
+			      "       coalesce(sum(t.duguje), 0.00) as duguje, " +
+			      "       coalesce(sum(t.potrazuje), 0.00) as potrazuje " +
+			      "from transakcija t " +
+			      "inner join stan s on s.id = t.stan_id " +
+			      "where (1 = :datumOdNotExists or t.datum >= :datumOd) " +
+			      "  and (1 = :datumDoNotExists or t.datum <= :datumDo) " +
+			      "  and (1 = :sifraOdNotExists or s.sifra >= :sifraOd) " +
+			      "  and (1 = :sifraDoNotExists or s.sifra <= :sifraDo) " +
+			      "  and (1 = :dugujeOdNotExists or coalesce(t.duguje,0) >= :dugujeOd) " +
+			      "  and (1 = :dugujeDoNotExists or coalesce(t.duguje,0) <= :dugujeDo) " +
+			      "  and (1 = :potrazujeOdNotExists or coalesce(t.potrazuje,0) >= :potrazujeOd) " +
+			      "  and (1 = :potrazujeDoNotExists or coalesce(t.potrazuje,0) <= :potrazujeDo) " +
+			      "group by t.datum " +
+			      "order by t.datum",
+			  resultSetMapping="ag"
+			)
 			
 })
 

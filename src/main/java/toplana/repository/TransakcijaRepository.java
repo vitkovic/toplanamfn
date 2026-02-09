@@ -123,6 +123,12 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	List<RekapitulacijaSifraPromeneDatumDTO> rekapitulacijaSifraPromeneDatum(@Param("datumOdNotExists") Integer datumOdNotExists,@Param("datumOd") LocalDate datumOd,
 			@Param("datumDoNotExists") Integer datumDoNotExists,@Param("datumDo") LocalDate datumDo);
 	
+	@Query(nativeQuery = true)
+	List<RekapitulacijaSifraPromeneDatumDTO> rekapitulacijaSifraPromeneDatumSearch(@Param("datumOdNotExists") Integer datumOdNotExists,@Param("datumOd") LocalDate datumOd,
+			@Param("datumDoNotExists") Integer datumDoNotExists,@Param("datumDo") LocalDate datumDo, @Param("sifraOd") String sifraOd, @Param("sifraDo") String sifraDo);
+	
+	
+	
 	@Query(name = "Transakcija.rekapitulacijaSifraPromeneDatumRacun", nativeQuery = true)
 	List<RacunDTO> rekapitulacijaSifraPromeneDatumRacun(
 	    @Param("datumDo") LocalDate datumDo,
@@ -137,6 +143,30 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	@Query(nativeQuery = true)
 	List<RekapitulacijaSifraPromeneDatumDTO> sintetickiDnevnik(@Param("datumOdNotExists") Integer datumOdNotExists,@Param("datumOd") LocalDate datumOd,
 			@Param("datumDoNotExists") Integer datumDoNotExists,@Param("datumDo") LocalDate datumDo);
+	
+	@Query(nativeQuery = true, name = "Transakcija.sintetickiDnevnikSearch")
+	List<RekapitulacijaSifraPromeneDatumDTO> sintetickiDnevnikSearch(
+	  @Param("datumOdNotExists") Integer datumOdNotExists,
+	  @Param("datumOd") LocalDate datumOd,
+	  @Param("datumDoNotExists") Integer datumDoNotExists,
+	  @Param("datumDo") LocalDate datumDo,
+
+	  @Param("sifraOdNotExists") Integer sifraOdNotExists,
+	  @Param("sifraOd") String sifraOd,
+	  @Param("sifraDoNotExists") Integer sifraDoNotExists,
+	  @Param("sifraDo") String sifraDo,
+
+	  @Param("dugujeOdNotExists") Integer dugujeOdNotExists,
+	  @Param("dugujeOd") BigDecimal dugujeOd,
+	  @Param("dugujeDoNotExists") Integer dugujeDoNotExists,
+	  @Param("dugujeDo") BigDecimal dugujeDo,
+
+	  @Param("potrazujeOdNotExists") Integer potrazujeOdNotExists,
+	  @Param("potrazujeOd") BigDecimal potrazujeOd,
+	  @Param("potrazujeDoNotExists") Integer potrazujeDoNotExists,
+	  @Param("potrazujeDo") BigDecimal potrazujeDo
+	);
+	
 	
 	@Query(value = 
 		    "(SELECT transakcija.* FROM transakcija t " +

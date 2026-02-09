@@ -31,6 +31,7 @@ export default class SintetickiDnevnik extends mixins(AlertMixin) {
     duguje:null,
     potrazuje: null,
     sifra: "",
+	sifrastana:null,
   }] ;
   
   public search = {
@@ -40,7 +41,13 @@ export default class SintetickiDnevnik extends mixins(AlertMixin) {
     ukljucen:  false,    
     podstanica: null, 
     prezime: "",
-    reoni:[]
+    reoni:[],
+	sifraOd:null,
+	sifraDo:null,
+	potrazujeOd:null,
+	potrazujeDo:null,
+	dugujeOd:null,
+	dugujeDo:null
   }
 
   public fields: any[] = [];
@@ -61,42 +68,46 @@ export default class SintetickiDnevnik extends mixins(AlertMixin) {
     return this.$t('toplanaApp.transakcija.potrazi');
   }
   
+ 
   
   public mounted(): void {
     //this.retrieveAllTransakcijas();
-    this.fields = [
-      {key:'datum', label:this.$t('toplanaApp.transakcija.datum'), sortable:true,
-      formatter: (value, key, item) => {
-        const dt = new Date(value);
-        return dt.toLocaleDateString('sr');        
-      }},        
-      {key:'duguje', label:this.$t('toplanaApp.transakcija.duguje'), sortable:true, 
-      formatter: (value, key, item) => {
-        //return Intl.NumberFormat().format(value);        
-        return this.$options.filters.currency(value, ['']);
-      }},
-      {key:'potrazuje', label:this.$t('toplanaApp.transakcija.potrazuje'), sortable:true, 
-      formatter: (value, key, item) => {
-        //return Intl.NumberFormat().format(value);        
-        return this.$options.filters.currency(value, ['']);
-        //Vue2Filters.filters('currency')(value,'');
-      }},      
-      //{key:'actions', label:""}
-    ]
+	this.fields = [
+	  {
+	    key: 'datum',
+	    label: this.$t('toplanaApp.transakcija.datum'),
+	    sortable: true,
+	    formatter: value => new Date(value).toLocaleDateString('sr')
+	  },
+	  {
+	    key: 'duguje',
+	    label: this.$t('toplanaApp.transakcija.duguje'),
+	    sortable: true,
+	    formatter: value => this.$options.filters.currency(value, [''])
+	  },
+	  {
+	    key: 'potrazuje',
+	    label: this.$t('toplanaApp.transakcija.potrazuje'),
+	    sortable: true,
+	    formatter: value => this.$options.filters.currency(value, [''])
+	  }
+	];
   }
 
  
   public send(): void {    
     this.isFetching = true;    
+	console.log(this.search);
     this.transakcijaService().sintetickiDnevnik(this.search)
     .then(res => {            
       this.margina = false;
       this.rekapitulacije = res.data;
-      
-      this.isFetching = false;
+	  console.log( this.rekapitulacije);
+	  this.isFetching = false;
     });
   }
 
+    
   public stampanje(): void {
     this.isFetching = true;    
       this.transakcijaService()

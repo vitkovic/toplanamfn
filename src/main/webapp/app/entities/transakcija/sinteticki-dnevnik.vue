@@ -42,6 +42,91 @@
                         ></b-form-datepicker> 
                     </div>                            
                 </div>
+                
+                  <div class="row">
+                       <div class="col-12">
+                       <hr/>
+                         <div class="row">
+                              <div class="col-3">
+                                <label v-text="$t('toplanaApp.stan.sifraOd')"></label>
+                            </div>
+                               <div class="col-3">
+                                <label v-text="$t('toplanaApp.stan.sifraDo')"></label>
+                            </div>
+                       </div>
+                         
+                         <div class="row">
+                           <div class="col-3">
+                                <input type="text" class="form-control" name="sifraOd" id="sifraOd"
+                                v-model="search.sifraOd"  
+                                />
+                            </div>
+                           <div class="col-3">
+                                <input type="text" class="form-control" name="sifraDo" id="sifraDo"
+                                v-model="search.sifraDo"  
+                                />
+                          </div>
+                       </div>
+                       </div>
+                    </div>
+                
+                 <div class="row">
+                       <div class="col-12">
+                       <hr/>
+                         <div class="row">
+                              <div class="col-3">
+                                <label v-text="$t('toplanaApp.stan.potrazujeOd')"></label>
+                            </div>
+                               <div class="col-3">
+                                <label v-text="$t('toplanaApp.stan.potrazujeDo')"></label>
+                            </div>
+                       </div>
+                         
+                         <div class="row">
+                           <div class="col-3">
+                                <input type="text" class="form-control" name="potrazujeOd" id="potrazujeOd"
+                                v-model="search.potrazujeOd"  
+                                />
+                            </div>
+                           <div class="col-3">
+                                <input type="text" class="form-control" name="potrazujeDo" id="potrazujeDo"
+                                v-model="search.potrazujeDo"  
+                                />
+                          </div>
+                       </div>
+                       </div>
+                    </div>
+                
+                
+                 <div class="row">
+                       <div class="col-12">
+                       <hr/>
+                         <div class="row">
+                              <div class="col-3">
+                                <label v-text="$t('toplanaApp.stan.dugujeOd')"></label>
+                            </div>
+                               <div class="col-3">
+                                <label v-text="$t('toplanaApp.stan.dugujeDo')"></label>
+                            </div>
+                       </div>
+                         
+                         <div class="row">
+                           <div class="col-3">
+                                <input type="text" class="form-control" name="dugujeOd" id="dugujeOd"
+                                v-model="search.dugujeOd"  
+                                />
+                            </div>
+                           <div class="col-3">
+                                <input type="text" class="form-control" name="dugujeDo" id="dugujeDo"
+                                v-model="search.dugujeDo"  
+                                />
+                          </div>
+                       </div>
+                       </div>
+                    </div>
+                
+                
+                
                         
                 <button type="button" id="save-entity"  :disabled="isFetching" @click="send"
                                     class="btn btn-primary" style="margin-top:20px">
@@ -71,6 +156,7 @@
                                 <td style="background-color:#557360;color:white">Ukupno</td>
                                 <td style="background-color:#557360;color:white">{{totalDuguje | currency('')}}</td>                                
                                 <td style="background-color:#557360;color:white">{{totalPotrazuje | currency('')}}</td>
+                             
         
                             </template>                            
                     </b-table>                   

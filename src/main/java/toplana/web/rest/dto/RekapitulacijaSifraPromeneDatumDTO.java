@@ -8,7 +8,10 @@ public class RekapitulacijaSifraPromeneDatumDTO {
 	BigDecimal duguje;
 	BigDecimal potrazuje;
 	String sifra;
+	String sifrastana;
 	
+
+
 	public RekapitulacijaSifraPromeneDatumDTO(LocalDate datum, String sifra, BigDecimal duguje, BigDecimal potrazuje) {
 		super();
 		this.datum = datum;
@@ -22,6 +25,14 @@ public class RekapitulacijaSifraPromeneDatumDTO {
 		this.datum = datum;
 		this.duguje = duguje;
 		this.potrazuje = potrazuje;	
+	}
+	
+	public RekapitulacijaSifraPromeneDatumDTO(LocalDate datum, BigDecimal duguje, BigDecimal potrazuje, String sifras) {
+		super();
+		this.datum = datum;
+		this.duguje = duguje;
+		this.potrazuje = potrazuje;	
+		this.sifrastana = sifras;
 	}
 
 	public RekapitulacijaSifraPromeneDatumDTO() {
@@ -60,7 +71,14 @@ public class RekapitulacijaSifraPromeneDatumDTO {
 		this.sifra = sifra;
 	}
 	
-	
+
+	public String getSifrastana() {
+		return sifrastana;
+	}
+
+	public void setSifrastana(String sifrastana) {
+		this.sifrastana = sifrastana;
+	}
 	
 	
 
