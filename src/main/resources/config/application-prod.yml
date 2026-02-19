@@ -56,7 +56,7 @@ spring:
     host: smtp.office365.com
     port: 587
     username: toplanamfn@masfak.ni.ac.rs
-    password: Toplana2025
+    password: Masinac.@@2k26
     properties:
       mail:
         from: toplanamfn@masfak.ni.ac.rs

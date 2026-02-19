@@ -737,6 +737,16 @@ public class Transakcija implements Serializable {
     @JsonIgnoreProperties(value = "transakcijas", allowSetters = true)
     private OstaliRacuni ostaliRacuni;
     
+    
+    
+    @PrePersist
+    @PreUpdate
+    private void fixNulls() {
+        if (duguje == null) duguje = BigDecimal.ZERO;
+        if (potrazuje == null) potrazuje = BigDecimal.ZERO;
+    }
+    
+    
     public Transakcija() {}
     
     public Transakcija(StavkeIzvoda s, Stan stan, SifraPromene sp) {
