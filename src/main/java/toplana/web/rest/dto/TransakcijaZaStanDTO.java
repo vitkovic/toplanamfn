@@ -43,6 +43,25 @@ public class TransakcijaZaStanDTO {
 	private int tipPotrosacaInteger;
 	private int podstanicaBrojInteger;
 	
+	private String opisT, opisI;
+	
+	
+	public String getOpisT() {
+		return opisT;
+	}
+
+	public void setOpisT(String opisT) {
+		this.opisT = opisT;
+	}
+
+	public String getOpisI() {
+		return opisI;
+	}
+
+	public void setOpisI(String opisI) {
+		this.opisI = opisI;
+	}
+
 	public TransakcijaZaStanDTO() {
 		super();
 	}
@@ -132,6 +151,33 @@ public class TransakcijaZaStanDTO {
 		this.status = "" + this.podstanicaBrojInteger + this.getUkljucen(); 
 		
 	}
+	
+	public TransakcijaZaStanDTO (LocalDate datumKnjizenja, String sifraDokumenta, String sifraPromene, BigDecimal duguje, 
+			BigDecimal potrazuje, String maticniBroj, String prezime,  String grad, String ulica, Integer ulaz, Integer broj,   
+			boolean ukljucen,  Integer tipPotrosaca, Integer podstanicaBroj, String opisT, String opisI) {
+		
+		this.datumKnjizenja = datumKnjizenja;
+		this.sifraDokumenta = sifraDokumenta;
+		this.sifraPromene = sifraPromene;
+		this.potrazuje = potrazuje;
+		this.duguje = duguje;
+		this.prezime = prezime;
+		this.sifraStana = maticniBroj;
+		this.opis = opis;		
+		this.ime = ime;
+		this.grad = grad;
+		this.ulica = ulica;
+		this.ulaz = ulaz;
+		this.broj = broj;		
+		this.tipPotrosacaInteger = tipPotrosaca;
+		this.podstanicaBrojInteger = podstanicaBroj;
+		this.ukljucen = ukljucen;
+		this.status = "" + this.podstanicaBrojInteger + this.getUkljucen(); 
+		this.opisT = opisT;
+		this.opisI = opisI;
+		
+	}
+	
 	
 	public int getTipPotrosacaInteger() {
 		return tipPotrosacaInteger;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.3.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape_1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d9556083-d092-467b-8ccf-3adc2f8e0ef4">
 	<queryString>
 		<![CDATA[]]>
@@ -82,6 +82,7 @@
 	<field name="status" class="java.lang.String">
 		<fieldDescription><![CDATA[status]]></fieldDescription>
 	</field>
+	<field name="opisI" class="java.lang.String"/>
 	<variable name="total" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{duguje}]]></variableExpression>
 	</variable>
@@ -130,7 +131,7 @@
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<text><![CDATA[Опис]]></text>
+				<text><![CDATA[Опис Извода]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="320" y="16" width="60" height="30" uuid="81ec0768-02e7-47ff-bae6-b021d7f87a88"/>
@@ -189,7 +190,7 @@
 				<textElement>
 					<font fontName="DejaVu Sans" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{opis} != null ? $F{opis} : " "]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{opisI} != null ? $F{opisI} : " "]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
 				<reportElement x="308" y="1" width="72" height="18" uuid="a4990638-fc63-4a6a-9798-d30fe35880b1">

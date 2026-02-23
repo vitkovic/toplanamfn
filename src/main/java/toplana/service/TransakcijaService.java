@@ -617,7 +617,7 @@ public class TransakcijaService {
 			e.printStackTrace();
 		}
 		
-		return pdfPutanja + "\\AnDnevnik.pdf";
+		return pdfPutanja + "\\AnDnevnik.pdf";   
     }
     
 /***************************************************************************************************************
