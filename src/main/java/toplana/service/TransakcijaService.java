@@ -43,6 +43,7 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -319,8 +320,10 @@ public class TransakcijaService {
     		sifra = "%" + search.getSifraStana() + "%";
     	}
     	
-    	
-    	 search.setPrezime(search.getPrezime().trim());
+    	 String p = search.getPrezime();
+    	 p = (p == null) ? "" : p.trim();
+    	 search.setPrezime(p);
+    	 
 	   	 
     	 String[] prezimeComplex = search.getPrezime().split(String.valueOf(" "));
 		 
@@ -395,14 +398,13 @@ public class TransakcijaService {
     		
     	}
     		
-    		
-	   	 out.removeIf(r ->
-		    (saldoOdFinal != null && r.getStanje() != null && r.getStanje().compareTo(saldoOdFinal) < 0) ||
-		    (saldoDoFinal != null && r.getStanje() != null && r.getStanje().compareTo(saldoDoFinal) > 0)
-	   	 );
-    	
-    	
-    	
+    	if (out == null) return Collections.emptyList();
+    	else {
+	   	 	out.removeIf(r ->
+	   	 		(saldoOdFinal != null && r.getStanje() != null && r.getStanje().compareTo(saldoOdFinal) < 0) ||
+	   	 		(saldoDoFinal != null && r.getStanje() != null && r.getStanje().compareTo(saldoDoFinal) > 0)
+	   	 			);
+    	}
     	
     	
     	return out;
