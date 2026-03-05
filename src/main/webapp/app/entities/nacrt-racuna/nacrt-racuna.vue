@@ -11,9 +11,7 @@
                 </span>
             </router-link>
         </h2>
-        <b-alert v-if="alertMessage" :variant="alertVariant" show>
-  			{{ alertMessage }}
-		</b-alert>
+    
         <b-alert :show="dismissCountDown"
             dismissible
             :variant="alertType"
