@@ -194,6 +194,57 @@ public class TransakcijaResource {
 	    return transakcije;
     }
     
+    
+    /**
+     * Vraca se zbirni prikaz transakcija za zadate kriterijume (stanje, duguje, potrazuje, prezime i sifra stana)
+     * @param search
+     * Salje se u datatable i tamo se radi pagination i search
+     * @return
+     */
+    @RequestMapping(value = "/transakcijas-criteria-stampanje",
+    	    method = RequestMethod.POST,
+    	    produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamResource> getAllRacunsCriteriaStampanje(@RequestBody SearchTransakcijaDTO search) throws IOException{      
+	    //TransakcijaSpecification transakcijaSpec = transakcijaService.createSpecification(search);
+	    //List<TransakcijaStanUkupnoDTO> transakcije = transakcijaCustomRepository.findAllSumed(transakcijaSpec);
+    	
+    	List<TransakcijaStanUkupnoDTO> transakcije = null;
+    	
+    	if(search.getSifraStana() != null && search.getSifraStana().trim().equals(Constants.RACUN_OSTALI_TROSKOVI_BEZ_STANA)) {
+    		////System.out.println("*******************************************************************************************************************************" + search.getSifraStana());
+    		
+    		transakcije = transakcijaService.findAllOR(search);
+    		
+    
+    	} else {
+    	
+    	  transakcije = transakcijaService.findAllSumed(search);
+    	
+    	}
+    	
+    	String filename = transakcijaService.generateReportTransakcijaDnevnik(transakcije);
+      	File file = new File(filename);
+
+          HttpHeaders headers = new HttpHeaders();
+          headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+          headers.add("Pragma", "no-cache");
+          headers.add("Expires", "0");
+          headers.add("Content-Disposition","attachment; filename=\"" + filename +"\"");
+          
+          return ResponseEntity
+                  .ok()
+                  .headers(headers)
+                  .contentLength(file.length())
+                  .contentType(MediaType.parseMediaType("application/pdf"))
+                  .body(new InputStreamResource(new FileInputStream(file)));
+    	
+    	
+    	
+	   
+    }
+    
+    
+    
     /**
      * Dolazi se sa strane knjigovodstveni dnevnik, analiticki. Prikazuju se transakcije koje zadovoljvaju kriterijume
      * @param search

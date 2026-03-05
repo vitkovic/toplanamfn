@@ -230,6 +230,37 @@ export default class Transakcija extends mixins(AlertMixin) {
     });
   }
 
+  public stampanje(): void {
+     this.search.reoni = [];
+     for(let i = 0; i < this.selected.length;i++){
+       this.search.reoni.push(this.selected[i]);
+     }
+
+  if (this.search.sifraStana.length > 0) {
+  		this.search.sifraStana = this.search.sifraStana.replace(/\D/g, '');
+  }
+
+
+     this.isFetching = true;
+  
+     this.transakcijaService().retrieveCriteriaStampanje(this.search)
+     .then(res => {    
+       this.margina = false;
+       this.transakcije = res.data;
+    console.log(this.transakcije);
+       this.isFetching = false;
+       if (RACUN_OSTALI_TROSKOVI_BEZ_STANA == this.search.sifraStana) {
+  	this.fields = this.fieldsort;
+    } else {
+  	this.fields = this.fieldsbase;
+    }
+       //this.queryCount = this.totalItems;      
+       //this.isFetching = false;
+     });
+   }
+
+  
+  
   public prepareRemove(instance: ITransakcija): void {
     this.removeId = instance.id;
     if (<any>this.$refs.removeEntity) {

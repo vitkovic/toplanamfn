@@ -410,6 +410,37 @@ public class TransakcijaService {
     	return out;
     }
     
+    
+    /****************************************************************************************************************
+     * Pravi se PDF sa analitickim dnevnikom    
+     * @param rps
+     * @return
+     *****************************************************************************************************************/
+        public String generateReportTransakcijaDnevnik(List<TransakcijaStanUkupnoDTO> rps) {
+    		 
+    		try {
+    			
+    			ClassPathResource cl = new ClassPathResource("/jasper/AnDnevnik.jrxml");
+    			InputStream input = cl.getInputStream();
+    			// Compile the Jasper report from .jrxml to .japser
+    			JasperReport jasperReport = JasperCompileManager.compileReport(input);
+    			// Get your data source
+    			JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(rps);
+    			// Add parameters
+    			Map<String, Object> parameters = new HashMap<>();
+    			// Fill the report
+    			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+    			// Export the report to a PDF file
+    			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\AnDnevnik.pdf");
+    			////System.out.println("PDF File rekapitulacija Generated !!");
+    		}catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    		
+    		return pdfPutanja + "\\AnDnevnik.pdf";   
+        }
+    
+    
     /**
      * Pronalazi transakcije za analiticki dnevnik
      * @param search

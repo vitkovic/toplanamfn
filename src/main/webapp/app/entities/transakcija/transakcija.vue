@@ -217,6 +217,15 @@
                     <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"></b-pagination>
                 </b-col>
             </b-row>
+              <b-row class="mt-4">
+            <b-col sm="2">
+                <b-button  v-on:click="stampanje()"
+                        variant="info"
+                        class="btn ">                    
+                    <span class="d-none d-md-inline" v-text="$t('entity.action.stampanje')">Stampanje</span>
+                </b-button>
+            </b-col>            
+        </b-row>      
         </div>
 
 
