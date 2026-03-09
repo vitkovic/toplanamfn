@@ -52,7 +52,7 @@
 				<text><![CDATA[Дугује]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="520" y="11" width="80" height="30" uuid="412cc54c-1200-4a33-982b-c3f6c9701307"/>
+				<reportElement x="524" y="11" width="80" height="30" uuid="412cc54c-1200-4a33-982b-c3f6c9701307"/>
 				<textElement textAlignment="Center">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
@@ -101,7 +101,7 @@
 	</columnHeader>
 	<detail>
 		<band height="21" splitType="Stretch">
-			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+			<textField pattern="###,##0.00;(-###,##0.00)">
 				<reportElement x="448" y="-4" width="72" height="18" uuid="a4990638-fc63-4a6a-9798-d30fe35880b1">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -110,8 +110,8 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{duguje}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
-				<reportElement x="520" y="-4" width="80" height="18" uuid="a46e7c85-a358-4868-8c8d-0b8332766158">
+			<textField pattern="###,##0.00;(-###,##0.00)">
+				<reportElement x="525" y="-4" width="80" height="18" uuid="a46e7c85-a358-4868-8c8d-0b8332766158">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right">
@@ -147,7 +147,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ime}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+			<textField pattern="###,##0.00;(-###,##0.00)">
 				<reportElement x="614" y="-4" width="80" height="18" uuid="d4bea372-30fe-4003-82b9-37c4978c00e5">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
