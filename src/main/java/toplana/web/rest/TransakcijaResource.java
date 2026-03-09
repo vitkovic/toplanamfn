@@ -207,7 +207,7 @@ public class TransakcijaResource {
     @RequestMapping(value = "/transakcijas-criteria-stampanje",
     	    method = RequestMethod.POST,
     	    produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<ByteArrayResource> getAllRacunsCriteriaStampanje(@RequestBody SearchTransakcijaDTO search) throws IOException{      
+    public ResponseEntity<InputStreamResource> getAllRacunsCriteriaStampanje(@RequestBody SearchTransakcijaDTO search) throws IOException{      
 	    //TransakcijaSpecification transakcijaSpec = transakcijaService.createSpecification(search);
 	    //List<TransakcijaStanUkupnoDTO> transakcije = transakcijaCustomRepository.findAllSumed(transakcijaSpec);
     	
@@ -227,19 +227,22 @@ public class TransakcijaResource {
     	
         	
     	
-    	byte[] pdf = transakcijaService.generateReportTransakcijaDnevnikB(transakcije);
+    	String filename = transakcijaService.generateReportTransakcijaDnevnik(transakcije);
+      	File file = new File(filename);
 
-    	HttpHeaders headers = new HttpHeaders();
-    	headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
-    	headers.add("Pragma", "no-cache");
-    	headers.add("Expires", "0");
-    	headers.add("Content-Disposition", "attachment; filename=\"TransS.pdf\"");
+          HttpHeaders headers = new HttpHeaders();
+          headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+          headers.add("Pragma", "no-cache");
+          headers.add("Expires", "0");
+          headers.add("Content-Disposition","attachment; filename=\"" + filename +"\"");
+          
+          return ResponseEntity
+                  .ok()
+                  .headers(headers)
+                  .contentLength(file.length())
+                  .contentType(MediaType.parseMediaType("application/pdf"))
+                  .body(new InputStreamResource(new FileInputStream(file)));
 
-    	return ResponseEntity.ok()
-    	        .headers(headers)
-    	        .contentLength(pdf.length) 
-    	        .contentType(MediaType.APPLICATION_PDF)
-    	        .body(new ByteArrayResource(pdf));
     	 
 	   
     }

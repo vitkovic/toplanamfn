@@ -248,20 +248,16 @@ export default class Transakcija extends mixins(AlertMixin) {
   
      this.transakcijaService().retrieveCriteriaStampanje(this.search)
      .then(res => {
-		const file = new Blob([res.data], { type: 'application/pdf' });
 			this.isFetching = false;
-		    const fileURL = window.URL.createObjectURL(file);
-
-		    const link = document.createElement('a');
-		    link.href = fileURL;
-		    link.setAttribute('download', 'TransS.pdf');
-		    document.body.appendChild(link);
-
-		    link.click();
-		    link.remove();
-		     });
+			 var fileURL = window.URL.createObjectURL(new Blob([res.data]));
+	         var fileLink = document.createElement('a');
+	         fileLink.href = fileURL;
+	         fileLink.setAttribute('download', 'TransS.pdf');
+	         document.body.appendChild(fileLink);
+	         fileLink.click();
+	 });
    }
-
+ 
   
   
   public prepareRemove(instance: ITransakcija): void {
