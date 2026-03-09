@@ -237,10 +237,10 @@ public class TransakcijaResource {
 
     	return ResponseEntity.ok()
     	        .headers(headers)
-    	        .contentLength(pdf.length)
+    	        .contentLength(pdf.length) 
     	        .contentType(MediaType.APPLICATION_PDF)
     	        .body(new ByteArrayResource(pdf));
-    	
+    	 
 	   
     }
     

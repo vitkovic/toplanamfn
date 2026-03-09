@@ -167,7 +167,7 @@
 	<summary>
 		<band height="41" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="1" width="778" height="1" uuid="addeb0cb-4e1e-4e6b-9365-d2bbb60f7a11"/>
+				<reportElement x="0" y="0" width="778" height="1" uuid="addeb0cb-4e1e-4e6b-9365-d2bbb60f7a11"/>
 				<graphicElement>
 					<pen lineStyle="Dashed"/>
 				</graphicElement>
