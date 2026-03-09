@@ -324,11 +324,11 @@ import java.time.LocalDate;
 
 
 
+     
 
-
 	
 	
-	
+	 	
 	@NamedNativeQuery(
 		    name = "Transakcija.searchSUM",
 		    query =

@@ -420,7 +420,7 @@ public class TransakcijaService {
     		 
     		try {
     			
-    			ClassPathResource cl = new ClassPathResource("/jasper/AnDnevnik.jrxml");
+    			ClassPathResource cl = new ClassPathResource("/jasper/TransS.jrxml");
     			InputStream input = cl.getInputStream();
     			// Compile the Jasper report from .jrxml to .japser
     			JasperReport jasperReport = JasperCompileManager.compileReport(input);
@@ -431,13 +431,32 @@ public class TransakcijaService {
     			// Fill the report
     			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
     			// Export the report to a PDF file
-    			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\AnDnevnik.pdf");
-    			////System.out.println("PDF File rekapitulacija Generated !!");
+    			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\TransS.pdf");
+    		
     		}catch(Exception e) {
     			e.printStackTrace();
-    		}
+    		}           
     		
-    		return pdfPutanja + "\\AnDnevnik.pdf";   
+    		return pdfPutanja + "\\TransS.pdf";             
+        }
+        
+        
+        public byte[] generateReportTransakcijaDnevnikB(List<TransakcijaStanUkupnoDTO> rps) {
+            try {
+                ClassPathResource cl = new ClassPathResource("/jasper/TransS.jrxml");
+                InputStream input = cl.getInputStream();
+
+                JasperReport jasperReport = JasperCompileManager.compileReport(input);
+                JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(rps);
+
+                Map<String, Object> parameters = new HashMap<>();
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+
+                return JasperExportManager.exportReportToPdf(jasperPrint);
+
+            } catch (Exception e) {
+                throw new RuntimeException("Greška pri generisanju PDF izveštaja.", e);
+            }
         }
     
     

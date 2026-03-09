@@ -102,6 +102,7 @@ public class TransakcijaStanUkupnoDTO {
 		this.potrazuje = potrazuje;		
 		this.sifra = sifra;		
 		this.prezime = prezime;
+		this.ime = ime;
 		if(this.duguje == null) 
 			this.duguje = BigDecimal.ZERO;
 		
@@ -194,6 +195,14 @@ public class TransakcijaStanUkupnoDTO {
 	}
 	public void setStanId(Long stanId) {
 		this.stanId = stanId;
+	}
+
+	@Override
+	public String toString() {
+		return "TransakcijaStanUkupnoDTO [duguje=" + duguje + ", potrazuje=" + potrazuje + ", stanje=" + stanje
+				+ ", sifra=" + sifra + ", stanId=" + stanId + ", prezime=" + prezime + ", datum=" + datum + ", opis="
+				+ opis + ", ime=" + ime + ", prezimeime=" + prezimeime + ", sifraOd=" + sifraOd + ", sifraDo=" + sifraDo
+				+ ", saldoOd=" + saldoOd + ", saldoDo=" + saldoDo + "]";
 	}
 	
 	

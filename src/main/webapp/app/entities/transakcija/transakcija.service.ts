@@ -43,17 +43,19 @@ export default class TransakcijaService {
   }
   
   public retrieveCriteriaStampanje(search, paginationQuery?: any): Promise<any> {
-     return new Promise<any>((resolve, reject) => {
-       axios
-         .post(baseApiUrlCriteriaStampanje, search)        
-         .then(res => {
-           resolve(res);
-         })
-         .catch(err => {
-           reject(err);
-         });
-     });
-   }
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .post(baseApiUrlCriteriaStampanje, search, {
+          responseType: 'blob'
+        })
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
 
   public retrieveCriteriaAnalitickiDnevnik(search ): Promise<any> {
     return new Promise<any>((resolve, reject) => {

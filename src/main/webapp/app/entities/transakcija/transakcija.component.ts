@@ -60,6 +60,7 @@ export default class Transakcija extends mixins(AlertMixin) {
     ukljucen:  true,    
     podstanica: null, 
     prezime: "",
+	ime:"",
     reoni:[],
 	sifraOd:null,
 	sifraDo:null,
@@ -125,7 +126,8 @@ export default class Transakcija extends mixins(AlertMixin) {
 	
 	this.fieldsbase = [
 	      {key:'sifra', label:this.$t('toplanaApp.transakcija.sifra'), sortable:true},
-	      {key:'prezime', label:this.$t('toplanaApp.vlasnik.prezime'), sortable:true,thClass:'fieldWidth'},
+	      {key:'prezime', label:this.$t('toplanaApp.vlasnik.prezime'), sortable:true},
+		  {key:'ime', label:this.$t('toplanaApp.vlasnik.ime'), sortable:true},
 	      {key:'duguje', label:this.$t('toplanaApp.transakcija.duguje'), sortable:true},
 	      {key:'potrazuje', label:this.$t('toplanaApp.transakcija.potrazuje'), sortable:true},
 	      {key:'stanje', label:this.$t('toplanaApp.transakcija.stanje'),sortable:true},
@@ -232,31 +234,31 @@ export default class Transakcija extends mixins(AlertMixin) {
 
   public stampanje(): void {
      this.search.reoni = [];
-     for(let i = 0; i < this.selected.length;i++){
+    
+	  for(let i = 0; i < this.selected.length;i++){
        this.search.reoni.push(this.selected[i]);
      }
 
-  if (this.search.sifraStana.length > 0) {
+  	if (this.search.sifraStana.length > 0) {
   		this.search.sifraStana = this.search.sifraStana.replace(/\D/g, '');
-  }
+  	}
 
 
      this.isFetching = true;
   
      this.transakcijaService().retrieveCriteriaStampanje(this.search)
-     .then(res => {    
-       this.margina = false;
-       this.transakcije = res.data;
-    console.log(this.transakcije);
-       this.isFetching = false;
-       if (RACUN_OSTALI_TROSKOVI_BEZ_STANA == this.search.sifraStana) {
-  	this.fields = this.fieldsort;
-    } else {
-  	this.fields = this.fieldsbase;
-    }
-       //this.queryCount = this.totalItems;      
-       //this.isFetching = false;
-     });
+     .then(res => {
+		const file = new Blob([res.data], { type: 'application/pdf' });
+		    const fileURL = window.URL.createObjectURL(file);
+
+		    const link = document.createElement('a');
+		    link.href = fileURL;
+		    link.setAttribute('download', 'TransS.pdf');
+		    document.body.appendChild(link);
+
+		    link.click();
+		    link.remove();
+		     });
    }
 
   
