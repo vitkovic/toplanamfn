@@ -1126,17 +1126,5 @@ public class Transakcija implements Serializable {
         return 31;
     }
 
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "Transakcija{" +
-            "id=" + getId() +
-            ", datum='" + getDatum() + "'" +
-            ", valuta='" + getValuta() + "'" +
-            ", status='" + getStatus() + "'" +
-            ", opis='" + getOpis() + "'" +
-            ", duguje=" + getDuguje() +
-            ", potrazuje=" + getPotrazuje() +
-            "}";
-    }
+  
 }
