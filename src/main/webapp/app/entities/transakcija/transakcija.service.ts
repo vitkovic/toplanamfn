@@ -6,7 +6,7 @@ import { ITransakcija } from '@/shared/model/transakcija.model';
 
 const baseApiUrl = 'api/transakcijas';
 const baseApiUrlCriteria = 'api/transakcijas-criteria';
-const baseApiUrlCriteria = 'api/transakcijas-criteria-stampanje';
+const baseApiUrlCriteriaStampanje = 'api/transakcijas-criteria-stampanje';
 const baseApiUrlCriteriaAnalitickiDnevnik = 'api/transakcijas-criteria-analiticki-dnevnik';
 const baseApiUrlCriteriaAnalitickiDnevnikStampanje = 'api/transakcijas-criteria-analiticki-dnevnik-stampanje';
 const baseApiUrlCriteriaRekapitulacijaSifraPromeneDatum = 'api/transakcijas-rekapitulacija-sifra-promene-datum';
@@ -45,7 +45,7 @@ export default class TransakcijaService {
   public retrieveCriteriaStampanje(search, paginationQuery?: any): Promise<any> {
      return new Promise<any>((resolve, reject) => {
        axios
-         .post(baseApiUrlCriteria, search)        
+         .post(baseApiUrlCriteriaStampanje, search)        
          .then(res => {
            resolve(res);
          })
