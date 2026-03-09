@@ -243,7 +243,7 @@ public class TransakcijaResource {
     	 
 	   
     }
-    
+        
     
     
     /**
