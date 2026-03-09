@@ -41,6 +41,13 @@ public class QrGeneratorFromText {
     	boolean serviceNeeded = false;
     	
     	ammount = ammount.setScale(2, RoundingMode.HALF_UP);
+    	
+    	
+    	if (ammount.compareTo(BigDecimal.ZERO) < 0) {
+    	    ammount = BigDecimal.ZERO;
+    	}
+    	
+    	
     	String value = ammount.toString();
     	
     	if (value.lastIndexOf(".") == -1) {
