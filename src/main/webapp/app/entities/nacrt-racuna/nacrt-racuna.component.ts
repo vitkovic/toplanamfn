@@ -24,6 +24,7 @@ export default class NacrtRacuna extends mixins(AlertMixin) {
 
   public nacrtRacunas: INacrtRacuna[] = [];
   public alertMessage: string | null = null;
+  public alertMessageAll: string | null = null;
   public isFetching = false;
 
   public mounted(): void {
@@ -94,14 +95,14 @@ export default class NacrtRacuna extends mixins(AlertMixin) {
 
     this.isSaving = true;
     this.alertVariant = 'info';
-    this.alertMessage = 'Генерисање pdf рачуна је у току. Молим сачекајте...';
+    this.alertMessageAll = 'Генерисање pdf рачуна је у току. Молим сачекајте...';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     this.nacrtRacunaService()
       .stampanje(sid)
       .then(res => {
         this.isSaving = false;
-        this.alertMessage = null;
+        this.alertMessageAll = null;
 
         const fileURL = window.URL.createObjectURL(new Blob([res], { type: 'application/pdf' }));
         const fileLink = document.createElement('a');
@@ -115,7 +116,7 @@ export default class NacrtRacuna extends mixins(AlertMixin) {
       .catch(() => {
         this.isSaving = false;
         this.alertVariant = 'danger';
-        this.alertMessage = 'Грешка при генерисању PDF-а.';
+        this.alertMessageAll = 'Грешка при генерисању PDF-а.';
       });
   }
     

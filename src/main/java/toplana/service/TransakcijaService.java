@@ -412,7 +412,7 @@ public class TransakcijaService {
     
     
     /****************************************************************************************************************
-     * Pravi se PDF sa analitickim dnevnikom    
+     * Pravi se PDF sa transakcijama dnevnikom    
      * @param rps
      * @return
      *****************************************************************************************************************/
