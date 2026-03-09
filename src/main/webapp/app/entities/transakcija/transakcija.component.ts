@@ -249,6 +249,7 @@ export default class Transakcija extends mixins(AlertMixin) {
      this.transakcijaService().retrieveCriteriaStampanje(this.search)
      .then(res => {
 		const file = new Blob([res.data], { type: 'application/pdf' });
+			this.isFetching = false;
 		    const fileURL = window.URL.createObjectURL(file);
 
 		    const link = document.createElement('a');
