@@ -123,7 +123,7 @@ public class RacunUtils {
 	                        .add(nz(r.getUtrosakVarijabilni()));
 	                      
 	                
-	                // OVO JE RACUNJANJEkoje ima problem sa zaokruzivanjem 
+	                // OVO JE RACUNJANJE koje ima problem sa zaokruzivanjem 
 	                //ukupnoZaduzenje   = ukupnoZaduzenje.add(nz(r.getUkupno())).add(nz(r.getUtrosakFiksniPdv())).add(nz(r.getUtrosakVarijabilniPdv()));
 	                
 	                if (imaOdrzavanje) {
@@ -132,13 +132,7 @@ public class RacunUtils {
 	                    	       .add(nz(r.getUtrosakOdrzavanjePdv()));
 	                }
 	                
-	                //ukupnoPlacanje    = ukupnoPlacanje.add(nz(r.getZaPlacanje()));
-	            
-	                if (r.getStan().getId()==601 && r.getDatumRacuna().toString().equalsIgnoreCase("2026-01-31")) {
-	                	
-	                 ukupnoZaduzenje =  ukupnoZaduzenje.subtract(new BigDecimal(15.39));
-	                 
-	                }
+	               
 	                
 	            }
 	            
