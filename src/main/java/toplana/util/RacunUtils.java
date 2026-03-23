@@ -1,6 +1,7 @@
 package toplana.util;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -108,9 +109,10 @@ public class RacunUtils {
 	                
 	                
 	                ukupnoZaduzenje = ukupnoZaduzenje
-	                	    .add(nz(r.getUkupno()))
-	                	    .add(nz(r.getUtrosakFiksniPdv()))
-	                	    .add(nz(r.getUtrosakVarijabilniPdv()));
+	                        .add(nz(r.getUkupno()))
+	                        .add(nz(r.getUtrosakFiksniPdv()))
+	                        .add(nz(r.getUtrosakVarijabilniPdv()))
+	                        .setScale(2, RoundingMode.HALF_UP);
 	                
 	                
 	               // ukupnoZaduzenje   = ukupnoZaduzenje.add(nz(r.getUkupno())).add(nz(r.getUtrosakOdrzavanjePdv())).add(nz(r.getUtrosakFiksniPdv())).add(nz(r.getUtrosakVarijabilniPdv())).add(nz(r.getUtrosakOdrzavanjeBezPdv()));
