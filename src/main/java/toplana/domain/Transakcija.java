@@ -786,8 +786,8 @@ import java.time.LocalDate;
 			  name="Transakcija.sintetickiDnevnikSearch",
 			  query=
 			      "select t.datum, " +
-			      "       coalesce(sum(t.duguje), 0.00) as duguje, " +
-			      "       coalesce(sum(t.potrazuje), 0.00) as potrazuje " +
+			      "       coalesce(sum(round(t.duguje, 2)), 0.00) as duguje, " +
+			      "       coalesce(sum(round(t.potrazuje, 2)), 0.00) as potrazuje " +
 			      "from transakcija t " +
 			      "inner join stan s on s.id = t.stan_id " +
 			      "where (1 = :datumOdNotExists or t.datum >= :datumOd) " +
@@ -802,7 +802,7 @@ import java.time.LocalDate;
 			      "order by t.datum",
 			  resultSetMapping="ag"
 			)
-			
+
 })
 
 

@@ -76,26 +76,63 @@ public class RacunUtils {
 	            BigDecimal popust             = BigDecimal.ZERO;
 	            BigDecimal ukupnoZaduzenje    = BigDecimal.ZERO;
 	            BigDecimal ukupnoPlacanje    = BigDecimal.ZERO;
-
+	            
+	            
 	            for (RacunDTO r : group) {
+	            	
+	            	
+	            	Long podstanicaId = r.getStan().getPodstanica().getId();
+	            	boolean imaOdrzavanje = podstanicaId != null && podstanicaId <= 1105;
+	            	
+	            	
+	            	
+	            	
 	                utrosakVarijabilni = utrosakVarijabilni.add(nz(r.getUtrosakVarijabilniBezPopusta()));
 	                utrosakFiksni      = utrosakFiksni.add(nz(r.getUtrosakFiksniBezPopusta()));
-	                utrosakOdrzavanje  = utrosakOdrzavanje.add(nz(r.getUtrosakOdrzavanjeBezPdv()));
+	                
+	                
+	                if (imaOdrzavanje) {
+	                    utrosakOdrzavanje = utrosakOdrzavanje.add(nz(r.getUtrosakOdrzavanjeBezPdv()));
+	                    cenaOdrzavanje    = cenaOdrzavanje.add(nz(r.getCenaOdrzavanje()));
+	                    pdv1              = pdv1.add(nz(r.getUtrosakOdrzavanjePdv()));
+	                }
+	                
 	                utrosakUKwh        = utrosakUKwh.add(nz(r.getUtrosakUKwh()));
-
 	                cenaKwh           = cenaKwh.add(nz(r.getCenaKwh()));
 	                cenaFix           = cenaFix.add(nz(r.getCenaFix()));
 	                cenaFixIskljucen  = cenaFixIskljucen.add(nz(r.getCenaFixIskljucen()));
-	                cenaOdrzavanje    = cenaOdrzavanje.add(nz(r.getCenaOdrzavanje()));
 	                cenaOStalo        = cenaOStalo.add(nz(r.getCenaOStalo()));
-
-	                pdv1              = pdv1.add(nz(r.getUtrosakOdrzavanjePdv()));
 	                pdv2              = pdv2.add(nz(r.getUtrosakFiksniPdv())).add(nz(r.getUtrosakVarijabilniPdv())); // proveriti
 	                popust            = popust.add(nz(r.getUtrosakFiksniPopust())).add(nz(r.getUtrosakVarijabilniPopust()));
 	                ukupno 			  = ukupno.add(nz(r.getUkupno()));
-	                ukupnoZaduzenje   = ukupnoZaduzenje.add(nz(r.getUkupno())).add(nz(r.getUtrosakOdrzavanjePdv())).add(nz(r.getUtrosakFiksniPdv())).add(nz(r.getUtrosakVarijabilniPdv())).add(nz(r.getUtrosakOdrzavanjeBezPdv()));
+	                
+	                
+	                ukupnoZaduzenje = ukupnoZaduzenje
+	                	    .add(nz(r.getUkupno()))
+	                	    .add(nz(r.getUtrosakFiksniPdv()))
+	                	    .add(nz(r.getUtrosakVarijabilniPdv()));
+	                
+	                
+	               // ukupnoZaduzenje   = ukupnoZaduzenje.add(nz(r.getUkupno())).add(nz(r.getUtrosakOdrzavanjePdv())).add(nz(r.getUtrosakFiksniPdv())).add(nz(r.getUtrosakVarijabilniPdv())).add(nz(r.getUtrosakOdrzavanjeBezPdv()));
+	                
+	                if (imaOdrzavanje) {
+	                    ukupnoZaduzenje = ukupnoZaduzenje
+	                    		  .add(nz(r.getUtrosakOdrzavanjeBezPdv()))
+	                    	       .add(nz(r.getUtrosakOdrzavanjePdv()));
+	                }
+	                
 	                //ukupnoPlacanje    = ukupnoPlacanje.add(nz(r.getZaPlacanje()));
+	            
+	                if (r.getStan().getId()==601 && r.getDatumRacuna().toString().equalsIgnoreCase("2026-01-31")) {
+	                	
+	                 ukupnoZaduzenje =  ukupnoZaduzenje.subtract(new BigDecimal(15.39));
+	                 
+	                }
+	                
 	            }
+	            
+	            
+	            
 
 	            // 3) Store sums into the new DTO
 	            sum.setUtrosakVarijabilni(utrosakVarijabilni);
