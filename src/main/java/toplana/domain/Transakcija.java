@@ -759,9 +759,9 @@ import java.time.LocalDate;
 		    name = "Transakcija.rekapitulacijaSifraPromeneDatumRacun",
 		    query =
 		        "select r.*, " +
-		        "       (coalesce(r.utrosak_varijabilni, 0) + " +
-		        "        coalesce(r.utrosak_fiksni, 0) - " +
-		        "        coalesce(r.popust, 0)) as ukupno " +
+		        "       (coalesce(r.utrosak_varijabilni, 0.00) + " +
+		        "        coalesce(r.utrosak_fiksni, 0.00) - " +
+		        "        coalesce(r.popust, 0.00)) as ukupno " +
 		        "from racun r " +
 		        "inner join stan s on r.stan_id = s.id " +
 		        "inner join podstanica p on s.podstanica_id = p.id " +

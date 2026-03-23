@@ -176,7 +176,7 @@ public class RacunUtils {
 	        BigDecimal popust             = z();
 	        BigDecimal ukupno             = z();
 	        BigDecimal ukupnoZaduzenje    = z();
-	        
+
 	        for (RacunDTO r : result) {
 
 	            utrosakVarijabilni = utrosakVarijabilni.add(nz(r.getUtrosakVarijabilni()));
@@ -197,24 +197,27 @@ public class RacunUtils {
 	            ukupno             = ukupno.add(nz(r.getUkupno()));
 	            ukupnoZaduzenje    = ukupnoZaduzenje.add(nz(r.getUkupnoZaduzenje()));
 	        }
-	        total.setUtrosakVarijabilni(utrosakVarijabilni);
-	        total.setUtrosakFiksni(utrosakFiksni);
-	        total.setUtrosakOdrzavanje(utrosakOdrzavanje);
-	        total.setUtrosakUKwh(utrosakUKwh);
 
-	        total.setCenaKwh(cenaKwh);
-	        total.setCenaFix(cenaFix);
-	        total.setCenaFixIskljucen(cenaFixIskljucen);
-	        total.setCenaOdrzavanje(cenaOdrzavanje);
-	        total.setCenaOStalo(cenaOStalo);
+	        // 🔹 skaliranje NA KRAJU (ispravno)
+	        RoundingMode RM = RoundingMode.HALF_UP;
 
-	        total.setPdv1(pdv1);
-	        total.setPdv2(pdv2);
-	        total.setPopust(popust);
-	        total.setUkupno(ukupno);
-	        total.setUkupnoZaduzenje(ukupnoZaduzenje);
+	        total.setUtrosakVarijabilni(utrosakVarijabilni.setScale(2, RM));
+	        total.setUtrosakFiksni(utrosakFiksni.setScale(2, RM));
+	        total.setUtrosakOdrzavanje(utrosakOdrzavanje.setScale(2, RM));
+	        total.setUtrosakUKwh(utrosakUKwh.setScale(2, RM));
 
-	    
+	        total.setCenaKwh(cenaKwh.setScale(2, RM));
+	        total.setCenaFix(cenaFix.setScale(2, RM));
+	        total.setCenaFixIskljucen(cenaFixIskljucen.setScale(2, RM));
+	        total.setCenaOdrzavanje(cenaOdrzavanje.setScale(2, RM));
+	        total.setCenaOStalo(cenaOStalo.setScale(2, RM));
+
+	        total.setPdv1(pdv1.setScale(2, RM));
+	        total.setPdv2(pdv2.setScale(2, RM));
+	        total.setPopust(popust.setScale(2, RM));
+	        total.setUkupno(ukupno.setScale(2, RM));
+	        total.setUkupnoZaduzenje(ukupnoZaduzenje.setScale(2, RM));
+
 	        result.add(total);
 	           
 	        return result;
