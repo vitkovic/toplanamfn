@@ -92,6 +92,14 @@ public class RacunUtils {
 	                utrosakFiksni      = utrosakFiksni.add(nz(r.getUtrosakFiksniBezPopusta()));
 	                
 	                
+	                
+	            	
+	           //     utrosakVarijabilni = utrosakVarijabilni.add(nz(r.getUtrosakVarijabilni()));
+	           //     utrosakFiksni      = utrosakFiksni.add(nz(r.getUtrosakFiksni()));
+	                
+	                
+	                
+	                
 	                if (imaOdrzavanje) {
 	                    utrosakOdrzavanje = utrosakOdrzavanje.add(nz(r.getUtrosakOdrzavanjeBezPdv()));
 	                    cenaOdrzavanje    = cenaOdrzavanje.add(nz(r.getCenaOdrzavanje()));
@@ -107,15 +115,16 @@ public class RacunUtils {
 	                popust            = popust.add(nz(r.getUtrosakFiksniPopust())).add(nz(r.getUtrosakVarijabilniPopust()));
 	                ukupno 			  = ukupno.add(nz(r.getUkupno()));
 	                
-	                
+	               
+	                // ISPRAVNO RACUNJANJE - SVE OSTALO IMA PROBLEM SA ZAOKRUZIVANJEM
+	              
 	                ukupnoZaduzenje = ukupnoZaduzenje
-	                        .add(nz(r.getUkupno()))
-	                        .add(nz(r.getUtrosakFiksniPdv()))
-	                        .add(nz(r.getUtrosakVarijabilniPdv()))
-	                        .setScale(2, RoundingMode.HALF_UP);
+	                        .add(nz(r.getUtrosakFiksni()))
+	                        .add(nz(r.getUtrosakVarijabilni()));
+	                      
 	                
-	                
-	               // ukupnoZaduzenje   = ukupnoZaduzenje.add(nz(r.getUkupno())).add(nz(r.getUtrosakOdrzavanjePdv())).add(nz(r.getUtrosakFiksniPdv())).add(nz(r.getUtrosakVarijabilniPdv())).add(nz(r.getUtrosakOdrzavanjeBezPdv()));
+	                // OVO JE RACUNJANJEkoje ima problem sa zaokruzivanjem 
+	                //ukupnoZaduzenje   = ukupnoZaduzenje.add(nz(r.getUkupno())).add(nz(r.getUtrosakFiksniPdv())).add(nz(r.getUtrosakVarijabilniPdv()));
 	                
 	                if (imaOdrzavanje) {
 	                    ukupnoZaduzenje = ukupnoZaduzenje
@@ -133,7 +142,7 @@ public class RacunUtils {
 	                
 	            }
 	            
-	            
+	            ukupnoZaduzenje = ukupnoZaduzenje.setScale(2, RoundingMode.HALF_UP);
 	            
 
 	            // 3) Store sums into the new DTO
@@ -203,6 +212,7 @@ public class RacunUtils {
 
 	        total.setUtrosakVarijabilni(utrosakVarijabilni.setScale(2, RM));
 	        total.setUtrosakFiksni(utrosakFiksni.setScale(2, RM));
+	        
 	        total.setUtrosakOdrzavanje(utrosakOdrzavanje.setScale(2, RM));
 	        total.setUtrosakUKwh(utrosakUKwh.setScale(2, RM));
 
