@@ -234,26 +234,34 @@ public class TransakcijaService {
     
     */
     
-    public TransakcijeZaStanZbirnoDTO findAllByStanOrderByDatum(Stan s) {
+    public TransakcijeZaStanZbirnoDTO findAllByStanOrderByDatum(Stan s, boolean sve) {
 
         TransakcijeZaStanZbirnoDTO out = new TransakcijeZaStanZbirnoDTO();
         out.setStan(s);
 
-        LocalDate today = LocalDate.now();
-        LocalDate datumOd = today.withDayOfYear(1);
-        LocalDate datumDo = LocalDate.of(today.getYear(), 12, 31);
+        List<Transakcija> transakcije;
+        BigDecimal saldo;
 
-        BigDecimal saldo = transakcijaRepository.getSaldoPreDatuma(s.getId(), datumOd);
-        if (saldo == null) {
+        if (sve) {
+            // 🔥 sve godine
+            transakcije = transakcijaRepository.findAllByStanOrderByDatum(s);
             saldo = BigDecimal.ZERO;
-        }
+        } else {
+            // 🔥 samo tekuća godina
+            LocalDate today = LocalDate.now();
+            LocalDate datumOd = today.withDayOfYear(1);
+            LocalDate datumDo = LocalDate.of(today.getYear(), 12, 31);
 
-        List<Transakcija> transakcije =
-                transakcijaRepository.findAllByStanAndDatumBetweenOrderByDatum(s, datumOd, datumDo);
+            saldo = transakcijaRepository.getSaldoPreDatuma(s.getId(), datumOd);
+            if (saldo == null) saldo = BigDecimal.ZERO;
+
+            transakcije = transakcijaRepository
+                    .findAllByStanAndDatumBetweenOrderByDatum(s, datumOd, datumDo);
+        }
 
         BigDecimal duguje = BigDecimal.ZERO;
         BigDecimal potrazuje = BigDecimal.ZERO;
-        List<TransakcijaZaStanDTO> tr = new ArrayList<TransakcijaZaStanDTO>();
+        List<TransakcijaZaStanDTO> tr = new ArrayList<>();
 
         for (Transakcija t : transakcije) {
             TransakcijaZaStanDTO trans = new TransakcijaZaStanDTO(t, saldo);
@@ -271,32 +279,40 @@ public class TransakcijaService {
         return out;
     }
     
-    public TransakcijeZaStanZbirnoDTO findAllByDodatniRacunOrderByDatum(String sifra) {
+    public TransakcijeZaStanZbirnoDTO findAllByDodatniRacunOrderByDatum(String sifra, boolean sve) {
 
         TransakcijeZaStanZbirnoDTO out = new TransakcijeZaStanZbirnoDTO();
         OstaliRacuni or = ostaliRacuniRepository.findBySifra(sifra);
 
-        if (or != null) {
-            out.setOstaliRacuni(or);
-        } else {
+        if (or == null) {
             out.setTransakcije(new ArrayList<TransakcijaZaStanDTO>());
-            out.setDugujeUkupno(BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP));
-            out.setPotrazujeUkupno(BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP));
-            out.setSaldoUkupno(BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP));
+            out.setDugujeUkupno(BigDecimal.ZERO);
+            out.setPotrazujeUkupno(BigDecimal.ZERO);
+            out.setSaldoUkupno(BigDecimal.ZERO);
             return out;
         }
 
-        LocalDate today = LocalDate.now();
-        LocalDate datumOd = today.withDayOfYear(1);
-        LocalDate datumDo = LocalDate.of(today.getYear(), 12, 31);
+        out.setOstaliRacuni(or);
 
-        BigDecimal saldo = transakcijaRepository.getSaldoPreDatumaZaOstaleRacune(or.getId(), datumOd);
-        if (saldo == null) {
+        List<Transakcija> transakcije;
+        BigDecimal saldo;
+
+        if (sve) {
+            transakcije = transakcijaRepository.findAllByOstaliRacuniOrderByDatum(or);
             saldo = BigDecimal.ZERO;
-        }
+        } else {
+            LocalDate today = LocalDate.now();
+            LocalDate datumOd = today.withDayOfYear(1);
+            LocalDate datumDo = LocalDate.of(today.getYear(), 12, 31);
 
-        List<Transakcija> transakcije =
-                transakcijaRepository.findAllByOstaliRacuniAndDatumBetweenOrderByDatum(or, datumOd, datumDo);
+            saldo = transakcijaRepository.getSaldoPreDatumaZaOstaleRacune(or.getId(), datumOd);
+            if (saldo == null) {
+                saldo = BigDecimal.ZERO;
+            }
+
+            transakcije = transakcijaRepository
+                    .findAllByOstaliRacuniAndDatumBetweenOrderByDatum(or, datumOd, datumDo);
+        }
 
         BigDecimal duguje = BigDecimal.ZERO;
         BigDecimal potrazuje = BigDecimal.ZERO;
@@ -305,8 +321,8 @@ public class TransakcijaService {
         for (Transakcija t : transakcije) {
             TransakcijaZaStanDTO trans = new TransakcijaZaStanDTO(t, saldo);
             saldo = trans.getSaldo();
-            duguje = duguje.add(trans.getDuguje()).setScale(2, RoundingMode.HALF_UP);
-            potrazuje = potrazuje.add(trans.getPotrazuje()).setScale(2, RoundingMode.HALF_UP);
+            duguje = duguje.add(trans.getDuguje());
+            potrazuje = potrazuje.add(trans.getPotrazuje());
             tr.add(trans);
         }
 
@@ -317,7 +333,6 @@ public class TransakcijaService {
 
         return out;
     }
-    
     
  /*
  public TransakcijeZaStanZbirnoDTO findAllByDodatniRacunOrderByDatum(String sifra){

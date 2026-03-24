@@ -22,8 +22,17 @@ public class SearchTransakcijaDTO {
     private String prezimeime = "";
     private BigDecimal saldoOd;
     private BigDecimal saldoDo;
+    private boolean sve;
     
    
+	public boolean isSve() {
+		return sve;
+	}
+
+	public void setSve(boolean sve) {
+		this.sve = sve;
+	}
+
 	BigDecimal potrazujeOd;
 	BigDecimal potrazujeDo;
 	BigDecimal dugujeOd;

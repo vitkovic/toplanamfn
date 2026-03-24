@@ -309,7 +309,7 @@ public class TransakcijaResource {
  * @return
  ********************************************************************************************************/
     @GetMapping("/transakcijas/sve-prikaz/{sifraStana}")
-    public TransakcijeZaStanZbirnoDTO getAllTransakcijeZaStan(@PathVariable String sifraStana) {
+    public TransakcijeZaStanZbirnoDTO getAllTransakcijeZaStan(@PathVariable String sifraStana, @RequestParam(name = "sve", required = false, defaultValue = "false") Boolean sve) {
         log.debug("REST request to get a page of Transakcije zbirno za stan");
         TransakcijeZaStanZbirnoDTO trans = null;
         Stan stan = stanRepository.findBySifra(sifraStana);
@@ -320,11 +320,11 @@ public class TransakcijaResource {
     
         if(stan != null) {        
         	List<Stan> stanPN = stanRepository.getPreviousAndNextById(stan.getSifra());
-        	trans = transakcijaService.findAllByStanOrderByDatum(stan);
+        	trans = transakcijaService.findAllByStanOrderByDatum(stan, sve);
         	trans.setPrevNextTransakcije(stanPN);
         }else {
         	List<Stan> stanPN = stanRepository.getPreviousAndNextById(sifraStana);
-        	trans = transakcijaService.findAllByDodatniRacunOrderByDatum(sifraStana);
+        	trans = transakcijaService.findAllByDodatniRacunOrderByDatum(sifraStana, sve);
         	trans.setPrevNextTransakcije(stanPN);
         }
         
@@ -346,9 +346,9 @@ public class TransakcijaResource {
         String sifra = search.getSifraStana();
         Stan stan = stanRepository.findBySifra(sifra);
         if(stan != null) {        
-        	trans = transakcijaService.findAllByStanOrderByDatum(stan);
+        	trans = transakcijaService.findAllByStanOrderByDatum(stan, search.isSve());
         }else {
-        	trans = transakcijaService.findAllByDodatniRacunOrderByDatum(sifra);
+        	trans = transakcijaService.findAllByDodatniRacunOrderByDatum(sifra, search.isSve());
         }
         
         String filename = transakcijaService.generateReportAnalitickaKartica(trans.getTransakcije());
