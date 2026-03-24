@@ -162,10 +162,10 @@ export default class TransakcijaService {
     });
   }
 
-  public findAllForStan(sifra?: string): Promise<any> {
+  public findAllForStan(sifra?: string, sve?: any): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios
-        .get(baseApiUrl + '/sve-prikaz/' + sifra)
+        .get(baseApiUrl + '/sve-prikaz/' + sifra, {params: { sve: sve })
         .then(res => {
           resolve(res);
         })

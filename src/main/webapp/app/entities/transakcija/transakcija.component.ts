@@ -42,8 +42,8 @@ export default class Transakcija extends mixins(AlertMixin) {
   public perPage = 20;
   public currentPage = 1;
 
-
-
+  
+  
   public podstanice: IPodstanica[] = [];
   public margina = true;
   public selected = [];
@@ -65,7 +65,8 @@ export default class Transakcija extends mixins(AlertMixin) {
 	sifraOd:null,
 	sifraDo:null,
 	saldoOd:null,
-	saldoDo:null
+	saldoDo:null,
+	sve:false
   }
 
   
@@ -147,7 +148,10 @@ export default class Transakcija extends mixins(AlertMixin) {
   }
 
   public prikaziDetalje(sifra:string): void {
-    this.$router.push({ path: `/transakcija/sve-prikaz/` + sifra });
+	this.$router.push({
+	  path: `/transakcija/sve-prikaz/` + sifra,
+	  query: { sve: this.search.sve }
+	});
   }
 
   public clear(): void {
@@ -208,6 +212,7 @@ export default class Transakcija extends mixins(AlertMixin) {
 	if (this.search.sifraStana.length > 0) {
 			this.search.sifraStana = this.search.sifraStana.replace(/\D/g, '');
 	}
+	
 	
 	
     this.isFetching = true;

@@ -178,6 +178,7 @@
                                 />
                           </div>
                        </div>
+                       
                        </div>
                     </div>
                 
@@ -186,7 +187,8 @@
                 <button type="button" id="save-entity"  :disabled="isFetching" @click="send"
                                     class="btn btn-primary" style="margin-top:20px">
                     <span v-text="$t('entity.action.posalji')">Save</span>
-                </button>                
+                </button> 
+                 
             </div>
         </div>
 
@@ -195,9 +197,14 @@
                 <b-col md="9">
                     
                 </b-col>
-                <b-col md="3" style="text-align:right;">
+                <b-col md="2" style="text-align:right;">
                     <b-form-input v-model="filter" type="search" :placeholder="potrazi"></b-form-input>
                 </b-col>
+                  <b-col md="1" style="text-align:left;">
+                     <input type="checkbox" v-model="search.sve" />
+								<label>Sve godine</label>       
+                </b-col>
+                             
             </b-row>
             <b-row style="margin-left:0px;margin-top:10px">                     
                 <b-col>
@@ -211,7 +218,10 @@
                             <template v-slot:cell(actions)="data">
                                 <b-button variant="info" @click="prikaziDetalje(data.item.sifra)">
                                     <span v-text="$t('entity.action.details')"></span>
-                                </b-button>
+                                </b-button>  
+                       
+                             
+                       
                             </template>
                     </b-table>
                     <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"></b-pagination>

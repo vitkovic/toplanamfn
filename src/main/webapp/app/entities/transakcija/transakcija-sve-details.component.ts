@@ -36,6 +36,7 @@ export default class TransakcijaSveDetails extends Vue {
   @Inject('transakcijaService') private transakcijaService: () => TransakcijaService;
   public transakcija: ITransakcija = {};
   public String sifra = null;
+  public Boolean sve = null;
   public List<Stan> prevnext = [];
   public Long left = 0, right = 0;
   public search = {
@@ -55,6 +56,8 @@ export default class TransakcijaSveDetails extends Vue {
       if (to.params.sifra) {
         vm.search.sifraStana = to.params.sifra;
 		vm.sifra = to.params.sifra;
+		console.log('^^^^^^^^^^^^^^^^^^^^^^' + to.query.sve);
+		vm.sve = to.query.sve;
         vm.retrieveSveTransakcije(to.params.sifra);
       }
     });
@@ -119,8 +122,9 @@ export default class TransakcijaSveDetails extends Vue {
    
    
   public retrieveSveTransakcije(sifra) {
+	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + this.sve);
     this.transakcijaService()
-      .findAllForStan(sifra)
+      .findAllForStan(sifra, this.sve)
       .then(res => {        
 	    this.transakcijaZbirno = res.data;
 		console.log(this.transakcijaZbirno);

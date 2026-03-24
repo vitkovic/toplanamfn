@@ -312,9 +312,13 @@ public class TransakcijaResource {
     public TransakcijeZaStanZbirnoDTO getAllTransakcijeZaStan(@PathVariable String sifraStana, @RequestParam(name = "sve", required = false, defaultValue = "false") Boolean sve) {
         log.debug("REST request to get a page of Transakcije zbirno za stan");
         TransakcijeZaStanZbirnoDTO trans = null;
+        
         Stan stan = stanRepository.findBySifra(sifraStana);
         
         System.out.println("******************************" + stan);
+        
+        
+        System.out.println("******************************" + sve);
         
      
     
