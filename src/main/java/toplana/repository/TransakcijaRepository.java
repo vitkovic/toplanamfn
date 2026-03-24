@@ -43,6 +43,23 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			+ "	and stan_id = ?2 ", nativeQuery=true)
 	BigDecimal getSaldoDoKrajaPrethodnogMesecaZaStanAndValuta(LocalDate valuta, Long stanId);
 	
+	
+	@Query("select coalesce(sum(t.duguje), 0) - coalesce(sum(t.potrazuje), 0) " +
+		       "from Transakcija t " +
+		       "where t.stan.id = :stanId and t.datum < :datum")
+		BigDecimal getSaldoPreDatuma(@Param("stanId") Long stanId, @Param("datum") LocalDate datum);
+	
+	List<Transakcija> findAllByStanAndDatumBetweenOrderByDatum(Stan stan, LocalDate datumOd, LocalDate datumDo);
+	
+	@Query("select coalesce(sum(t.duguje), 0) - coalesce(sum(t.potrazuje), 0) " +
+		       "from Transakcija t " +
+		       "where t.ostaliRacuni.id = :ostaliRacuniId and t.datum < :datum")
+		BigDecimal getSaldoPreDatumaZaOstaleRacune(@Param("ostaliRacuniId") Long ostaliRacuniId,
+		                                           @Param("datum") LocalDate datum);
+	List<Transakcija> findAllByOstaliRacuniAndDatumBetweenOrderByDatum(OstaliRacuni ostaliRacuni,
+            LocalDate datumOd,
+            LocalDate datumDo);
+	
 	@Query(value = "SELECT (date_trunc('month', now()) - interval '1 day') ", nativeQuery=true)
 	LocalDate getPoslednjiDanPrethodnogMeseca();
 
