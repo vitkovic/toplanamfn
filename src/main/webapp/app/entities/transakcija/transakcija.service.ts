@@ -174,6 +174,19 @@ export default class TransakcijaService {
         });
     });
   }
+  
+  public findAllForStanOpis(sifra?: string, sve?: any, opis?:any): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+        axios
+          .get('api/transakcijas/sve-prikaz-opis/' + sifra, {params: { sve: sve, opis:opis })
+          .then(res => {
+            resolve(res);
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
+    }
 
   public delete(id: number): Promise<any> {
     return new Promise<any>((resolve, reject) => {

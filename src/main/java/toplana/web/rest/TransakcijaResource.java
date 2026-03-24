@@ -309,19 +309,14 @@ public class TransakcijaResource {
  * @return
  ********************************************************************************************************/
     @GetMapping("/transakcijas/sve-prikaz/{sifraStana}")
-    public TransakcijeZaStanZbirnoDTO getAllTransakcijeZaStan(@PathVariable String sifraStana, @RequestParam(name = "sve", required = false, defaultValue = "false") Boolean sve) {
+    public TransakcijeZaStanZbirnoDTO getAllTransakcijeZaStan(@PathVariable String sifraStana, 
+    		@RequestParam(name = "sve", required = false, defaultValue = "false") Boolean sve) {
         log.debug("REST request to get a page of Transakcije zbirno za stan");
         TransakcijeZaStanZbirnoDTO trans = null;
         
         Stan stan = stanRepository.findBySifra(sifraStana);
         
-        System.out.println("******************************" + stan);
-        
-        
-        System.out.println("******************************" + sve);
-        
-     
-    
+   
         if(stan != null) {        
         	List<Stan> stanPN = stanRepository.getPreviousAndNextById(stan.getSifra());
         	trans = transakcijaService.findAllByStanOrderByDatum(stan, sve);
@@ -335,6 +330,41 @@ public class TransakcijaResource {
         
         return trans;
     }
+    
+    /*******************************************************************************************************
+     * Sve transakcije za stan po opisu
+     * @param sifraStana
+     * @return
+     ********************************************************************************************************/
+    @GetMapping("/transakcijas/sve-prikaz-opis/{sifraStana}")
+    public TransakcijeZaStanZbirnoDTO getAllTransakcijeZaStanPoOpisu(
+            @PathVariable String sifraStana,
+            @RequestParam(name = "sve", required = false, defaultValue = "false") Boolean sve,
+            @RequestParam(name = "opis", required = false, defaultValue = "") String opis) {
+
+        log.debug("REST request to get transakcije zbirno za stan po opisu");
+
+        TransakcijeZaStanZbirnoDTO trans = null;
+        Stan stan = stanRepository.findBySifra(sifraStana);
+
+        if (stan != null) {
+            List<Stan> stanPN = stanRepository.getPreviousAndNextById(stan.getSifra());
+            trans = transakcijaService.findAllByStanOrderByDatumAndOpis(stan, sve, opis);
+            trans.setPrevNextTransakcije(stanPN);
+        } else {
+            List<Stan> stanPN = stanRepository.getPreviousAndNextById(sifraStana);
+            trans = transakcijaService.findAllByDodatniRacunOrderByDatumAndOpis(sifraStana, sve, opis);
+            trans.setPrevNextTransakcije(stanPN);
+        }
+
+        return trans;
+    }
+    
+    
+    
+    
+    
+    
 /*******************************************************************************************************
  * Sve transakcije za stan    stampanje
  * @param sifraStana

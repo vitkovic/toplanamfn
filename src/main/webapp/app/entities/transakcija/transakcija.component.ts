@@ -84,8 +84,25 @@ export default class Transakcija extends mixins(AlertMixin) {
 
   beforeRouteEnter(to, from, next) {
     next(vm => {      
+		if (to.query.search) {
+		     vm.search = JSON.parse(to.query.search);
+		     vm.send(); // ponovo izvrši pretragu
+		}
       vm.initRelationships();
     });
+  }
+  
+  beforeRouteUpdate(to, from, next) {
+    this.vratiSearchIzRoute(to);
+    next();
+  }
+  
+  vratiSearchIzRoute(route = this.$route) {
+    if (route.query.search) {
+      this.search = JSON.parse(route.query.search);
+      this.selected = this.search.reoni ? [...this.search.reoni] : [];
+      this.send();
+    }
   }
 
   public initRelationships(): void {   
@@ -113,7 +130,7 @@ export default class Transakcija extends mixins(AlertMixin) {
   }
   public mounted(): void {
 	
-	
+	this.vratiSearchIzRoute();
    /*
     this.fields = [
       {key:'sifra', label:this.$t('toplanaApp.transakcija.sifra'), sortable:true},
@@ -150,7 +167,7 @@ export default class Transakcija extends mixins(AlertMixin) {
   public prikaziDetalje(sifra:string): void {
 	this.$router.push({
 	  path: `/transakcija/sve-prikaz/` + sifra,
-	  query: { sve: this.search.sve }
+	  query: { sve: this.search.sve,  search: JSON.stringify(this.search) }
 	});
   }
 

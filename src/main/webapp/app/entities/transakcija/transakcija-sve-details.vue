@@ -6,10 +6,10 @@
                     <div class="col-8">
                         <h2 class="jh-entity-heading"><span v-text="$t('toplanaApp.transakcija.analitickaKartica')"></span></h2>
                     </div>
-                    <div v-if="transakcijaZbirno.stan || transakcijaZbirno.ostaliRacuni" class="col-4" style="margin-top:20px;">
+                   <!-- <div v-if="transakcijaZbirno.stan || transakcijaZbirno.ostaliRacuni" class="col-4" style="margin-top:20px;">
                         <span v-if="transakcijaZbirno.stan" >Status: {{transakcijaZbirno.stan.status}}</span>
                         <span v-if="transakcijaZbirno.ostaliRacuni && transakcijaZbirno.ostaliRacuni.stan" >Status: {{transakcijaZbirno.ostaliRacuni.stan.status}}</span>
-                    </div>    
+                    </div>    -->
                 </div>
                 <div class="row" style="margin-top:20px" v-if="transakcijaZbirno.stan || transakcijaZbirno.ostaliRacuni">
                     <div class="col-2">
@@ -31,6 +31,25 @@
                         <span v-if="transakcijaZbirno.stan">{{transakcijaZbirno.stan.ulica}} {{transakcijaZbirno.stan.ulaz}}/{{transakcijaZbirno.stan.broj}}  </span>
                         <span v-if="transakcijaZbirno.ostaliRacuni  && transakcijaZbirno.ostaliRacuni.stan">{{transakcijaZbirno.ostaliRacuni.stan.ulaz}}/{{transakcijaZbirno.ostaliRacuni.stan.broj}} </span>
                     </div>
+                    	<div class="col-4">
+						  <div class="d-flex align-items-center justify-content-end p-2"
+						       style="background-color: #e6f2ff; border-radius: 6px; gap: 15px;">
+						
+						    <div class="d-flex align-items-center" style="gap:5px;">
+						      <input type="checkbox" v-model="sve" @change="onSveChange"/>
+						      <label style="margin:0;">Sve godine</label>
+						    </div>
+						
+						    <input
+						      type="text"
+						      v-model="opis"
+						      placeholder="Opis"
+						      @keyup.enter="onEnterOpis"
+						      style="padding:4px 8px; border-radius:4px; border:1px solid #ccc; width:220px;"
+						    />
+						
+						  </div>
+						</div>
                 </div>
                 <hr class="new3">
                 <div class="table-responsive" style="height:500px;" v-if="transakcijaZbirno.transakcije.length > 0">

@@ -59,7 +59,78 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	List<Transakcija> findAllByOstaliRacuniAndDatumBetweenOrderByDatum(OstaliRacuni ostaliRacuni,
             LocalDate datumOd,
             LocalDate datumDo);
+	// opis
+	@Query(value =
+		    "select coalesce(sum(t.duguje), 0) - coalesce(sum(t.potrazuje), 0) " +
+		    "from transakcija t " +
+		    "where t.stan_id = :stanId " +
+		    "and t.datum < :datum " +
+		    "and coalesce(t.opis, '') ILIKE '%' || :opis || '%'",
+		    nativeQuery = true)
+		BigDecimal getSaldoPreDatumaZaStanIOpis(@Param("stanId") Long stanId,
+		                                        @Param("datum") LocalDate datum,
+		                                        @Param("opis") String opis);
+		@Query(value =
+		    "select * from transakcija t " +
+		    "where t.stan_id = :#{#stan.id} " +
+		    "and coalesce(t.opis, '') ILIKE '%' || :opis || '%' " +
+		    "order by t.datum, t.id",
+		    nativeQuery = true)
+		List<Transakcija> findAllByStanAndOpisContainingIgnoreCaseOrderByDatum(@Param("stan") Stan stan,
+		                                                                       @Param("opis") String opis);
+		@Query(value =
+		    "select * from transakcija t " +
+		    "where t.stan_id = :#{#stan.id} " +
+		    "and t.datum >= :datumOd " +
+		    "and t.datum <= :datumDo " +
+		    "and coalesce(t.opis, '') ILIKE '%' || :opis || '%' " +
+		    "order by t.datum, t.id",
+		    nativeQuery = true)
+		List<Transakcija> findAllByStanAndDatumBetweenAndOpisContainingIgnoreCaseOrderByDatum(
+		        @Param("stan") Stan stan,
+		        @Param("datumOd") LocalDate datumOd,
+		        @Param("datumDo") LocalDate datumDo,
+		        @Param("opis") String opis);
 	
+		@Query(value =
+			    "select coalesce(sum(t.duguje), 0) - coalesce(sum(t.potrazuje), 0) " +
+			    "from transakcija t " +
+			    "where t.ostali_racuni_id = :ostaliRacuniId " +
+			    "and t.datum < :datum " +
+			    "and coalesce(t.opis, '') ILIKE '%' || :opis || '%'",
+			    nativeQuery = true)
+			BigDecimal getSaldoPreDatumaZaOstaleRacuneIOpis(@Param("ostaliRacuniId") Long ostaliRacuniId,
+			                                                @Param("datum") LocalDate datum,
+			                                                @Param("opis") String opis);
+
+
+			@Query(value =
+			    "select * from transakcija t " +
+			    "where t.ostali_racuni_id = :#{#ostaliRacuni.id} " +
+			    "and coalesce(t.opis, '') ILIKE '%' || :opis || '%' " +
+			    "order by t.datum, t.id",
+			    nativeQuery = true)
+			List<Transakcija> findAllByOstaliRacuniAndOpisContainingIgnoreCaseOrderByDatum(
+			        @Param("ostaliRacuni") OstaliRacuni ostaliRacuni,
+			        @Param("opis") String opis);
+
+
+			@Query(value =
+			    "select * from transakcija t " +
+			    "where t.ostali_racuni_id = :#{#ostaliRacuni.id} " +
+			    "and t.datum >= :datumOd " +
+			    "and t.datum <= :datumDo " +
+			    "and coalesce(t.opis, '') ILIKE '%' || :opis || '%' " +
+			    "order by t.datum, t.id",
+			    nativeQuery = true)
+			List<Transakcija> findAllByOstaliRacuniAndDatumBetweenAndOpisContainingIgnoreCaseOrderByDatum(
+			        @Param("ostaliRacuni") OstaliRacuni ostaliRacuni,
+			        @Param("datumOd") LocalDate datumOd,
+			        @Param("datumDo") LocalDate datumDo,
+			        @Param("opis") String opis);
+	
+	
+	// do opis
 	@Query(value = "SELECT (date_trunc('month', now()) - interval '1 day') ", nativeQuery=true)
 	LocalDate getPoslednjiDanPrethodnogMeseca();
 

@@ -36,7 +36,9 @@ export default class TransakcijaSveDetails extends Vue {
   @Inject('transakcijaService') private transakcijaService: () => TransakcijaService;
   public transakcija: ITransakcija = {};
   public String sifra = null;
-  public Boolean sve = null;
+  public String previousSearch = null;
+  public Boolean sve = false;
+  public String opis = null;
   public List<Stan> prevnext = [];
   public Long left = 0, right = 0;
   public search = {
@@ -46,7 +48,8 @@ export default class TransakcijaSveDetails extends Vue {
     ukljucen:  false,    
     podstanica: null, 
     prezime: "",
-    reoni:[]
+    reoni:[],
+	sve:false;
   }
   
   public transakcijaZbirno = new ITransakcijeZaStanZbirnoDTO();  
@@ -56,12 +59,22 @@ export default class TransakcijaSveDetails extends Vue {
       if (to.params.sifra) {
         vm.search.sifraStana = to.params.sifra;
 		vm.sifra = to.params.sifra;
-		console.log('^^^^^^^^^^^^^^^^^^^^^^' + to.query.sve);
 		vm.sve = to.query.sve;
+		vm.search.sve = vm.sve;
         vm.retrieveSveTransakcije(to.params.sifra);
+		if (to.query.search) {
+		      vm.previousSearch = JSON.parse(to.query.search);
+		}
       }
     });
   }
+  
+  onSveChange(event) {
+	this.search.sve = this.sve;
+	this.retrieveSveTransakcije(this.sifra);
+  }
+  
+  
   public checkStanSifra() {
   console.log(this.prevnext);
 
@@ -120,9 +133,24 @@ export default class TransakcijaSveDetails extends Vue {
 		
   }
    
-   
+  
+  onEnterOpis() {
+	this.transakcijaService()
+	     .findAllForStanOpis(this.sifra, this.sve, this.opis)
+	     .then(res => {        
+	    this.transakcijaZbirno = res.data;
+		console.log(this.transakcijaZbirno);
+		this.transakcijaZbirno.stan.prevNextStan = this.transakcijaZbirno.prevNextTransakcije;
+		this.prevnext = this.transakcijaZbirno.prevNextTransakcije;
+		console.log(this.prevnext)
+	       
+	     });
+  }
+  
+  
+  
   public retrieveSveTransakcije(sifra) {
-	console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" + this.sve);
+	
     this.transakcijaService()
       .findAllForStan(sifra, this.sve)
       .then(res => {        
@@ -147,11 +175,21 @@ export default class TransakcijaSveDetails extends Vue {
   }
   }
 
-  public previousState() {
-    this.$router.go(-1);
+  previousState() {
+    if (this.previousSearch) {
+      this.$router.push({
+        path: '/transakcija',
+        query: {
+          search: JSON.stringify(this.previousSearch)
+        }
+      });
+    } else {
+      this.$router.push('/transakcija');
+    }
   }
 
   public stampanje(): void {
+	console.log(this.search.sve);
       this.transakcijaService()
         .analitickaKarticaStampanje(this.search)
         .then(res => {
