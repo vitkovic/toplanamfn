@@ -23,8 +23,16 @@ public class SearchTransakcijaDTO {
     private BigDecimal saldoOd;
     private BigDecimal saldoDo;
     private boolean sve;
-    
+    public String opis;
    
+	public String getOpis() {
+		return opis;
+	}
+
+	public void setOpis(String opis) {
+		this.opis = opis;
+	}
+
 	public boolean isSve() {
 		return sve;
 	}

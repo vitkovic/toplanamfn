@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.3.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AnalitickaKartica" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="54bbabd6-0b5b-4f60-b5cf-58a338afd68e">
+	<parameter name="dugujeUkupno" class="java.math.BigDecimal"/>
+	<parameter name="potrazujeUkupno" class="java.math.BigDecimal"/>
+	<parameter name="saldoUkupno" class="java.math.BigDecimal"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -318,21 +321,21 @@
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$V{totalDuguje}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{dugujeUkupno}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.###;#,##0.###">
 				<reportElement x="378" y="11" width="80" height="20" uuid="c6ce6af2-6275-4b57-a702-5fcea621e193">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$V{totalPotrazuje}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{potrazujeUkupno}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.###;#,##0.###">
 				<reportElement x="465" y="11" width="64" height="20" uuid="e654265c-2ce1-4d37-b075-00bf2da72873">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$V{totalDuguje}.subtract($V{totalPotrazuje})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{saldoUkupno}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="6" width="545" height="1" uuid="ad6d672f-13b3-4dd9-bcf7-385027d0f6f5"/>

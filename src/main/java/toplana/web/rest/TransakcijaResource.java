@@ -379,16 +379,25 @@ public class TransakcijaResource {
         TransakcijeZaStanZbirnoDTO trans = null;
         String sifra = search.getSifraStana();
         Stan stan = stanRepository.findBySifra(sifra);
+      
         if(stan != null) {        
-        	trans = transakcijaService.findAllByStanOrderByDatum(stan, search.isSve());
+        	trans = transakcijaService.findAllByStanOrderByDatumAndOpis(stan, search.isSve(), search.getOpis());
         }else {
-        	trans = transakcijaService.findAllByDodatniRacunOrderByDatum(sifra, search.isSve());
+        	trans = transakcijaService.findAllByDodatniRacunOrderByDatumAndOpis(sifra, search.isSve(), search.getOpis());
         }
         
-        String filename = transakcijaService.generateReportAnalitickaKartica(trans.getTransakcije());
+        System.out.println("STAMPA sve = " + search.isSve());
+        System.out.println("STAMPA opis = " + search.getOpis());
+        System.out.println("BROJ REDOVA = " + trans.getTransakcije().size());
+
+        for (TransakcijaZaStanDTO x : trans.getTransakcije()) {
+            System.out.println(x.getDatumKnjizenja() + " | " + x.getOpis() + " | " + x.getPotrazuje() + " | " + x.getSaldo());
+        }
+        
+        String filename = transakcijaService.generateReportAnalitickaKartica(trans);
     	File file = new File(filename);
 
-        HttpHeaders headers = new HttpHeaders();
+        HttpHeaders headers = new HttpHeaders();   
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");

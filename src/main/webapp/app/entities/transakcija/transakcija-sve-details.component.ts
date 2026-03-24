@@ -49,7 +49,8 @@ export default class TransakcijaSveDetails extends Vue {
     podstanica: null, 
     prezime: "",
     reoni:[],
-	sve:false;
+	sve:false,
+	opis:null,
   }
   
   public transakcijaZbirno = new ITransakcijeZaStanZbirnoDTO();  
@@ -61,7 +62,7 @@ export default class TransakcijaSveDetails extends Vue {
 		vm.sifra = to.params.sifra;
 		vm.sve = to.query.sve;
 		vm.search.sve = vm.sve;
-        vm.retrieveSveTransakcije(to.params.sifra);
+		vm.retrieveSveTransakcije(to.params.sifra);
 		if (to.query.search) {
 		      vm.previousSearch = JSON.parse(to.query.search);
 		}
@@ -135,6 +136,7 @@ export default class TransakcijaSveDetails extends Vue {
    
   
   onEnterOpis() {
+	this.search.opis = this.opis;
 	this.transakcijaService()
 	     .findAllForStanOpis(this.sifra, this.sve, this.opis)
 	     .then(res => {        
@@ -189,7 +191,8 @@ export default class TransakcijaSveDetails extends Vue {
   }
 
   public stampanje(): void {
-	console.log(this.search.sve);
+	this.search.sve = this.sve;
+	this.search.opis = this.opis;
       this.transakcijaService()
         .analitickaKarticaStampanje(this.search)
         .then(res => {

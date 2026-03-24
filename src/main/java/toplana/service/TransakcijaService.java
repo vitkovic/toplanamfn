@@ -317,7 +317,7 @@ public class TransakcijaService {
             potrazuje = potrazuje.add(trans.getPotrazuje()).setScale(2, RoundingMode.HALF_UP);
             tr.add(trans);
         }
-
+   
         out.setDugujeUkupno(duguje);
         out.setPotrazujeUkupno(potrazuje);
         out.setSaldoUkupno(saldo);
@@ -1001,29 +1001,32 @@ public class TransakcijaService {
  * @param rps
  * @return
  *****************************************************************************************************************/
-    public String generateReportAnalitickaKartica(List<TransakcijaZaStanDTO> rps) {
-		 
-		try {
-			
-			ClassPathResource cl = new ClassPathResource("/jasper/AnalitickaKartica.jrxml");
-			InputStream input = cl.getInputStream();
-			// Compile the Jasper report from .jrxml to .japser
-			JasperReport jasperReport = JasperCompileManager.compileReport(input);
-			// Get your data source
-			JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(rps);
-			// Add parameters
-			Map<String, Object> parameters = new HashMap<>();
-			// Fill the report
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
-			// Export the report to a PDF file
-			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\AnKartica.pdf");
-			////System.out.println("PDF File rekapitulacija Generated !!");
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		return pdfPutanja + "\\AnKartica.pdf";
-    } 
+    public String generateReportAnalitickaKartica(TransakcijeZaStanZbirnoDTO trans) {
+
+        try {
+
+            ClassPathResource cl = new ClassPathResource("/jasper/AnalitickaKartica.jrxml");
+            InputStream input = cl.getInputStream();
+
+            JasperReport jasperReport = JasperCompileManager.compileReport(input);
+
+            JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(trans.getTransakcije());
+
+            Map<String, Object> parameters = new HashMap<>();
+            parameters.put("dugujeUkupno", trans.getDugujeUkupno());
+            parameters.put("potrazujeUkupno", trans.getPotrazujeUkupno());
+            parameters.put("saldoUkupno", trans.getSaldoUkupno());
+
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+
+            JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\AnKartica.pdf");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return pdfPutanja + "\\AnKartica.pdf";
+    }
     
 /***************************************************************************************************************
  * Sinteticki dnevnik    
