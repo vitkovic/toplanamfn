@@ -995,7 +995,7 @@ public class TransakcijaService {
 		}  
 		
 		return pdfPutanja + "\\RekapitulacijaPoSiframaPromeneIDatumu.pdf";
-    }  
+    }   
 /****************************************************************************************************************
  * Pravi se PDF za analiticku karticu    
  * @param rps
