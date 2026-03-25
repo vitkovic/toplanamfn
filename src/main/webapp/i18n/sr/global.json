@@ -102,7 +102,8 @@
       "confirmpassword.placeholder": "Potvrdite vašu lozinku",
       "email.label": "Email",
       "email.placeholder": "Vaš email",
-	  "currentpassword.label":"Trenutna lozinka"
+	  "currentpassword.label":"Trenutna lozinka",
+	  "currentpassword.placeholder":"Trenutna lozinka"
     },
     "messages": {
       "info": {
