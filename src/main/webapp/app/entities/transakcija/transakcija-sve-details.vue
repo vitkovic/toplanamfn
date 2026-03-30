@@ -37,7 +37,7 @@
 						
 						    <div class="d-flex align-items-center" style="gap:5px;">
 						      <input type="checkbox" v-model="sve" @change="onSveChange"/>
-						      <label style="margin:0;">Sve godine</label>
+						      <label style="margin:0;">Све године</label>
 						    </div>
 						
 						    <input

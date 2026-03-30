@@ -202,7 +202,7 @@
                 </b-col>
                   <b-col md="1" style="text-align:left;">
                      <input type="checkbox" v-model="search.sve" />
-								<label>Sve godine</label>       
+								<label>Све године</label>       
                 </b-col>
                              
             </b-row>

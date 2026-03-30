@@ -60,6 +60,7 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
             LocalDate datumOd,
             LocalDate datumDo);
 	// opis
+	/*
 	@Query(value =
 		    "select coalesce(sum(t.duguje), 0) - coalesce(sum(t.potrazuje), 0) " +
 		    "from transakcija t " +
@@ -70,10 +71,25 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 		BigDecimal getSaldoPreDatumaZaStanIOpis(@Param("stanId") Long stanId,
 		                                        @Param("datum") LocalDate datum,
 		                                        @Param("opis") String opis);
+	
+	*/
+	
+	@Query(value =
+		    "select coalesce(sum(t.duguje), 0) - coalesce(sum(t.potrazuje), 0) " +
+		    "from transakcija t " +
+		    "where t.stan_id = :stanId " +
+		    "and t.datum < :datum " +
+		    "and sr_lat(coalesce(t.opis, '')) like '%' || sr_lat(coalesce(:opis, '')) || '%'",
+		    nativeQuery = true)
+		BigDecimal getSaldoPreDatumaZaStanIOpis(@Param("stanId") Long stanId,
+		                                        @Param("datum") LocalDate datum,
+		                                        @Param("opis") String opis);
+	
+	
 		@Query(value =
 		    "select * from transakcija t " +
 		    "where t.stan_id = :#{#stan.id} " +
-		    "and coalesce(t.opis, '') ILIKE '%' || :opis || '%' " +
+		    "and sr_lat(coalesce(t.opis, '')) like '%' || sr_lat(coalesce(:opis, '')) || '%' " +
 		    "order by t.datum, t.id",
 		    nativeQuery = true)
 		List<Transakcija> findAllByStanAndOpisContainingIgnoreCaseOrderByDatum(@Param("stan") Stan stan,
@@ -83,7 +99,7 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 		    "where t.stan_id = :#{#stan.id} " +
 		    "and t.datum >= :datumOd " +
 		    "and t.datum <= :datumDo " +
-		    "and coalesce(t.opis, '') ILIKE '%' || :opis || '%' " +
+		    "and sr_lat(coalesce(t.opis, '')) like '%' || sr_lat(coalesce(:opis, '')) || '%' " +
 		    "order by t.datum, t.id",
 		    nativeQuery = true)
 		List<Transakcija> findAllByStanAndDatumBetweenAndOpisContainingIgnoreCaseOrderByDatum(
@@ -107,7 +123,7 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			@Query(value =
 			    "select * from transakcija t " +
 			    "where t.ostali_racuni_id = :#{#ostaliRacuni.id} " +
-			    "and coalesce(t.opis, '') ILIKE '%' || :opis || '%' " +
+			    "and sr_lat(coalesce(t.opis, '')) like '%' || sr_lat(coalesce(:opis, '')) || '%' " +
 			    "order by t.datum, t.id",
 			    nativeQuery = true)
 			List<Transakcija> findAllByOstaliRacuniAndOpisContainingIgnoreCaseOrderByDatum(
@@ -120,7 +136,7 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			    "where t.ostali_racuni_id = :#{#ostaliRacuni.id} " +
 			    "and t.datum >= :datumOd " +
 			    "and t.datum <= :datumDo " +
-			    "and coalesce(t.opis, '') ILIKE '%' || :opis || '%' " +
+			    "and sr_lat(coalesce(t.opis, '')) like '%' || sr_lat(coalesce(:opis, '')) || '%' " +
 			    "order by t.datum, t.id",
 			    nativeQuery = true)
 			List<Transakcija> findAllByOstaliRacuniAndDatumBetweenAndOpisContainingIgnoreCaseOrderByDatum(
