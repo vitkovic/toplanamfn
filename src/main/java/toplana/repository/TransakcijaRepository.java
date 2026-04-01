@@ -43,12 +43,74 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			+ "	and stan_id = ?2 ", nativeQuery=true)
 	BigDecimal getSaldoDoKrajaPrethodnogMesecaZaStanAndValuta(LocalDate valuta, Long stanId);
 	
+	// Transakcije -  sve godine i joj ponesto
+	
+	@Query("select coalesce(sum(t.duguje), 0) " +
+	   "from Transakcija t " +
+	   "where t.stan.id = :stanId and t.datum < :datum")
+	BigDecimal getDugujePreDatuma(@Param("stanId") Long stanId, @Param("datum") LocalDate datum);
+	
+	@Query("select coalesce(sum(t.potrazuje), 0) " +
+	   "from Transakcija t " +
+	   "where t.stan.id = :stanId and t.datum < :datum")
+	BigDecimal getPotrazujePreDatuma(@Param("stanId") Long stanId, @Param("datum") LocalDate datum);
 	
 	@Query("select coalesce(sum(t.duguje), 0) - coalesce(sum(t.potrazuje), 0) " +
-		       "from Transakcija t " +
-		       "where t.stan.id = :stanId and t.datum < :datum")
-		BigDecimal getSaldoPreDatuma(@Param("stanId") Long stanId, @Param("datum") LocalDate datum);
+	   "from Transakcija t " +
+	   "where t.stan.id = :stanId and t.datum < :datum")
+	BigDecimal getSaldoPreDatuma(@Param("stanId") Long stanId, @Param("datum") LocalDate datum);
 	
+	
+	@Query("select coalesce(sum(t.duguje), 0) " +
+	   "from Transakcija t " +
+	   "where t.stan.id = :stanId " +
+	   "and t.datum < :datum " +
+	   "and sr_lat(coalesce(t.opis, '')) like '%' || sr_lat(coalesce(:opis, '')) || '%'")
+	BigDecimal getDugujePreDatumaZaStanIOpis(@Param("stanId") Long stanId,
+	                                 @Param("datum") LocalDate datum,
+	                                 @Param("opis") String opis);
+	
+	@Query("select coalesce(sum(t.potrazuje), 0) " +
+	   "from Transakcija t " +
+	   "where t.stan.id = :stanId " +
+	   "and t.datum < :datum " +
+	   "and sr_lat(coalesce(t.opis, '')) like '%' || sr_lat(coalesce(:opis, '')) || '%'")
+	BigDecimal getPotrazujePreDatumaZaStanIOpis(@Param("stanId") Long stanId,
+	                                    @Param("datum") LocalDate datum,
+	                                    @Param("opis") String opis);
+	@Query("select coalesce(sum(t.duguje), 0) " +
+	   "from Transakcija t " +
+	   "where t.ostaliRacuni.id = :ostaliRacuniId and t.datum < :datum")
+	BigDecimal getDugujePreDatumaZaOstaleRacune(@Param("ostaliRacuniId") Long ostaliRacuniId,
+	                                        @Param("datum") LocalDate datum);
+	
+	@Query("select coalesce(sum(t.potrazuje), 0) " +
+	   "from Transakcija t " +
+	   "where t.ostaliRacuni.id = :ostaliRacuniId and t.datum < :datum")
+	BigDecimal getPotrazujePreDatumaZaOstaleRacune(@Param("ostaliRacuniId") Long ostaliRacuniId,
+	                                           @Param("datum") LocalDate datum);
+	
+	@Query("select coalesce(sum(t.duguje), 0) " +
+	       "from Transakcija t " +
+	       "where t.ostaliRacuni.id = :ostaliRacuniId " +
+	       "and t.datum < :datum " +
+	       "and sr_lat(coalesce(t.opis, '')) like '%' || sr_lat(coalesce(:opis, '')) || '%'")
+	BigDecimal getDugujePreDatumaZaOstaleRacuneIOpis(@Param("ostaliRacuniId") Long ostaliRacuniId,
+	                                                 @Param("datum") LocalDate datum,
+	                                                 @Param("opis") String opis);
+	
+	@Query("select coalesce(sum(t.potrazuje), 0) " +
+	       "from Transakcija t " +
+	       "where t.ostaliRacuni.id = :ostaliRacuniId " +
+	       "and t.datum < :datum " +
+	       "and sr_lat(coalesce(t.opis, '')) like '%' || sr_lat(coalesce(:opis, '')) || '%'")
+	BigDecimal getPotrazujePreDatumaZaOstaleRacuneIOpis(@Param("ostaliRacuniId") Long ostaliRacuniId,
+	                                                    @Param("datum") LocalDate datum,
+	                                                    @Param("opis") String opis);
+					
+					
+   // kukuriku			
+					
 	List<Transakcija> findAllByStanAndDatumBetweenOrderByDatum(Stan stan, LocalDate datumOd, LocalDate datumDo);
 	
 	@Query("select coalesce(sum(t.duguje), 0) - coalesce(sum(t.potrazuje), 0) " +

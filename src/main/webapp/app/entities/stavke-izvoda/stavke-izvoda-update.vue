@@ -43,7 +43,7 @@
 
                 </div>
 
-				<div class="row" style="margin-bottom:20px" v-if="isOstaloSelected">
+				<div class="row" style="margin-bottom:20px" >
 									  <div class="col-2">
 									    <span class="font-weight-bold">Остало - опис</span>
 									  </div>

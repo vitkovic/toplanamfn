@@ -152,6 +152,10 @@ public class StavkeIzvodaResource {
         	
         	
         	Transakcija t = new Transakcija(stavkeIzvoda, stan, sp);
+        	if (stavkeIzvoda.getOpis() != null && !stavkeIzvoda.getOpis().trim().isEmpty()) {
+        	    t.setOpis(stavkeIzvoda.getOpis().trim());
+        	}
+
         	Transakcija tResult = transakcijaRepository.save(t);
         	stavkeIzvoda.setTransakcija(tResult);
         	StavkeIzvoda result = stavkeIzvodaRepository.save(stavkeIzvoda);
@@ -179,6 +183,10 @@ public class StavkeIzvodaResource {
         			
         			
                 	Transakcija t = new Transakcija(stavkeIzvoda, ostaliRacuni, sp);
+                	if (stavkeIzvoda.getOpis() != null && !stavkeIzvoda.getOpis().trim().isEmpty()) {
+                	    t.setOpis(stavkeIzvoda.getOpis().trim());
+                	}
+
                 	Transakcija tResult = transakcijaRepository.save(t);
                 	stavkeIzvoda.setTransakcija(tResult);
                 	StavkeIzvoda result = stavkeIzvodaRepository.save(stavkeIzvoda);
@@ -204,6 +212,10 @@ public class StavkeIzvodaResource {
 	            	}
 	        		
 	            	Transakcija t = new Transakcija(stavkeIzvoda, ostaliRacuni, sp);
+	            	if (stavkeIzvoda.getOpis() != null && !stavkeIzvoda.getOpis().trim().isEmpty()) {
+	            	    t.setOpis(stavkeIzvoda.getOpis().trim());
+	            	}
+
 	            	Transakcija tResult = transakcijaRepository.save(t);
 	            	stavkeIzvoda.setTransakcija(tResult);
 	            	StavkeIzvoda result = stavkeIzvodaRepository.save(stavkeIzvoda);
