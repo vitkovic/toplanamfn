@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 7.0.1.final using JasperReports Library version 6.3.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape_1" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d9556083-d092-467b-8ccf-3adc2f8e0ef4">
+	<parameter name="lokaliDuguje" class="java.math.BigDecimal"/>
+	<parameter name="lokaliPotrazuje" class="java.math.BigDecimal"/>
+	<parameter name="ostaliDuguje" class="java.math.BigDecimal"/>
+	<parameter name="ostaliPotrazuje" class="java.math.BigDecimal"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -83,6 +87,7 @@
 		<fieldDescription><![CDATA[status]]></fieldDescription>
 	</field>
 	<field name="opisI" class="java.lang.String"/>
+	<field name="opisT" class="java.lang.String"/>
 	<variable name="total" class="java.math.BigDecimal" calculation="Sum">
 		<variableExpression><![CDATA[$F{duguje}]]></variableExpression>
 	</variable>
@@ -90,7 +95,7 @@
 		<variableExpression><![CDATA[$F{potrazuje}]]></variableExpression>
 	</variable>
 	<background>
-		<band splitType="Stretch"/>
+		<band height="37" splitType="Stretch"/>
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
@@ -113,42 +118,42 @@
 				<text><![CDATA[Датум књижења]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="70" y="16" width="51" height="30" uuid="6b782e3e-1705-4f1d-b0ca-45e75bca83db"/>
+				<reportElement x="69" y="16" width="51" height="30" uuid="6b782e3e-1705-4f1d-b0ca-45e75bca83db"/>
 				<textElement textAlignment="Center">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Шифра док.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="123" y="16" width="94" height="30" uuid="1e2e43c7-ba37-4053-8587-589700486d0a"/>
+				<reportElement x="125" y="16" width="88" height="30" uuid="1e2e43c7-ba37-4053-8587-589700486d0a"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Шифра пром.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="220" y="16" width="80" height="30" uuid="3ae48a5c-035e-48fb-8584-775ab4cb1ea8"/>
+				<reportElement x="294" y="15" width="60" height="30" uuid="3ae48a5c-035e-48fb-8584-775ab4cb1ea8"/>
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<text><![CDATA[Опис Извода]]></text>
+				<text><![CDATA[Опис Изв.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="320" y="16" width="60" height="30" uuid="81ec0768-02e7-47ff-bae6-b021d7f87a88"/>
-				<textElement textAlignment="Center">
+				<reportElement x="363" y="16" width="60" height="30" uuid="81ec0768-02e7-47ff-bae6-b021d7f87a88"/>
+				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Дугује]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="386" y="16" width="80" height="30" uuid="412cc54c-1200-4a33-982b-c3f6c9701307"/>
-				<textElement textAlignment="Center">
+				<reportElement x="436" y="16" width="80" height="30" uuid="412cc54c-1200-4a33-982b-c3f6c9701307"/>
+				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Потражује]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="477" y="16" width="88" height="30" uuid="78fefcc1-1326-4bb4-b6a6-468ca6769e08">
+				<reportElement x="519" y="15" width="88" height="30" uuid="78fefcc1-1326-4bb4-b6a6-468ca6769e08">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement>
@@ -163,18 +168,25 @@
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="570" y="16" width="161" height="30" uuid="ae9054bc-cbe8-4735-b9d5-65b52fccdf62"/>
+				<reportElement x="610" y="15" width="120" height="30" uuid="ae9054bc-cbe8-4735-b9d5-65b52fccdf62"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Презиме и име]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="733" y="16" width="45" height="30" uuid="e269d5db-bfc9-4ba6-b037-20b8cf5f2cc0"/>
+				<reportElement x="733" y="15" width="45" height="30" uuid="e269d5db-bfc9-4ba6-b037-20b8cf5f2cc0"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Статус]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="217" y="16" width="68" height="30" uuid="0ee6aead-d390-4c27-a473-bea55f89d2a1"/>
+				<textElement textAlignment="Left">
+					<font fontName="DejaVu Sans" size="10"/>
+				</textElement>
+				<text><![CDATA[Опис Транс.]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -182,9 +194,9 @@
 		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="24" splitType="Stretch">
 			<textField>
-				<reportElement x="220" y="1" width="80" height="18" uuid="68f2418b-1fb3-406f-9f63-a17d46403f25">
+				<reportElement x="294" y="1" width="60" height="18" uuid="68f2418b-1fb3-406f-9f63-a17d46403f25">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -193,25 +205,25 @@
 				<textFieldExpression><![CDATA[$F{opisI} != null ? $F{opisI} : " "]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
-				<reportElement x="308" y="1" width="72" height="18" uuid="a4990638-fc63-4a6a-9798-d30fe35880b1">
+				<reportElement x="361" y="1" width="72" height="18" uuid="a4990638-fc63-4a6a-9798-d30fe35880b1">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{duguje}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
-				<reportElement x="386" y="1" width="80" height="18" uuid="a46e7c85-a358-4868-8c8d-0b8332766158">
+				<reportElement x="436" y="1" width="80" height="18" uuid="a46e7c85-a358-4868-8c8d-0b8332766158">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<textElement textAlignment="Right">
+				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{potrazuje}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="477" y="1" width="88" height="18" uuid="4a20c42a-e4d2-48d0-906b-44a85409cfc4">
+				<reportElement x="519" y="1" width="88" height="18" uuid="4a20c42a-e4d2-48d0-906b-44a85409cfc4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -221,7 +233,7 @@
 				<textFieldExpression><![CDATA[$F{sifraStana}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="570" y="1" width="160" height="18" uuid="d2333f7c-7dfd-4c01-877f-d3bb19211796">
+				<reportElement x="610" y="1" width="120" height="18" uuid="d2333f7c-7dfd-4c01-877f-d3bb19211796">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
@@ -257,13 +269,22 @@
 				<textFieldExpression><![CDATA[$F{sifraDokumenta} != null ? $F{sifraDokumenta} : " "]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="123" y="1" width="97" height="18" uuid="3be31f4a-186b-4b4b-bb3d-5721fd90a00d">
+				<reportElement x="123" y="1" width="88" height="18" uuid="3be31f4a-186b-4b4b-bb3d-5721fd90a00d">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
 					<font fontName="DejaVu Sans" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sifraPromene} != null ? $F{sifraPromene} : " "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="218" y="1" width="68" height="18" uuid="3b64359f-cee4-4ef5-b596-8e6c42c15543">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="DejaVu Sans" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{opisT} != null ? $F{opisT} : " "]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -274,23 +295,24 @@
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="41" splitType="Stretch">
+		<band height="120" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
-				<reportElement x="311" y="10" width="66" height="19" uuid="aa0848f5-4152-44bf-969c-0b155f1967c2"/>
+				<reportElement x="363" y="12" width="66" height="19" uuid="9bb89060-d2d9-4d5c-9011-97f5981873a2"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{lokaliDuguje}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
-				<reportElement x="386" y="10" width="80" height="19" uuid="5c303083-0285-4d03-8f3f-efdd9750188c"/>
+				<reportElement x="439" y="12" width="80" height="19" uuid="25fa3548-e76d-43ec-9306-93ca2106abac"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$V{total_potrazuje}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{lokaliPotrazuje}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="90" y="10" width="129" height="19" uuid="6a278423-5d5a-481d-9572-73eec21563bb"/>
+				<reportElement x="88" y="13" width="129" height="19" uuid="2ac5ce61-c7a1-4552-9102-7728e3344ff3"/>
 				<textElement>
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<text><![CDATA[Укупно:]]></text>
+				<text><![CDATA[Локали:]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="1" width="778" height="1" uuid="addeb0cb-4e1e-4e6b-9365-d2bbb60f7a11"/>
@@ -298,6 +320,40 @@
 					<pen lineStyle="Dashed"/>
 				</graphicElement>
 			</line>
+			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+				<reportElement x="439" y="60" width="80" height="19" uuid="5c303083-0285-4d03-8f3f-efdd9750188c"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{total_potrazuje}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="88" y="60" width="129" height="19" uuid="6a278423-5d5a-481d-9572-73eec21563bb"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Укупно:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+				<reportElement x="363" y="35" width="66" height="19" uuid="f3859b72-a279-44b7-b061-479c0982e11d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{ostaliDuguje}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+				<reportElement x="439" y="36" width="80" height="19" uuid="3ceedddb-eb46-4ada-97c0-b398f265eb39"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$P{ostaliPotrazuje}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="88" y="36" width="129" height="19" uuid="4cbf2198-ec16-42f7-a1eb-c9b6a71f5b10"/>
+				<textElement>
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Остали:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00#;¤(#,##0.00#-)">
+				<reportElement x="364" y="60" width="66" height="19" uuid="aa0848f5-4152-44bf-969c-0b155f1967c2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>

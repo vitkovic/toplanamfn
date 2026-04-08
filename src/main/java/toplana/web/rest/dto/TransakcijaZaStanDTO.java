@@ -152,30 +152,28 @@ public class TransakcijaZaStanDTO {
 		
 	}
 	
-	public TransakcijaZaStanDTO (LocalDate datumKnjizenja, String sifraDokumenta, String sifraPromene, BigDecimal duguje, 
-			BigDecimal potrazuje, String maticniBroj, String prezime,  String grad, String ulica, Integer ulaz, Integer broj,   
-			boolean ukljucen,  Integer tipPotrosaca, Integer podstanicaBroj, String opisT, String opisI) {
-		
-		this.datumKnjizenja = datumKnjizenja;
-		this.sifraDokumenta = sifraDokumenta;
-		this.sifraPromene = sifraPromene;
-		this.potrazuje = potrazuje;
-		this.duguje = duguje;
-		this.prezime = prezime;
-		this.sifraStana = maticniBroj;
-		this.opis = opis;		
-		this.ime = ime;
-		this.grad = grad;
-		this.ulica = ulica;
-		this.ulaz = ulaz;
-		this.broj = broj;		
-		this.tipPotrosacaInteger = tipPotrosaca;
-		this.podstanicaBrojInteger = podstanicaBroj;
-		this.ukljucen = ukljucen;
-		this.status = "" + this.podstanicaBrojInteger + this.getUkljucen(); 
-		this.opisT = opisT;
-		this.opisI = opisI;
-		
+	public TransakcijaZaStanDTO(LocalDate datumKnjizenja, String sifraDokumenta, String sifraPromene, BigDecimal duguje,
+	        BigDecimal potrazuje, String maticniBroj, String prezime, String grad, String ulica, Integer ulaz, Integer broj,
+	        boolean ukljucen, Integer tipPotrosaca, Integer podstanicaBroj, String opisT, String opisI) {
+
+	    this.datumKnjizenja = datumKnjizenja;
+	    this.sifraDokumenta = sifraDokumenta;
+	    this.sifraPromene = sifraPromene;
+	    this.potrazuje = potrazuje;
+	    this.duguje = duguje;
+	    this.sifraStana = maticniBroj;
+	    this.prezime = prezime;
+	    this.punoIme = prezime;
+	    this.grad = grad;
+	    this.ulica = ulica;
+	    this.ulaz = ulaz;
+	    this.broj = broj;
+	    this.tipPotrosacaInteger = tipPotrosaca;
+	    this.podstanicaBrojInteger = podstanicaBroj;
+	    this.ukljucen = ukljucen;
+	    this.status = "" + this.podstanicaBrojInteger + this.getUkljucen();
+	    this.opisT = opisT;
+	    this.opisI = opisI;
 	}
 	
 	

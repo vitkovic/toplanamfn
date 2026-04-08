@@ -284,7 +284,7 @@ public class TransakcijaResource {
     	List<DugujePotrazujeReoni> dpr = transakcijaService.findSumForDnevnik(search);	    
 	    TransakcijeReoniDTO out = new TransakcijeReoniDTO(transakcije, dpr);
 	    
-	    String filename = transakcijaService.generateReportAnalitickiDnevnik(transakcije);
+	    String filename = transakcijaService.generateReportAnalitickiDnevnik(transakcije,dpr);
     	File file = new File(filename);
 
         HttpHeaders headers = new HttpHeaders();

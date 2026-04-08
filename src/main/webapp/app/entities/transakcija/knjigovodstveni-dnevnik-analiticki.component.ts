@@ -117,6 +117,7 @@ export default class KnjigovodstveniDnevnikAnaliticki extends mixins(AlertMixin)
             this.podstanice = res.data;
       });      
   }
+  /*
   public mounted(): void {
     //this.retrieveAllTransakcijas();
     this.fields = [
@@ -144,7 +145,55 @@ export default class KnjigovodstveniDnevnikAnaliticki extends mixins(AlertMixin)
       //{key:'actions', label:""}
     ]
   }
+*/
 
+public mounted(): void {
+  //this.retrieveAllTransakcijas();
+  this.fields = [
+    {
+      key: 'datumKnjizenja',
+      label: this.$t('toplanaApp.transakcija.datumKnjizenja'),
+      sortable: true,
+      formatter: (value, key, item) => {
+        const dt = new Date(value);
+        return dt.toLocaleDateString('sr');
+      }
+    },
+    { key: 'sifraDokumenta', label: this.$t('toplanaApp.transakcija.sifraDokumenta'), sortable: true },
+    { key: 'sifraPromene', label: this.$t('toplanaApp.transakcija.sifraPromene'), sortable: true },
+    { key: 'opisT', label: this.$t('toplanaApp.transakcija.opisT'), sortable: true },
+    { key: 'opisI', label: this.$t('toplanaApp.transakcija.opisI'), sortable: true },
+	{
+	  key:'sifraStana',
+	  label:this.$t('toplanaApp.transakcija.maticniBroj'),
+	  sortable:true,
+	  formatter: (value, key, item) => {
+	    console.log('value=', value, 'item=', item);
+	    return value && value.toString().trim() !== '' ? value : item.osifra;
+	  }
+	},
+    { key: 'punoIme', label: this.$t('toplanaApp.vlasnik.prezime') },
+    { key: 'adresa', label: this.$t('toplanaApp.stan.adresa') },
+    {
+      key: 'duguje',
+      label: this.$t('toplanaApp.transakcija.duguje'),
+      sortable: true,
+      formatter: (value, key, item) => {
+        return Intl.NumberFormat().format(value);
+      }
+    },
+    {
+      key: 'potrazuje',
+      label: this.$t('toplanaApp.transakcija.potrazuje'),
+      sortable: true,
+      formatter: (value, key, item) => {
+        return Intl.NumberFormat().format(value);
+      }
+    },
+    { key: 'status', label: this.$t('toplanaApp.transakcija.status'), sortable: true },
+    //{key:'actions', label:""}
+  ];
+}
  
   public send(): void {
     this.search.reoni = [];

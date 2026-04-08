@@ -1235,20 +1235,56 @@ public class TransakcijaService {
  * @param rps
  * @return
  *****************************************************************************************************************/
-    public String generateReportAnalitickiDnevnik(List<TransakcijaZaStanDTO> rps) {
+    public String generateReportAnalitickiDnevnik(List<TransakcijaZaStanDTO> rps,  List<DugujePotrazujeReoni> dpr) {
 		 
 		try {
+			
+			BigDecimal lokaliDuguje = BigDecimal.ZERO;
+			BigDecimal lokaliPotrazuje = BigDecimal.ZERO;
+			BigDecimal ostaliDuguje = BigDecimal.ZERO;
+			BigDecimal ostaliPotrazuje = BigDecimal.ZERO;
+			BigDecimal ukupnoDuguje = BigDecimal.ZERO;
+			BigDecimal ukupnoPotrazuje = BigDecimal.ZERO;
+
+			for (DugujePotrazujeReoni r : dpr) {
+			    if (r == null || r.getTipPotrosaca() == null || r.getTipPotrosaca().getTip() == null) {
+			        continue;
+			    }
+
+			    Integer tip = r.getTipPotrosaca().getTip();
+			    BigDecimal duguje = r.getDuguje() != null ? r.getDuguje() : BigDecimal.ZERO;
+			    BigDecimal potrazuje = r.getPotrazuje() != null ? r.getPotrazuje() : BigDecimal.ZERO;
+
+			    if (tip == 5) {
+			        lokaliDuguje = duguje;
+			        lokaliPotrazuje = potrazuje;
+			    } else if (tip == 0) {
+			        ostaliDuguje = duguje;
+			        ostaliPotrazuje = potrazuje;
+			    } else {
+			        ukupnoDuguje = duguje;
+			        ukupnoPotrazuje = potrazuje;
+			    }
+			}
+			
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("lokaliDuguje", lokaliDuguje);
+	        params.put("lokaliPotrazuje", lokaliPotrazuje);
+	        params.put("ostaliDuguje", ostaliDuguje);
+	        params.put("ostaliPotrazuje", ostaliPotrazuje);
+	        params.put("ukupnoDuguje", ukupnoDuguje);      
+	        params.put("ukupnoPotrazuje", ukupnoPotrazuje);
 			
 			ClassPathResource cl = new ClassPathResource("/jasper/AnDnevnik.jrxml");
 			InputStream input = cl.getInputStream();
 			// Compile the Jasper report from .jrxml to .japser
 			JasperReport jasperReport = JasperCompileManager.compileReport(input);
 			// Get your data source
-			JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(rps);
-			// Add parameters
-			Map<String, Object> parameters = new HashMap<>();
+			JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(rps); 
+			// Add parameters    
+			
 			// Fill the report
-			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
+			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, source);
 			// Export the report to a PDF file
 			JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\AnDnevnik.pdf");
 			////System.out.println("PDF File rekapitulacija Generated !!");

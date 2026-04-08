@@ -520,10 +520,10 @@ import java.time.LocalDate;
 	  		
 //	  		+ "	END)"
 	  		+ "", resultSetMapping="ad"),
-	*/
+	
 	
 	@NamedNativeQuery(name="Transakcija.searchForAnalitickiDnevnik", 
-	  query="select t.datum, t.sifra_dokumenta,sp.sifra as sifraPromene, "
+	  query="select t.datum, t.sifra_dokumenta,sp.sifra as sifraPromene,o.sifra as osifra,o.naziv as onaziv, "
 	  		+ "coalesce(duguje,0) as dugovanje, coalesce(potrazuje,0) as potrazivanje, "
 	  		+ "case   "
 	  		+ "	 when t.stan_id is not null then s.sifra "
@@ -605,12 +605,105 @@ import java.time.LocalDate;
 	  		+ "	  	when t.stan_id is null then s1.tip_potrosaca_id in ( :tipPotrosacaIds ) "
 	  		+ "	 END) "
 	  		+ "", resultSetMapping="ad"),
+	*/
 	
-	
+	@NamedNativeQuery(
+		    name = "Transakcija.searchForAnalitickiDnevnik",
+		    query =
+		        "select " +
+		        "    t.datum, " +
+		        "    t.sifra_dokumenta, " +
+		        "    sp.sifra as sifraPromene, " +
+		        "    o.sifra as osifra, " +
+		        "    o.naziv as onaziv, " +
+		        "    coalesce(t.duguje, 0) as dugovanje, " +
+		        "    coalesce(t.potrazuje, 0) as potrazivanje, " +
+		        "    case " +
+		        "        when t.stan_id is not null then s.sifra " +
+		        "        when t.ostali_racuni_id is not null then o.sifra " +
+		        "        else '' " +
+		        "    end as krajnjaSifra, " +
+		        "    case " +
+		        "        when t.stan_id is not null then v.prezime || ' ' || v.ime " +
+		        "        when t.ostali_racuni_id is not null then o.naziv " +
+		        "        else '' " +
+		        "    end as krajnjiNaziv, " +
+		        "    case " +
+		        "        when t.stan_id is not null then s.grad " +
+		        "        when t.stan_id is null and o.stan_id is not null then s1.grad " +
+		        "        else '' " +
+		        "    end as grad, " +
+		        "    case " +
+		        "        when t.stan_id is not null then s.ulica " +
+		        "        when t.stan_id is null and o.stan_id is not null then s1.ulica " +
+		        "        else '' " +
+		        "    end as ulica, " +
+		        "    case " +
+		        "        when t.stan_id is not null then s.ulaz " +
+		        "        when t.stan_id is null and o.stan_id is not null then s1.ulaz " +
+		        "        else 0 " +
+		        "    end as ulaz, " +
+		        "    case " +
+		        "        when t.stan_id is not null then s.broj " +
+		        "        when t.stan_id is null and o.stan_id is not null then s1.broj " +
+		        "        else 0 " +
+		        "    end as broj, " +
+		        "    case " +
+		        "        when t.stan_id is not null then s.ukljucen " +
+		        "        when t.stan_id is null and o.stan_id is not null then s1.ukljucen " +
+		        "        else true " +
+		        "    end as ukljucen, " +
+		        "    case " +
+		        "        when t.stan_id is not null then tp.tip " +
+		        "        when t.stan_id is null and o.stan_id is not null then tp1.tip " +
+		        "        else 0 " +
+		        "    end as tipPotrosaca, " +
+		        "    case " +
+		        "        when t.stan_id is not null then p.broj " +
+		        "        when t.stan_id is null and o.stan_id is not null then p1.broj " +
+		        "        else 0 " +
+		        "    end as podstanicaBroj, " +
+		        "    t.opis as opisTransakcije, " +
+		        "    si.opis as opisIzvoda " +
+		        "from transakcija t " +
+		        "left join stavke_izvoda si on si.transakcija_id = t.id " +
+		        "left join stan s on s.id = t.stan_id " +
+		        "left join vlasnik v on v.id = s.vlasnik_id " +
+		        "left join ostali_racuni o on t.ostali_racuni_id = o.id " +
+		        "left join stan s1 on o.stan_id = s1.id " +
+		        "left join tip_potrosaca tp on s.tip_potrosaca_id = tp.id " +
+		        "left join tip_potrosaca tp1 on s1.tip_potrosaca_id = tp1.id " +
+		        "left join sifra_promene sp on sp.id = t.sifra_promene_id " +
+		        "left join podstanica p on p.id = s.podstanica_id " +
+		        "left join podstanica p1 on s1.podstanica_id = p1.id " +
+		        "where (1 = :datumOdNotExists or t.datum >= :datumOd) " +
+		        "  and (1 = :datumDoNotExists or t.datum <= :datumDo) " +
+		        "  and ( " +
+		        "        1 = :sifraNotExists " +
+		        "        or (t.stan_id is not null and s.sifra like :sifra) " +
+		        "        or (t.ostali_racuni_id is not null and o.sifra like :sifra) " +
+		        "      ) " +
+		        "  and ( " +
+		        "        1 = :prezimeNotExists " +
+		        "        or (t.stan_id is not null and lower(v.prezime) like lower(:prezime)) " +
+		        "        or (t.ostali_racuni_id is not null and lower(o.naziv) like lower(:prezime)) " +
+		        "      ) " +
+		        "  and ( " +
+		        "        1 = :podstanicaNotExists " +
+		        "        or (t.stan_id is not null and s.podstanica_id = :podstanicaId) " +
+		        "        or (t.stan_id is null and s1.podstanica_id = :podstanicaId) " +
+		        "      ) " +
+		        "  and ( " +
+		        "        1 = :tipPotrosacaNotExists " +
+		        "        or (t.stan_id is not null and s.tip_potrosaca_id in (:tipPotrosacaIds)) " +
+		        "        or (t.stan_id is null and s1.tip_potrosaca_id in (:tipPotrosacaIds)) " +
+		        "      ) ",
+		    resultSetMapping = "ad"
+		), 
 	/*
 	@NamedNativeQuery(name="Transakcija.findSumForDnevnik", 
 	  query="select  "
-	  		+ "case "
+	  		+ "case "  
 	  		+ "	  	when t.stan_id is not null then tp.tip "
 	  		+ "	  	when t.stan_id is null and o.stan_id is not null then tp1.tip "
 	  		+ "		else 0 "
