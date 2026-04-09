@@ -277,7 +277,6 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			@Param("datumDoNotExists") Integer datumDoNotExists,@Param("datumDo") LocalDate datumDo,
 			@Param("sifraNotExists") Integer sifraNotExists,  @Param("sifra") String sifra,
 			@Param("prezimeNotExists") Integer prezimeNotExists,@Param("prezime") String prezime,
-		
 			@Param("podstanicaNotExists") Integer podstanicaNotExists, @Param("podstanicaId") Long podstanicaId,
 			@Param("tipPotrosacaNotExists") Integer tipPotrosacaNotExists,@Param("tipPotrosacaIds") List<Long> tipPotrosacaIds);
 	

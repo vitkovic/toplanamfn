@@ -127,7 +127,7 @@ import java.time.LocalDate;
 							@ColumnResult(name="dugovanje", type=BigDecimal.class),
 							@ColumnResult(name="potrazivanje", type=BigDecimal.class),
 							
-					}
+					} 
 			)
 		}
 	),

@@ -207,6 +207,7 @@ public mounted(): void {
       this.transakcije = res.data.transakcije;
 	  console.log(this.transakcije);
       let reoni = res.data.reoniDugovi;
+	 // console.log(res.data.reoniDugovi);
       for(let i = 0; i < reoni.length; i++){
         if(reoni[i].tipPotrosaca.tip == 5){
             this.lokali.duguje =  Intl.NumberFormat().format(reoni[i].duguje);
@@ -229,6 +230,7 @@ public mounted(): void {
       this.transakcijaService()
         .retrieveCriteriaAnalitickiDnevnikStampanje(this.search)
         .then(res => {
+		//	console.log(res.data);
           this.isSaving = false;
           var fileURL = window.URL.createObjectURL(new Blob([res]));
           var fileLink = document.createElement('a');

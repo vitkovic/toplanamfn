@@ -1240,33 +1240,33 @@ public class TransakcijaService {
 		try {
 			
 			BigDecimal lokaliDuguje = BigDecimal.ZERO;
-			BigDecimal lokaliPotrazuje = BigDecimal.ZERO;
-			BigDecimal ostaliDuguje = BigDecimal.ZERO;
-			BigDecimal ostaliPotrazuje = BigDecimal.ZERO;
-			BigDecimal ukupnoDuguje = BigDecimal.ZERO;
-			BigDecimal ukupnoPotrazuje = BigDecimal.ZERO;
+	        BigDecimal lokaliPotrazuje = BigDecimal.ZERO;
+	        BigDecimal ostaliDuguje = BigDecimal.ZERO;
+	        BigDecimal ostaliPotrazuje = BigDecimal.ZERO;
+	        BigDecimal ukupnoDuguje = BigDecimal.ZERO;
+	        BigDecimal ukupnoPotrazuje = BigDecimal.ZERO;
 
-			for (DugujePotrazujeReoni r : dpr) {
-			    if (r == null || r.getTipPotrosaca() == null || r.getTipPotrosaca().getTip() == null) {
-			        continue;
-			    }
+	
 
-			    Integer tip = r.getTipPotrosaca().getTip();
-			    BigDecimal duguje = r.getDuguje() != null ? r.getDuguje() : BigDecimal.ZERO;
-			    BigDecimal potrazuje = r.getPotrazuje() != null ? r.getPotrazuje() : BigDecimal.ZERO;
+	        for (DugujePotrazujeReoni reon : dpr) {
 
-			    if (tip == 5) {
-			        lokaliDuguje = duguje;
-			        lokaliPotrazuje = potrazuje;
-			    } else if (tip == 0) {
-			        ostaliDuguje = duguje;
-			        ostaliPotrazuje = potrazuje;
-			    } else {
-			        ukupnoDuguje = duguje;
-			        ukupnoPotrazuje = potrazuje;
-			    }
-			}
-			
+	            int tip = reon.getTipPotrosacaInteger();
+
+	            if (tip == 5) {
+	                lokaliDuguje = reon.getDuguje();
+	                lokaliPotrazuje = reon.getPotrazuje();
+	            } else {
+	                // sve ostalo ide u OSTALI
+	                ostaliDuguje = ostaliDuguje.add(
+	                    reon.getDuguje() != null ? reon.getDuguje() : BigDecimal.ZERO
+	                );
+	                ostaliPotrazuje = ostaliPotrazuje.add(
+	                    reon.getPotrazuje() != null ? reon.getPotrazuje() : BigDecimal.ZERO
+	                );
+	            }
+	        }
+	        
+	 			
 	        Map<String, Object> params = new HashMap<>();
 	        params.put("lokaliDuguje", lokaliDuguje);
 	        params.put("lokaliPotrazuje", lokaliPotrazuje);
