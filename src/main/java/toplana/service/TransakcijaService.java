@@ -1406,7 +1406,8 @@ public class TransakcijaService {
     public String generateReportAnalitickaKartica(TransakcijeZaStanZbirnoDTO trans) {
 
         try {
-
+        	
+       
             ClassPathResource cl = new ClassPathResource("/jasper/AnalitickaKartica.jrxml");
             InputStream input = cl.getInputStream();
 
@@ -1414,11 +1415,41 @@ public class TransakcijaService {
 
             JRBeanCollectionDataSource source = new JRBeanCollectionDataSource(trans.getTransakcije());
 
+            
+           
             Map<String, Object> parameters = new HashMap<>();
+           
+            
             parameters.put("dugujeUkupno", trans.getDugujeUkupno());
             parameters.put("potrazujeUkupno", trans.getPotrazujeUkupno());
             parameters.put("saldoUkupno", trans.getSaldoUkupno());
 
+            
+            Stan stan = trans.getStan();
+
+            parameters.put("sifraStana", stan.getSifra());
+            parameters.put("grad", stan.getGrad());
+            parameters.put("ulica", stan.getUlica());
+            parameters.put("broj", stan.getBroj());
+            parameters.put("ulaz", stan.getUlaz());
+            parameters.put("ukljucen", stan.getUkljucen());
+            
+            
+            if (stan.getVlasnik() != null) {
+            	parameters.put("ime", stan.getVlasnik().getIme());
+            	parameters.put("prezime", stan.getVlasnik().getPrezime());   
+            }
+  
+            
+            String adresa = 
+            	    (stan.getUlica() == null ? "" : stan.getUlica()) +
+            	    (stan.getBroj() == null ? "" : " " + stan.getBroj()) +
+            	    (stan.getUlaz() == null ? "" : "/" + stan.getUlaz()) +
+            	    (stan.getGrad() == null ? "" : ", " + stan.getGrad());
+
+            parameters.put("adresa", adresa);
+             
+            
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 
             JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\AnKartica.pdf");

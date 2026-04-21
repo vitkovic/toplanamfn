@@ -386,9 +386,9 @@ public class TransakcijaResource {
         	trans = transakcijaService.findAllByDodatniRacunOrderByDatumAndOpis(sifra, search.isSve(), search.getOpis());
         }
         
-        System.out.println("STAMPA sve = " + search.isSve());
-        System.out.println("STAMPA opis = " + search.getOpis());
-        System.out.println("BROJ REDOVA = " + trans.getTransakcije().size());
+      //  System.out.println("STAMPA sve = " + search.isSve());
+      //  System.out.println("STAMPA opis = " + search.getOpis());
+      //  System.out.println("BROJ REDOVA = " + trans.getTransakcije().size());
 
         for (TransakcijaZaStanDTO x : trans.getTransakcije()) {
             System.out.println(x.getDatumKnjizenja() + " | " + x.getOpis() + " | " + x.getPotrazuje() + " | " + x.getSaldo());

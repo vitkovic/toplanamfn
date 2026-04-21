@@ -4,6 +4,13 @@
 	<parameter name="dugujeUkupno" class="java.math.BigDecimal"/>
 	<parameter name="potrazujeUkupno" class="java.math.BigDecimal"/>
 	<parameter name="saldoUkupno" class="java.math.BigDecimal"/>
+	<parameter name="ime" class="java.lang.String"/>
+	<parameter name="prezime" class="java.lang.String"/>
+	<parameter name="sifraStana" class="java.lang.String"/>
+	<parameter name="ulica" class="java.lang.String"/>
+	<parameter name="broj" class="java.lang.String"/>
+	<parameter name="ulaz" class="java.lang.String"/>
+	<parameter name="adresa" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -161,7 +168,7 @@
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{sifraStana}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{sifraStana}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="10" width="88" height="17" uuid="608e8eec-873b-4cdb-baac-3ab41a95a190">
@@ -188,20 +195,20 @@
 				<text><![CDATA[Опис]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="242" y="12" width="114" height="17" uuid="c0d9cb6c-b699-4bee-b7bb-e5308eb16035"/>
+				<reportElement x="242" y="10" width="114" height="17" uuid="c0d9cb6c-b699-4bee-b7bb-e5308eb16035"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{ime}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{ime}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="370" y="10" width="138" height="17" uuid="8eacb529-a9c1-406b-901c-c67e70c45ab3">
+				<reportElement x="365" y="10" width="138" height="17" uuid="8eacb529-a9c1-406b-901c-c67e70c45ab3">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{adresa}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{adresa}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="465" y="40" width="64" height="30" uuid="9fc66c5d-f045-4e73-86be-d439c5744f48"/>
@@ -223,11 +230,11 @@
 				</graphicElement>
 			</line>
 			<textField>
-				<reportElement x="173" y="12" width="114" height="17" uuid="761f6b6a-0282-4529-b428-0e4c2840389c"/>
+				<reportElement x="173" y="10" width="114" height="17" uuid="761f6b6a-0282-4529-b428-0e4c2840389c"/>
 				<textElement>
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{prezime}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{prezime}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
