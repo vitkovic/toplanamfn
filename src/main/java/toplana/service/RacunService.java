@@ -419,7 +419,7 @@ public class RacunService  {
     				
     		racuniStampanje.add(rs); 
     		
-    	
+    	/*
     		System.out.println("=== RacunStampanje – polja posle emaila ===");
 
     		System.out.println("noviStaroStanje = " + rDTO.getNoviStaroStanje());
@@ -431,13 +431,32 @@ public class RacunService  {
 
     		System.out.println("==========================================");
     		
-    		
+    	*/
     		
     	}
     	
     	
-    	
-    	
+    	List<RacunStampanje> saEmail = racuniStampanje.stream()
+    		    .filter(rs -> rs.getVlasnikEmail() != null && !rs.getVlasnikEmail().trim().isEmpty())
+    		    .sorted(Comparator.comparing(RacunStampanje::getStanSifra, Comparator.nullsLast(String::compareTo)))
+    		    .collect(Collectors.toList());
+
+    		List<RacunStampanje> bezEmail = racuniStampanje.stream()
+    		    .filter(rs -> rs.getVlasnikEmail() == null || rs.getVlasnikEmail().trim().isEmpty())
+    		    .sorted(Comparator.comparing(RacunStampanje::getStanSifra, Comparator.nullsLast(String::compareTo)))
+    		    .collect(Collectors.toList());
+
+    		List<RacunStampanje> finalList = new ArrayList<>();
+    		finalList.addAll(saEmail);
+
+    		if (!saEmail.isEmpty() && !bezEmail.isEmpty()) {
+    		    finalList.add(createSeparator());
+    		}
+
+    		finalList.addAll(bezEmail);
+
+    		racuniStampanje = finalList;
+    		
     	
     	if(smail) {
     	 return this.generateReportSmail(racuniStampanje);
@@ -445,6 +464,20 @@ public class RacunService  {
     	 return this.generateReport(racuniStampanje);
     	
     }
+    
+    
+    private RacunStampanje createSeparator() {
+        RacunStampanje sep = new RacunStampanje();
+        sep.setId(-1L);
+        sep.setVlasnikPrezime("----- BEZ EMAIL ADRESA -----");
+        sep.setVlasnikIme("");
+        sep.setVlasnikNaziv("");
+        sep.setVlasnikImePrezimeNaziv("----- BEZ EMAIL ADRESA -----");
+        sep.setStanSifra("");
+        sep.setVlasnikEmail("");
+        return sep;
+    }
+    
     
     public void NoviCalculateData(RacunDTO rDTO, Podstanica pn, Racun r) {
     	
