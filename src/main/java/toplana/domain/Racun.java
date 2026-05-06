@@ -249,6 +249,10 @@ public class Racun implements Serializable {
     			
     			this.utrosakUKwh = (udeozajednickepotrosnje.add(sopstvenapotrosnja)).setScale(2, RoundingMode.HALF_UP); 
     			
+    			if (this.utrosakUKwh.compareTo(BigDecimal.ZERO) < 0) {
+    			    this.utrosakUKwh = BigDecimal.ZERO;
+    			}
+    			
     			 // //System.out.println("Ukupna potrosnja po stanu u kW: " + this.utrosakUKwh );
     			// Ukupna potrosnja po stanu u kW
     			this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFix).setScale(2, RoundingMode.HALF_UP);

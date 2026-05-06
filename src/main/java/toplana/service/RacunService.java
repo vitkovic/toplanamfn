@@ -535,37 +535,7 @@ public class RacunService  {
         	m.put(sifrag, String.join(";", ((Collection<Long>) vrednosti).stream().map(String::valueOf).collect(Collectors.toList())));
         });
         
-        
-        /* Stari nacin da se grupisu vrednosti po sifri
-        for(int i=0;i<vrednostipotrosnje.size();i++){
-        	
-        	
-        	try {
-        		
-        		StanStanje ss = (StanStanje)vrednostipotrosnje.get(i);
-        		////System.out.println(ss);
-        		
-        		 sifra = ss.getSifra().trim();
-        		 if (i == 0) temp = sifra;
-        		 
-        		 if (sifra.equalsIgnoreCase(temp)) {
-        			 vrednost+= ss.getVrednost() + ";";
-        		 } else {
-        			 vrednost = ss.getVrednost().toString() + ";";
-        		 }
-        		
-        		 m.put(ss.getSifra(), vrednost);
-        		
-        		
-            	////System.out.println(vrednost);
-            	temp = sifra;
-        	} catch (Exception e) {
-        		e.printStackTrace();
-        	}
-        	
-        } 
-        dovdi
-        */ 
+       
         String map="";
         BigDecimal suma = new BigDecimal(.0);
         
