@@ -633,14 +633,13 @@ public class RacunService  {
 		// Procentualni udeo stana
 		
 		
-	//	System.out.println(udeostana   + " udeostana "  );
-		
+	
 		
 		
         // ovaj		
 		udeozajednickepotrosnje = udeostananum.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
 		
-//		System.out.println(udeozajednickepotrosnje   + " udeozajednickepotrosnje "  );
+		//		System.out.println(udeozajednickepotrosnje   + " udeozajednickepotrosnje "  );
 	
 		rDTO.setNoviUdeoUZajednickoj(udeozajednickepotrosnje.doubleValue());
 		rDTO.setNoviPotrosnjaPoSvimMerilima(ukupnapotrosnjapoStanu.doubleValue());
