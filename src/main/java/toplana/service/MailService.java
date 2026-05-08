@@ -5,6 +5,11 @@ import toplana.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
 
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import javax.mail.MessagingException;
@@ -137,7 +142,9 @@ public class MailService {
                 try {
                     // (važna napomena dole) ovo je tvoja postojeća metoda
                     sendMailWithAttachment(mail);
-
+                 
+                    logSentEmail(mail);
+                  
                     log.info("✅ Sent email to {} (attempt {}/{})", mail.getTo(), attempt, maxAttempts);
                     break; // uspeh -> sledeći mail
 
@@ -165,6 +172,32 @@ public class MailService {
         }
     }
 
+    
+    private synchronized void logSentEmail(MailWithAttachment mail) {
+        try {
+            Path logPath = Paths.get("\"C:\\\\toplana\\\\maillog\\\\sent-mails.txt\"");
+
+            String line =
+                    LocalDateTime.now()
+                    + " | "
+                    + mail.getTo()
+                    + " | "
+                    + mail.getAttachmentFileName()
+                    + System.lineSeparator();
+
+            Files.write(
+                    logPath,
+                    line.getBytes(StandardCharsets.UTF_8),
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.APPEND
+            );
+
+        } catch (Exception e) {
+            log.error("Ne mogu da upišem sent mail log", e);
+        }
+    }
+    
+    
     private void sleepQuietly(long ms) {
         try {
             Thread.sleep(ms);

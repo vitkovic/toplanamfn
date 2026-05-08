@@ -22,7 +22,7 @@ logging:
     org.springframework.boot.autoconfigure.mail: DEBUG
     #org.hibernate.SQL: DEBUG
     #org.hibernate.type.descriptor.sql: TRACE
-
+    net.sf.jasperreports: ERROR
 spring:
   profiles:
     active: dev
@@ -61,7 +61,7 @@ spring:
     host: smtp.office365.com
     port: 587
     username: toplanamfn@masfak.ni.ac.rs
-    password: Toplana2025
+    password: s1QjVhvV8}!RU3LB}gqd/]a*
     properties:
       mail:
         from: toplanamfn@masfak.ni.ac.rs

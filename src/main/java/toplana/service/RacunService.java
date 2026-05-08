@@ -135,43 +135,55 @@ public class RacunService  {
 			
 			List<String> whoSend = new ArrayList<>();
 			
-			// kad prodje provera ovo treba obrisati
-			/*
-			whoSend.add("gocky.jane@gmail.com");
-			whoSend.add("dejan.mitrovic@masfak.ni.ac.rs");
-			whoSend.add("julijana.simonovic@masfak.ni.ac.rs");
-			whoSend.add("nikola.korunovic@masfak.ni.ac.rs");
-			
-			whoSend.add("gocky.jane@gmail.com");
-			*/
+		
 			System.setProperty("mail.smtp.localhost", "masfak.ni.ac.rs");
 			
-			                         
-				for(RacunStampanje r : racuni) { 
-					
-					if (r.getVlasnikEmail() != null && r.getVlasnikEmail().length()>0 ) {
-						
-						
-				//		if (whoSend.stream().anyMatch(s -> s.equalsIgnoreCase(r.getVlasnikEmail()))) {
-							
-							byte[] pdf = generateIndRacunBlob(r);
-							 // napravi filename (bar minimalno unikatno)
-				            String fileName = "Racun_za_grejanje_" + r.getStanSifra() + "_" + r.getDatumRacuna().replaceAll("\\W+", "_") + ".pdf";
-								emailList.add(
-										new MailWithAttachment(
-											    r.getVlasnikEmail(),
-											    "Račun za toplotnu energiju za " + r.getPeriod(),
-											    "Račun je u prilogu elektronske pošte. <br><br>Trenutno je slanje elektronske pošte u procesu testiranja. Pošaljite prigovor na toplanamfn@masfak.ni.ac.rs, ako vidite neka neslaganja sa odstampanim računom.",
-											    pdf,
-											    fileName
-											)
-							);
-					//	}
-					}
-					
-				}
-				mailService.sendMultipleEmails(emailList);
-		
+			
+			for (RacunStampanje r : racuni) {
+
+			    String email = r.getVlasnikEmail();
+
+			    if (email != null && !email.trim().isEmpty()) {
+
+			        try {
+			            byte[] pdf = generateIndRacunBlob(r);
+
+			            if (pdf == null || pdf.length == 0) {
+			                System.out.println("PDF nije generisan za stan: " + r.getStanSifra());
+			                continue;
+			            }
+
+			            String fileName = "Racun_za_grejanje_"
+			                    + r.getStanSifra()
+			                    + "_"
+			                    + r.getDatumRacuna().replaceAll("\\W+", "_")
+			                    + ".pdf";
+			            
+			         //   System.out.println("IMA EMAIL, generisem PDF za: " + r.getStanSifra());
+			            
+			            emailList.add(
+			                new MailWithAttachment(
+			                    email.trim(),
+			                    "Račun za toplotnu energiju za " + r.getPeriod(),
+			                    "Račun je u prilogu elektronske pošte.<br><br>"
+			                    + "Trenutno je slanje elektronske pošte u procesu testiranja. "
+			                    + "Pošaljite prigovor na toplanamfn@masfak.ni.ac.rs, "
+			                    + "ako vidite neka neslaganja sa odštampanim računom.",
+			                    pdf,
+			                    fileName
+			                )
+			            );
+
+			        } catch (Exception e) {
+			            System.out.println("Greška pri generisanju računa za stan "
+			                    + r.getStanSifra() + ": " + e.getMessage());
+			        }
+			    }
+			}
+
+			if (!emailList.isEmpty()) {
+			    mailService.sendMultipleEmails(emailList);
+			}
 		
 		}catch(Exception e) {
 			e.printStackTrace();
