@@ -282,7 +282,7 @@ public class NacrtRacunaResource {
                 ////System.out.println(entry.getKey() + " = " + entry.getValue());
             }
             
-            
+            /*
             // calculate sumu svih razlika po stranu - ukupna potrosnja
             for (String key : m.keySet()) {
                 map = key + "...." + m.get(key);
@@ -291,10 +291,53 @@ public class NacrtRacunaResource {
                 
                 String[] vrednosti = value.split(";");
                 
+             
+                
                 Long val = Math.abs(Long.valueOf(vrednosti[0]) - Long.valueOf(vrednosti[1]));
                 
                 suma = suma.add(BigDecimal.valueOf(val));
              }
+             
+             
+             */
+            // Resavam problem lose ulazne datoteke.
+            
+            for (String key : m.keySet()) {
+
+                String[] vrednosti = m.get(key).split(";");
+
+                String s1 = vrednosti.length > 0 ? vrednosti[0] : null;
+                String s2 = vrednosti.length > 1 ? vrednosti[1] : null;
+
+                Long v1 = (s1 == null || s1.trim().isEmpty())
+                        ? null
+                        : Long.valueOf(s1.trim());
+
+                Long v2 = (s2 == null || s2.trim().isEmpty())
+                        ? null
+                        : Long.valueOf(s2.trim());
+
+                // ako jedan ne postoji -> kopiraj drugi
+                if (v1 == null) {
+                    v1 = v2;
+                }
+
+                if (v2 == null) {
+                    v2 = v1;
+                }
+
+                // ako oba ne postoje
+                if (v1 == null) {
+                    v1 = 0L;
+                    v2 = 0L;
+                }
+
+                Long val = Math.abs(v1 - v2);
+
+                suma = suma.add(BigDecimal.valueOf(val));
+            }
+            
+            
              
             //System.exit(0);
           	p.setUkupnapotrosnjapostanu(suma.doubleValue()); // ukupna potrosnja po svim stanovima - sumirana razlika potrosnje po svakom stanu
