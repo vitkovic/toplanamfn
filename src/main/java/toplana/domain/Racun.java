@@ -286,6 +286,9 @@ public class Racun implements Serializable {
     		}
     	}
     	
+    	
+    	//this.stan.getUlaz()
+    	
     	if (p.getId() > 1105) {
     		
     		this.utrosakVarijabilni = this.utrosakUKwh.multiply(this.cenaKwh).setScale(2, RoundingMode.HALF_UP);
