@@ -358,23 +358,9 @@ public class NacrtRacunaResource {
         		
         		BigDecimal saldo = transakcijaRepository.getSaldoDoKrajaPrethodnogMesecaZaStanAndValuta(nacrtRacuna.getValutaPlacanja(), stan.getId());
         		
-        		////System.out.println("STAN:" + stan.getSifra() + " vrednost: " + saldo + " ******************************************************************************************************************************************************************" );        		
-        		//if (saldo.doubleValue() <= 0.02 && saldo.doubleValue() >= -0.02) saldo = new BigDecimal(0.00);
         		//ovde dodati sta da se radi kad nema popusta (za neku podstanicu ili vrstu korisnika (reon)
         		Racun racun = new Racun(stan, result, user, saldo, poslednjiDanPrethodnogMeseca,p);
         		racuniZaPodstanicu.add(racun);
-        		
-        		        
-/*
-        		Path path = Paths.get("d:\\data.txt");
-        		try {
-					Files.createDirectories(path.getParent());
-					Files.writeString(path, "STAN:" + stan.getSifra() + " vrednost: " + saldo + " Datum valute: " + nacrtRacuna.getValutaPlacanja() ); // UTF-8 by default on Java 11+
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} // makes parent dirs if needed
-  */      		
         		
         		
         	}

@@ -7,55 +7,65 @@ import java.util.Map;
 public class ProveraDTO {
 
     private Integer status;
-    private BigDecimal cena;
-
+    private BigDecimal cena; 
+    // Mapa je static da bi bila dostupna svim instancama klase Racun
     private static final Map<Integer, BigDecimal> CENA_ODRZAVANJA_PO_ULAZU = new HashMap<>();
 
-    static {
-
-        CENA_ODRZAVANJA_PO_ULAZU.put(0, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(17, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(19, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(21, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(23, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(25, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(27, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(29, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(31, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(33, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(35, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(37, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(39, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(41, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(43, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(45, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(47, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(49, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(51, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(53, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(55, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(57, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(59, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(61, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(63, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(271, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(272, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(273, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(291, new BigDecimal("0.00"));
-        CENA_ODRZAVANJA_PO_ULAZU.put(292, new BigDecimal("0.00"));
+    /**
+     * Konstruktor koji prima cenu i mapira je na sve definisane ulaze.
+     * @param cenaOdrzavanja Cena koja se dodeljuje ulazima
+     */
+    public ProveraDTO(BigDecimal cenaOdrzavanja) {
+        this.cena = cenaOdrzavanja;
+    
     }
-    
-    
-    public static BigDecimal getCenaZaUlaz(Integer ulaz) {
 
+    public static void setInitialCeneOdrzavanja(BigDecimal cenaOdrzavanjaOut) {
+    	
+    	CENA_ODRZAVANJA_PO_ULAZU.put(0, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(17, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(19, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(21, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(23, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(25, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(27, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(29, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(31, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(33, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(35, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(37, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(39, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(41, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(43, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(45, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(47, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(49, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(51, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(53, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(55, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(57, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(59, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(61, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(63, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(271, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(272, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(273, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(291, cenaOdrzavanjaOut);
+        CENA_ODRZAVANJA_PO_ULAZU.put(292, cenaOdrzavanjaOut); 	
+    	
+    }
+    public static BigDecimal getCenaZaUlaz(Integer ulaz) {
         if (ulaz == null) {
             return BigDecimal.ZERO;
         }
 
-        return CENA_ODRZAVANJA_PO_ULAZU.getOrDefault(
-            ulaz,
-            BigDecimal.ZERO
-        );
+        // Vraća cenu iz mape, a ako ulaz nije u mapi, vraća nulu
+        return CENA_ODRZAVANJA_PO_ULAZU.getOrDefault(ulaz, BigDecimal.ZERO);
+    }
+    public static void setPojedinacnaCena(Integer ulaz, BigDecimal posebnaCena) {
+        if (ulaz != null) {
+            CENA_ODRZAVANJA_PO_ULAZU.put(ulaz, posebnaCena);
+        }
     }
 
     public ProveraDTO() {

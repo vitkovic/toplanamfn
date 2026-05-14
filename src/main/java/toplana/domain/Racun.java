@@ -180,7 +180,7 @@ public class Racun implements Serializable {
     	this.pdv2 = nacrtRacuna.getPdv2();    	
     	this.proknjizen = false;
     	this.ukupnoZaduzenje = saldo;    
-    	
+    	ProveraDTO.setInitialCeneOdrzavanja(nacrtRacuna.getCenaOdrzavanje()); // za novu cenu odrzavanja - sada setujemo po ulazu
     	
     	
     	
@@ -252,13 +252,15 @@ public class Racun implements Serializable {
     	
     	//this.stan.getUlaz()
     	
-    	// novi proracun cene odrzavanja
+    	
     	
     		this.utrosakVarijabilni = this.utrosakUKwh.multiply(this.cenaKwh).setScale(2, RoundingMode.HALF_UP);
+    	
+    	// novi proracun cene odrzavanja
     		BigDecimal cenaOdrzavanjaZaUlaz = ProveraDTO.getCenaZaUlaz(this.stan.getUlaz());
     		this.utrosakOdrzavanje = stan.getPovrsina().multiply(cenaOdrzavanjaZaUlaz).setScale(2, RoundingMode.HALF_UP);
     	
-    	if (p.getId() > 1105)  this.utrosakOdrzavanje =  BigDecimal.ZERO; // !!!!!!! SAMO PRIVREMENO - OBRISATI KAD DEFINISEMO ULAZE
+    		//if (p.getId() > 1105)  this.utrosakOdrzavanje =  BigDecimal.ZERO; // !!!!!!! SAMO PRIVREMENO - OBRISATI KAD DEFINISEMO ULAZE
     	
     	//ako je saldo negativan ili jeddnak nuli
     	
@@ -266,8 +268,8 @@ public class Racun implements Serializable {
     		
     		this.popust = nacrtRacuna.getPopust();
     		
-    		this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
-    		this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
+    		this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."), 4, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP);
+    		this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."), 4, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP);
     	
     	}else {
    
@@ -275,9 +277,9 @@ public class Racun implements Serializable {
     	
     	}
     	
-    		this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
-			this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
-			this.utrosakOdrzavanje = this.utrosakOdrzavanje.multiply(new BigDecimal("100.").add(this.pdv1).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
+    		this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."), 4, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP);
+			this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."), 4, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP);
+			this.utrosakOdrzavanje = this.utrosakOdrzavanje.multiply(new BigDecimal("100.").add(this.pdv1).divide(new BigDecimal("100."), 4, RoundingMode.HALF_UP)).setScale(2, RoundingMode.HALF_UP);
 		
     }
 
