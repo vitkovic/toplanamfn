@@ -2,6 +2,7 @@ package toplana.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import toplana.service.dto.ProveraDTO;
 import toplana.web.rest.dto.DugujePotrazujeDTO;
 import toplana.web.rest.dto.DugujePotrazujeReoni;
 import toplana.web.rest.dto.RekapitulacijaPoPdvDelimicnaDTO;
@@ -181,80 +182,57 @@ public class Racun implements Serializable {
     	this.ukupnoZaduzenje = saldo;    
     	
     	
-    	if (p.getId() > 1105) {
-    	//	// //System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
     	
-    		
-    	}
     	
     	if(stan.isUkljucen()) {
     		
     		if (p.getId() > 1105) { // 1105 treba definisati kao varijablu u parametrima i obrisati ove posebne id stanova
     			
-    		/*	
-    			// //System.out.println(p.getId() + "********************************************************************************" + spr.getNovoStanje().getStanje());
-    			// //System.out.println(p.getId() + "********************************************************************************" + spr.getStaroStanje().getStanje());
-    			// //System.out.println(p.getId() + "********************************************************************************" + saldo);
-    			// //System.out.println(p.getId() + "********************************************************************************" + saldo);
-    			// //System.out.println(p.getId() + "********************************************************************************" + saldo);
-    	    	
-    			*/
-    			
-    			
-    			
+    	
     			BigDecimal zajednickostanjepodstanice = (spr.getNovoStanje().getStanje().subtract(spr.getStaroStanje().getStanje())).multiply(BigDecimal.valueOf(1000.00)).setScale(2, RoundingMode.HALF_UP);; 
     			// Razlika prathodnog i novog stanja (I115)
-    			
-    			
-    			 // //System.out.println("Zajednicko stanje Podstanice: " + zajednickostanjepodstanice);
     			
     			BigDecimal ukupnapotrosnja = BigDecimal.valueOf(pn.getUkupnapotrosnjapostanu()).setScale(2, RoundingMode.HALF_UP);
     			// Suma potrosnji stanova - J115 (I111)
     			
-    			 // //System.out.println("Ukupna Potrosnja: " + ukupnapotrosnja);
+    	
     			
     			BigDecimal ukupnapovrsina = BigDecimal.valueOf(pn.getUkupnapovrsina()).setScale(2, RoundingMode.HALF_UP);
     			// Povrsina svih stanova
     			
     			
-    			 // //System.out.println("Ukupna Povrsina:" + ukupnapovrsina);
-    			 
-    			 // //System.out.println("Stan Povrsina:" + stan.getPovrsina());
-    			
+    		
     			BigDecimal udeostananum = stan.getPovrsina().divide(ukupnapovrsina,5, RoundingMode.HALF_UP).setScale(5);
     			
     			BigDecimal udeostana = udeostananum.multiply(BigDecimal.valueOf(100.00)).setScale(3, RoundingMode.HALF_UP);
     			// Procentualni udeo stana
     			
-    			
-    			 // //System.out.println("Udeo Stana: " + udeostana + " %");
     			    			
     			BigDecimal udeozajednickepotrosnje = udeostananum.multiply(zajednickostanjepodstanice.subtract(ukupnapotrosnja)).setScale(2, RoundingMode.HALF_UP);
     			// Za stan deo koji se odnosi na udeo zajednicke potrosnje - J5
     			
     			
-    			 // //System.out.println("Udeo Zjednicke Potrosnje: " + udeozajednickepotrosnje);
+    			//BigDecimal sopstvenapotrosnja = BigDecimal.valueOf(stan.getZadnjaStanja().get(0) - stan.getZadnjaStanja().get(1)).setScale(2, RoundingMode.HALF_UP);
     			
+    			BigDecimal sopstvenapotrosnja = BigDecimal.valueOf(
+    				    getRazlika(
+    				        stan.getZadnjaStanja().size() > 0 ? stan.getZadnjaStanja().get(0) : null,
+    				        stan.getZadnjaStanja().size() > 1 ? stan.getZadnjaStanja().get(1) : null
+    				    )
+    			).setScale(2, RoundingMode.HALF_UP);
     			
-    			 for(int i=0;i<stan.getZadnjaStanja().size();i++){
-    				 // //System.out.println(stan.getZadnjaStanja() + "      ZZZZZZSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-    		        } 
-    			 
-    			 // //System.out.println(p.getId() + "********************************************************************************" + stan.getId());
-    			BigDecimal sopstvenapotrosnja =BigDecimal.valueOf(stan.getZadnjaStanja().get(0) - stan.getZadnjaStanja().get(1)).setScale(2, RoundingMode.HALF_UP);
     			// Za stan sopstvena potrosnja ocitavanja - I5
     			
     			
-    			 // //System.out.println("Sopstvena potrosnja: " + sopstvenapotrosnja );
-    			
+    			// Ukupna potrosnja po stanu u kW
     			this.utrosakUKwh = (udeozajednickepotrosnje.add(sopstvenapotrosnja)).setScale(2, RoundingMode.HALF_UP); 
     			
     			if (this.utrosakUKwh.compareTo(BigDecimal.ZERO) < 0) {
     			    this.utrosakUKwh = BigDecimal.ZERO;
     			}
     			
-    			 // //System.out.println("Ukupna potrosnja po stanu u kW: " + this.utrosakUKwh );
-    			// Ukupna potrosnja po stanu u kW
+    		
+    			// Fiksni utrosak - ovo je isto kao i za stare mozda treba napolje, ali za sada ajde
     			this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFix).setScale(2, RoundingMode.HALF_UP);
     			
     		} else {
@@ -266,88 +244,41 @@ public class Racun implements Serializable {
     		
     		this.cenaFix = this.cenaFixIskljucen;
     		
-    		if (p.getId() > 1105) {
-    			
-    			// //System.out.println("ISKLJUCEN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    			
-    			this.utrosakUKwh = new BigDecimal("0.");
-    			this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFixIskljucen).setScale(2, RoundingMode.HALF_UP);
-    			
-    			
-    			// //System.out.println("Varijabila:" + utrosakUKwh);
-    			 
-    			 // //System.out.println("Fiksni:" + this.utrosakFiksni);
-    			
-    			
-    		} else {
-    		
-    			this.utrosakUKwh = new BigDecimal("0.");
-    			this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFixIskljucen).setScale(2, RoundingMode.HALF_UP);
-    		}
+    		this.utrosakUKwh = BigDecimal.ZERO;
+
+    		this.utrosakFiksni = stan.getPovrsina().multiply(this.cenaFixIskljucen).setScale(2, RoundingMode.HALF_UP);
     	}
     	
     	
     	//this.stan.getUlaz()
     	
-    	if (p.getId() > 1105) {
-    		
+    	// novi proracun cene odrzavanja
+    	
     		this.utrosakVarijabilni = this.utrosakUKwh.multiply(this.cenaKwh).setScale(2, RoundingMode.HALF_UP);
-    		this.utrosakOdrzavanje  = new BigDecimal("0.");
-		
-    	} else {
-    		
-			this.utrosakVarijabilni = this.utrosakUKwh.multiply(this.cenaKwh).setScale(2, RoundingMode.HALF_UP);
+    		BigDecimal cenaOdrzavanjaZaUlaz = ProveraDTO.getCenaZaUlaz(this.stan.getUlaz());
+    		this.utrosakOdrzavanje = stan.getPovrsina().multiply(cenaOdrzavanjaZaUlaz).setScale(2, RoundingMode.HALF_UP);
     	
-			this.utrosakOdrzavanje = stan.getPovrsina().multiply(this.cenaOdrzavanje).setScale(2, RoundingMode.HALF_UP);
+    	if (p.getId() > 1105)  this.utrosakOdrzavanje =  BigDecimal.ZERO; // !!!!!!! SAMO PRIVREMENO - OBRISATI KAD DEFINISEMO ULAZE
     	
-		}
-    	//ako je saldo negativan ili manji ili jednak 0.5
+    	//ako je saldo negativan ili jeddnak nuli
     	
     	if((this.ukupnoZaduzenje.compareTo(new BigDecimal("0.0")) <= 0 && this.stan.getTipPotrosaca().getTip() != 5)) {
     		
     		this.popust = nacrtRacuna.getPopust();
     		
-    		 // //System.out.println(p.getId() + " Popust ********************************************************************************" + this.popust);
-    		
-    		if (p.getId() > 1105) {
-    			
-    			this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
-    			this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
-    	
-    		
-    		} else {
-    			this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
-    			this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
-    	
-    		}
-    	
+    		this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
+    		this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").subtract(this.popust).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
     	
     	}else {
+   
     		this.popust = BigDecimal.ZERO;
+    	
     	}
     	
-    	if (p.getId() > 1105) {
-    		
-    		// //System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-    		
     		this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
 			this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
-			this.utrosakOdrzavanje = new BigDecimal("0.");
-			
-			
-			// //System.out.println(stan.getId() + "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+this.utrosakFiksni);
-			
-			
-			
-			
-			
-	
-		} else {
-    	
-			this.utrosakVarijabilni = this.utrosakVarijabilni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
-			this.utrosakFiksni = this.utrosakFiksni.multiply(new BigDecimal("100.").add(this.pdv2).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
 			this.utrosakOdrzavanje = this.utrosakOdrzavanje.multiply(new BigDecimal("100.").add(this.pdv1).divide(new BigDecimal("100."))).setScale(2, RoundingMode.HALF_UP);
-		}
+		
     }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -632,5 +563,22 @@ public class Racun implements Serializable {
             ", utrosakFiksni=" + getUtrosakFiksni() +
             ", utrosakOdrzavanje=" + getUtrosakOdrzavanje() +
             "}";
+    }
+    private Double getRazlika(Double v1, Double v2) {
+
+    	 if (v1 == null || v1.isNaN()) {
+    	        v1 = v2;
+    	    }
+
+    	    if (v2 == null || v2.isNaN()) {
+    	        v2 = v1;
+    	    }
+
+    	    if (v1 == null || v1.isNaN()) {
+    	        v1 = 0.0;
+    	        v2 = 0.0;
+    	    }
+
+    	    return v1 - v2;
     }
 }
