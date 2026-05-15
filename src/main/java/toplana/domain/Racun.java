@@ -180,7 +180,7 @@ public class Racun implements Serializable {
     	this.pdv2 = nacrtRacuna.getPdv2();    	
     	this.proknjizen = false;
     	this.ukupnoZaduzenje = saldo;    
-    	ProveraDTO.setInitialCeneOdrzavanja(nacrtRacuna.getCenaOdrzavanje()); // za novu cenu odrzavanja - sada setujemo po ulazu
+    	ProveraDTO.setInitialCeneOdrzavanja(this.cenaOdrzavanje); // za novu cenu odrzavanja - sada setujemo po ulazu
     	
     	
     	
