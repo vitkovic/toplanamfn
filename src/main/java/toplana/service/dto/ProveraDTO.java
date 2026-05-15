@@ -7,20 +7,20 @@ import java.util.Map;
 public class ProveraDTO {
 
     private Integer status;
-    private BigDecimal cena; 
+    private static BigDecimal cena = BigDecimal.ZERO; 
     // Mapa je static da bi bila dostupna svim instancama klase Racun
     private static final Map<Integer, BigDecimal> CENA_ODRZAVANJA_PO_ULAZU = new HashMap<>();
 
-    /**
-     * Konstruktor koji prima cenu i mapira je na sve definisane ulaze.
-     * @param cenaOdrzavanja Cena koja se dodeljuje ulazima
-     */
-    public ProveraDTO(BigDecimal cenaOdrzavanja) {
-        this.cena = cenaOdrzavanja;
-    
+    public ProveraDTO() {
     }
 
+    public ProveraDTO(Integer status) {
+        this.status = status;
+    }
+    
     public static void setInitialCeneOdrzavanja(BigDecimal cenaOdrzavanjaOut) {
+    	
+    	cena = cenaOdrzavanjaOut;
     	
     	CENA_ODRZAVANJA_PO_ULAZU.put(0, cenaOdrzavanjaOut);
         CENA_ODRZAVANJA_PO_ULAZU.put(17, cenaOdrzavanjaOut);
@@ -58,22 +58,13 @@ public class ProveraDTO {
         if (ulaz == null) {
             return BigDecimal.ZERO;
         }
-
         // Vraća cenu iz mape, a ako ulaz nije u mapi, vraća nulu
-        return CENA_ODRZAVANJA_PO_ULAZU.getOrDefault(ulaz, BigDecimal.ZERO);
+        return CENA_ODRZAVANJA_PO_ULAZU.getOrDefault(ulaz, cena);
     }
     public static void setPojedinacnaCena(Integer ulaz, BigDecimal posebnaCena) {
         if (ulaz != null) {
             CENA_ODRZAVANJA_PO_ULAZU.put(ulaz, posebnaCena);
         }
-    }
-
-    public ProveraDTO() {
-    }
-
-    public ProveraDTO(Integer status, BigDecimal cena) {
-        this.status = status;
-        this.cena = cena;
     }
 
     public Integer getStatus() {
@@ -84,11 +75,5 @@ public class ProveraDTO {
         this.status = status;
     }
 
-    public BigDecimal getCena() {
-        return cena;
-    }
-
-    public void setCena(BigDecimal cena) {
-        this.cena = cena;
-    }
+    
 }
