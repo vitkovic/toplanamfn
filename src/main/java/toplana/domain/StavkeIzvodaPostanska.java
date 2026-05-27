@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -77,34 +79,6 @@ public class StavkeIzvodaPostanska implements Serializable {
 	}
 	
 	public StavkeIzvodaPostanska(String line) {
-//1      27.04.23     1016970 0010470009            STRAHINIÆ SVETISLAV         BULEVAR NIKOLE TESLE 47/9   18104          9393,30
-//00000000000001700000000025352410470009                           SVETISLAV (MILIVOJE) STRAHINIC010470009           311020252711202500000000000000000009085.69941  27112025 - Nova linija
-	/*
-		String sBroj = line.substring(0,5).trim();
-		String npl = line.substring(5,11).trim();
-		String sValuta = line.substring(11,19).trim();
-		String partijaRacuna = line.substring(19,31).trim();
-		String sifra = line.substring(31,42).trim();
-		String ime = line.substring(42,82).trim().replace("Æ", "Ć");
-		ime = ime.replace("È", "Č");
-		String adresa = line.substring(82,108).trim();
-		String posta = line.substring(108,116).trim();
-		String sIznos = line.substring(116).trim().replace(",", ".");
-	    //System.out.println("ЋЧШЂЖ");
-		//System.out.println(sBroj);
-		//System.out.println(npl);
-		//System.out.println(sValuta);
-		//System.out.println(partijaRacuna);
-		//System.out.println(sifra);
-		//System.out.println(ime);
-		//System.out.println(adresa);
-		//System.out.println(posta);
-		//System.out.println(sIznos);
-		//System.out.println("****************************************************************************");
-		*/
-		
-		
-		// 00000000000001700000000025352410470009                           SVETISLAV (MILIVOJE) STRAHINIC010470009           311020252711202500000000000000000009085.69941  27112025
 
 		// Leva numerička polja (interni brojevi, partija itd.)
 		String partijaRacuna = line.substring(0, 30).trim();        // "0000000000000170000000002"
@@ -117,8 +91,26 @@ public class StavkeIzvodaPostanska implements Serializable {
 		        .replace("È", "Č");                          // "SVETISLAV (MILIVOJE) STRAHINIC"
 
 		// Šifra (010470009)
-		//String sifra = line.substring(95, 104).trim();       // "010470009"
-		String sifra = line.substring(106, 115).trim(); 
+		String sifra = "";
+
+		List<int[]> kandidati = Arrays.asList(
+		    new int[]{95, 104},
+		    new int[]{106, 115},
+		    new int[]{94, 103},
+		    new int[]{96, 105}
+		);
+
+		for (int[] p : kandidati) {
+		    if (line.length() >= p[1]) {
+		        String s = line.substring(p[0], p[1]).trim();
+
+		        if (s.matches("\\d{9}")) {
+		            sifra = s;
+		            break;
+		        }
+		    }
+		}
+		
 		// Datumi
 		//String sValuta = line.substring(115, 123).trim();    // "31102025"
 		
