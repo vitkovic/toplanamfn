@@ -50,8 +50,8 @@ public class ProveraDTO {
         CENA_ODRZAVANJA_PO_ULAZU.put(271, cenaOdrzavanjaOut);
         CENA_ODRZAVANJA_PO_ULAZU.put(272, cenaOdrzavanjaOut);
         CENA_ODRZAVANJA_PO_ULAZU.put(273, cenaOdrzavanjaOut);
-        CENA_ODRZAVANJA_PO_ULAZU.put(291, cenaOdrzavanjaOut);
-        CENA_ODRZAVANJA_PO_ULAZU.put(292, cenaOdrzavanjaOut); 	
+        CENA_ODRZAVANJA_PO_ULAZU.put(291, BigDecimal.ZERO);
+        CENA_ODRZAVANJA_PO_ULAZU.put(292, BigDecimal.ZERO); 	
     	
     }
     public static BigDecimal getCenaZaUlaz(Integer ulaz) {
