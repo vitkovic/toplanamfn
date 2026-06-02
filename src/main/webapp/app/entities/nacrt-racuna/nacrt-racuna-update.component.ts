@@ -179,13 +179,12 @@ export default class NacrtRacunaUpdate extends Vue {
 	
 	
 	window.scrollTo({ top: 0, behavior: 'smooth' });
-	/*
-	if (sid != null) {
-		this.nacrtRacuna.id = sid;
-	}
-	*/
+	var sid;
+	
+
 	
     if (this.nacrtRacuna.id) {
+	sid = this.nacrtRacuna.id;
       this.nacrtRacunaService()
         .stampanje(this.nacrtRacuna.id)
         .then(res => {
@@ -195,9 +194,11 @@ export default class NacrtRacunaUpdate extends Vue {
 	      var fileURL = window.URL.createObjectURL(new Blob([res]));
           var fileLink = document.createElement('a');
           fileLink.href = fileURL;
-          fileLink.setAttribute('download', 'racuni.pdf');
+          fileLink.setAttribute('download', `racun_${sid}.pdf`);
           document.body.appendChild(fileLink);
           fileLink.click();
+		  fileLink.remove();
+		  window.URL.revokeObjectURL(fileURL);
         });
     } 
   }
