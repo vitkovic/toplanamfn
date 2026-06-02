@@ -179,10 +179,11 @@ export default class NacrtRacunaUpdate extends Vue {
 	
 	
 	window.scrollTo({ top: 0, behavior: 'smooth' });
-	
+	/*
 	if (sid != null) {
 		this.nacrtRacuna.id = sid;
 	}
+	*/
 	
     if (this.nacrtRacuna.id) {
       this.nacrtRacunaService()

@@ -61,7 +61,7 @@ spring:
     host: smtp.office365.com
     port: 587
     username: toplanamfn@masfak.ni.ac.rs
-    password: s1QjVhvV8}!RU3LB}gqd/]a*
+    password: qgcjyytxmdjbzwrc
     properties:
       mail:
         from: toplanamfn@masfak.ni.ac.rs
@@ -109,7 +109,7 @@ jhipster:
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    from: toplanamfn@masfak.ni.ac.rs
+    from: toplanamfn@masfak.ni.ac.rs 
   metrics:
     logs: # Reports metrics in the logs
       enabled: false

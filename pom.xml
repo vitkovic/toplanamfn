@@ -360,7 +360,11 @@
 		    <version>6.20.5</version>
 		</dependency>
 
-        
+      <dependency>
+    <groupId>com.microsoft.azure</groupId>
+    <artifactId>msal4j</artifactId>
+    <version>1.16.2</version>
+</dependency>
         
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>

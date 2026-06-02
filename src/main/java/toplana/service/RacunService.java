@@ -138,10 +138,17 @@ public class RacunService  {
 		
 			System.setProperty("mail.smtp.localhost", "masfak.ni.ac.rs");
 			
+			int i = 0;
 			
 			for (RacunStampanje r : racuni) {
+				
+				
+				//if (i==1) break;
+				i++;
 
 			    String email = r.getVlasnikEmail();
+			    
+			    //email = "nvitko@gmail.com";
 
 			    if (email != null && !email.trim().isEmpty()) {
 
@@ -171,7 +178,7 @@ public class RacunService  {
 			                    + "ako vidite neka neslaganja sa odštampanim računom.",
 			                    pdf,
 			                    fileName
-			                )
+			                ) 
 			            );
 
 			        } catch (Exception e) {

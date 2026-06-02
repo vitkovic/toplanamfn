@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
 import javax.mail.MessagingException;
@@ -20,6 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -32,6 +35,17 @@ import toplana.web.rest.dto.MailWithAttachment;
 import java.io.File;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.FileSystemResource;
+
+import com.microsoft.aad.msal4j.*;
+import org.springframework.web.bind.annotation.RequestMethod;
+import java.net.http.HttpRequest;
+import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.client.RestTemplate;
+import java.util.Base64;
 /**
  * Service for sending emails.
  * <p>
@@ -175,8 +189,8 @@ public class MailService {
     
     private synchronized void logSentEmail(MailWithAttachment mail) {
         try {
-            Path logPath = Paths.get("\"C:\\\\toplana\\\\maillog\\\\sent-mails.txt\"");
-
+        	Path logPath = Paths.get("C:\\toplana\\maillog\\sent-mails.txt");
+        	
             String line =
                     LocalDateTime.now()
                     + " | "
@@ -278,6 +292,126 @@ public class MailService {
     //    //System.out.println("✅ Email sent to: " + sanitized);
     }
     
-    
+    private void sendMailWithAttachmentGRAPH(MailWithAttachment mail) throws MessagingException {
+        try {
+            String toAddress = mail.getTo();
+
+            if (toAddress == null || toAddress.trim().isEmpty()) {
+                throw new MessagingException("Email address is null or empty");
+            }
+
+            String sanitized = toAddress
+                .replaceAll("[^\\p{ASCII}]", "")
+                .replaceAll("[\\r\\n\\t]", "")
+                .trim();
+
+            try {
+                InternetAddress.parse(sanitized, true);
+            } catch (Exception e) {
+                throw new MessagingException("Invalid email address: " + sanitized, e);
+            }
+
+            String token = getGraphAccessToken();
+
+            byte[] attachmentBytes;
+            String attachmentFileName;
+
+            if (mail.hasBlobAttachment()) {
+                attachmentBytes = mail.getAttachmentBytes();
+                attachmentFileName = mail.getAttachmentFileName();
+            } else {
+                File attachmentFile = new File(mail.getAttachmentPath());
+
+                if (!attachmentFile.exists()) {
+                    throw new MessagingException("Attachment file not found: " + mail.getAttachmentPath());
+                }
+
+                attachmentBytes = Files.readAllBytes(attachmentFile.toPath());
+                attachmentFileName = attachmentFile.getName();
+            }
+
+            String html =
+                "<h4>Poštovani,</h4><p>"
+                    + mail.getBody()
+                    + "</p>";
+
+            String attachmentBase64 =
+                Base64.getEncoder().encodeToString(attachmentBytes);
+
+            String json =
+                "{"
+                    + "\"message\":{"
+                        + "\"subject\":\"" + escapeJson(mail.getSubject()) + "\","
+                        + "\"body\":{"
+                            + "\"contentType\":\"HTML\","
+                            + "\"content\":\"" + escapeJson(html) + "\""
+                        + "},"
+                        + "\"toRecipients\":["
+                            + "{"
+                                + "\"emailAddress\":{"
+                                    + "\"address\":\"" + escapeJson(sanitized) + "\""
+                                + "}"
+                            + "}"
+                        + "],"
+                        + "\"attachments\":["
+                            + "{"
+                                + "\"@odata.type\":\"#microsoft.graph.fileAttachment\","
+                                + "\"name\":\"" + escapeJson(attachmentFileName) + "\","
+                                + "\"contentType\":\"application/pdf\","
+                                + "\"contentBytes\":\"" + attachmentBase64 + "\""
+                            + "}"
+                        + "]"
+                    + "},"
+                    + "\"saveToSentItems\":true"
+                + "}";
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(token);
+            headers.setContentType(MediaType.APPLICATION_JSON);
+
+            HttpEntity<String> entity = new HttpEntity<>(json, headers);
+
+            String sender = "toplanamfn@masfak.ni.ac.rs";
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            restTemplate.exchange(
+                "https://graph.microsoft.com/v1.0/users/" + sender + "/sendMail",
+                HttpMethod.POST,
+                entity,
+                String.class
+            );
+
+        } catch (Exception e) {
+            throw new MessagingException("Graph sendMail failed: " + e.getMessage(), e);
+        }
+    }
+    private String escapeJson(String value) {
+        if (value == null) {
+            return "";
+        }
+
+        return value
+            .replace("\\", "\\\\")
+            .replace("\"", "\\\"")
+            .replace("\r", "\\r")
+            .replace("\n", "\\n");
+    }
+    private String getGraphAccessToken() throws Exception {
+        ConfidentialClientApplication app =
+            ConfidentialClientApplication.builder(
+                    "CLIENT_ID",
+                    ClientCredentialFactory.createFromSecret("CLIENT_SECRET")
+                )
+                .authority("https://login.microsoftonline.com/" + "TENANT_ID")
+                .build();
+
+        ClientCredentialParameters parameters =
+            ClientCredentialParameters.builder(
+                java.util.Collections.singleton("https://graph.microsoft.com/.default")
+            ).build();
+
+        return app.acquireToken(parameters).get().accessToken();
+    }
     
 }
