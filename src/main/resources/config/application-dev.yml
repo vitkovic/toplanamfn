@@ -132,5 +132,13 @@ jhipster:
 # More documentation is available at:
 # https://www.jhipster.tech/common-application-properties/
 # ===================================================================
-
+graph:
+  tenant-id: 21cae982-e96f-4855-953d-44743355c3d6
+  client-id: 05c8fbe1-9310-4964-b900-945eb58edd7e
+  client-secret: 
+  sender: toplanamfn@masfak.ni.ac.rs
+# secret id: 0242245a-8ff9-46c9-b695-264f1966842d  obracun:
+toplana:
+  obracun:
+    racunaj-varijabilni-deo: false
 # application:

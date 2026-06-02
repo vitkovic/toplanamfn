@@ -1,6 +1,7 @@
 package toplana.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.beans.factory.annotation.Value;
 
 import toplana.service.dto.ProveraDTO;
 import toplana.web.rest.dto.DugujePotrazujeDTO;
@@ -58,6 +59,10 @@ public class Racun implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Transient
+    @Value("${toplana.obracun.racunaj-varijabilni-deo:true}")
+    private boolean racunajVarijabilniDeo;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")

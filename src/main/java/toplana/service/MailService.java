@@ -19,6 +19,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpMethod;
@@ -53,6 +54,18 @@ import java.util.Base64;
  */
 @Service
 public class MailService {
+	
+	@Value("${graph.tenant-id}")
+	private String graphTenantId;
+
+	@Value("${graph.client-id}")
+	private String graphClientId;
+   
+	@Value("${graph.client-secret}")
+	private String graphClientSecret;
+
+	@Value("${graph.sender}")
+	private String graphSender;
 
     private final Logger log = LoggerFactory.getLogger(MailService.class);
 
@@ -221,6 +234,8 @@ public class MailService {
     }
     
     private void sendMailWithAttachment(MailWithAttachment mail) throws MessagingException {
+    	
+    	
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, StandardCharsets.UTF_8.name());
 
@@ -371,7 +386,7 @@ public class MailService {
 
             HttpEntity<String> entity = new HttpEntity<>(json, headers);
 
-            String sender = "toplanamfn@masfak.ni.ac.rs";
+            String sender = graphSender;
 
             RestTemplate restTemplate = new RestTemplate();
 
@@ -400,10 +415,10 @@ public class MailService {
     private String getGraphAccessToken() throws Exception {
         ConfidentialClientApplication app =
             ConfidentialClientApplication.builder(
-                    "CLIENT_ID",
-                    ClientCredentialFactory.createFromSecret("CLIENT_SECRET")
+                    graphClientId,
+                    ClientCredentialFactory.createFromSecret(graphClientSecret)
                 )
-                .authority("https://login.microsoftonline.com/" + "TENANT_ID")
+                .authority("https://login.microsoftonline.com/" + graphTenantId)
                 .build();
 
         ClientCredentialParameters parameters =
