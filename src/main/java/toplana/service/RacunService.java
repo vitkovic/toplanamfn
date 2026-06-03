@@ -144,7 +144,7 @@ public class RacunService  {
 				
 				
 			//	if (i==1) break;
-				i++;
+			//	i++;
 
 			    String email = r.getVlasnikEmail();
 			    
