@@ -575,7 +575,7 @@ public class NacrtRacunaResource {
         headers.add("Content-Disposition","attachment; filename=\"" + filename +"\"");
         
         return ResponseEntity
-                .ok()
+                .ok()   
                 .headers(headers)
                 .contentLength(file.length())
                 .contentType(MediaType.parseMediaType("application/pdf"))
