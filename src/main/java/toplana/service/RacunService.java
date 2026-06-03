@@ -143,7 +143,7 @@ public class RacunService  {
 			for (RacunStampanje r : racuni) {
 				
 				
-				if (i==1) break;
+				if (i==3) break;
 				i++;
 
 			    String email = r.getVlasnikEmail();
@@ -392,7 +392,7 @@ public class RacunService  {
     				rDTO.getStanjeZaRacun().getNovoStanje().getStanje().subtract(rDTO.getStanjeZaRacun().getStaroStanje().getStanje()).toString(),
     				rDTO.getStanjeZaRacun().getUkupnaPovrsina().toString(), rDTO.getStanjeZaRacun().getUtrosakPoM2().toString(),
     				rDTO.getStan().getPovrsina().toString(), 
-    				rDTO.getUtrosakUKwh().toString(),
+    				rDTO.getUtrosakUKwh().setScale(2, RoundingMode.HALF_UP).toString(),
     				rDTO.getCenaKwh().toString(), 
     				rDTO.getUtrosakVarijabilniBezPopusta().toString(),
     				rDTO.getUtrosakVarijabilniPopust().toString(), 
