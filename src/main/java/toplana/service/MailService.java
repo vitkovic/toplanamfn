@@ -205,7 +205,7 @@ public class MailService {
     private synchronized void logSentEmail(MailWithAttachment mail) {
         try {
         	String suffix = LocalDate.now()
-        	        .format(DateTimeFormatter.ofPattern("yyyy-MM"));
+        	        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         	Path logPath = Paths.get(
         	        "C:\\toplana\\maillog\\sent-mails-" + suffix + ".txt");
