@@ -143,12 +143,12 @@ public class RacunService  {
 			for (RacunStampanje r : racuni) {
 				
 				
-				//if (i==3) break;
+			//	if (i==1) break;
 				i++;
 
 			    String email = r.getVlasnikEmail();
 			    
-			   // email = "nvitko@gmail.com";
+			//    email = "nvitko@gmail.com";
 
 			    if (email != null && !email.trim().isEmpty()) {
 
