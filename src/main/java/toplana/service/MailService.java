@@ -9,7 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
@@ -202,7 +204,11 @@ public class MailService {
     
     private synchronized void logSentEmail(MailWithAttachment mail) {
         try {
-        	Path logPath = Paths.get("C:\\toplana\\maillog\\sent-mails.txt");
+        	String suffix = LocalDate.now()
+        	        .format(DateTimeFormatter.ofPattern("yyyy-MM"));
+
+        	Path logPath = Paths.get(
+        	        "C:\\toplana\\maillog\\sent-mails-" + suffix + ".txt");
         	
             String line =
                     LocalDateTime.now()
