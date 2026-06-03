@@ -1,5 +1,6 @@
 package toplana.service;
 
+import toplana.domain.Cene;
 import toplana.domain.OstaliRacuni;
 import toplana.domain.Stan;
 import toplana.domain.Transakcija;
@@ -1334,7 +1335,7 @@ public class TransakcijaService {
      * @param search
      * @return
      ****************************************************************************************************************/
-        public List<RacunDTO> rekapitulacijaSifraPromeneDatum(SearchTransakcijaDTO search){
+        public List<RacunDTO> rekapitulacijaSifraPromeneDatum(SearchTransakcijaDTO search, Cene cene){
         	int datumOdNotExists = 1;
         	LocalDate datumOd = LocalDate.now();
         	
@@ -1356,7 +1357,7 @@ public class TransakcijaService {
         	List<RacunDTO> out = transakcijaRepository.rekapitulacijaSifraPromeneDatumRacun(datumDo, Integer.valueOf(search.getPodstanicaOd()), Integer.valueOf(search.getPodstanicaDo()),search.getSifraOd(), search.getSifraDo());
         	
         	//Sumarize by code
-        	List<RacunDTO> out_sum = RacunUtils.groupAndSumBySifraPrefix(out);
+        	List<RacunDTO> out_sum = RacunUtils.groupAndSumBySifraPrefix(out, cene);
         	
         //	List<RekapitulacijaSifraPromeneDatumDTO> out = transakcijaRepository.rekapitulacijaSifraPromeneDatum(datumOdNotExists,datumOd, datumDoNotExists, 
         	//		datumDo);
