@@ -52,7 +52,7 @@
 									      type="text"
 									      class="form-control"
 									      v-model="stavkeIzvoda.opis"
-									      placeholder="Унеси шта је 'Остало'..."
+									      placeholder="Опис..."
 									    />
 									  </div>
 									</div>  <hr>             
