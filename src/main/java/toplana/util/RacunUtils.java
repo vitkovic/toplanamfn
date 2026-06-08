@@ -8,14 +8,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import toplana.domain.Cene;
 import toplana.domain.Stan;
+import toplana.service.dto.ProveraDTO;
 import toplana.web.rest.dto.RacunDTO;
 
 public class RacunUtils {
 
 	  private static final int PREFIX_LEN = 5;
 
-	    public static List<RacunDTO> groupAndSumBySifraPrefix(List<RacunDTO> racuni) {
+	    public static List<RacunDTO> groupAndSumBySifraPrefix(List<RacunDTO> racuni, Cene cene) {
 
 	        // 1) Group by first 5 chars of stan.sifra
 	        Map<String, List<RacunDTO>> byPrefix = racuni.stream()
@@ -28,6 +30,11 @@ public class RacunUtils {
 	                Collectors.toList()
 	            ));
 
+	       
+	        
+	        BigDecimal cenaOdrzavanja = cene.getOdrzavanje();
+	    	ProveraDTO.setInitialCeneOdrzavanja(cenaOdrzavanja);
+	        
 	        List<RacunDTO> result = new ArrayList<>();
 
 	        for (Map.Entry<String, List<RacunDTO>> e : byPrefix.entrySet()) {
@@ -40,7 +47,7 @@ public class RacunUtils {
 	            
 	            
 	            RacunDTO first = group.get(0);
-
+	           
 	            RacunDTO sum = new RacunDTO();
 
 	            // We do NOT set ID – this is an aggregated row
@@ -81,9 +88,15 @@ public class RacunUtils {
 	            
 	            for (RacunDTO r : group) {
 	            	
-	            	
 	            	Long podstanicaId = r.getStan().getPodstanica().getId();
-	            	boolean imaOdrzavanje = podstanicaId != null && podstanicaId <= 1105;
+	            	 //	boolean imaOdrzavanje = podstanicaId != null && podstanicaId <= 1105; 	
+	            
+	            	
+	            	
+	            	
+	            	Integer ulaz = r.getStan().getUlaz();
+	            	BigDecimal cenaOdrzavanjaZaUlaz = ProveraDTO.getCenaZaUlaz(ulaz);
+	            	boolean imaOdrzavanje = cenaOdrzavanjaZaUlaz != BigDecimal.ZERO;
 	            	
 	            	
 	            	

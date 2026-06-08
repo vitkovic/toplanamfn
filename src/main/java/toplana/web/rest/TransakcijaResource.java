@@ -1,10 +1,12 @@
 package toplana.web.rest;
 
 import toplana.config.Constants;
+import toplana.domain.Cene;
 import toplana.domain.Racun;
 import toplana.domain.Stan;
 import toplana.domain.StanjaPodstaniceZaRacun;
 import toplana.domain.Transakcija;
+import toplana.repository.CeneRepository;
 import toplana.repository.StanRepository;
 import toplana.repository.TransakcijaCustomRepository;
 import toplana.repository.TransakcijaRepository;
@@ -70,14 +72,16 @@ public class TransakcijaResource {
     private final TransakcijaCustomRepository transakcijaCustomRepository; 
     private final StanRepository stanRepository;
 
-	
-	public TransakcijaResource(TransakcijaService transakcijaService, TransakcijaRepository transakcijaRepository,
-			TransakcijaCustomRepository transakcijaCustomRepository, StanRepository stanRepository) {
+    private final CeneRepository ceneRepository;
+
+ 	public TransakcijaResource(TransakcijaService transakcijaService, TransakcijaRepository transakcijaRepository,
+			TransakcijaCustomRepository transakcijaCustomRepository, StanRepository stanRepository, CeneRepository ceneRepository) {
 		super();
 		this.transakcijaService = transakcijaService;
 		this.transakcijaRepository = transakcijaRepository;
 		this.transakcijaCustomRepository = transakcijaCustomRepository;
 		this.stanRepository = stanRepository;
+		 this.ceneRepository = ceneRepository;
 	}
 
 
@@ -413,12 +417,18 @@ public class TransakcijaResource {
     }
 /********************************************************************************************************
  * rekapitulacija po datumima i sifri promene    
- * @param search
+ * @param search 
  * @return
  *********************************************************************************************************/
     @PostMapping("/transakcijas-rekapitulacija-sifra-promene-datum")
     public List<RacunDTO> rekapitulacijaSifraPromeneDatum(@RequestBody SearchTransakcijaDTO search) {   
-    	List<RacunDTO> out = transakcijaService.rekapitulacijaSifraPromeneDatum(search);
+    	
+    	Cene cene = ceneRepository.findAll()
+    	        .stream()
+    	        .findFirst()
+    	        .orElseThrow(() -> new RuntimeException("Nema podataka u tabeli cene"));
+    	
+    	List<RacunDTO> out = transakcijaService.rekapitulacijaSifraPromeneDatum(search, cene);
 	    return out;
     }
 
@@ -432,7 +442,13 @@ public class TransakcijaResource {
     produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<InputStreamResource> rekapitulacijaSifraPromeneDatumStampanje(@RequestBody SearchTransakcijaDTO search) 
     		throws IOException{
-    	List<RacunDTO> out = transakcijaService.rekapitulacijaSifraPromeneDatum(search);
+    	
+    	Cene cene = ceneRepository.findAll()
+    	        .stream()
+    	        .findFirst()
+    	        .orElseThrow(() -> new RuntimeException("Nema podataka u tabeli cene"));
+    	
+    	List<RacunDTO> out = transakcijaService.rekapitulacijaSifraPromeneDatum(search, cene);
  
     	String filename = transakcijaService.generateReportRekapitulacijaSifraPromeneDatum(out);
     	File file = new File(filename);
