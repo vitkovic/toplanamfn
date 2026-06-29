@@ -508,5 +508,8 @@ public class TransakcijaResource {
                 .body(new InputStreamResource(new FileInputStream(file)));    	    	
     }
     
-   
+    @GetMapping("/transakcijas/by-stavka-utuzenja/{id}")
+    public List<Transakcija> getTransakcijeByStavkaUtuzenja(@PathVariable Long id) {
+        return transakcijaService.findAllByStavkaUtuzenja(id);
+    }
 }

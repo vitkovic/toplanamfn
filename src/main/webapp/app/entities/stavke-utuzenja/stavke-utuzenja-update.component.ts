@@ -9,6 +9,9 @@ import AlertService from '@/shared/alert/alert.service';
 import { IStavkeUtuzenja, StavkeUtuzenja } from '@/shared/model/stavke-utuzenja.model';
 import StavkeUtuzenjaService from './stavke-utuzenja.service';
 
+import TransakcijaService from '@/entities/transakcija/transakcija.service';
+import { ITransakcija } from '@/shared/model/transakcija.model';
+
 const validations: any = {
   stavkeUtuzenja: {
     obracunskiPeriod: {
@@ -37,6 +40,13 @@ const validations: any = {
 export default class StavkeUtuzenjaUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('stavkeUtuzenjaService') private stavkeUtuzenjaService: () => StavkeUtuzenjaService;
+  
+  @Inject('transakcijaService') private transakcijaService: () => TransakcijaService;
+
+  public transakcije = [];
+  
+  
+  
   public stavkeUtuzenja: IStavkeUtuzenja = new StavkeUtuzenja();
 
   @Inject('utuzenjeService') private utuzenjeService: () => UtuzenjeService;

@@ -104,6 +104,22 @@
                             <option v-bind:value="stavkeUtuzenja.utuzenje && utuzenjeOption.id === stavkeUtuzenja.utuzenje.id ? stavkeUtuzenja.utuzenje : utuzenjeOption" v-for="utuzenjeOption in utuzenjes" :key="utuzenjeOption.id">{{utuzenjeOption.stan.sifra}} - {{utuzenjeOption.stan.vlasnik.prezime}} {{utuzenjeOption.stan.vlasnik.ime}}</option>
                         </select>
                     </div>
+                    <div class="form-group">
+					    <label
+					        class="form-control-label"
+					        v-text="$t('toplanaApp.stavkeUtuzenja.opis')"
+					        for="stavke-utuzenja-opis">
+					        Opis
+					    </label>
+					
+					    <input
+					        type="text"
+					        class="form-control"
+					        name="opis"
+					        id="stavke-utuzenja-opis"
+					        v-model="stavkeUtuzenja.opis"
+					    />
+					</div>
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

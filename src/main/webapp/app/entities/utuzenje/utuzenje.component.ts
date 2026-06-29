@@ -47,6 +47,7 @@ export default class Utuzenje extends mixins(AlertMixin) {
       .then(
         res => {
           this.utuzenjes = res.data;
+		  console.log(res.data);
           this.totalItems = Number(res.headers['x-total-count']);
           this.queryCount = this.totalItems;
           this.isFetching = false;

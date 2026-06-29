@@ -63,6 +63,7 @@
                                 <th class="sticky"><span v-text="$t('toplanaApp.transakcija.duguje')"></span></th>
                                 <th class="sticky"><span v-text="$t('toplanaApp.transakcija.potrazuje')"></span></th>
                                 <th class="sticky"><span v-text="$t('toplanaApp.transakcija.saldo')"></span></th>
+                                 <th class="sticky"><span v-text="$t('toplanaApp.transakcija.saldo')"></span></th>
                                 <th class="sticky"><span v-text="$t('toplanaApp.transakcija.racunIliIzvod')"></span></th>                                                                                                                
                             </tr>
                         </thead>
@@ -89,6 +90,7 @@
                                 <td>
                                     {{t.saldo | currency('')}} 
                                 </td>
+                                <td>{{ t.stavkaUtuzenjaOpis }}</td>
                                 <td>
                                    <button type="button" class="btn btn-info" @click="pogledaj(index)"
                                    v-if="t.racunId || t.stavkaIzvodaId || t.stavkaIzvodaPostanskaId">

@@ -8,6 +8,8 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A StavkeUtuzenja.
@@ -46,6 +48,51 @@ public class StavkeUtuzenja implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "stavkeUtuzenjas", allowSetters = true)
     private Utuzenje utuzenje;
+    
+    
+    @OneToMany(mappedBy = "stavkaUtuzenja")
+    private Set<Transakcija> transakcijas = new HashSet<>();
+    
+    @Column(name = "opis")
+    private String opis;
+    
+    public String getOpis() {
+        return opis;
+    }
+
+    public StavkeUtuzenja opis(String opis) {
+        this.opis = opis;
+        return this;
+    }
+
+    public void setOpis(String opis) {
+        this.opis = opis;
+    }
+    
+    public Set<Transakcija> getTransakcijas() {
+        return transakcijas;
+    }
+
+    public void setTransakcijas(Set<Transakcija> transakcijas) {
+        this.transakcijas = transakcijas;
+    }
+
+    public StavkeUtuzenja transakcijas(Set<Transakcija> transakcijas) {
+        this.transakcijas = transakcijas;
+        return this;
+    }
+
+    public StavkeUtuzenja addTransakcija(Transakcija transakcija) {
+        this.transakcijas.add(transakcija);
+        transakcija.setStavkaUtuzenja(this);
+        return this;
+    }
+
+    public StavkeUtuzenja removeTransakcija(Transakcija transakcija) {
+        this.transakcijas.remove(transakcija);
+        transakcija.setStavkaUtuzenja(null);
+        return this;
+    }
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {

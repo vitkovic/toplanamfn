@@ -27,6 +27,9 @@ import TransakcijaService from './transakcija.service';
 
 import { RACUN_OSTALI_TROSKOVI_BEZ_STANA } from '@/constants';
 
+import StavkeUtuzenjaService from '../stavke-utuzenja/stavke-utuzenja.service';
+import { IStavkeUtuzenja } from '@/shared/model/stavke-utuzenja.model';
+
 const validations: any = {
   sifra:{required},
   
@@ -51,6 +54,11 @@ export default class TransakcijaRazduzenje extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('transakcijaService') private transakcijaService: () => TransakcijaService;
 
+  @Inject('stavkeUtuzenjaService') private stavkeUtuzenjaService: () => StavkeUtuzenjaService;
+
+  public stavkeUtuzenjas: IStavkeUtuzenja[] = [];
+  
+  
   public transakcija: ITransakcija = new Transakcija(); 
   public sifra = null;
   public vlasnikt = [];
@@ -158,6 +166,8 @@ export default class TransakcijaRazduzenje extends Vue {
     this.transakcija.opis = null;
     this.transakcija.duguje = null;
     this.transakcija.ostaliRacuni = null;
+	
+	this.transakcija.stavkaUtuzenja = null;
   }
 
   public getStan(): void{    
@@ -295,6 +305,12 @@ export default class TransakcijaRazduzenje extends Vue {
 		this.vlasnikt = res.data
 		console.log(this.vlasnikt)
       });
+	  
+	  this.stavkeUtuzenjaService()
+	    .retrieve()
+	    .then(res => {
+	      this.stavkeUtuzenjas = res.data;
+	    });
      
   }
 

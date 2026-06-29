@@ -149,12 +149,14 @@ export default class Transakcija extends mixins(AlertMixin) {
 	      {key:'duguje', label:this.$t('toplanaApp.transakcija.duguje'), sortable:true},
 	      {key:'potrazuje', label:this.$t('toplanaApp.transakcija.potrazuje'), sortable:true},
 	      {key:'stanje', label:this.$t('toplanaApp.transakcija.stanje'),sortable:true},
+		  {key:'stavkaUtuzenjaOpis', label:this.$t('toplanaApp.stavkeUtuzenja.opis'), sortable:true},
 	      {key:'actions', label:this.$t('toplanaApp.transakcija.akcije'),sortable:false}
 	    ]
 	
 	this.fieldsort = [
 	     {key:'sifra', label:this.$t('toplanaApp.transakcija.sifra'), sortable:true},
 	     {key:'opis', label:this.$t('toplanaApp.transakcija.opis'), sortable:true, thClass:'fieldWidth'},
+		 {key:'stavkaUtuzenjaOpis', label:this.$t('toplanaApp.stavkeUtuzenja.opis'), sortable:true},
 	     {key:'duguje', label:this.$t('toplanaApp.transakcija.duguje'), sortable:true},
 	     {key:'potrazuje', label:this.$t('toplanaApp.transakcija.potrazuje'), sortable:true},
 	     {key:'actions', label:this.$t('toplanaApp.transakcija.akcije'),sortable:false}

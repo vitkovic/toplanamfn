@@ -127,6 +127,41 @@
 
                     </div>
                 </div>
+                
+                
+								<div class="row"
+				     style="margin-top:20px;"
+				     v-if="transakcija.sifraPromene &&
+				           (transakcija.sifraPromene.id === 2454 ||
+				            transakcija.sifraPromene.id === 2455)">
+				    <div class="col-3">
+				        <span>Ставка утужења</span>
+				    </div>
+				    <div class="col-6">
+				        <select
+				            class="form-control"
+				            id="transakcija-stavkaUtuzenja"
+				            name="stavkaUtuzenja"
+				            v-model="transakcija.stavkaUtuzenja">
+				
+				            <option v-bind:value="null"></option>
+				
+				            <option
+				                v-for="stavka in stavkeUtuzenjas"
+				                :key="stavka.id"
+				                :value="transakcija.stavkaUtuzenja && stavka.id === transakcija.stavkaUtuzenja.id
+				                    ? transakcija.stavkaUtuzenja
+				                    : stavka">
+				
+				                {{ stavka.opis }}
+				
+				            </option>
+				        </select>
+				    </div>
+				</div>
+                
+                
+                
                 <div class="row" style="margin-top:20px;">
                     <div class="col-3">
                        <span v-text="$t('toplanaApp.transakcija.opisPromene')"></span>

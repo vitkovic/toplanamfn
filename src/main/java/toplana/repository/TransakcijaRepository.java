@@ -349,4 +349,6 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			    countQuery = "select count(t) from Transakcija t"
 			  )
 			  Page<Transakcija> findAllWithStan(Pageable pageable);
+	 
+	 List<Transakcija> findAllByStavkaUtuzenjaIdOrderByDatum(Long stavkaUtuzenjaId);
 }

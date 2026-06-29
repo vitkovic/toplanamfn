@@ -1575,6 +1575,11 @@ public class TransakcijaService {
 		}
 		
 		return pdfPutanja + "\\SintetickiDnevnik.pdf";
-    }      
+    }
+    
+    @Transactional(readOnly = true)
+    public List<Transakcija> findAllByStavkaUtuzenja(Long stavkaUtuzenjaId) {
+        return transakcijaRepository.findAllByStavkaUtuzenjaIdOrderByDatum(stavkaUtuzenjaId);
+    }
     
 }

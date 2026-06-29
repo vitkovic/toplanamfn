@@ -21,7 +21,8 @@
       "datumDospecaRacuna": "Datum Dospeca Racuna",
       "zaduzenje": "Zaduzenje",
       "ukupnoZaUplatu": "Ukupno Za Uplatu",
-      "utuzenje": "Utuzenje"
+      "utuzenje": "Utuzenje",
+	  "opis":"Opis"
     }
   }
 }

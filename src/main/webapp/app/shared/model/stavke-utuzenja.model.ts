@@ -8,6 +8,7 @@ export interface IStavkeUtuzenja {
   zaduzenje?: number;
   ukupnoZaUplatu?: number;
   utuzenje?: IUtuzenje;
+  opis?: string;
 }
 
 export class StavkeUtuzenja implements IStavkeUtuzenja {
@@ -18,6 +19,7 @@ export class StavkeUtuzenja implements IStavkeUtuzenja {
     public datumDospecaRacuna?: Date,
     public zaduzenje?: number,
     public ukupnoZaUplatu?: number,
-    public utuzenje?: IUtuzenje
+    public utuzenje?: IUtuzenje,
+	public opis?: string,
   ) {}
 }

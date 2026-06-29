@@ -45,6 +45,15 @@ public class TransakcijaZaStanDTO {
 	
 	private String opisT, opisI;
 	
+	private String stavkaUtuzenjaOpis;
+	
+	public String getStavkaUtuzenjaOpis() {
+	    return stavkaUtuzenjaOpis;
+	}
+
+	public void setStavkaUtuzenjaOpis(String stavkaUtuzenjaOpis) {
+	    this.stavkaUtuzenjaOpis = stavkaUtuzenjaOpis;
+	}
 	
 	public String getOpisT() {
 		return opisT;
@@ -80,6 +89,9 @@ public class TransakcijaZaStanDTO {
 		if(t.getSifraPromene() != null)
 			this.setSifraPromene(t.getSifraPromene().getSifra());
 		this.setOpis(t.getOpis());
+		if (t.getStavkaUtuzenja() != null) {
+		    this.stavkaUtuzenjaOpis = t.getStavkaUtuzenja().getOpis();
+		}
 		this.setDuguje(t.getDuguje());
 		this.setPotrazuje(t.getPotrazuje());
 		saldo = saldo.add(t.getDuguje()).subtract(t.getPotrazuje()).setScale(2);

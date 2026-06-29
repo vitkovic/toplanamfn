@@ -23,9 +23,15 @@ public class TransakcijaStanUkupnoDTO {
     private BigDecimal saldoOd;
     private BigDecimal saldoDo;
     
+    private String stavkaUtuzenjaOpis;
     
-    
-    
+    public String getStavkaUtuzenjaOpis() {
+        return stavkaUtuzenjaOpis;
+    }
+
+    public void setStavkaUtuzenjaOpis(String stavkaUtuzenjaOpis) {
+        this.stavkaUtuzenjaOpis = stavkaUtuzenjaOpis;
+    }
     
 	public String getSifraOd() {
 		return sifraOd;

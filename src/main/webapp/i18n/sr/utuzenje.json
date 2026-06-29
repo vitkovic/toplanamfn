@@ -18,7 +18,8 @@
       },
       "datum": "Datum",
       "stavkeUtuzenja": "Stavke Utuzenja",
-      "stan": "Stan"
+      "stan": "Stan",
+	  "vlasnik":"Vlasnik"
     }
   }
 }

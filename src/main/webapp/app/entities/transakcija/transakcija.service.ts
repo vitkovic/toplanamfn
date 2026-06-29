@@ -14,6 +14,7 @@ const baseApiUrlRekapitulacijaSifrePromeneDatumStampanje = 'api/transakcijas-rek
 const baseApiUrlAnalitickaKarticaStampanje = 'api/transakcijas/sve-prikaz-stampanje';
 const baseApiUrlSintetickiDnevnik = 'api/transakcijas-sinteticki-dnevnik';
 const baseApiUrlSintetickiDnevnikStampanje = 'api/transakcijas-sinteticki-dnevnik-stampanje';
+const resourceUrl = 'api/transakcijas';
 
 export default class TransakcijaService {
   public find(id: number): Promise<ITransakcija> {
@@ -214,7 +215,9 @@ export default class TransakcijaService {
     });
   }
   
-  
+  public findByStavkaUtuzenja(id: number): Promise<any> {
+    return axios.get(`${resourceUrl}/by-stavka-utuzenja/${id}`);
+  }
 
   
   public update(entity: ITransakcija): Promise<ITransakcija> {

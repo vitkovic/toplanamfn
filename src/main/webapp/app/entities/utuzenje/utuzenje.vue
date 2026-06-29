@@ -27,6 +27,7 @@
                     <th v-on:click="changeOrder('id')"><span v-text="$t('global.field.id')">ID</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('datum')"><span v-text="$t('toplanaApp.utuzenje.datum')">Datum</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'datum'"></jhi-sort-indicator></th>
                     <th v-on:click="changeOrder('stan.id')"><span v-text="$t('toplanaApp.utuzenje.stan')">Stan</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'stan.id'"></jhi-sort-indicator></th>
+                    <th v-on:click="changeOrder('stan.vlasnik.prezime')"><span v-text="$t('toplanaApp.utuzenje.vlasnik')">Vlasnik</span> <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'stan.id'"></jhi-sort-indicator></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -42,6 +43,7 @@
                             <router-link :to="{name: 'StanView', params: {stanId: utuzenje.stan.id}}">{{utuzenje.stan.sifra}}</router-link>
                         </div>
                     </td>
+                     <td>{{utuzenje.stan.vlasnik.ime}}  {{utuzenje.stan.vlasnik.prezime}}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <router-link :to="{name: 'UtuzenjeView', params: {utuzenjeId: utuzenje.id}}" tag="button" class="btn btn-info btn-sm details">

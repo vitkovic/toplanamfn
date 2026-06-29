@@ -31,6 +31,7 @@
                     <th><span v-text="$t('toplanaApp.stavkeUtuzenja.zaduzenje')">Zaduzenje</span></th>
                     <th><span v-text="$t('toplanaApp.stavkeUtuzenja.ukupnoZaUplatu')">Ukupno Za Uplatu</span></th>
                     <th><span v-text="$t('toplanaApp.stavkeUtuzenja.utuzenje')">Utuzenje</span></th>
+                    <th><span v-text="$t('toplanaApp.stavkeUtuzenja.opis')">Opis</span></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -50,6 +51,7 @@
                             <router-link :to="{name: 'UtuzenjeView', params: {utuzenjeId: stavkeUtuzenja.utuzenje.id}}">{{stavkeUtuzenja.utuzenje.id}}</router-link>
                         </div>
                     </td>
+                    <td>{{stavkeUtuzenja.opis}}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <router-link :to="{name: 'StavkeUtuzenjaView', params: {stavkeUtuzenjaId: stavkeUtuzenja.id}}" tag="button" class="btn btn-info btn-sm details">
@@ -67,8 +69,16 @@
                                 <font-awesome-icon icon="times"></font-awesome-icon>
                                 <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
                             </b-button>
+                            <b-button
+							    variant="success"
+							    class="btn btn-sm"
+							    @click="prikaziTransakcije(stavkeUtuzenja)">
+							    <font-awesome-icon icon="list"></font-awesome-icon>
+							    <span class="d-none d-md-inline">Transakcije</span>
+							</b-button>
                         </div>
                     </td>
+                     
                 </tr>
                 </tbody>
             </table>
@@ -83,6 +93,41 @@
                 <button type="button" class="btn btn-primary" id="jhi-confirm-delete-stavkeUtuzenja" v-text="$t('entity.action.delete')" v-on:click="removeStavkeUtuzenja()">Delete</button>
             </div>
         </b-modal>
+        
+		 <b-modal
+			    ref="transakcijeModal"
+			    id="transakcijeModal"
+			    size="xl"
+			    centered
+			    scrollable
+			    hide-header-close
+			>
+			    <template #modal-title>
+			        <strong>Povezane transakcije</strong>
+			    </template>
+			
+			    <b-table
+			        striped
+			        hover
+			        bordered
+			        responsive
+			        small
+			        head-variant="light"
+			        sticky-header="550px"
+			        :items="transakcije"
+			        :fields="transakcijeFields"
+			        show-empty
+			        empty-text="Nema povezanih transakcija">
+			    </b-table>
+			
+			    <template #modal-footer>
+			        <b-button
+			            variant="secondary"
+			            @click="$refs.transakcijeModal.hide()">
+			            Zatvori
+			        </b-button>
+			    </template>
+		</b-modal>
     </div>
 </template>
 

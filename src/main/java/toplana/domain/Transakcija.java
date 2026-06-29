@@ -994,6 +994,23 @@ public class Transakcija implements Serializable {
     private OstaliRacuni ostaliRacuni;
     
     
+    @ManyToOne
+    @JsonIgnoreProperties(value = "transakcijas", allowSetters = true)
+    private StavkeUtuzenja stavkaUtuzenja;
+    
+    public StavkeUtuzenja getStavkaUtuzenja() {
+        return stavkaUtuzenja;
+    }
+
+    public void setStavkaUtuzenja(StavkeUtuzenja stavkeUtuzenja) {
+        this.stavkaUtuzenja = stavkeUtuzenja;
+    }
+    
+    public Transakcija stavkaUtuzenja(StavkeUtuzenja stavkaUtuzenja) {
+        this.stavkaUtuzenja = stavkaUtuzenja;
+        return this;
+    }
+    
     
     @PrePersist
     @PreUpdate

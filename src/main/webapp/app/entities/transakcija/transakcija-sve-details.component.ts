@@ -20,6 +20,7 @@ interface ITransakcijaZaStanDTO {
 	racunId: number;
 	stavkaIzvodaId: number;
   stavkaIzvodaPostanskaId: number;
+  stavkaUtuzenjaOpis: string;
 };
 
 class ITransakcijeZaStanZbirnoDTO {

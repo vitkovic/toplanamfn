@@ -7,11 +7,27 @@ import AlertMixin from '@/shared/alert/alert.mixin';
 
 import StavkeUtuzenjaService from './stavke-utuzenja.service';
 
+import TransakcijaService from '@/entities/transakcija/transakcija.service';
+import { ITransakcija } from '@/shared/model/transakcija.model';
+
 @Component({
   mixins: [Vue2Filters.mixin],
 })
 export default class StavkeUtuzenja extends mixins(AlertMixin) {
   @Inject('stavkeUtuzenjaService') private stavkeUtuzenjaService: () => StavkeUtuzenjaService;
+  
+  @Inject('transakcijaService') private transakcijaService: () => TransakcijaService;
+  
+  public transakcije: ITransakcija[] = [];
+
+  public transakcijeFields = [
+      { key: 'datum', label: 'Datum' },
+      { key: 'sifraPromene.sifra', label: 'Šifra promene' },
+      { key: 'opis', label: 'Opis' },
+      { key: 'duguje', label: 'Duguje' },
+      { key: 'potrazuje', label: 'Potražuje' }
+  ];
+  
   private removeId: number = null;
 
   public stavkeUtuzenjas: IStavkeUtuzenja[] = [];
@@ -34,6 +50,7 @@ export default class StavkeUtuzenja extends mixins(AlertMixin) {
       .then(
         res => {
           this.stavkeUtuzenjas = res.data;
+		  console.log(res.data);
           this.isFetching = false;
         },
         err => {
@@ -65,4 +82,18 @@ export default class StavkeUtuzenja extends mixins(AlertMixin) {
   public closeDialog(): void {
     (<any>this.$refs.removeEntity).hide();
   }
+  
+  public prikaziTransakcije(stavka): void {
+
+      this.transakcijaService()
+          .findByStavkaUtuzenja(stavka.id)
+          .then(res => {
+              this.transakcije = res.data;
+              (<any>this.$refs.transakcijeModal).show();
+          });
+
+  }
+  
+  
+  
 }
