@@ -100,25 +100,36 @@
 			    size="xl"
 			    centered
 			    scrollable
-			    hide-header-close
-			>
+			    hide-header-close>
+			    
 			    <template #modal-title>
 			        <strong>Povezane transakcije</strong>
 			    </template>
-			
-			    <b-table
-			        striped
-			        hover
-			        bordered
-			        responsive
-			        small
-			        head-variant="light"
-			        sticky-header="550px"
-			        :items="transakcije"
-			        :fields="transakcijeFields"
-			        show-empty
-			        empty-text="Nema povezanih transakcija">
-			    </b-table>
+							
+				<b-table
+				    striped
+				    hover
+				    bordered
+				    responsive
+				    small
+				    head-variant="light"
+				    sticky-header="550px"
+				    :items="transakcije"
+				    :fields="transakcijeFields"
+				    show-empty
+				    empty-text="Nema povezanih transakcija">
+				    
+				    <template #cell(opis)="data">
+					  <strong v-if="data.item.isTotal">{{ data.item.opis }}</strong>
+					  <span v-else>{{ data.item.opis }}</span>
+					</template>
+					
+					<template #row-class="data">
+					  {{ data.item && data.item.isTotal ? 'table-secondary font-weight-bold' : '' }}
+					</template>
+				</b-table>
+				
+				
 			
 			    <template #modal-footer>
 			        <b-button

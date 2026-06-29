@@ -33,6 +33,8 @@ export default class StavkeUtuzenja extends mixins(AlertMixin) {
   public stavkeUtuzenjas: IStavkeUtuzenja[] = [];
 
   public isFetching = false;
+  
+  public transakcije = [];
 
   public mounted(): void {
     this.retrieveAllStavkeUtuzenjas();
@@ -88,12 +90,28 @@ export default class StavkeUtuzenja extends mixins(AlertMixin) {
       this.transakcijaService()
           .findByStavkaUtuzenja(stavka.id)
           .then(res => {
-              this.transakcije = res.data;
-              (<any>this.$refs.transakcijeModal).show();
+			
+			const ukupnoDuguje = res.data.reduce((s, t) => s + Number(t.duguje || 0), 0);
+			const ukupnoPotrazuje = res.data.reduce((s, t) => s + Number(t.potrazuje || 0), 0);
+
+			this.transakcije = res.data;
+			this.transakcije.push({
+			  opis: 'Ukupno:',
+			  duguje: ukupnoDuguje,
+			  potrazuje: ukupnoPotrazuje,
+			  isTotal: true
+			});
+		      (<any>this.$refs.transakcijeModal).show();
           });
 
   }
   
-  
+  get ukupnoDuguje(): number {
+      return this.transakcije.reduce((s, t) => s + (t.duguje || 0), 0);
+  }
+
+  get ukupnoPotrazuje(): number {
+      return this.transakcije.reduce((s, t) => s + (t.potrazuje || 0), 0);
+  }
   
 }
