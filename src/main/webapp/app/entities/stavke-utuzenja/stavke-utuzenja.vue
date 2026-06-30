@@ -132,6 +132,11 @@
 				
 			
 			    <template #modal-footer>
+			          <b-button variant="success" @click="exportTransakcijeCsv">
+    					    CSV Export
+    				  </b-button>
+			        
+			        
 			        <b-button
 			            variant="secondary"
 			            @click="$refs.transakcijeModal.hide()">

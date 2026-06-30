@@ -34,7 +34,8 @@ export default class StavkeUtuzenja extends mixins(AlertMixin) {
 
   public isFetching = false;
   
-  public transakcije = [];
+  
+  public trenutnaStavkaOpis = '';
 
   public mounted(): void {
     this.retrieveAllStavkeUtuzenjas();
@@ -86,7 +87,9 @@ export default class StavkeUtuzenja extends mixins(AlertMixin) {
   }
   
   public prikaziTransakcije(stavka): void {
-
+	  
+	  this.trenutnaStavkaOpis = stavka.opis || '';
+	
       this.transakcijaService()
           .findByStavkaUtuzenja(stavka.id)
           .then(res => {
@@ -95,6 +98,7 @@ export default class StavkeUtuzenja extends mixins(AlertMixin) {
 			const ukupnoPotrazuje = res.data.reduce((s, t) => s + Number(t.potrazuje || 0), 0);
 
 			this.transakcije = res.data;
+			console.log(this.transakcije)
 			this.transakcije.push({
 			  opis: 'Ukupno:',
 			  duguje: ukupnoDuguje,
@@ -113,5 +117,34 @@ export default class StavkeUtuzenja extends mixins(AlertMixin) {
   get ukupnoPotrazuje(): number {
       return this.transakcije.reduce((s, t) => s + (t.potrazuje || 0), 0);
   }
-  
+  public exportTransakcijeCsv(): void {
+      const rows = this.transakcije || [];
+
+      const header = ['Datum', 'Šifra promene', 'Opis Transakcije', 'Duguje', 'Potražuje', 'Opis Zaduzenja', 'Sifra Stana'];
+
+	  const csvRows = rows.map(t => [
+	      t.datum || '',
+	      t.sifraPromene?.sifra || '',
+	      (t.opis || '').replace(/[\r\n]+/g, ' '),
+	      t.duguje ?? '',
+	      t.potrazuje ?? '',
+		  t.stavkaUtuzenja?.opis ?? '',
+		  t.stan?.sifra ?? '',
+	  ]);
+
+	  const csvContent = [header, ...csvRows]
+	      .map(row => row.join(','))
+	      .join('\r\n');
+
+      const blob = new Blob(['\ufeff' + csvContent], {
+          type: 'text/csv;charset=utf-8;'
+      });
+
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute('download', 'povezane-transakcije.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+  }
 }
