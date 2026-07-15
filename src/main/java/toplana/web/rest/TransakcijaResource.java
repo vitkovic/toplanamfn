@@ -268,6 +268,7 @@ public class TransakcijaResource {
     	List<DugujePotrazujeReoni> dpr = transakcijaService.findSumForDnevnik(search);
 	    
 	    TransakcijeReoniDTO out = new TransakcijeReoniDTO(transakcije, dpr);
+	  
 	    return out;
     }
     
