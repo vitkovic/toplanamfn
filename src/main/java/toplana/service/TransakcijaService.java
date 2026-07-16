@@ -1254,13 +1254,19 @@ public class TransakcijaService {
 	            int tip = reon.getTipPotrosacaInteger();
 
 	            if (tip == 5) {
-	                lokaliDuguje = reon.getDuguje();
-	                lokaliPotrazuje = reon.getPotrazuje();
+	                lokaliDuguje = lokaliDuguje.add(
+	                    reon.getDuguje() != null ? reon.getDuguje() : BigDecimal.ZERO
+	                );
+
+	                lokaliPotrazuje = lokaliPotrazuje.add(
+	                    reon.getPotrazuje() != null ? reon.getPotrazuje() : BigDecimal.ZERO
+	                );
 	            } else {
 	                // sve ostalo ide u OSTALI
 	                ostaliDuguje = ostaliDuguje.add(
 	                    reon.getDuguje() != null ? reon.getDuguje() : BigDecimal.ZERO
 	                );
+
 	                ostaliPotrazuje = ostaliPotrazuje.add(
 	                    reon.getPotrazuje() != null ? reon.getPotrazuje() : BigDecimal.ZERO
 	                );
