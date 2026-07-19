@@ -74,6 +74,7 @@ export default class TransakcijaSveDetails extends Vue {
   onSveChange(event) {
 	this.search.sve = this.sve;
 	this.retrieveSveTransakcije(this.sifra);
+	this.opis = '';
   }
   
   

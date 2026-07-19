@@ -76,7 +76,8 @@
       "morateUnetiNekiPodatak": "Да би претрага била могућа морате унети бар неки податак или чекирати неко поље.",
       "pretragaRacuna": "Претрага рачуна",
       "odDatuma": "Од датума",
-      "doDatuma": "Датум"
+      "doDatuma": "Датум",
+      "opisRacuna":"Опис рачуна"
       
     }
   }

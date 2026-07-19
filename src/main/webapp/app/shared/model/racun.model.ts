@@ -40,6 +40,7 @@ export interface IRacun {
   datumSaldiranja?: Date;
   stanjeZaracun?: IStanjaPodstaniceZaRacun;
   prevNextRacuni?:IRacun;
+  opisRacuna?: string;
 
 }
 
@@ -81,5 +82,6 @@ export class Racun implements IRacun {
     public datumSaldiranja?: Date,
     public stanjeZaracun?: IStanjaPodstaniceZaRacun,
 	prevNextRacuni?:IRacun,
+	public opisRacuna?: string,
   ) {}
 }

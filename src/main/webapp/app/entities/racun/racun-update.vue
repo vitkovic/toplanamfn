@@ -50,6 +50,22 @@
                         <input type="number" class="form-control" name="utrosakOdrzavanje" id="racun-utrosakOdrzavanje"
                             :class="{'valid': !$v.racun.utrosakOdrzavanje.$invalid, 'invalid': $v.racun.utrosakOdrzavanje.$invalid }" v-model.number="$v.racun.utrosakOdrzavanje.$model" />
                     </div>
+					<div class="form-group">
+					    <label class="form-control-label" v-text="$t('toplanaApp.racun.opisRacuna')" for="racun-opisRacuna">
+					        Opis računa
+					    </label>
+					    <textarea
+					        class="form-control"
+					        name="opisRacuna"
+					        id="racun-opisRacuna"
+					        rows="3"
+					        :class="{
+					            'valid': !$v.racun.opisRacuna.$invalid,
+					            'invalid': $v.racun.opisRacuna.$invalid
+					        }"
+					        v-model="$v.racun.opisRacuna.$model">
+					    </textarea>
+					</div>
                     <div class="form-group">
                         <label class="form-control-label" v-text="$t('toplanaApp.racun.stan')" for="racun-stan">Stan</label>
                         <select class="form-control" id="racun-stan" name="stan" v-model="racun.stan">
@@ -64,6 +80,7 @@
                             <option v-bind:value="racun.nacrtRacuna && nacrtRacunaOption.id === racun.nacrtRacuna.id ? racun.nacrtRacuna : nacrtRacunaOption" v-for="nacrtRacunaOption in nacrtRacunas" :key="nacrtRacunaOption.id">{{nacrtRacunaOption.id}}</option>
                         </select>
                     </div>
+					
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">

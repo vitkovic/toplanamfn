@@ -129,8 +129,24 @@ public class Racun implements Serializable {
     @Column(name = "azuriran")
     private Boolean azuriran;
     
+    @Column(name = "opis_racuna", length = 500)
+    private String opisRacuna;
+    
+    public String getOpisRacuna() {
+        return opisRacuna;
+    }
+
+    public void setOpisRacuna(String opisRacuna) {
+        this.opisRacuna = opisRacuna;
+    }
+
+    public Racun opisRacuna(String opisRacuna) {
+        this.opisRacuna = opisRacuna;
+        return this;
+    }
     
     
+        
     @ManyToOne
     @JsonIgnoreProperties(value = "racuniAzurirani", allowSetters = true)
     private User azurirao;

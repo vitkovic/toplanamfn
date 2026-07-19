@@ -479,7 +479,6 @@ public class TransakcijaService {
         for (Transakcija t : transakcije) {
             TransakcijaZaStanDTO trans = new TransakcijaZaStanDTO(t, saldo);
             saldo = trans.getSaldo();
-
             duguje = duguje.add(trans.getDuguje()).setScale(2, RoundingMode.HALF_UP);
             potrazuje = potrazuje.add(trans.getPotrazuje()).setScale(2, RoundingMode.HALF_UP);
 
@@ -1431,7 +1430,7 @@ public class TransakcijaService {
             parameters.put("potrazujeUkupno", trans.getPotrazujeUkupno());
             parameters.put("saldoUkupno", trans.getSaldoUkupno());
 
-            
+                       
             Stan stan = trans.getStan();
 
             parameters.put("sifraStana", stan.getSifra());

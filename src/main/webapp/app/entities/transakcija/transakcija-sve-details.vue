@@ -59,16 +59,17 @@
                                 <th class="sticky"><span v-text="$t('toplanaApp.transakcija.datumKnjizenja')"></span></th>
                                 <th class="sticky"><span v-text="$t('toplanaApp.transakcija.sifraDokumenta')"></span></th>
                                 <th class="sticky"><span v-text="$t('toplanaApp.transakcija.sifraPromene')"></span></th>     
-                                <th class="sticky"><span v-text="$t('toplanaApp.transakcija.opis')"></span></th>                                                            
-                                <th class="sticky"><span v-text="$t('toplanaApp.transakcija.duguje')"></span></th>
+                                <th class="sticky"><span v-text="$t('toplanaApp.transakcija.opis')"></span></th>   
+								<th class="sticky"><span v-text="$t('toplanaApp.racun.opisRacuna')"></span></th>   
+								<th class="sticky"><span v-text="$t('toplanaApp.transakcija.duguje')"></span></th>
                                 <th class="sticky"><span v-text="$t('toplanaApp.transakcija.potrazuje')"></span></th>
                                 <th class="sticky"><span v-text="$t('toplanaApp.transakcija.saldo')"></span></th>
-                                 <th class="sticky"><span v-text="$t('toplanaApp.transakcija.saldo')"></span></th>
+                                <th class="sticky"><span v-text="$t('toplanaApp.transakcija.saldo')"></span></th>
                                 <th class="sticky"><span v-text="$t('toplanaApp.transakcija.racunIliIzvod')"></span></th>                                                                                                                
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="(t, index) in transakcijaZbirno.transakcije" :key="t.id">
+                            <tr v-for="(t, index) in transakcijaZbirno.transakcije" :key="t.id" :class="{ 'ivk-row': t.opisRacuna && t.opisRacuna.toLowerCase().includes('ivk') }">
                                 <td>
                                     {{t.datumKnjizenja ? $d(Date.parse(t.datumKnjizenja), 'short') : ''}}                                    
                                 </td>
@@ -81,6 +82,9 @@
                                 <td>
                                     {{t.opis}}
                                 </td>
+								<td>
+								    {{t.opisRacuna}}
+							    </td>
                                 <td>
                                     {{t.duguje == 0 ? '' : t.duguje | currency('')}}
                                 </td>
@@ -105,7 +109,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="4" style="text-align:right;">
+                                <td colspan="5" style="text-align:right;">
                                     <span v-text="$t('toplanaApp.transakcija.ukupno')"></span>:
                                 </td>
                                 <td>
@@ -160,3 +164,8 @@
 
 <script lang="ts" src="./transakcija-sve-details.component.ts">
 </script>
+<style>
+.ivk-row {
+    background-color: #FFE5B4 !important;
+}
+</style>

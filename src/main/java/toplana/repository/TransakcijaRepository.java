@@ -147,28 +147,67 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 		                                        @Param("datum") LocalDate datum,
 		                                        @Param("opis") String opis);
 	
-	
-		@Query(value =
-		    "select * from transakcija t " +
+	@Query(value =
+		    "select t.* from transakcija t " +
+		    "left join racun r on r.transakcija_id = t.id " +
 		    "where t.stan_id = :#{#stan.id} " +
-		    "and sr_lat(coalesce(t.opis, '')) like '%' || sr_lat(coalesce(:opis, '')) || '%' " +
+		    "and ( " +
+		    "    (position(':' in coalesce(:opis, '')) = 0 " +
+		    "     and lower(sr_lat(coalesce(t.opis, ''))) " +
+		    "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+		    "    or " +
+		    "    (position(':' in coalesce(:opis, '')) > 0 " +
+		    "     and lower(sr_lat(coalesce(t.opis, ''))) " +
+		    "         like '%' || lower(sr_lat(trim(split_part(:opis, ':', 1)))) || '%' " +
+		    "     and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+		    "         like '%' || lower(sr_lat(trim(substring(:opis from position(':' in :opis) + 1)))) || '%') " +
+		    ") " +
 		    "order by t.datum, t.id",
 		    nativeQuery = true)
-		List<Transakcija> findAllByStanAndOpisContainingIgnoreCaseOrderByDatum(@Param("stan") Stan stan,
-		                                                                       @Param("opis") String opis);
-		@Query(value =
-		    "select * from transakcija t " +
+		List<Transakcija> findAllByStanAndOpisContainingIgnoreCaseOrderByDatum(
+		    @Param("stan") Stan stan,
+		    @Param("opis") String opis
+		);
+	@Query(value =
+		    "select t.* from transakcija t " +
+		    "left join racun r on r.transakcija_id = t.id " +
+		    "where t.stan_id = :#{#stan.id} " +
+		    "and sr_lat(coalesce(t.opis, '')) " +
+		    "    like '%' || sr_lat(coalesce(:opisTransakcije, '')) || '%' " +
+		    "and sr_lat(coalesce(r.opis_racuna, '')) " +
+		    "    like '%' || sr_lat(coalesce(:opisRacuna, '')) || '%' " +
+		    "order by t.datum, t.id",
+		    nativeQuery = true)
+		List<Transakcija> findAllByStanAndOpisIOpisRacunaOrderByDatum(
+		    @Param("stan") Stan stan,
+		    @Param("opisTransakcije") String opisTransakcije,
+		    @Param("opisRacuna") String opisRacuna
+		);
+	@Query(value =
+		    "select t.* from transakcija t " +
+		    "left join racun r on r.transakcija_id = t.id " +
 		    "where t.stan_id = :#{#stan.id} " +
 		    "and t.datum >= :datumOd " +
 		    "and t.datum <= :datumDo " +
-		    "and sr_lat(coalesce(t.opis, '')) like '%' || sr_lat(coalesce(:opis, '')) || '%' " +
+		    "and ( " +
+		    "    (position(':' in coalesce(:opis, '')) = 0 " +
+		    "     and lower(sr_lat(coalesce(t.opis, ''))) " +
+		    "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+		    "    or " +
+		    "    (position(':' in coalesce(:opis, '')) > 0 " +
+		    "     and lower(sr_lat(coalesce(t.opis, ''))) " +
+		    "         like '%' || lower(sr_lat(trim(split_part(:opis, ':', 1)))) || '%' " +
+		    "     and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+		    "         like '%' || lower(sr_lat(trim(substring(:opis from position(':' in :opis) + 1)))) || '%') " +
+		    ") " +
 		    "order by t.datum, t.id",
 		    nativeQuery = true)
 		List<Transakcija> findAllByStanAndDatumBetweenAndOpisContainingIgnoreCaseOrderByDatum(
 		        @Param("stan") Stan stan,
 		        @Param("datumOd") LocalDate datumOd,
 		        @Param("datumDo") LocalDate datumDo,
-		        @Param("opis") String opis);
+		        @Param("opis") String opis
+		);
 	
 		@Query(value =
 			    "select coalesce(sum(t.duguje), 0) - coalesce(sum(t.potrazuje), 0) " +
@@ -182,31 +221,54 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			                                                @Param("opis") String opis);
 
 
-			@Query(value =
-			    "select * from transakcija t " +
+		@Query(value =
+			    "select t.* from transakcija t " +
+			    "left join racun r on r.transakcija_id = t.id " +
 			    "where t.ostali_racuni_id = :#{#ostaliRacuni.id} " +
-			    "and sr_lat(coalesce(t.opis, '')) like '%' || sr_lat(coalesce(:opis, '')) || '%' " +
+			    "and ( " +
+			    "    (position(':' in coalesce(:opis, '')) = 0 " +
+			    "     and lower(sr_lat(coalesce(t.opis, ''))) " +
+			    "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+			    "    or " +
+			    "    (position(':' in coalesce(:opis, '')) > 0 " +
+			    "     and lower(sr_lat(coalesce(t.opis, ''))) " +
+			    "         like '%' || lower(sr_lat(trim(split_part(:opis, ':', 1)))) || '%' " +
+			    "     and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+			    "         like '%' || lower(sr_lat(trim(substring(:opis from position(':' in :opis) + 1)))) || '%') " +
+			    ") " +
 			    "order by t.datum, t.id",
 			    nativeQuery = true)
 			List<Transakcija> findAllByOstaliRacuniAndOpisContainingIgnoreCaseOrderByDatum(
 			        @Param("ostaliRacuni") OstaliRacuni ostaliRacuni,
-			        @Param("opis") String opis);
+			        @Param("opis") String opis
+			);
 
 
-			@Query(value =
-			    "select * from transakcija t " +
+		@Query(value =
+			    "select t.* from transakcija t " +
+			    "left join racun r on r.transakcija_id = t.id " +
 			    "where t.ostali_racuni_id = :#{#ostaliRacuni.id} " +
 			    "and t.datum >= :datumOd " +
 			    "and t.datum <= :datumDo " +
-			    "and sr_lat(coalesce(t.opis, '')) like '%' || sr_lat(coalesce(:opis, '')) || '%' " +
+			    "and ( " +
+			    "    (position(':' in coalesce(:opis, '')) = 0 " +
+			    "     and lower(sr_lat(coalesce(t.opis, ''))) " +
+			    "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+			    "    or " +
+			    "    (position(':' in coalesce(:opis, '')) > 0 " +
+			    "     and lower(sr_lat(coalesce(t.opis, ''))) " +
+			    "         like '%' || lower(sr_lat(trim(split_part(:opis, ':', 1)))) || '%' " +
+			    "     and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+			    "         like '%' || lower(sr_lat(trim(substring(:opis from position(':' in :opis) + 1)))) || '%') " +
+			    ") " +
 			    "order by t.datum, t.id",
 			    nativeQuery = true)
 			List<Transakcija> findAllByOstaliRacuniAndDatumBetweenAndOpisContainingIgnoreCaseOrderByDatum(
 			        @Param("ostaliRacuni") OstaliRacuni ostaliRacuni,
 			        @Param("datumOd") LocalDate datumOd,
 			        @Param("datumDo") LocalDate datumDo,
-			        @Param("opis") String opis);
-	
+			        @Param("opis") String opis
+			);
 	
 	// do opis
 	@Query(value = "SELECT (date_trunc('month', now()) - interval '1 day') ", nativeQuery=true)

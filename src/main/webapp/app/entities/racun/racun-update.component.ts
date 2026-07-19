@@ -19,6 +19,7 @@ const validations: any = {
     utrosakVarijabilni: {},
     utrosakFiksni: {},
     utrosakOdrzavanje: {},
+	opisRacuna: {},
   },
 };
 

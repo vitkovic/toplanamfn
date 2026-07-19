@@ -44,7 +44,16 @@ public class TransakcijaZaStanDTO {
 	private int podstanicaBrojInteger;
 	
 	private String opisT, opisI;
+	private String opisRacuna;
 	
+	public String getOpisRacuna() {
+		return opisRacuna;
+	}
+
+	public void setOpisRacuna(String opisRacuna) {
+		this.opisRacuna = opisRacuna;
+	}
+
 	private String stavkaUtuzenjaOpis;
 	
 	public String getStavkaUtuzenjaOpis() {
@@ -96,9 +105,10 @@ public class TransakcijaZaStanDTO {
 		this.setPotrazuje(t.getPotrazuje());
 		saldo = saldo.add(t.getDuguje()).subtract(t.getPotrazuje()).setScale(2);
 		this.saldo = saldo;
-		if(t.getRacun() != null)
+		if(t.getRacun() != null) {
 			this.racunId = t.getRacun().getId();
-		
+			this.opisRacuna = t.getRacun().getOpisRacuna();
+		}
 		if(t.getStavkaIzvoda() != null)
 			this.stavkaIzvodaId = t.getStavkaIzvoda().getId();
 		

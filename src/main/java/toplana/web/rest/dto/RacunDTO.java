@@ -90,6 +90,22 @@ public class RacunDTO {
 	
 	private String strippedsifra;
 	
+	
+	private String opisRacuna;
+
+	public String getOpisRacuna() {
+	    return opisRacuna;
+	}
+
+	public void setOpisRacuna(String opisRacuna) {
+	    this.opisRacuna = opisRacuna;
+	}
+	
+	
+	
+	
+	
+	
 	private List<Racun> prevNextRacuni;
 	
 
@@ -197,6 +213,7 @@ public class RacunDTO {
     		this.utrosakVarijabilniBezPdv = this.utrosakVarijabilniBezPopusta; 
     		this.utrosakFiksniBezPdv = this.utrosakFiksniBezPopusta;
     	}
+    	this.opisRacuna = r.getOpisRacuna();
     	
     	this.ukupno = this.utrosakVarijabilniBezPopusta.subtract(this.utrosakVarijabilniPopust).add(this.utrosakFiksniBezPopusta).subtract(this.utrosakFiksniPopust);
     	
