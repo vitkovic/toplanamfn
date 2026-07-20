@@ -525,7 +525,8 @@ public class NacrtRacunaResource {
     @PutMapping("/nacrtRacunaKnjizenje")
     public ResponseEntity<Void> knjizenjeNacrtRacuna(@Valid @RequestBody NacrtRacuna nacrtRacuna) throws URISyntaxException {
 
-    	SifraPromene sifra = sifraPromeneRepository.findByTipPromeneAndBroj("razduzenje", 4);
+    	//SifraPromene sifra = sifraPromeneRepository.findByTipPromeneAndBroj("razduzenje", 4);
+    	SifraPromene sifra = sifraPromeneRepository.findByTipPromeneAndBroj("задужење", 4);
     	NacrtRacuna nr = nacrtRacunaRepository.getOne(nacrtRacuna.getId());
     	
     	for(Racun r: nr.getRacuns()) {
