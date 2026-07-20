@@ -455,7 +455,7 @@ public class TransakcijaService {
                             s, datumOd, datumDo, opisClean
                     );
         }
-
+/*
         // 🔥 početna transakcija
         if (!Boolean.TRUE.equals(sve)
                 && (pocetnoDuguje.compareTo(BigDecimal.ZERO) != 0
@@ -474,7 +474,7 @@ public class TransakcijaService {
             duguje = duguje.add(pocetnoDuguje).setScale(2, RoundingMode.HALF_UP);
             potrazuje = potrazuje.add(pocetnoPotrazuje).setScale(2, RoundingMode.HALF_UP);
         }
-
+*/
         // 🔥 regularne transakcije
         for (Transakcija t : transakcije) {
             TransakcijaZaStanDTO trans = new TransakcijaZaStanDTO(t, saldo);
@@ -769,7 +769,7 @@ public class TransakcijaService {
                             or, datumOd, datumDo, opisClean
                     );
         }
-
+       /*
         if (!Boolean.TRUE.equals(sve)
                 && (pocetnoDuguje.compareTo(BigDecimal.ZERO) != 0
                 || pocetnoPotrazuje.compareTo(BigDecimal.ZERO) != 0)) {
@@ -786,7 +786,7 @@ public class TransakcijaService {
             duguje = duguje.add(pocetnoDuguje).setScale(2, RoundingMode.HALF_UP);
             potrazuje = potrazuje.add(pocetnoPotrazuje).setScale(2, RoundingMode.HALF_UP);
         }
-
+*/
         for (Transakcija t : transakcije) {
             TransakcijaZaStanDTO trans = new TransakcijaZaStanDTO(t, saldo);
             saldo = trans.getSaldo();
