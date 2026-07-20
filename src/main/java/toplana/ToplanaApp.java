@@ -28,7 +28,7 @@ public class ToplanaApp {
 
     private final Environment env;
 
-    public ToplanaApp(Environment env) {  
+    public ToplanaApp(Environment env) {   
         this.env = env;
     }
 

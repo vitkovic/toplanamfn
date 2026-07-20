@@ -244,7 +244,7 @@
 				<textElement textAlignment="Left">
 					<font fontName="DejaVu Sans" size="10"/>
 				</textElement>
-				<text><![CDATA[Dodatni opis]]></text>
+				<text><![CDATA[Додатни опис]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
