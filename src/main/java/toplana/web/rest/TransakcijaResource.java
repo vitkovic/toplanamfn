@@ -336,16 +336,13 @@ public class TransakcijaResource {
         return trans;
     }
     
-    /*******************************************************************************************************
-     * Sve transakcije za stan po opisu
-     * @param sifraStana
-     * @return
-     ********************************************************************************************************/
     @GetMapping("/transakcijas/sve-prikaz-opis/{sifraStana}")
     public TransakcijeZaStanZbirnoDTO getAllTransakcijeZaStanPoOpisu(
             @PathVariable String sifraStana,
             @RequestParam(name = "sve", required = false, defaultValue = "false") Boolean sve,
-            @RequestParam(name = "opis", required = false, defaultValue = "") String opis) {
+            @RequestParam(name = "opis", required = false, defaultValue = "") String opis,
+            @RequestParam(name = "racuni", required = false, defaultValue = "false") Boolean racuni,
+            @RequestParam(name = "uplate", required = false, defaultValue = "false") Boolean uplate) {
 
         log.debug("REST request to get transakcije zbirno za stan po opisu");
 
@@ -354,11 +351,27 @@ public class TransakcijaResource {
 
         if (stan != null) {
             List<Stan> stanPN = stanRepository.getPreviousAndNextById(stan.getSifra());
-            trans = transakcijaService.findAllByStanOrderByDatumAndOpis(stan, sve, opis);
+
+            trans = transakcijaService.findAllByStanOrderByDatumAndOpis(
+                stan,
+                sve,
+                opis,
+                racuni,
+                uplate
+            );
+
             trans.setPrevNextTransakcije(stanPN);
         } else {
             List<Stan> stanPN = stanRepository.getPreviousAndNextById(sifraStana);
-            trans = transakcijaService.findAllByDodatniRacunOrderByDatumAndOpis(sifraStana, sve, opis);
+
+            trans = transakcijaService.findAllByDodatniRacunOrderByDatumAndOpis(
+                sifraStana,
+                sve,
+                opis,
+                racuni,
+                uplate
+            );
+
             trans.setPrevNextTransakcije(stanPN);
         }
 
@@ -375,46 +388,61 @@ public class TransakcijaResource {
  * @param sifraStana
  * @return
  ********************************************************************************************************/    
-    @RequestMapping(value = "/transakcijas/sve-prikaz-stampanje",
-    	    method = RequestMethod.POST,
-    	    produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<InputStreamResource> stampajAllTransakcijeZaStan(@RequestBody SearchTransakcijaDTO search) 
-    		throws IOException{
+    @RequestMapping(
+            value = "/transakcijas/sve-prikaz-stampanje",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<InputStreamResource> stampajAllTransakcijeZaStan(
+            @RequestBody SearchTransakcijaDTO search) throws IOException {
+
         log.debug("REST request to get a page of Transakcije zbirno za stan");
+
         TransakcijeZaStanZbirnoDTO trans = null;
         String sifra = search.getSifraStana();
         Stan stan = stanRepository.findBySifra(sifra);
-      
-        if(stan != null) {        
-        	trans = transakcijaService.findAllByStanOrderByDatumAndOpis(stan, search.isSve(), search.getOpis());
-        }else {
-        	trans = transakcijaService.findAllByDodatniRacunOrderByDatumAndOpis(sifra, search.isSve(), search.getOpis());
+
+        if (stan != null) {
+            trans = transakcijaService.findAllByStanOrderByDatumAndOpis(
+                    stan,
+                    search.isSve(),
+                    search.getOpis(),
+                    search.isRacuni(),
+                    search.isUplate()
+            );
+        } else {
+            trans = transakcijaService.findAllByDodatniRacunOrderByDatumAndOpis(
+                    sifra,
+                    search.isSve(),
+                    search.getOpis(),
+                    search.isRacuni(),
+                    search.isUplate()
+            );
         }
-        
-      //  System.out.println("STAMPA sve = " + search.isSve());
-      //  System.out.println("STAMPA opis = " + search.getOpis());
-      //  System.out.println("BROJ REDOVA = " + trans.getTransakcije().size());
 
         for (TransakcijaZaStanDTO x : trans.getTransakcije()) {
-            System.out.println(x.getDatumKnjizenja() + " | " + x.getOpis() + " | " + x.getPotrazuje() + " | " + x.getSaldo());
+            System.out.println(
+                    x.getDatumKnjizenja() + " | " +
+                    x.getOpis() + " | " +
+                    x.getPotrazuje() + " | " +
+                    x.getSaldo()
+            );
         }
-        
-        String filename = transakcijaService.generateReportAnalitickaKartica(trans);
-    	File file = new File(filename);
 
-        HttpHeaders headers = new HttpHeaders();   
+        String filename = transakcijaService.generateReportAnalitickaKartica(trans);
+        File file = new File(filename);
+
+        HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
-        headers.add("Content-Disposition","attachment; filename=\"" + filename +"\"");
-        
+        headers.add("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+
         return ResponseEntity
                 .ok()
                 .headers(headers)
                 .contentLength(file.length())
                 .contentType(MediaType.parseMediaType("application/pdf"))
                 .body(new InputStreamResource(new FileInputStream(file)));
-        
     }
 /********************************************************************************************************
  * rekapitulacija po datumima i sifri promene    

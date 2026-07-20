@@ -60,7 +60,7 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	   "where t.stan.id = :stanId and t.datum < :datum")
 	BigDecimal getSaldoPreDatuma(@Param("stanId") Long stanId, @Param("datum") LocalDate datum);
 	
-	
+	/*
 	@Query("select coalesce(sum(t.duguje), 0) " +
 	   "from Transakcija t " +
 	   "where t.stan.id = :stanId " +
@@ -69,7 +69,26 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	BigDecimal getDugujePreDatumaZaStanIOpis(@Param("stanId") Long stanId,
 	                                 @Param("datum") LocalDate datum,
 	                                 @Param("opis") String opis);
+	*/
 	
+	@Query("select coalesce(sum(t.duguje), 0) " +
+		       "from Transakcija t " +
+		       "left join Racun r on r.transakcija.id = t.id " +
+		       "where t.stan.id = :stanId " +
+		       "and t.datum < :datum " +
+		       "and ( " +
+		       "     (:racuni = false and :uplate = false and lower(sr_lat(coalesce(t.opis, ''))) like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
+		       "  or (:racuni = true and t.sifraPromene.id = 2701 and lower(sr_lat(coalesce(r.opisRacuna, ''))) like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
+		       "  or (:uplate = true and t.sifraPromene.id = 2451 and lower(sr_lat(coalesce(t.opis, ''))) like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
+		       ")")
+		BigDecimal getDugujePreDatumaZaStanIOpis(
+		        @Param("stanId") Long stanId,
+		        @Param("datum") LocalDate datum,
+		        @Param("opis") String opis,
+		        @Param("racuni") Boolean racuni,
+		        @Param("uplate") Boolean uplate);
+	
+	/*
 	@Query("select coalesce(sum(t.potrazuje), 0) " +
 	   "from Transakcija t " +
 	   "where t.stan.id = :stanId " +
@@ -78,6 +97,33 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	BigDecimal getPotrazujePreDatumaZaStanIOpis(@Param("stanId") Long stanId,
 	                                    @Param("datum") LocalDate datum,
 	                                    @Param("opis") String opis);
+	*/
+	@Query("select coalesce(sum(t.potrazuje), 0) " +
+		       "from Transakcija t " +
+		       "left join Racun r on r.transakcija.id = t.id " +
+		       "where t.stan.id = :stanId " +
+		       "and t.datum < :datum " +
+		       "and ( " +
+		       "     (:racuni = false and :uplate = false " +
+		       "      and lower(sr_lat(coalesce(t.opis, ''))) " +
+		       "          like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
+		       "  or (:racuni = true " +
+		       "      and t.sifraPromene.id = 2701 " +
+		       "      and lower(sr_lat(coalesce(r.opisRacuna, ''))) " +
+		       "          like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
+		       "  or (:uplate = true " +
+		       "      and t.sifraPromene.id = 2451 " +
+		       "      and lower(sr_lat(coalesce(t.opis, ''))) " +
+		       "          like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
+		       ")")
+		BigDecimal getPotrazujePreDatumaZaStanIOpis(
+		        @Param("stanId") Long stanId,
+		        @Param("datum") LocalDate datum,
+		        @Param("opis") String opis,
+		        @Param("racuni") Boolean racuni,
+		        @Param("uplate") Boolean uplate
+		);
+	
 	@Query("select coalesce(sum(t.duguje), 0) " +
 	   "from Transakcija t " +
 	   "where t.ostaliRacuni.id = :ostaliRacuniId and t.datum < :datum")
@@ -89,7 +135,7 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	   "where t.ostaliRacuni.id = :ostaliRacuniId and t.datum < :datum")
 	BigDecimal getPotrazujePreDatumaZaOstaleRacune(@Param("ostaliRacuniId") Long ostaliRacuniId,
 	                                           @Param("datum") LocalDate datum);
-	
+	/*
 	@Query("select coalesce(sum(t.duguje), 0) " +
 	       "from Transakcija t " +
 	       "where t.ostaliRacuni.id = :ostaliRacuniId " +
@@ -98,7 +144,34 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	BigDecimal getDugujePreDatumaZaOstaleRacuneIOpis(@Param("ostaliRacuniId") Long ostaliRacuniId,
 	                                                 @Param("datum") LocalDate datum,
 	                                                 @Param("opis") String opis);
+	*/
+	@Query("select coalesce(sum(t.duguje), 0) " +
+		       "from Transakcija t " +
+		       "left join Racun r on r.transakcija.id = t.id " +
+		       "where t.ostaliRacuni.id = :ostaliRacuniId " +
+		       "and t.datum < :datum " +
+		       "and ( " +
+		       "     (:racuni = false and :uplate = false " +
+		       "      and lower(sr_lat(coalesce(t.opis, ''))) " +
+		       "          like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
+		       "  or (:racuni = true " +
+		       "      and t.sifraPromene.id = 2701 " +
+		       "      and lower(sr_lat(coalesce(r.opisRacuna, ''))) " +
+		       "          like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
+		       "  or (:uplate = true " +
+		       "      and t.sifraPromene.id = 2451 " +
+		       "      and lower(sr_lat(coalesce(t.opis, ''))) " +
+		       "          like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
+		       ")")
+		BigDecimal getDugujePreDatumaZaOstaleRacuneIOpis(
+		        @Param("ostaliRacuniId") Long ostaliRacuniId,
+		        @Param("datum") LocalDate datum,
+		        @Param("opis") String opis,
+		        @Param("racuni") Boolean racuni,
+		        @Param("uplate") Boolean uplate
+		);
 	
+	/*
 	@Query("select coalesce(sum(t.potrazuje), 0) " +
 	       "from Transakcija t " +
 	       "where t.ostaliRacuni.id = :ostaliRacuniId " +
@@ -107,7 +180,33 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	BigDecimal getPotrazujePreDatumaZaOstaleRacuneIOpis(@Param("ostaliRacuniId") Long ostaliRacuniId,
 	                                                    @Param("datum") LocalDate datum,
 	                                                    @Param("opis") String opis);
-					
+		*/
+	
+	@Query("select coalesce(sum(t.potrazuje), 0) " +
+		       "from Transakcija t " +
+		       "left join Racun r on r.transakcija.id = t.id " +
+		       "where t.ostaliRacuni.id = :ostaliRacuniId " +
+		       "and t.datum < :datum " +
+		       "and ( " +
+		       "     (:racuni = false and :uplate = false " +
+		       "      and lower(sr_lat(coalesce(t.opis, ''))) " +
+		       "          like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
+		       "  or (:racuni = true " +
+		       "      and t.sifraPromene.id = 2701 " +
+		       "      and lower(sr_lat(coalesce(r.opisRacuna, ''))) " +
+		       "          like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
+		       "  or (:uplate = true " +
+		       "      and t.sifraPromene.id = 2451 " +
+		       "      and lower(sr_lat(coalesce(t.opis, ''))) " +
+		       "          like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
+		       ")")
+		BigDecimal getPotrazujePreDatumaZaOstaleRacuneIOpis(
+		        @Param("ostaliRacuniId") Long ostaliRacuniId,
+		        @Param("datum") LocalDate datum,
+		        @Param("opis") String opis,
+		        @Param("racuni") Boolean racuni,
+		        @Param("uplate") Boolean uplate
+		);
 					
    // kukuriku			
 					
@@ -135,7 +234,7 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 		                                        @Param("opis") String opis);
 	
 	*/
-	
+	/*
 	@Query(value =
 		    "select coalesce(sum(t.duguje), 0) - coalesce(sum(t.potrazuje), 0) " +
 		    "from transakcija t " +
@@ -146,28 +245,82 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 		BigDecimal getSaldoPreDatumaZaStanIOpis(@Param("stanId") Long stanId,
 		                                        @Param("datum") LocalDate datum,
 		                                        @Param("opis") String opis);
-	
+	*/
 	@Query(value =
-		    "select t.* from transakcija t " +
-		    "left join racun r on r.transakcija_id = t.id " +
-		    "where t.stan_id = :#{#stan.id} " +
-		    "and ( " +
-		    "    (position(':' in coalesce(:opis, '')) = 0 " +
-		    "     and lower(sr_lat(coalesce(t.opis, ''))) " +
-		    "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
-		    "    or " +
-		    "    (position(':' in coalesce(:opis, '')) > 0 " +
-		    "     and lower(sr_lat(coalesce(t.opis, ''))) " +
-		    "         like '%' || lower(sr_lat(trim(split_part(:opis, ':', 1)))) || '%' " +
-		    "     and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
-		    "         like '%' || lower(sr_lat(trim(substring(:opis from position(':' in :opis) + 1)))) || '%') " +
-		    ") " +
-		    "order by t.datum, t.id",
-		    nativeQuery = true)
-		List<Transakcija> findAllByStanAndOpisContainingIgnoreCaseOrderByDatum(
-		    @Param("stan") Stan stan,
-		    @Param("opis") String opis
-		);
+	        "select coalesce(sum(t.duguje),0) - coalesce(sum(t.potrazuje),0) " +
+	        "from transakcija t " +
+	        "left join racun r on r.transakcija_id = t.id " +
+	        "where t.stan_id = :stanId " +
+	        "and t.datum < :datum " +
+	        "and ( " +
+	        "     (coalesce(:racuni, false) = false and coalesce(:uplate, false) = false " +
+	        "      and lower(sr_lat(coalesce(t.opis, ''))) " +
+	        "          like '%' || lower(sr_lat(coalesce(:opis, ''))) || '%') " +
+	        "  or (coalesce(:racuni, false) = true " +
+	        "      and t.sifra_promene_id = 2701 " +
+	        "      and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+	        "          like '%' || lower(sr_lat(coalesce(:opis, ''))) || '%') " +
+	        "  or (coalesce(:uplate, false) = true " +
+	        "      and t.sifra_promene_id in (2451, 2454) " +
+	        "      and lower(sr_lat(coalesce(t.opis, ''))) " +
+	        "          like '%' || lower(sr_lat(coalesce(:opis, ''))) || '%') " +
+	        ")",
+	        nativeQuery = true)
+	BigDecimal getSaldoPreDatumaZaStanIOpis(
+	        @Param("stanId") Long stanId,
+	        @Param("datum") LocalDate datum,
+	        @Param("opis") String opis,
+	        @Param("racuni") Boolean racuni,
+	        @Param("uplate") Boolean uplate
+	);
+	@Query(value =
+	        "select t.* from transakcija t " +
+	        "left join racun r on r.transakcija_id = t.id " +
+	        "where t.stan_id = :#{#stan.id} " +
+	        "and ( " +
+
+	        // Nijedan filter nije čekiran — postojeća logika ostaje ista
+	        "    (coalesce(:racuni, false) = false " +
+	        "     and coalesce(:uplate, false) = false " +
+	        "     and ( " +
+	        "         (position(':' in coalesce(:opis, '')) = 0 " +
+	        "          and lower(sr_lat(coalesce(t.opis, ''))) " +
+	        "              like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+	        "         or " +
+	        "         (position(':' in coalesce(:opis, '')) > 0 " +
+	        "          and lower(sr_lat(coalesce(t.opis, ''))) " +
+	        "              like '%' || lower(sr_lat(trim(split_part(:opis, ':', 1)))) || '%' " +
+	        "          and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+	        "              like '%' || lower(sr_lat(trim(substring(:opis from position(':' in :opis) + 1)))) || '%') " +
+	        "     ) " +
+	        "    ) " +
+
+	        // Računi — opis se traži u racun.opis_racuna
+	        "    or " +
+	        "    (coalesce(:racuni, false) = true " +
+	        "     and t.sifra_promene_id = 2701 " +
+	        "     and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+	        "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+
+	        // Uplate — opis se traži u transakcija.opis
+	        "    or " +
+	        "    (coalesce(:uplate, false) = true " +
+	        "     and t.sifra_promene_id in (2451, 2454) " +
+	        "     and lower(sr_lat(coalesce(t.opis, ''))) " +
+	        "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+
+	        ") " +
+	        "order by t.datum, t.id",
+	        nativeQuery = true)
+	List<Transakcija> findAllByStanAndOpisContainingIgnoreCaseOrderByDatum(
+	        @Param("stan") Stan stan,
+	        @Param("opis") String opis,
+	        @Param("racuni") Boolean racuni,
+	        @Param("uplate") Boolean uplate
+	);
+	
+	
+	
 	@Query(value =
 		    "select t.* from transakcija t " +
 		    "left join racun r on r.transakcija_id = t.id " +
@@ -183,6 +336,7 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 		    @Param("opisTransakcije") String opisTransakcije,
 		    @Param("opisRacuna") String opisRacuna
 		);
+	/*
 	@Query(value =
 		    "select t.* from transakcija t " +
 		    "left join racun r on r.transakcija_id = t.id " +
@@ -208,7 +362,56 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 		        @Param("datumDo") LocalDate datumDo,
 		        @Param("opis") String opis
 		);
+	*/
 	
+	@Query(value =
+	        "select t.* from transakcija t " +
+	        "left join racun r on r.transakcija_id = t.id " +
+	        "where t.stan_id = :#{#stan.id} " +
+	        "and t.datum >= :datumOd " +
+	        "and t.datum <= :datumDo " +
+	        "and ( " +
+
+	        // Bez filtera - postojeća logika
+	        "    (coalesce(:racuni, false) = false " +
+	        "     and coalesce(:uplate, false) = false " +
+	        "     and ( " +
+	        "         (position(':' in coalesce(:opis, '')) = 0 " +
+	        "          and lower(sr_lat(coalesce(t.opis, ''))) " +
+	        "              like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+	        "         or " +
+	        "         (position(':' in coalesce(:opis, '')) > 0 " +
+	        "          and lower(sr_lat(coalesce(t.opis, ''))) " +
+	        "              like '%' || lower(sr_lat(trim(split_part(:opis, ':', 1)))) || '%' " +
+	        "          and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+	        "              like '%' || lower(sr_lat(trim(substring(:opis from position(':' in :opis) + 1)))) || '%') " +
+	        "     ) " +
+	        "    ) " +
+
+	        // Samo računi
+	        " or (coalesce(:racuni, false) = true " +
+	        "     and t.sifra_promene_id = 2701 " +
+	        "     and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+	        "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+
+	        // Samo uplate
+	        " or (coalesce(:uplate, false) = true " +
+	        "     and t.sifra_promene_id in (2451, 2454) " +
+	        "     and lower(sr_lat(coalesce(t.opis, ''))) " +
+	        "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+
+	        ") " +
+	        "order by t.datum, t.id",
+	        nativeQuery = true)
+	List<Transakcija> findAllByStanAndDatumBetweenAndOpisContainingIgnoreCaseOrderByDatum(
+	        @Param("stan") Stan stan,
+	        @Param("datumOd") LocalDate datumOd,
+	        @Param("datumDo") LocalDate datumDo,
+	        @Param("opis") String opis,
+	        @Param("racuni") Boolean racuni,
+	        @Param("uplate") Boolean uplate
+	);
+	/*
 		@Query(value =
 			    "select coalesce(sum(t.duguje), 0) - coalesce(sum(t.potrazuje), 0) " +
 			    "from transakcija t " +
@@ -219,8 +422,35 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			BigDecimal getSaldoPreDatumaZaOstaleRacuneIOpis(@Param("ostaliRacuniId") Long ostaliRacuniId,
 			                                                @Param("datum") LocalDate datum,
 			                                                @Param("opis") String opis);
-
-
+*/
+	@Query(value =
+	        "select coalesce(sum(t.duguje), 0) - coalesce(sum(t.potrazuje), 0) " +
+	        "from transakcija t " +
+	        "left join racun r on r.transakcija_id = t.id " +
+	        "where t.ostali_racuni_id = :ostaliRacuniId " +
+	        "and t.datum < :datum " +
+	        "and ( " +
+	        "     (coalesce(:racuni, false) = false and coalesce(:uplate, false) = false " +
+	        "      and lower(sr_lat(coalesce(t.opis, ''))) " +
+	        "          like '%' || lower(sr_lat(coalesce(:opis, ''))) || '%') " +
+	        "  or (coalesce(:racuni, false) = true " +
+	        "      and t.sifra_promene_id = 2701 " +
+	        "      and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+	        "          like '%' || lower(sr_lat(coalesce(:opis, ''))) || '%') " +
+	        "  or (coalesce(:uplate, false) = true " +
+	        "      and t.sifra_promene_id in (2451, 2454) " +
+	        "      and lower(sr_lat(coalesce(t.opis, ''))) " +
+	        "          like '%' || lower(sr_lat(coalesce(:opis, ''))) || '%') " +
+	        ")",
+	        nativeQuery = true)
+	BigDecimal getSaldoPreDatumaZaOstaleRacuneIOpis(
+	        @Param("ostaliRacuniId") Long ostaliRacuniId,
+	        @Param("datum") LocalDate datum,
+	        @Param("opis") String opis,
+	        @Param("racuni") Boolean racuni,
+	        @Param("uplate") Boolean uplate
+	);
+/*
 		@Query(value =
 			    "select t.* from transakcija t " +
 			    "left join racun r on r.transakcija_id = t.id " +
@@ -242,8 +472,48 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			        @Param("ostaliRacuni") OstaliRacuni ostaliRacuni,
 			        @Param("opis") String opis
 			);
+*/
+		@Query(value =
+		        "select t.* from transakcija t " +
+		        "left join racun r on r.transakcija_id = t.id " +
+		        "where t.ostali_racuni_id = :#{#ostaliRacuni.id} " +
+		        "and ( " +
 
+		        "    (coalesce(:racuni, false) = false " +
+		        "     and coalesce(:uplate, false) = false " +
+		        "     and ( " +
+		        "         (position(':' in coalesce(:opis, '')) = 0 " +
+		        "          and lower(sr_lat(coalesce(t.opis, ''))) " +
+		        "              like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+		        "         or " +
+		        "         (position(':' in coalesce(:opis, '')) > 0 " +
+		        "          and lower(sr_lat(coalesce(t.opis, ''))) " +
+		        "              like '%' || lower(sr_lat(trim(split_part(:opis, ':', 1)))) || '%' " +
+		        "          and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+		        "              like '%' || lower(sr_lat(trim(substring(:opis from position(':' in :opis) + 1)))) || '%') " +
+		        "     ) " +
+		        "    ) " +
 
+		        " or (coalesce(:racuni, false) = true " +
+		        "     and t.sifra_promene_id = 2701 " +
+		        "     and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+		        "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+
+		        " or (coalesce(:uplate, false) = true " +
+		        "     and t.sifra_promene_id in (2451, 2454) " +
+		        "     and lower(sr_lat(coalesce(t.opis, ''))) " +
+		        "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+
+		        ") " +
+		        "order by t.datum, t.id",
+		        nativeQuery = true)
+		List<Transakcija> findAllByOstaliRacuniAndOpisContainingIgnoreCaseOrderByDatum(
+		        @Param("ostaliRacuni") OstaliRacuni ostaliRacuni,
+		        @Param("opis") String opis,
+		        @Param("racuni") Boolean racuni,
+		        @Param("uplate") Boolean uplate
+		);
+/*
 		@Query(value =
 			    "select t.* from transakcija t " +
 			    "left join racun r on r.transakcija_id = t.id " +
@@ -269,7 +539,51 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 			        @Param("datumDo") LocalDate datumDo,
 			        @Param("opis") String opis
 			);
-	
+	*/
+		@Query(value =
+		        "select t.* from transakcija t " +
+		        "left join racun r on r.transakcija_id = t.id " +
+		        "where t.ostali_racuni_id = :#{#ostaliRacuni.id} " +
+		        "and t.datum >= :datumOd " +
+		        "and t.datum <= :datumDo " +
+		        "and ( " +
+
+		        "    (coalesce(:racuni, false) = false " +
+		        "     and coalesce(:uplate, false) = false " +
+		        "     and ( " +
+		        "         (position(':' in coalesce(:opis, '')) = 0 " +
+		        "          and lower(sr_lat(coalesce(t.opis, ''))) " +
+		        "              like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+		        "         or " +
+		        "         (position(':' in coalesce(:opis, '')) > 0 " +
+		        "          and lower(sr_lat(coalesce(t.opis, ''))) " +
+		        "              like '%' || lower(sr_lat(trim(split_part(:opis, ':', 1)))) || '%' " +
+		        "          and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+		        "              like '%' || lower(sr_lat(trim(substring(:opis from position(':' in :opis) + 1)))) || '%') " +
+		        "     ) " +
+		        "    ) " +
+
+		        " or (coalesce(:racuni, false) = true " +
+		        "     and t.sifra_promene_id = 2701 " +
+		        "     and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+		        "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+
+		        " or (coalesce(:uplate, false) = true " +
+		        "     and t.sifra_promene_id in (2451, 2454) " +
+		        "     and lower(sr_lat(coalesce(t.opis, ''))) " +
+		        "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+
+		        ") " +
+		        "order by t.datum, t.id",
+		        nativeQuery = true)
+		List<Transakcija> findAllByOstaliRacuniAndDatumBetweenAndOpisContainingIgnoreCaseOrderByDatum(
+		        @Param("ostaliRacuni") OstaliRacuni ostaliRacuni,
+		        @Param("datumOd") LocalDate datumOd,
+		        @Param("datumDo") LocalDate datumDo,
+		        @Param("opis") String opis,
+		        @Param("racuni") Boolean racuni,
+		        @Param("uplate") Boolean uplate
+		);
 	// do opis
 	@Query(value = "SELECT (date_trunc('month', now()) - interval '1 day') ", nativeQuery=true)
 	LocalDate getPoslednjiDanPrethodnogMeseca();

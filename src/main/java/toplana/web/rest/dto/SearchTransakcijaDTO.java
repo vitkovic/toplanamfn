@@ -47,6 +47,28 @@ public class SearchTransakcijaDTO {
 	BigDecimal dugujeDo;
 	
 	
+	private boolean racuni;
+	private boolean uplate;
+
+	public boolean isRacuni() {
+	    return racuni;
+	}
+
+	public void setRacuni(boolean racuni) {
+	    this.racuni = racuni;
+	}
+
+	public boolean isUplate() {
+	    return uplate;
+	}
+
+	public void setUplate(boolean uplate) {
+	    this.uplate = uplate;
+	}
+	
+	
+	
+	
 	public BigDecimal getPotrazujeOd() {
 		return potrazujeOd;
 	}
