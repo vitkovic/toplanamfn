@@ -143,6 +143,24 @@
 
           </div>
 
+
+          <div class="open-items-panel">
+
+            <div class="open-items-description">
+              <strong>Отворене ставке</strong>
+              <span>Приказ неповезаних рачуна и уплата</span>
+            </div>
+
+            <button
+              type="button"
+              class="btn btn-warning open-items-button"
+              @click="prikaziOtvoreneStavke"
+            >
+              Отворене ставке
+            </button>
+
+          </div>
+
           <hr class="new3" />
 
           <!-- TABELA -->
@@ -443,6 +461,32 @@
 
 .filter-button {
   flex: 0 0 auto;
+}
+
+.open-items-panel {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:12px 16px;
+  margin-bottom:15px;
+  background:#fff4d6;
+  border:1px solid #f0cf75;
+  border-radius:6px;
+}
+
+.open-items-description{
+  display:flex;
+  flex-direction:column;
+}
+
+.open-items-description span{
+  font-size:.9rem;
+  color:#555;
+}
+
+.open-items-button{
+  white-space:nowrap;
 }
 
 /* Tabela */

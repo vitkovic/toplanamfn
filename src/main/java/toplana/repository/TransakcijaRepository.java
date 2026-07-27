@@ -654,6 +654,242 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	        @Param("racuni") Boolean racuni,
 	        @Param("uplate") Boolean uplate
 	);
+	
+	
+	/* otvorene stavke
+	 * 
+	 * 
+	 */
+	
+	@Query(value =
+		    "with racuni_stavke as ( " +
+		    "    select " +
+		    "        t.id, " +
+		    "        t.datum, " +
+		    "        t.duguje as iznos, " +
+		    "        lower(sr_lat(trim(coalesce(t.opis, '')))) as oznaka " +
+		    "    from transakcija t " +
+		    "    where t.stan_id = :stanId " +
+		    "      and t.sifra_promene_id = 2701 " +
+		    "), " +
+
+		    "uplate_stavke as ( " +
+		    "    select " +
+		    "        t.id, " +
+		    "        t.datum, " +
+		    "        t.potrazuje as iznos, " +
+		    "        lower(sr_lat(trim(coalesce(t.opis, '')))) as oznaka " +
+		    "    from transakcija t " +
+		    "    where t.stan_id = :stanId " +
+		    "      and t.sifra_promene_id in (2451, 2454) " +
+		    "), " +
+
+		    "eksplicitno_povezane as ( " +
+		    "    select distinct " +
+		    "        r.id as racun_id, " +
+		    "        u.id as uplata_id " +
+		    "    from racuni_stavke r " +
+		    "    join uplate_stavke u " +
+		    "      on r.oznaka <> '' " +
+		    "     and u.oznaka <> '' " +
+		    "     and u.oznaka like '%' || r.oznaka || '%' " +
+		    "), " +
+
+		    "nepovezani_racuni_po_opisu as ( " +
+		    "    select " +
+		    "        r.*, " +
+		    "        row_number() over ( " +
+		    "            partition by r.iznos " +
+		    "            order by r.datum, r.id " +
+		    "        ) as redni_broj " +
+		    "    from racuni_stavke r " +
+		    "    where not exists ( " +
+		    "        select 1 " +
+		    "        from eksplicitno_povezane ep " +
+		    "        where ep.racun_id = r.id " +
+		    "    ) " +
+		    "), " +
+
+			"nepovezane_uplate_po_opisu as ( " +
+			"    select " +
+			"        u.*, " +
+			"        row_number() over ( " +
+			"            partition by u.iznos " +
+			"            order by u.datum, u.id " +
+			"        ) as redni_broj " +
+			"    from uplate_stavke u " +
+			"    where not exists ( " +
+			"        select 1 " +
+			"        from eksplicitno_povezane ep " +
+			"        where ep.uplata_id = u.id " +
+			"    ) " +
+			"), " +
+
+		    "implicitno_povezane as ( " +
+		    "    select " +
+		    "        r.id as racun_id, " +
+		    "        u.id as uplata_id " +
+		    "    from nepovezani_racuni_po_opisu r " +
+		    "    join nepovezane_uplate_po_opisu u " +
+		    "      on u.iznos = r.iznos " +
+		    "     and u.redni_broj = r.redni_broj " +
+		    "), " +
+
+		    "otvorene_stavke as ( " +
+
+		    "    select r.id " +
+		    "    from racuni_stavke r " +
+		    "    where not exists ( " +
+		    "        select 1 " +
+		    "        from eksplicitno_povezane ep " +
+		    "        where ep.racun_id = r.id " +
+		    "    ) " +
+		    "    and not exists ( " +
+		    "        select 1 " +
+		    "        from implicitno_povezane ip " +
+		    "        where ip.racun_id = r.id " +
+		    "    ) " +
+
+		    "    union " +
+
+		    "    select u.id " +
+		    "    from uplate_stavke u " +
+		    "    where not exists ( " +
+		    "        select 1 " +
+		    "        from eksplicitno_povezane ep " +
+		    "        where ep.uplata_id = u.id " +
+		    "    ) " +
+		    "    and not exists ( " +
+		    "        select 1 " +
+		    "        from implicitno_povezane ip " +
+		    "        where ip.uplata_id = u.id " +
+		    "    ) " +
+		    ") " +
+
+		    "select t.* " +
+		    "from transakcija t " +
+		    "join otvorene_stavke os on os.id = t.id " +
+		    "order by t.datum, t.id",
+		    nativeQuery = true)
+		List<Transakcija> findOtvoreneStavkeZaStan(
+		    @Param("stanId") Long stanId
+		);
+	
+	@Query(value =
+		    "with racuni_stavke as ( " +
+		    "    select " +
+		    "        t.id, " +
+		    "        t.datum, " +
+		    "        t.duguje as iznos, " +
+		    "        lower(sr_lat(trim(coalesce(t.opis, '')))) as oznaka " +
+		    "    from transakcija t " +
+		    "    where t.ostali_racuni_id = :ostaliRacuniId " +
+		    "      and t.sifra_promene_id = 2701 " +
+		    "), " +
+
+		    "uplate_stavke as ( " +
+		    "    select " +
+		    "        t.id, " +
+		    "        t.datum, " +
+		    "        t.potrazuje as iznos, " +
+		    "        lower(sr_lat(trim(coalesce(t.opis, '')))) as oznaka " +
+		    "    from transakcija t " +
+		    "    where t.ostali_racuni_id = :ostaliRacuniId " +
+		    "      and t.sifra_promene_id in (2451, 2454) " +
+		    "), " +
+
+		    "eksplicitno_povezane as ( " +
+		    "    select distinct " +
+		    "        r.id as racun_id, " +
+		    "        u.id as uplata_id " +
+		    "    from racuni_stavke r " +
+		    "    join uplate_stavke u " +
+		    "      on r.oznaka <> '' " +
+		    "     and u.oznaka <> '' " +
+		    "     and u.oznaka like '%' || r.oznaka || '%' " +
+		    "), " +
+
+			"nepovezane_uplate_po_opisu as ( " +
+			"    select " +
+			"        u.*, " +
+			"        row_number() over ( " +
+			"            partition by u.iznos " +
+			"            order by u.datum, u.id " +
+			"        ) as redni_broj " +
+			"    from uplate_stavke u " +
+			"    where not exists ( " +
+			"        select 1 " +
+			"        from eksplicitno_povezane ep " +
+			"        where ep.uplata_id = u.id " +
+			"    ) " +
+			"), " +
+
+		    "nepovezane_uplate_po_opisu as ( " +
+		    "    select " +
+		    "        u.*, " +
+		    "        row_number() over ( " +
+		    "            partition by u.iznos " +
+		    "            order by u.datum, u.id " +
+		    "        ) as redni_broj " +
+		    "    from uplate_stavke u " +
+		    "    where u.oznaka = '' " +
+		    "      and not exists ( " +
+		    "          select 1 " +
+		    "          from eksplicitno_povezane ep " +
+		    "          where ep.uplata_id = u.id " +
+		    "      ) " +
+		    "), " +
+
+		    "implicitno_povezane as ( " +
+		    "    select " +
+		    "        r.id as racun_id, " +
+		    "        u.id as uplata_id " +
+		    "    from nepovezani_racuni_po_opisu r " +
+		    "    join nepovezane_uplate_po_opisu u " +
+		    "      on u.iznos = r.iznos " +
+		    "     and u.redni_broj = r.redni_broj " +
+		    "), " +
+
+		    "otvorene_stavke as ( " +
+
+		    "    select r.id " +
+		    "    from racuni_stavke r " +
+		    "    where not exists ( " +
+		    "        select 1 " +
+		    "        from eksplicitno_povezane ep " +
+		    "        where ep.racun_id = r.id " +
+		    "    ) " +
+		    "    and not exists ( " +
+		    "        select 1 " +
+		    "        from implicitno_povezane ip " +
+		    "        where ip.racun_id = r.id " +
+		    "    ) " +
+
+		    "    union " +
+
+		    "    select u.id " +
+		    "    from uplate_stavke u " +
+		    "    where not exists ( " +
+		    "        select 1 " +
+		    "        from eksplicitno_povezane ep " +
+		    "        where ep.uplata_id = u.id " +
+		    "    ) " +
+		    "    and not exists ( " +
+		    "        select 1 " +
+		    "        from implicitno_povezane ip " +
+		    "        where ip.uplata_id = u.id " +
+		    "    ) " +
+		    ") " +
+
+		    "select t.* " +
+		    "from transakcija t " +
+		    "join otvorene_stavke os on os.id = t.id " +
+		    "order by t.datum, t.id",
+		    nativeQuery = true)
+		List<Transakcija> findOtvoreneStavkeZaDodatniRacun(
+		    @Param("ostaliRacuniId") Long ostaliRacuniId
+		);
+	
 	// do opis
 	@Query(value = "SELECT (date_trunc('month', now()) - interval '1 day') ", nativeQuery=true)
 	LocalDate getPoslednjiDanPrethodnogMeseca();

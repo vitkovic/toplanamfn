@@ -996,7 +996,9 @@ public class TransakcijaService {
                             uplate
                     );
         }
-
+        
+        
+       
         /*
         if (!Boolean.TRUE.equals(sve)
                 && (pocetnoDuguje.compareTo(BigDecimal.ZERO) != 0
@@ -1038,6 +1040,115 @@ public class TransakcijaService {
 
         return out;
     }
+    
+    
+    // otvorene stavke
+    
+    
+    public TransakcijeZaStanZbirnoDTO findOtvoreneStavkeZaStan(Stan stan) {
+
+        TransakcijeZaStanZbirnoDTO out = new TransakcijeZaStanZbirnoDTO();
+        out.setStan(stan);
+
+        List<Transakcija> transakcije =
+                transakcijaRepository.findOtvoreneStavkeZaStan(stan.getId());
+
+        BigDecimal saldo = BigDecimal.ZERO;
+        BigDecimal duguje = BigDecimal.ZERO;
+        BigDecimal potrazuje = BigDecimal.ZERO;
+
+        List<TransakcijaZaStanDTO> tr = new ArrayList<>();
+
+        for (Transakcija t : transakcije) {
+
+            TransakcijaZaStanDTO trans =
+                    new TransakcijaZaStanDTO(t, saldo);
+
+            saldo = trans.getSaldo();
+
+            duguje = duguje
+                    .add(trans.getDuguje())
+                    .setScale(2, RoundingMode.HALF_UP);
+
+            potrazuje = potrazuje
+                    .add(trans.getPotrazuje())
+                    .setScale(2, RoundingMode.HALF_UP);
+
+            tr.add(trans);
+        }
+
+        out.setDugujeUkupno(duguje);
+        out.setPotrazujeUkupno(potrazuje);
+        out.setSaldoUkupno(saldo);
+        out.setTransakcije(tr);
+
+        return out;
+    }
+    
+    public TransakcijeZaStanZbirnoDTO findOtvoreneStavkeZaDodatniRacun(
+            String sifraRacuna) {
+
+        TransakcijeZaStanZbirnoDTO out =
+                new TransakcijeZaStanZbirnoDTO();
+
+        OstaliRacuni or =
+                ostaliRacuniRepository.findBySifra(sifraRacuna);
+
+        if (or == null) {
+
+            out.setDugujeUkupno(
+                    BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP));
+
+            out.setPotrazujeUkupno(
+                    BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP));
+
+            out.setSaldoUkupno(
+                    BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP));
+
+            out.setTransakcije(new ArrayList<>());
+
+            return out;
+        }
+
+        out.setOstaliRacuni(or);
+
+        List<Transakcija> transakcije =
+                transakcijaRepository
+                        .findOtvoreneStavkeZaDodatniRacun(or.getId());
+
+        BigDecimal saldo = BigDecimal.ZERO;
+        BigDecimal duguje = BigDecimal.ZERO;
+        BigDecimal potrazuje = BigDecimal.ZERO;
+
+        List<TransakcijaZaStanDTO> tr = new ArrayList<>();
+
+        for (Transakcija t : transakcije) {
+
+            TransakcijaZaStanDTO trans =
+                    new TransakcijaZaStanDTO(t, saldo);
+
+            saldo = trans.getSaldo();
+
+            duguje = duguje
+                    .add(trans.getDuguje())
+                    .setScale(2, RoundingMode.HALF_UP);
+
+            potrazuje = potrazuje
+                    .add(trans.getPotrazuje())
+                    .setScale(2, RoundingMode.HALF_UP);
+
+            tr.add(trans);
+        }
+
+        out.setDugujeUkupno(duguje);
+        out.setPotrazujeUkupno(potrazuje);
+        out.setSaldoUkupno(saldo);
+        out.setTransakcije(tr);
+
+        return out;
+    }
+    
+    
  /*
  public TransakcijeZaStanZbirnoDTO findAllByDodatniRacunOrderByDatum(String sifra){
     	

@@ -378,8 +378,41 @@ public class TransakcijaResource {
         return trans;
     }
     
+    // otvorene stavke
     
-    
+    @GetMapping("/transakcijas/otvorene-stavke/{sifraStana}")
+    public TransakcijeZaStanZbirnoDTO getAllOtvoreneTransakcijeZaStan(
+            @PathVariable String sifraStana) {
+
+        log.debug(
+            "REST request to get otvorene stavke za stan ili dodatni račun: {}",
+            sifraStana
+        );
+
+        TransakcijeZaStanZbirnoDTO trans;
+        Stan stan = stanRepository.findBySifra(sifraStana);
+
+        if (stan != null) {
+
+            List<Stan> stanPN =
+                stanRepository.getPreviousAndNextById(stan.getSifra());
+
+            trans = transakcijaService.findOtvoreneStavkeZaStan(stan);
+
+            trans.setPrevNextTransakcije(stanPN);
+
+        } else {
+
+            List<Stan> stanPN =
+                stanRepository.getPreviousAndNextById(sifraStana);
+
+            trans = transakcijaService.findOtvoreneStavkeZaDodatniRacun(sifraStana);
+
+            trans.setPrevNextTransakcije(stanPN);
+        }
+
+        return trans;
+    }
     
     
     

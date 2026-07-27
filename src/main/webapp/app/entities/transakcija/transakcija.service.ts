@@ -245,4 +245,12 @@ export default class TransakcijaService {
         });
     });
   }
+  
+  public findOtvoreneStavkeZaStan(sifra: string): Promise<AxiosResponse<ITransakcijeZaStanZbirnoDTO>> {
+    return axios.get(
+      `${baseApiUrl}/otvorene-stavke/${sifra}`
+    );
+  }
+  
+  
 }

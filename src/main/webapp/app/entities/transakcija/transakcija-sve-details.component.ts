@@ -164,6 +164,21 @@ export default class TransakcijaSveDetails extends Vue {
   }
   
   
+    // poziv novog REST metoda
+	public prikaziOtvoreneStavke(): void {
+	  this.transakcijaService()
+	    .findOtvoreneStavkeZaStan(this.sifra)
+	    .then(res => {
+	      this.transakcijaZbirno = res.data;
+
+	      this.transakcijaZbirno.stan.prevNextStan =
+	        this.transakcijaZbirno.prevNextTransakcije;
+
+	      this.prevnext =
+	        this.transakcijaZbirno.prevNextTransakcije;
+	    });
+	}
+  
   
   public retrieveSveTransakcije(sifra) {
 	
