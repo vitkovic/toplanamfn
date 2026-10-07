@@ -236,19 +236,34 @@ export default class NacrtRacunaUpdate extends Vue {
   }
 
   public pripremaRacuna(): void {
-    debugger
+    //debugger
     this.nacrtRacunaService()
       .pripremaRacuna()
       .then(res => {
-        var message:string = this.getMessageFromHeader(res);
-        //const por = this.$t('toplanaApp.nacrtRacuna.stanja.nisu.ubacena');
-        if(message)
-          this.$notify({text:message, type:'error', duration:-15000});
-        this.nacrtRacuna = res.data;
-        this.stanjaPodstaniceZaRacun = this.nacrtRacuna.stanjaPodstaniceZaRacune;                
-      }).catch(err => {        
-        
-    });;
+
+		  this.nacrtRacuna = res.data;
+		  this.stanjaPodstaniceZaRacun =
+		    this.nacrtRacuna.stanjaPodstaniceZaRacune;
+
+		  const nemaNovihStanja =
+		    this.stanjaPodstaniceZaRacun.some(
+		      stanje => !stanje.novoStanje || !stanje.novoStanje.stanje
+		    );
+
+		  if (nemaNovihStanja) {
+		    const message: string = this.getMessageFromHeader(res);
+
+		    if (message) {
+		      this.$notify({
+		        text: message,
+		        type: 'error',
+		        duration: 15000
+		      });
+		    }
+		  }
+		})
+		.catch(err => {
+		});
   }
 
   
