@@ -102,7 +102,7 @@
                 v-model="sve"
                 @change="onSveChange"
               />
-              <label for="sveGodine">Све године</label>
+              <label for="sveGodine">Све године (Брише филтере)</label>
             </div>
 
             <div class="filter-checkbox">
@@ -110,6 +110,7 @@
                 id="racuni"
                 type="checkbox"
                 v-model="racuni"
+                @change="onEnterOpis"
               />
               <label for="racuni">Рачуни</label>
             </div>
@@ -119,6 +120,7 @@
                 id="uplate"
                 type="checkbox"
                 v-model="uplate"
+                  @change="onEnterOpis"
               />
               <label for="uplate">Уплате</label>
             </div>

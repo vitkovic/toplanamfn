@@ -326,7 +326,8 @@ public class TransakcijaService {
 
         if (!sve && (pocetnoDuguje.compareTo(BigDecimal.ZERO) != 0 || pocetnoPotrazuje.compareTo(BigDecimal.ZERO) != 0)) {
             TransakcijaZaStanDTO pocetna = new TransakcijaZaStanDTO();
-            pocetna.setDatumKnjizenja(datumOd.minusDays(1));
+            //pocetna.setDatumKnjizenja(datumOd.minusDays(1));
+            pocetna.setDatumKnjizenja(datumOd);
             pocetna.setOpis("Početno stanje iz prethodnih godina");
             pocetna.setDuguje(pocetnoDuguje);
             pocetna.setPotrazuje(pocetnoPotrazuje);

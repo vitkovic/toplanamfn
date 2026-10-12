@@ -31,7 +31,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>, JpaSpecificationExecutor<Transakcija> {
 	
-	@Query(value = "coalesce(sum(duguje),0)- coalesce(sum(potrazuje), 0)"
+	@Query(value = "select coalesce(sum(duguje),0)- coalesce(sum(potrazuje), 0)"
 			+ "	from transakcija t "
 			+ "	where t.datum <= (SELECT (date_trunc('month', now()) - interval '1 day')) "
 			+ "	and stan_id = :stanId", nativeQuery=true)
@@ -85,11 +85,13 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 		       "              like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%') " +
 		       "     )) " +
 		       "  or (:racuni = true " +
-		       "      and t.sifraPromene.id = 2701 " +
+		       "      and (t.sifraPromene.id = 2701 " +
+		       "           or (t.sifraPromene is null " +
+		       "               and lower(sr_lat(coalesce(t.opis, ''))) = 'racun')) " +
 		       "      and lower(sr_lat(coalesce(r.opisRacuna, ''))) " +
 		       "          like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
 		       "  or (:uplate = true " +
-		       "      and t.sifraPromene.id = 2451 " +
+		       " and t.sifraPromene.id in (2451, 2454)" +
 		       "      and lower(sr_lat(coalesce(t.opis, ''))) " +
 		       "          like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
 		       ")")
@@ -124,11 +126,13 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 		       "              like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%') " +
 		       "     )) " +
 		       "  or (:racuni = true " +
-		       "      and t.sifraPromene.id = 2701 " +
+		       "      and (t.sifraPromene.id = 2701 " +
+		       "           or (t.sifraPromene is null " +
+		       "               and lower(sr_lat(coalesce(t.opis, ''))) = 'racun')) " +
 		       "      and lower(sr_lat(coalesce(r.opisRacuna, ''))) " +
 		       "          like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
 		       "  or (:uplate = true " +
-		       "      and t.sifraPromene.id = 2451 " +
+		       " and t.sifraPromene.id in (2451, 2454)" +
 		       "      and lower(sr_lat(coalesce(t.opis, ''))) " +
 		       "          like concat('%', lower(sr_lat(coalesce(:opis, ''))), '%')) " +
 		       ")")
@@ -332,13 +336,25 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	        "     ) " +
 	        "    ) " +
 
-	        // Računi — opis se traži u racun.opis_racuna
-	        "    or " +
-	        "    (coalesce(:racuni, false) = true " +
-	        "     and t.sifra_promene_id = 2701 " +
-	        "     and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
-	        "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
-
+			//Računi
+			" or (coalesce(:racuni, false) = true " +
+			"     and ( " +
+			"         t.sifra_promene_id = 2701 " +
+			"         or ( " +
+			"             t.sifra_promene_id IS NULL " +
+			"             and lower(sr_lat(trim(coalesce(t.opis, '')))) = 'racun' " +
+			"             and coalesce(t.duguje, 0) > 0 " +
+			"             and coalesce(t.potrazuje, 0) = 0 " +
+			"         ) " +
+			"     ) " +
+			"     and ( " +
+			"         trim(coalesce(:opis, '')) = '' " +
+			"         or lower(sr_lat(coalesce(t.opis, ''))) " +
+			"             like '%' || lower(sr_lat(trim(:opis))) || '%' " +
+			"         or lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+			"             like '%' || lower(sr_lat(trim(:opis))) || '%' " +
+			"     ) " +
+			" ) " +
 	        // Uplate — opis se traži u transakcija.opis
 	        "    or " +
 	        "    (coalesce(:uplate, false) = true " +
@@ -435,11 +451,25 @@ public interface TransakcijaRepository extends JpaRepository<Transakcija, Long>,
 	        "     ) " +
 	        "    ) " +
 
-	        // Samo računi
-	        " or (coalesce(:racuni, false) = true " +
-	        "     and t.sifra_promene_id = 2701 " +
-	        "     and lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
-	        "         like '%' || lower(sr_lat(trim(coalesce(:opis, '')))) || '%') " +
+			//Računi
+			" or (coalesce(:racuni, false) = true " +
+			"     and ( " +
+			"         t.sifra_promene_id = 2701 " +
+			"         or ( " +
+			"             t.sifra_promene_id IS NULL " +
+			"             and lower(sr_lat(trim(coalesce(t.opis, '')))) = 'racun' " +
+			"             and coalesce(t.duguje, 0) > 0 " +
+			"             and coalesce(t.potrazuje, 0) = 0 " +
+			"         ) " +
+			"     ) " +
+			"     and ( " +
+			"         trim(coalesce(:opis, '')) = '' " +
+			"         or lower(sr_lat(coalesce(t.opis, ''))) " +
+			"             like '%' || lower(sr_lat(trim(:opis))) || '%' " +
+			"         or lower(sr_lat(coalesce(r.opis_racuna, ''))) " +
+			"             like '%' || lower(sr_lat(trim(:opis))) || '%' " +
+			"     ) " +
+			" ) " +
 
 	        // Samo uplate
 	        " or (coalesce(:uplate, false) = true " +

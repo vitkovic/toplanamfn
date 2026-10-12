@@ -65,7 +65,7 @@ export default class TransakcijaSveDetails extends Vue {
       if (to.params.sifra) {
         vm.search.sifraStana = to.params.sifra;
 		vm.sifra = to.params.sifra;
-		vm.sve = to.query.sve;
+		vm.sve = to.query.sve === 'true';
 		vm.search.sve = vm.sve;
 		vm.retrieveSveTransakcije(to.params.sifra);
 		if (to.query.search) {
@@ -77,7 +77,15 @@ export default class TransakcijaSveDetails extends Vue {
   
   onSveChange(event) {
 	this.search.sve = this.sve;
+	
+	this.opis = '';
+	this.racuni = false;
+	this.uplate = false;
 
+	this.search.opis = '';
+	this.search.racuni = false;
+	this.search.uplate = false;
+/*
 	 this.opis = '';
 	 this.racuni = false;
 	 this.uplate = false;
@@ -85,7 +93,7 @@ export default class TransakcijaSveDetails extends Vue {
 	 this.search.opis = '';
 	 this.search.racuni = false;
 	 this.search.uplate = false;
-
+*/ 	 
 	 this.retrieveSveTransakcije(this.sifra);
   }
   
@@ -150,6 +158,13 @@ export default class TransakcijaSveDetails extends Vue {
    
   
   onEnterOpis() {
+	console.log('FILTERI', {
+		   sve: this.sve,
+		   racuni: this.racuni,
+		   uplate: this.uplate,
+		   opis: this.opis
+		 });
+		
 	this.search.opis = this.opis;
 	this.transakcijaService()
 	     .findAllForStanOpis(this.sifra, this.sve, this.opis,	this.racuni, this.uplate)
