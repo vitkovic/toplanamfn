@@ -27,6 +27,7 @@ class ITransakcijeZaStanZbirnoDTO {
     stan: IStan;
     ostaliRacuni: IOstaliRacuni;
 	transakcije: ITransakcijaZaStanDTO[] = [];
+  pregledUplata: any[] = [];
 	dugujeUkupno: number = 0;
 	potrazujeUkupno: number = 0;
 	saldoUkupno: number = 0;
@@ -58,6 +59,38 @@ export default class TransakcijaSveDetails extends Vue {
 	uplate: false,
   }
   
+  public prikazOtvorenihStavki = false;
+  // Sortiranje iskljucivo pregleda uplata u otvorenim stavkama.
+  public otvoreneUplateSortKolona = 'datum';
+  public otvoreneUplateSortSmer = 1;
+
+  public sortirajOtvoreneUplate(kolona: string): void {
+    if (!this.prikazOtvorenihStavki) return;
+    if (this.otvoreneUplateSortKolona === kolona) {
+      this.otvoreneUplateSortSmer *= -1;
+    } else {
+      this.otvoreneUplateSortKolona = kolona;
+      this.otvoreneUplateSortSmer = 1;
+    }
+  }
+
+  get sortiraneOtvoreneUplate(): any[] {
+    const uplate = this.transakcijaZbirno && this.transakcijaZbirno.pregledUplata;
+    if (!Array.isArray(uplate)) return [];
+    const kolona = this.otvoreneUplateSortKolona;
+    const smer = this.otvoreneUplateSortSmer;
+    return uplate.slice().sort((a, b) => {
+      const av = a[kolona];
+      const bv = b[kolona];
+      if (av == null && bv == null) return 0;
+      if (av == null) return 1;
+      if (bv == null) return -1;
+      if (kolona === 'originalniIznos' || kolona === 'nerasporedjeno') {
+        return smer * (Number(av) - Number(bv));
+      }
+      return smer * String(av).localeCompare(String(bv), 'sr', { numeric: true });
+    });
+  }
   public transakcijaZbirno = new ITransakcijeZaStanZbirnoDTO();  
 
   beforeRouteEnter(to, from, next) {
@@ -65,7 +98,7 @@ export default class TransakcijaSveDetails extends Vue {
       if (to.params.sifra) {
         vm.search.sifraStana = to.params.sifra;
 		vm.sifra = to.params.sifra;
-		vm.sve = to.query.sve === 'true';
+		vm.sve = to.query.sve;
 		vm.search.sve = vm.sve;
 		vm.retrieveSveTransakcije(to.params.sifra);
 		if (to.query.search) {
@@ -76,16 +109,9 @@ export default class TransakcijaSveDetails extends Vue {
   }
   
   onSveChange(event) {
+    this.prikazOtvorenihStavki = false;
 	this.search.sve = this.sve;
-	
-	this.opis = '';
-	this.racuni = false;
-	this.uplate = false;
 
-	this.search.opis = '';
-	this.search.racuni = false;
-	this.search.uplate = false;
-/*
 	 this.opis = '';
 	 this.racuni = false;
 	 this.uplate = false;
@@ -93,7 +119,7 @@ export default class TransakcijaSveDetails extends Vue {
 	 this.search.opis = '';
 	 this.search.racuni = false;
 	 this.search.uplate = false;
-*/ 	 
+
 	 this.retrieveSveTransakcije(this.sifra);
   }
   
@@ -158,13 +184,7 @@ export default class TransakcijaSveDetails extends Vue {
    
   
   onEnterOpis() {
-	console.log('FILTERI', {
-		   sve: this.sve,
-		   racuni: this.racuni,
-		   uplate: this.uplate,
-		   opis: this.opis
-		 });
-		
+    this.prikazOtvorenihStavki = false;
 	this.search.opis = this.opis;
 	this.transakcijaService()
 	     .findAllForStanOpis(this.sifra, this.sve, this.opis,	this.racuni, this.uplate)
@@ -181,6 +201,7 @@ export default class TransakcijaSveDetails extends Vue {
   
     // poziv novog REST metoda
 	public prikaziOtvoreneStavke(): void {
+      this.prikazOtvorenihStavki = true;
 	  this.transakcijaService()
 	    .findOtvoreneStavkeZaStan(this.sifra)
 	    .then(res => {
@@ -196,6 +217,7 @@ export default class TransakcijaSveDetails extends Vue {
   
   
   public retrieveSveTransakcije(sifra) {
+    this.prikazOtvorenihStavki = false;
 	
     this.transakcijaService()
       .findAllForStan(sifra, this.sve)
@@ -241,12 +263,12 @@ export default class TransakcijaSveDetails extends Vue {
 	this.search.uplate = this.uplate;
     
 	  this.transakcijaService()
-        .analitickaKarticaStampanje(this.search)
+        [this.prikazOtvorenihStavki ? 'otvoreneStavkeStampanje' : 'analitickaKarticaStampanje'](this.search)
         .then(res => {
           var fileURL = window.URL.createObjectURL(new Blob([res]));
           var fileLink = document.createElement('a');
           fileLink.href = fileURL;
-          fileLink.setAttribute('download', 'AnalitickaKartica.pdf');
+          fileLink.setAttribute('download', this.prikazOtvorenihStavki ? 'OtvoreneStavke.pdf' : 'AnalitickaKartica.pdf');
           document.body.appendChild(fileLink);
           fileLink.click();
         });

@@ -421,11 +421,32 @@ public class TransakcijaResource {
  * @param sifraStana
  * @return
  ********************************************************************************************************/    
+    /** Stampa otvorenih stavki: koristi isti Jasper sablon, ali obracunate stavke. */
+    @PostMapping(value = "/transakcijas/otvorene-stavke-stampanje", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<ByteArrayResource> stampajOtvoreneStavke(@RequestBody SearchTransakcijaDTO search)
+            throws IOException {
+        String sifra = search.getSifraStana();
+        Stan stan = stanRepository.findBySifra(sifra);
+        TransakcijeZaStanZbirnoDTO trans = (stan != null)
+                ? transakcijaService.findOtvoreneStavkeZaStan(stan)
+                : transakcijaService.findOtvoreneStavkeZaDodatniRacun(sifra);
+
+        byte[] pdf = transakcijaService.generateReportAnalitickaKartica(trans);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        headers.add("Content-Disposition", "attachment; filename=\"OtvoreneStavke.pdf\"");
+        return ResponseEntity.ok().headers(headers).contentLength(pdf.length)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new ByteArrayResource(pdf));
+    }
+
     @RequestMapping(
             value = "/transakcijas/sve-prikaz-stampanje",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<InputStreamResource> stampajAllTransakcijeZaStan(
+    public ResponseEntity<ByteArrayResource> stampajAllTransakcijeZaStan(
             @RequestBody SearchTransakcijaDTO search) throws IOException {
 
         log.debug("REST request to get a page of Transakcije zbirno za stan");
@@ -452,6 +473,52 @@ public class TransakcijaResource {
             );
         }
 
+        // U PDF-u za tekucu godinu prikazi zbirni promet prethodnih godina.
+        // Koriste se isti filteri kao za transakcije prikazanog perioda.
+        if (!Boolean.TRUE.equals(search.isSve())) {
+            java.time.LocalDate datumOd = java.time.LocalDate.now().withDayOfYear(1);
+            String opis = search.getOpis() == null ? "" : search.getOpis().trim();
+            java.math.BigDecimal prethodnoDuguje;
+            java.math.BigDecimal prethodnoPotrazuje;
+
+            if (stan != null) {
+                prethodnoDuguje = transakcijaRepository.getDugujePreDatumaZaStanIOpis(
+                        stan.getId(), datumOd, opis, search.isRacuni(), search.isUplate());
+                prethodnoPotrazuje = transakcijaRepository.getPotrazujePreDatumaZaStanIOpis(
+                        stan.getId(), datumOd, opis, search.isRacuni(), search.isUplate());
+            } else {
+                toplana.domain.OstaliRacuni dodatni = trans.getOstaliRacuni();
+                if (dodatni == null) {
+                    prethodnoDuguje = java.math.BigDecimal.ZERO;
+                    prethodnoPotrazuje = java.math.BigDecimal.ZERO;
+                } else {
+                    prethodnoDuguje = transakcijaRepository.getDugujePreDatumaZaOstaleRacuneIOpis(
+                            dodatni.getId(), datumOd, opis, search.isRacuni(), search.isUplate());
+                    prethodnoPotrazuje = transakcijaRepository.getPotrazujePreDatumaZaOstaleRacuneIOpis(
+                            dodatni.getId(), datumOd, opis, search.isRacuni(), search.isUplate());
+                }
+            }
+
+            if (prethodnoDuguje == null) prethodnoDuguje = java.math.BigDecimal.ZERO;
+            if (prethodnoPotrazuje == null) prethodnoPotrazuje = java.math.BigDecimal.ZERO;
+
+            if (prethodnoDuguje.signum() != 0 || prethodnoPotrazuje.signum() != 0) {
+                TransakcijaZaStanDTO pocetno = new TransakcijaZaStanDTO();
+                pocetno.setDatumKnjizenja(datumOd);
+                pocetno.setOpis("Početno stanje iz prethodnih godina");
+                pocetno.setDuguje(prethodnoDuguje);
+                pocetno.setPotrazuje(prethodnoPotrazuje);
+                pocetno.setSaldo(prethodnoDuguje.subtract(prethodnoPotrazuje));
+
+                java.util.List<TransakcijaZaStanDTO> redovi =
+                        new java.util.ArrayList<>(trans.getTransakcije());
+                redovi.add(0, pocetno);
+                trans.setTransakcije(redovi);
+                trans.setDugujeUkupno(trans.getDugujeUkupno().add(prethodnoDuguje));
+                trans.setPotrazujeUkupno(trans.getPotrazujeUkupno().add(prethodnoPotrazuje));
+            }
+        }
+
         for (TransakcijaZaStanDTO x : trans.getTransakcije()) {
             System.out.println(
                     x.getDatumKnjizenja() + " | " +
@@ -461,21 +528,20 @@ public class TransakcijaResource {
             );
         }
 
-        String filename = transakcijaService.generateReportAnalitickaKartica(trans);
-        File file = new File(filename);
+        byte[] pdf = transakcijaService.generateReportAnalitickaKartica(trans);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
         headers.add("Expires", "0");
-        headers.add("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+        headers.add("Content-Disposition", "attachment; filename=\"AnKartica.pdf\"");
 
         return ResponseEntity
                 .ok()
                 .headers(headers)
-                .contentLength(file.length())
+                .contentLength(pdf.length)
                 .contentType(MediaType.parseMediaType("application/pdf"))
-                .body(new InputStreamResource(new FileInputStream(file)));
+                .body(new ByteArrayResource(pdf));
     }
 /********************************************************************************************************
  * rekapitulacija po datumima i sifri promene    

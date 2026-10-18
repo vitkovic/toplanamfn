@@ -51,7 +51,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import java.util.stream.StreamSupport; 
 
 /**
  * Service Implementation for managing {@link Transakcija}.
@@ -1043,113 +1043,283 @@ public class TransakcijaService {
     }
     
     
-    // otvorene stavke
-    
-    
+    // Otvorene stavke: raspodela samo u memoriji, bez izmene knjizenja.
+    private static final class OtvorenaPozicija {
+        final Transakcija transakcija;
+        BigDecimal ostatak;
+        final String period;
+        final List<toplana.web.rest.dto.RaspodelaUplateDTO> raspodele = new ArrayList<>();
+        OtvorenaPozicija(Transakcija t, BigDecimal iznos, String period) {
+            this.transakcija = t;
+            this.ostatak = iznos;
+            this.period = period;
+        }
+    }
+
+    private static BigDecimal iznosIliNula(BigDecimal v) {
+        return v == null ? BigDecimal.ZERO : v;
+    }
+
+    // Vraca yyyy-MM; nepoznate i kombinovane oznake se NE tumace.
+    private static String normalizujPeriod(String tekst) {
+        if (tekst == null) return null;
+        String s = java.text.Normalizer.normalize(tekst.trim().toUpperCase(java.util.Locale.ROOT),
+                java.text.Normalizer.Form.NFD).replaceAll("\\p{M}+", "");
+        s = s.replace('А','A').replace('В','V').replace('Г','G').replace('Д','D')
+             .replace('Е','E').replace('Ј','J').replace('К','K').replace('Л','L')
+             .replace('М','M').replace('Н','N').replace('О','O').replace('П','P')
+             .replace('Р','R').replace('С','S').replace('Т','T').replace('У','U')
+             .replace('Ф','F').replace('Б','B').replace('Ц','C').replace('И','I');
+        String[] nazivi = {"JANUAR", "FEBRUAR", "MART", "APRIL", "MAJ", "JUN", "JUL", "AVGUST", "SEPTEMBAR", "OKTOBAR", "NOVEMBAR", "DECEMBAR"};
+        String[] kratki = {"JAN", "FEB", "MAR", "APR", "MAJ", "JUN", "JUL", "AVG", "SEP", "OKT", "NOV", "DEC"};
+        for (int i = 0; i < 12; i++) {
+            String p = "(?:" + nazivi[i] + "|" + kratki[i] + ")";
+            java.util.regex.Matcher m = java.util.regex.Pattern.compile("^" + p + "[ ._-]*(20[0-9]{2}|[0-9]{2})$").matcher(s);
+            if (m.matches()) {
+                int godina = Integer.parseInt(m.group(1));
+                if (godina < 100) godina += 2000;
+                return String.format(java.util.Locale.ROOT, "%04d-%02d", godina, i + 1);
+            }
+        }
+        return null;
+    }
+
+    // Broj izvrsnog predmeta, npr. IIVK404/26 ili IVK 404/2026.
+    // Ne spajamo IVK i IIVK niti razlicite brojeve predmeta.
+    private static String oznakaIzvrsenja(String tekst) {
+        if (tekst == null) return null;
+        String s = java.text.Normalizer.normalize(tekst.toUpperCase(java.util.Locale.ROOT),
+                java.text.Normalizer.Form.NFD).replaceAll("\\p{M}+", "");
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile(
+                "(?<![A-Z0-9])(IIVK|IVK)\\s*[-:]?\\s*(\\d+)\\s*/\\s*(\\d{2,4})(?![0-9])")
+                .matcher(s);
+        if (!m.find()) return null;
+        String godina = m.group(3);
+        if (godina.length() == 4 && godina.startsWith("20")) godina = godina.substring(2);
+        return m.group(1) + m.group(2) + "/" + godina;
+    }
+
+    private static String predmetTransakcije(Transakcija t) {
+        // Na fakturi je predmet u RACUN.OPIS_RACUNA, ne u opisu transakcije.
+        if (t.getRacun() != null) {
+            String izRacuna = oznakaIzvrsenja(t.getRacun().getOpisRacuna());
+            if (izRacuna != null) return izRacuna;
+        }
+        // Izvrsni predmet moze biti vezan i za stavku utuzenja.
+        if (t.getStavkaUtuzenja() != null) {
+            String izUtuzenja = oznakaIzvrsenja(t.getStavkaUtuzenja().getOpis());
+            if (izUtuzenja != null) return izUtuzenja;
+        }
+        String oznaka = oznakaIzvrsenja(t.getSifraDokumenta());
+        if (oznaka != null) return oznaka;
+        if (t.getStavkaIzvoda() != null) {
+            oznaka = oznakaIzvrsenja(t.getStavkaIzvoda().getOpis());
+            if (oznaka != null) return oznaka;
+        }
+        return oznakaIzvrsenja(t.getOpis());
+    }
+
+    // Uplata po predmetu moze samo na isti predmet. Redovna uplata
+    // moze samo na redovan racun. Iznos nikada nije kriterijum uparivanja.
+    private static boolean dozvoljenaRaspodela(OtvorenaPozicija uplata, OtvorenaPozicija racun) {
+        String u = predmetTransakcije(uplata.transakcija);
+        String r = predmetTransakcije(racun.transakcija);
+        return u == null ? r == null : u.equals(r);
+    }
+
+    private static void rasporedi(OtvorenaPozicija uplata, OtvorenaPozicija racun,
+            java.util.Map<Long, toplana.web.rest.dto.PregledUplateDTO> pregledi) {
+        BigDecimal dodeljeno = uplata.ostatak.min(racun.ostatak);
+        if (dodeljeno.signum() > 0) {
+            uplata.ostatak = uplata.ostatak.subtract(dodeljeno);
+            racun.ostatak = racun.ostatak.subtract(dodeljeno);
+            String opisUplate = uplata.transakcija.getStavkaIzvoda() == null ? null : uplata.transakcija.getStavkaIzvoda().getOpis();
+            if (opisUplate == null || opisUplate.trim().isEmpty()) opisUplate = uplata.transakcija.getOpis();
+            racun.raspodele.add(new toplana.web.rest.dto.RaspodelaUplateDTO(
+                    uplata.transakcija.getId(), uplata.transakcija.getDatum(),
+                    uplata.transakcija.getSifraDokumenta(), opisUplate, dodeljeno));
+            // Trag po uplati: ukljucuje i racune koji su potpuno zatvoreni.
+            // Ne menja redosled niti iznose raspodele.
+            if (pregledi != null) {
+                toplana.web.rest.dto.PregledUplateDTO pregled = pregledi.get(uplata.transakcija.getId());
+                if (pregled != null) {
+                    String cilj = racun.transakcija.getRacun() != null
+                            ? racun.transakcija.getRacun().getPeriod()
+                            : racun.transakcija.getSifraDokumenta();
+                    pregled.dodajRaspodelu(racun.transakcija.getId(), cilj,
+                            racun.transakcija.getDatum(), dodeljeno);
+                }
+            }
+        }
+    }
+
+    private TransakcijeZaStanZbirnoDTO obracunajOtvoreneStavke(
+            List<Transakcija> sve, Stan stan, OstaliRacuni dodatniRacun) {
+        toplana.web.rest.dto.OtvoreneStavkeZbirnoDTO out = new toplana.web.rest.dto.OtvoreneStavkeZbirnoDTO();
+        if (stan != null) out.setStan(stan);
+        if (dodatniRacun != null) out.setOstaliRacuni(dodatniRacun);
+
+        java.util.Map<Long, toplana.web.rest.dto.PregledUplateDTO> pregledi = new java.util.LinkedHashMap<>();
+        List<OtvorenaPozicija> racuni = new ArrayList<>();
+        List<OtvorenaPozicija> uplate = new ArrayList<>();
+        List<OtvorenaPozicija> korekcije = new ArrayList<>();
+        BigDecimal ocekivaniSaldo = BigDecimal.ZERO;
+        Comparator<OtvorenaPozicija> redosled = Comparator
+                .comparing((OtvorenaPozicija x) -> x.transakcija.getDatum(),
+                        Comparator.nullsLast(Comparator.naturalOrder()))
+                .thenComparing(x -> x.transakcija.getId(), Comparator.nullsLast(Comparator.naturalOrder()));
+        List<Transakcija> hronoloski = new ArrayList<>(sve);
+        hronoloski.sort(Comparator
+                .comparing(Transakcija::getDatum, Comparator.nullsLast(Comparator.naturalOrder()))
+                .thenComparing(Transakcija::getId, Comparator.nullsLast(Comparator.naturalOrder())));
+
+        // Jedinstven hronoloski prolaz. Nijedna transakcija ne sme biti
+        // rasporedjena na dug koji jos nije nastao. Ne radi se zavrsni FIFO.
+        for (Transakcija t : hronoloski) {
+            BigDecimal d = iznosIliNula(t.getDuguje());
+            BigDecimal p = iznosIliNula(t.getPotrazuje());
+            ocekivaniSaldo = ocekivaniSaldo.add(d).subtract(p);
+            BigDecimal neto = d.subtract(p);
+            if (neto.signum() == 0) continue;
+
+            boolean migracioni = d.signum() > 0 && p.signum() > 0
+                    && "ZR 22".equalsIgnoreCase(t.getSifraDokumenta() == null
+                            ? "" : t.getSifraDokumenta().trim());
+            if (d.signum() > 0 && p.signum() > 0 && !migracioni) {
+                throw new IllegalStateException("Nepodrzano dvostrano knjizenje, ID " + t.getId());
+            }
+
+            if (neto.signum() > 0) {
+                String period = d.signum() > 0 && p.signum() == 0 && t.getRacun() != null
+                        ? normalizujPeriod(t.getRacun().getPeriod()) : null;
+                OtvorenaPozicija r = new OtvorenaPozicija(t, neto, period);
+                racuni.add(r);
+
+                // Prethodne uplate su vec obradjene na datum knjizenja.
+                // Nerasporedjena pretplata moze pokriti novi racun.
+                // Prethodne pretplate i otpisi mogu pokriti novi dug.
+                // Njihov redosled mora biti zajednicki hronoloski, ne po grupama.
+                List<OtvorenaPozicija> slobodnaSredstva = new ArrayList<>();
+                for (OtvorenaPozicija u : uplate)
+                    if (u.ostatak.signum() > 0) slobodnaSredstva.add(u);
+                for (OtvorenaPozicija k : korekcije)
+                    if (k.ostatak.signum() > 0) slobodnaSredstva.add(k);
+                slobodnaSredstva.sort(redosled);
+                for (OtvorenaPozicija u : slobodnaSredstva) {
+                    if (r.ostatak.signum() == 0) break;
+                    if (dozvoljenaRaspodela(u, r)) rasporedi(u, r, pregledi);
+                }
+            } else {
+                boolean korekcija = d.signum() < 0 && p.signum() == 0;
+                String period = null;
+                if (!korekcija && !migracioni) {
+                    String opis = t.getStavkaIzvoda() == null ? null : t.getStavkaIzvoda().getOpis();
+                    period = normalizujPeriod(opis);
+                    if (period == null) period = normalizujPeriod(t.getOpis());
+                }
+                OtvorenaPozicija u = new OtvorenaPozicija(t, neto.negate(), period);
+                if (korekcija) korekcije.add(u); else uplate.add(u);
+                String opisUplate = t.getStavkaIzvoda() == null ? null : t.getStavkaIzvoda().getOpis();
+                if (opisUplate == null || opisUplate.trim().isEmpty()) opisUplate = t.getOpis();
+                pregledi.put(t.getId(), new toplana.web.rest.dto.PregledUplateDTO(
+                        t.getId(), t.getDatum(), t.getSifraDokumenta(), opisUplate,
+                        neto.negate(), korekcija ? "KOREKCIJA" : "UPLATA"));
+
+                // Strogo razdvajanje IVK/IIVK predmeta i redovnih uplata.
+                // Bez odgovarajuceg oznacenog zaduzenja uplata ostaje
+                // nerasporedjena; ne sme se proizvoljno vezati za ZR 22.
+                if (period != null) {
+                    for (OtvorenaPozicija r : racuni) {
+                        if (u.ostatak.signum() == 0) break;
+                        if (period.equals(r.period) && r.ostatak.signum() > 0
+                                && dozvoljenaRaspodela(u, r))
+                            rasporedi(u, r, pregledi);
+                    }
+                }
+                for (OtvorenaPozicija r : racuni) {
+                    if (u.ostatak.signum() == 0) break;
+                    if (r.ostatak.signum() > 0 && dozvoljenaRaspodela(u, r))
+                        rasporedi(u, r, pregledi);
+                }
+            }
+        }
+        // Ne vrsi se naknadna preraspodela vec rasporedjenih uplata.
+        // Nerasporedjena pretplata moze pokriti buduci racun korisnika.
+        racuni.sort(redosled);
+        uplate.sort(redosled);
+        korekcije.sort(redosled);
+
+        List<OtvorenaPozicija> otvorene = new ArrayList<>();
+        for (OtvorenaPozicija r : racuni) if (r.ostatak.signum() > 0) otvorene.add(r);
+        for (OtvorenaPozicija u : uplate) if (u.ostatak.signum() > 0) otvorene.add(u);
+        for (OtvorenaPozicija k : korekcije) if (k.ostatak.signum() > 0) otvorene.add(k);
+        otvorene.sort(redosled);
+        BigDecimal saldo = BigDecimal.ZERO;
+        BigDecimal duguje = BigDecimal.ZERO;
+        BigDecimal potrazuje = BigDecimal.ZERO;
+        List<TransakcijaZaStanDTO> rezultat = new ArrayList<>();
+        for (OtvorenaPozicija o : otvorene) {
+            TransakcijaZaStanDTO dto = new TransakcijaZaStanDTO(o.transakcija, saldo);
+            // Za migracioni zapis obe strane su pozitivne: smer odredjuje neto iznos.
+            BigDecimal brutoD = iznosIliNula(o.transakcija.getDuguje());
+            BigDecimal brutoP = iznosIliNula(o.transakcija.getPotrazuje());
+            boolean migracioni = brutoD.signum() > 0 && brutoP.signum() > 0
+                    && "ZR 22".equalsIgnoreCase(o.transakcija.getSifraDokumenta() == null
+                            ? "" : o.transakcija.getSifraDokumenta().trim());
+            boolean zaduzivanje = migracioni ? brutoD.compareTo(brutoP) > 0
+                    : (brutoD.signum() > 0 || brutoP.signum() < 0);
+            BigDecimal d = zaduzivanje ? o.ostatak : BigDecimal.ZERO;
+            BigDecimal p = zaduzivanje ? BigDecimal.ZERO : o.ostatak;
+            saldo = saldo.add(d).subtract(p);
+            duguje = duguje.add(d);
+            potrazuje = potrazuje.add(p);
+            dto.setDuguje(d);
+            dto.setPotrazuje(p);
+            dto.setSaldo(saldo);
+            BigDecimal originalni = migracioni ? brutoD.subtract(brutoP).abs()
+                    : (zaduzivanje ? (brutoD.signum() > 0 ? brutoD : brutoP.negate())
+                            : (brutoP.signum() > 0 ? brutoP : brutoD.negate()));
+            dto.setOriginalniIznos(originalni);
+            dto.setRasporedjenoUkupno(originalni.subtract(o.ostatak));
+            dto.setRaspodelaUplata(new ArrayList<>(o.raspodele));
+            rezultat.add(dto);
+        }
+        if (saldo.compareTo(ocekivaniSaldo) != 0) {
+            throw new IllegalStateException("Otvorene stavke: saldo " + saldo
+                    + " nije jednak saldu svih transakcija " + ocekivaniSaldo);
+        }
+        out.setDugujeUkupno(duguje);
+        out.setPotrazujeUkupno(potrazuje);
+        out.setSaldoUkupno(saldo);
+        // Svaka uplata i korekcija mora biti knjigovodstveno konzistentna.
+        for (OtvorenaPozicija u : uplate) {
+            toplana.web.rest.dto.PregledUplateDTO pr = pregledi.get(u.transakcija.getId());
+            if (pr != null) pr.setNerasporedjeno(u.ostatak);
+            if (u.ostatak.signum() < 0) throw new IllegalStateException("Negativan ostatak uplate ID " + u.transakcija.getId());
+        }
+        for (OtvorenaPozicija u : korekcije) {
+            toplana.web.rest.dto.PregledUplateDTO pr = pregledi.get(u.transakcija.getId());
+            if (pr != null) pr.setNerasporedjeno(u.ostatak);
+            if (u.ostatak.signum() < 0) throw new IllegalStateException("Negativan ostatak korekcije ID " + u.transakcija.getId());
+        }
+        // Pregled se i dalje prenosi kroz prvi DTO red; ovo je ogranicenje
+        // postojeceg DTO ugovora kada su sva zaduzenja zatvorena.
+        out.setPregledUplata(new ArrayList<>(pregledi.values()));
+        if (!rezultat.isEmpty()) rezultat.get(0).setPregledUplata(new ArrayList<>(pregledi.values()));
+        out.setTransakcije(rezultat);
+        return out;
+    }
+
     public TransakcijeZaStanZbirnoDTO findOtvoreneStavkeZaStan(Stan stan) {
-
-        TransakcijeZaStanZbirnoDTO out = new TransakcijeZaStanZbirnoDTO();
-        out.setStan(stan);
-
-        List<Transakcija> transakcije =
-                transakcijaRepository.findOtvoreneStavkeZaStan(stan.getId());
-
-        BigDecimal saldo = BigDecimal.ZERO;
-        BigDecimal duguje = BigDecimal.ZERO;
-        BigDecimal potrazuje = BigDecimal.ZERO;
-
-        List<TransakcijaZaStanDTO> tr = new ArrayList<>();
-
-        for (Transakcija t : transakcije) {
-
-            TransakcijaZaStanDTO trans =
-                    new TransakcijaZaStanDTO(t, saldo);
-
-            saldo = trans.getSaldo();
-
-            duguje = duguje
-                    .add(trans.getDuguje())
-                    .setScale(2, RoundingMode.HALF_UP);
-
-            potrazuje = potrazuje
-                    .add(trans.getPotrazuje())
-                    .setScale(2, RoundingMode.HALF_UP);
-
-            tr.add(trans);
-        }
-
-        out.setDugujeUkupno(duguje);
-        out.setPotrazujeUkupno(potrazuje);
-        out.setSaldoUkupno(saldo);
-        out.setTransakcije(tr);
-
-        return out;
+        return obracunajOtvoreneStavke(transakcijaRepository.findAllByStanOrderByDatum(stan), stan, null);
     }
-    
-    public TransakcijeZaStanZbirnoDTO findOtvoreneStavkeZaDodatniRacun(
-            String sifraRacuna) {
 
-        TransakcijeZaStanZbirnoDTO out =
-                new TransakcijeZaStanZbirnoDTO();
-
-        OstaliRacuni or =
-                ostaliRacuniRepository.findBySifra(sifraRacuna);
-
-        if (or == null) {
-
-            out.setDugujeUkupno(
-                    BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP));
-
-            out.setPotrazujeUkupno(
-                    BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP));
-
-            out.setSaldoUkupno(
-                    BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP));
-
-            out.setTransakcije(new ArrayList<>());
-
-            return out;
-        }
-
-        out.setOstaliRacuni(or);
-
-        List<Transakcija> transakcije =
-                transakcijaRepository
-                        .findOtvoreneStavkeZaDodatniRacun(or.getId());
-
-        BigDecimal saldo = BigDecimal.ZERO;
-        BigDecimal duguje = BigDecimal.ZERO;
-        BigDecimal potrazuje = BigDecimal.ZERO;
-
-        List<TransakcijaZaStanDTO> tr = new ArrayList<>();
-
-        for (Transakcija t : transakcije) {
-
-            TransakcijaZaStanDTO trans =
-                    new TransakcijaZaStanDTO(t, saldo);
-
-            saldo = trans.getSaldo();
-
-            duguje = duguje
-                    .add(trans.getDuguje())
-                    .setScale(2, RoundingMode.HALF_UP);
-
-            potrazuje = potrazuje
-                    .add(trans.getPotrazuje())
-                    .setScale(2, RoundingMode.HALF_UP);
-
-            tr.add(trans);
-        }
-
-        out.setDugujeUkupno(duguje);
-        out.setPotrazujeUkupno(potrazuje);
-        out.setSaldoUkupno(saldo);
-        out.setTransakcije(tr);
-
-        return out;
+    public TransakcijeZaStanZbirnoDTO findOtvoreneStavkeZaDodatniRacun(String sifraRacuna) {
+        OstaliRacuni or = ostaliRacuniRepository.findBySifra(sifraRacuna);
+        if (or == null) return obracunajOtvoreneStavke(new ArrayList<>(), null, null);
+        return obracunajOtvoreneStavke(transakcijaRepository.findAllByOstaliRacuniOrderByDatum(or), null, or);
     }
-    
-    
+
  /*
  public TransakcijeZaStanZbirnoDTO findAllByDodatniRacunOrderByDatum(String sifra){
     	
@@ -1756,7 +1926,7 @@ public class TransakcijaService {
  * @param rps
  * @return
  *****************************************************************************************************************/
-    public String generateReportAnalitickaKartica(TransakcijeZaStanZbirnoDTO trans) {
+    public byte[] generateReportAnalitickaKartica(TransakcijeZaStanZbirnoDTO trans) {
 
         try {
         	
@@ -1805,13 +1975,12 @@ public class TransakcijaService {
             
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, source);
 
-            JasperExportManager.exportReportToPdfFile(jasperPrint, pdfPutanja + "\\AnKartica.pdf");
+            return JasperExportManager.exportReportToPdf(jasperPrint);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new IllegalStateException("Greska pri generisanju PDF izvestaja", e);
         }
 
-        return pdfPutanja + "\\AnKartica.pdf";
     }
     
 /***************************************************************************************************************

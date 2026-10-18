@@ -120,7 +120,7 @@
                 id="uplate"
                 type="checkbox"
                 v-model="uplate"
-                  @change="onEnterOpis"
+                @change="onEnterOpis"
               />
               <label for="uplate">Уплате</label>
             </div>
@@ -169,7 +169,9 @@
           <div
             v-if="
               transakcijaZbirno.transakcije &&
-              transakcijaZbirno.transakcije.length > 0
+              (prikazOtvorenihStavki
+                ? transakcijaZbirno.transakcije.some(t => Number(t.duguje) > 0)
+                : transakcijaZbirno.transakcije.length > 0)
             "
             class="table-responsive transaction-table-wrapper"
           >
@@ -237,10 +239,11 @@
 
 				<tr
 				    v-for="(t, index) in transakcijaZbirno.transakcije"
+				    v-if="!prikazOtvorenihStavki || Number(t.duguje) > 0"
 				    :key="t.id"
 				    :class="{
-				        'ivk-racun-row': t.opisRacuna && t.opisRacuna.toLowerCase().includes('ivk'),
-				        'ivk-uplata-row': t.opis && t.opis.toLowerCase().includes('ivk')
+				        'ivk-racun-row': prikazOtvorenihStavki && t.opisRacuna && t.opisRacuna.toLowerCase().includes('ivk'),
+				        'ivk-uplata-row': prikazOtvorenihStavki && t.opis && t.opis.toLowerCase().includes('ivk')
 				    }"
                 >
                   <td class="date-column">
@@ -276,10 +279,25 @@
                   </td>
 
                   <td class="numeric-cell">
-                    {{ t.saldo | currency('') }}
+                    {{ (prikazOtvorenihStavki ? t.duguje : t.saldo) | currency('') }}
                   </td>
 
                   <td class="action-cell">
+                    <details v-if="t.originalniIznos != null" class="open-item-audit">
+                      <summary>Расподела</summary>
+                      <div><strong>Оригинални износ:</strong> {{ t.originalniIznos | currency('') }}</div>
+                      <div><strong>Распоређено:</strong> {{ t.rasporedjenoUkupno | currency('') }}</div>
+                      <div><strong>Преостало:</strong> {{ (t.duguje || t.potrazuje) | currency('') }}</div>
+                      <table v-if="t.raspodelaUplata && t.raspodelaUplata.length" class="table table-sm">
+                        <thead><tr><th>Датум уплате</th><th>Документ</th><th>Опис</th><th>Распоређено</th></tr></thead>
+                        <tbody>
+                          <tr v-for="(u, i) in t.raspodelaUplata" :key="i">
+                            <td>{{ u.datum }}</td><td>{{ u.sifraDokumenta }}</td>
+                            <td>{{ u.opis }}</td><td>{{ u.iznos | currency('') }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </details>
                     <button
                       v-if="
                         t.racunId ||
@@ -304,24 +322,25 @@
                       <span
                         v-text="$t('toplanaApp.transakcija.ukupno')"
                       ></span>:
+                      <span v-if="prikazOtvorenihStavki"> (отворена задужења)</span>
                     </strong>
                   </td>
 
                   <td class="numeric-cell">
                     <strong>
-                      {{ transakcijaZbirno.dugujeUkupno | currency('') }}
+                      {{ (prikazOtvorenihStavki ? transakcijaZbirno.transakcije.reduce((sum, t) => sum + Math.max(0, Number(t.duguje) || 0), 0) : transakcijaZbirno.dugujeUkupno) | currency('') }}
                     </strong>
                   </td>
 
                   <td class="numeric-cell">
                     <strong>
-                      {{ transakcijaZbirno.potrazujeUkupno | currency('') }}
+                      {{ (prikazOtvorenihStavki ? 0 : transakcijaZbirno.potrazujeUkupno) | currency('') }}
                     </strong>
                   </td>
 
                   <td class="numeric-cell">
                     <strong>
-                      {{ transakcijaZbirno.saldoUkupno | currency('') }}
+                      {{ (prikazOtvorenihStavki ? transakcijaZbirno.transakcije.reduce((sum, t) => sum + Math.max(0, Number(t.duguje) || 0), 0) : transakcijaZbirno.saldoUkupno) | currency('') }}
                     </strong>
                   </td>
 
@@ -336,8 +355,92 @@
             v-else
             class="alert alert-info"
           >
-            Нема трансакција за изабрани критеријум.
+            {{ prikazOtvorenihStavki ? 'Нема преосталих отворених ставки.' : 'Нема трансакција за изабрани критеријум.' }}
           </div>
+
+          <!-- Pregled uplata i korekcija: samo prikaz, bez izmene obracuna -->
+          <details
+            v-if="prikazOtvorenihStavki && transakcijaZbirno.pregledUplata && transakcijaZbirno.pregledUplata.length"
+            class="mb-3 payment-review"
+            open
+          >
+            <summary><strong>Уплате и корекције — где су износи распоређени</strong></summary>
+            <div class="payment-review-total mt-2">
+              <span>Књиговодствени салдо</span>
+              <strong>{{ transakcijaZbirno.saldoUkupno | currency('') }} RSD</strong>
+            </div>
+            <p class="payment-review-hint">За сваку уплату или корекцију кликните на „Расподела“ да видите која су задужења умањена.</p>
+            <div class="table-responsive">
+              <table class="table table-sm table-bordered payment-review-table">
+                <thead>
+                  <tr>
+                    <th><button type="button" class="open-items-sort" @click="sortirajOtvoreneUplate('datum')">Датум <span v-if="otvoreneUplateSortKolona === 'datum'">{{ otvoreneUplateSortSmer === 1 ? '▲' : '▼' }}</span></button></th>
+                    <th><button type="button" class="open-items-sort" @click="sortirajOtvoreneUplate('sifraDokumenta')">Документ <span v-if="otvoreneUplateSortKolona === 'sifraDokumenta'">{{ otvoreneUplateSortSmer === 1 ? '▲' : '▼' }}</span></button></th>
+                    <th><button type="button" class="open-items-sort" @click="sortirajOtvoreneUplate('opis')">Опис <span v-if="otvoreneUplateSortKolona === 'opis'">{{ otvoreneUplateSortSmer === 1 ? '▲' : '▼' }}</span></button></th>
+                    <th><button type="button" class="open-items-sort" @click="sortirajOtvoreneUplate('vrsta')">Врста <span v-if="otvoreneUplateSortKolona === 'vrsta'">{{ otvoreneUplateSortSmer === 1 ? '▲' : '▼' }}</span></button></th>
+                    <th class="numeric-cell"><button type="button" class="open-items-sort" @click="sortirajOtvoreneUplate('originalniIznos')">Износ <span v-if="otvoreneUplateSortKolona === 'originalniIznos'">{{ otvoreneUplateSortSmer === 1 ? '▲' : '▼' }}</span></button></th>
+                    <th class="numeric-cell"><button type="button" class="open-items-sort" @click="sortirajOtvoreneUplate('nerasporedjeno')">Нераспоређено <span v-if="otvoreneUplateSortKolona === 'nerasporedjeno'">{{ otvoreneUplateSortSmer === 1 ? '▲' : '▼' }}</span></button></th>
+                    <th>Детаљи</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="u in sortiraneOtvoreneUplate" :key="u.transakcijaId" :class="{ 'ivk-uplata-row': u.opis && /ivk/i.test(u.opis) }">
+                    <td>{{ u.datum }}</td>
+                    <td>{{ u.sifraDokumenta }}</td>
+                    <td>{{ u.opis }}</td>
+                    <td>{{ u.vrsta === 'KOREKCIJA' ? 'Корекција / отпис' : 'Уплата' }}</td>
+                    <td class="numeric-cell">{{ u.originalniIznos | currency('') }}</td>
+                    <td class="numeric-cell">{{ u.nerasporedjeno | currency('') }}</td>
+                    <td class="payment-review-detail-cell">
+                      <details>
+                        <summary>Расподела</summary>
+                        <div class="payment-review-detail-content">
+                          <table class="table table-sm mb-1">
+                            <thead>
+                              <tr>
+                                <th>Задужење које је умањено</th>
+                                <th class="numeric-cell">Износ</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr v-for="(r, i) in u.raspodele" :key="i">
+                                <td>{{ r.racun === 'ZR 22' ? 'Почетни дуг (ZR 22)' : (r.racun || 'Задужење') }}<span v-if="r.datumRacuna"> ({{ r.datumRacuna }})</span></td>
+                                <td class="numeric-cell">{{ r.iznos | currency('') }}</td>
+                              </tr>
+                              <tr v-if="!u.raspodele || !u.raspodele.length">
+                                <td colspan="2">Нема распоређених износа.</td>
+                              </tr>
+                            </tbody>
+                            <tfoot>
+                              <tr>
+                                <th>Укупно распоређено</th>
+                                <th class="numeric-cell">{{ u.rasporedjeno | currency('') }}</th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                          <div class="payment-review-remainder">Нераспоређено: <strong>{{ u.nerasporedjeno | currency('') }}</strong></div>
+                        </div>
+                      </details>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th colspan="4">Укупно:</th>
+                    <th class="numeric-cell">{{ transakcijaZbirno.pregledUplata.reduce((zbir, u) => zbir + Number(u.originalniIznos || 0), 0) | currency('') }}</th>
+                    <th class="numeric-cell">{{ transakcijaZbirno.pregledUplata.reduce((zbir, u) => zbir + Number(u.nerasporedjeno || 0), 0) | currency('') }}</th>
+                    <th></th>
+                  </tr>
+                  <tr>
+                    <th colspan="4">Укупно распоређено:</th>
+                    <th class="numeric-cell">{{ transakcijaZbirno.pregledUplata.reduce((zbir, u) => zbir + Number(u.rasporedjeno || 0), 0) | currency('') }}</th>
+                    <th colspan="2"></th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </details>
+
 
           <!-- DUGMAD -->
           <div class="action-buttons">
@@ -664,4 +767,20 @@
     background-color: #FFE5B4 !important;   /* svetlo narandžasta */
 }
 
+
+/* Pregled raspodele: stilovi ograniceni na otvorene stavke */
+.payment-review > summary { cursor: pointer; padding: 9px 0; }
+.payment-review-total { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 12px 15px; background: #f3f6f9; border: 1px solid #dce3ea; border-radius: 5px; }
+.payment-review-total strong { font-size: 1.2rem; }
+.payment-review-hint { margin: 12px 0; color: #58616b; }
+.payment-review-table > tbody > tr > td { vertical-align: middle; }
+.payment-review-detail-cell { min-width: 260px; }
+.payment-review-detail-cell summary { cursor: pointer; color: #0056b3; font-weight: 600; }
+.payment-review-detail-content { padding: 10px 0 4px; min-width: 310px; }
+.payment-review-detail-content table { background: #fff; }
+.payment-review-remainder { text-align: right; font-size: 0.9rem; }
+</style>
+<style>
+.payment-review-table .open-items-sort { border: 0; background: transparent; padding: 0; color: inherit; font: inherit; font-weight: 600; cursor: pointer; text-align: inherit; }
+.payment-review-table .open-items-sort:hover { text-decoration: underline; }
 </style>

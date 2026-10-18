@@ -14,7 +14,21 @@ import toplana.domain.Transakcija;
 
 public class TransakcijaZaStanDTO {
 	
-	private Long id;
+	private java.util.List<PregledUplateDTO> pregledUplata;
+    public java.util.List<PregledUplateDTO> getPregledUplata() { return pregledUplata; }
+    public void setPregledUplata(java.util.List<PregledUplateDTO> v) { this.pregledUplata = v; }
+    private BigDecimal originalniIznos;
+    private BigDecimal rasporedjenoUkupno;
+    private java.util.List<RaspodelaUplateDTO> raspodelaUplata;
+
+    public BigDecimal getOriginalniIznos() { return originalniIznos; }
+    public void setOriginalniIznos(BigDecimal v) { this.originalniIznos = v; }
+    public BigDecimal getRasporedjenoUkupno() { return rasporedjenoUkupno; }
+    public void setRasporedjenoUkupno(BigDecimal v) { this.rasporedjenoUkupno = v; }
+    public java.util.List<RaspodelaUplateDTO> getRaspodelaUplata() { return raspodelaUplata; }
+    public void setRaspodelaUplata(java.util.List<RaspodelaUplateDTO> v) { this.raspodelaUplata = v; }
+
+    private Long id;
 	private LocalDate datumKnjizenja;
 	private LocalDate datumDokumenta;
 	private LocalDate valuta;

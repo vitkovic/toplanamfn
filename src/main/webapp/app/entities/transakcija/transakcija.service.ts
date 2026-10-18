@@ -123,6 +123,11 @@ export default class TransakcijaService {
     });
   }
 
+  public otvoreneStavkeStampanje(search): Promise<any> {
+    return axios.post('api/transakcijas/otvorene-stavke-stampanje', search, { responseType: 'blob' })
+      .then(res => res.data);
+  }
+
   public analitickaKarticaStampanje(search): Promise<any> {
     debugger
     return new Promise<any>((resolve, reject) => {
