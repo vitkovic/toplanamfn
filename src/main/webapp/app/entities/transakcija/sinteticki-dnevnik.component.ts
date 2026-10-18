@@ -24,6 +24,22 @@ export default class SintetickiDnevnik extends mixins(AlertMixin) {
   public filter:string = "";
   public perPage = 20;
   public currentPage = 1;
+  public trazenaStranica: number = null;
+  public greskaStranice = '';
+
+  get ukupanBrojStranica(): number {
+    return Math.ceil(this.rows / this.perPage);
+  }
+
+  public idiNaStranicu(): void {
+    const broj = Number(this.trazenaStranica);
+    if (!Number.isInteger(broj) || broj < 1 || broj > this.ukupanBrojStranica) {
+      this.greskaStranice = `Unesite broj stranice od 1 do ${this.ukupanBrojStranica}.`;
+      return;
+    }
+    this.currentPage = broj;
+    this.greskaStranice = '';
+  }
 
 
   public rekapitulacije = [{

@@ -148,7 +148,8 @@
                         :filter="filter" 
                         :per-page="perPage" 
                         :fields="fields"
-                        :current-page="currentPage" >
+                        :current-page="currentPage"
+                        @filtered="onFiltered" >
                             <template slot="bottom-row" slot-scope="data">
                                     <td v-for="(field, i) in data.fields" :key="i" style="background-color:#0f7864;color:white">
                                         <div  v-if="i==4">
@@ -170,6 +171,15 @@
                             </template>                            
                     </b-table>                   
                    <b-pagination v-model="currentPage" class="customPagination" :total-rows="rows" :per-page="perPage"></b-pagination>
+                   <div class="d-flex align-items-center flex-wrap mt-2" style="gap: 10px;">
+                       <span>Укупно страница: {{ ukupnoStranica }}</span>
+                       <label for="broj-stranice-analiticki" class="mb-0">Страница:</label>
+                       <b-form-input id="broj-stranice-analiticki" v-model="zeljenaStranica"
+                           type="number" min="1" :max="ukupnoStranica" style="width: 110px;"
+                           @keyup.enter="idiNaStranicu"></b-form-input>
+                       <b-button variant="primary" @click="idiNaStranicu">Иди</b-button>
+                   </div>
+                   <div v-if="greskaStranice" class="text-danger mt-1">{{ greskaStranice }}</div>
                    
                 </b-col>
             </b-row>     
