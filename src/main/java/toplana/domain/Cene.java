@@ -3,9 +3,9 @@ package toplana.domain;
 
 import javax.persistence.*;    
 
-import java.io.Serializable;
+import java.io.Serializable;   
 import java.math.BigDecimal;
-
+   
 /**
  * A Cene.
  */
