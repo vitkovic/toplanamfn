@@ -224,7 +224,17 @@
                        
                             </template>
                     </b-table>
-                    <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage"></b-pagination>
+                    <div class="d-flex align-items-center flex-wrap">
+                        <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" class="mb-0 mr-3"></b-pagination>
+                        <label for="stranica-unos" class="mb-0 mr-2">Страница:</label>
+                        <b-form-input id="stranica-unos" type="number" min="1"
+                            :max="ukupnoStranica"
+                            v-model.number="zeljenaStranica" style="width:100px"
+                            class="mr-2" @keyup.enter="idiNaStranicu"></b-form-input>
+                        <b-button variant="primary" @click="idiNaStranicu">Иди</b-button>
+                        <span class="ml-3">Укупно страница: {{ ukupnoStranica }}</span>
+                    </div>
+                    <div v-if="greskaStranice" class="text-danger mt-2">{{ greskaStranice }}</div>
                 </b-col>
             </b-row>
               <b-row class="mt-4">

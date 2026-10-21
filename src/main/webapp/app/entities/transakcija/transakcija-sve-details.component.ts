@@ -240,6 +240,8 @@ export default class TransakcijaSveDetails extends Vue {
         this.$router.push({name: 'StavkeIzvodaView', params: {stavkeIzvodaId: JSON.stringify(t.stavkaIzvodaId)}});
     }else if(t.stavkaIzvodaPostanskaId){
       this.$router.push({name: 'StavkeIzvodaPostanskaView', params: {stavkeIzvodaId: JSON.stringify(t.stavkaIzvodaPostanskaId)}});
+    }else if(t.id){
+      this.$router.push({name: 'TransakcijaView', params: {transakcijaId: JSON.stringify(t.id)}});
   }
   }
 

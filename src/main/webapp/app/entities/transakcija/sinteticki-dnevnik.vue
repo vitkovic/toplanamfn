@@ -161,6 +161,12 @@
                             </template>                            
                     </b-table>                   
                    <b-pagination v-model="currentPage" class="customPagination" :total-rows="rows" :per-page="perPage"></b-pagination>
+                    <div class="d-flex align-items-center flex-wrap mt-2" style="gap: 10px;">
+                        <span>Укупно страница: {{ ukupanBrojStranica }}</span>
+                        <b-form-input v-model.number="trazenaStranica" type="number" min="1" :max="ukupanBrojStranica" placeholder="Број странице" style="width: 145px;" @keyup.enter="idiNaStranicu"></b-form-input>
+                        <b-button variant="primary" @click="idiNaStranicu">Иди</b-button>
+                    </div>
+                    <div v-if="greskaStranice" class="text-danger mt-1">{{ greskaStranice }}</div>
                    
                 </b-col>
             </b-row>     

@@ -41,6 +41,22 @@ export default class Transakcija extends mixins(AlertMixin) {
   public filter:string = "";
   public perPage = 20;
   public currentPage = 1;
+  public zeljenaStranica: number = 1;
+  public greskaStranice = '';
+
+  get ukupnoStranica(): number {
+    return Math.max(1, Math.ceil(this.rows / this.perPage));
+  }
+
+  public idiNaStranicu(): void {
+    const broj = Number(this.zeljenaStranica);
+    if (!Number.isInteger(broj) || broj < 1 || broj > this.ukupnoStranica) {
+      this.greskaStranice = `Унесите број странице од 1 до ${this.ukupnoStranica}.`;
+      return;
+    }
+    this.greskaStranice = '';
+    this.currentPage = broj;
+  }
 
   
   

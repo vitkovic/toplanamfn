@@ -40,6 +40,31 @@ export default class KnjigovodstveniDnevnikAnaliticki extends mixins(AlertMixin)
   public filter:string = "";
   public perPage = 20;
   public currentPage = 1;
+  public zeljenaStranica: string = '';
+  public greskaStranice = '';
+  public brojFiltriranihRedova: number | null = null;
+
+  get ukupnoStranica(): number {
+    const brojRedova = this.brojFiltriranihRedova === null ? this.rows : this.brojFiltriranihRedova;
+    return Math.ceil(brojRedova / this.perPage);
+  }
+
+  public onFiltered(items: ITransakcija[]): void {
+    this.brojFiltriranihRedova = items.length;
+    this.currentPage = 1;
+    this.greskaStranice = '';
+  }
+
+  public idiNaStranicu(): void {
+    const broj = Number(this.zeljenaStranica);
+    if (!this.zeljenaStranica.trim() || !Number.isInteger(broj) || broj < 1 || broj > this.ukupnoStranica) {
+      this.greskaStranice = `Унесите број странице од 1 до ${this.ukupnoStranica}.`;
+      return;
+    }
+    this.currentPage = broj;
+    this.greskaStranice = '';
+  }
+
   public isSaving = false;
 
 
@@ -204,6 +229,7 @@ public mounted(): void {
     this.transakcijaService().retrieveCriteriaAnalitickiDnevnik(this.search)
     .then(res => {            
       this.margina = false;
+      this.brojFiltriranihRedova = null;
       this.transakcije = res.data.transakcije;
 	  console.log(this.transakcije);
       let reoni = res.data.reoniDugovi;

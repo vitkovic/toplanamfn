@@ -302,7 +302,8 @@
                       v-if="
                         t.racunId ||
                         t.stavkaIzvodaId ||
-                        t.stavkaIzvodaPostanskaId
+                        t.stavkaIzvodaPostanskaId ||
+                        t.id
                       "
                       type="button"
                       class="btn btn-info btn-sm"
