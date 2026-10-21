@@ -1,7 +1,7 @@
 package toplana.domain;
 
 
-import javax.persistence.*;
+import javax.persistence.*;    
 
 import java.io.Serializable;
 import java.math.BigDecimal;
