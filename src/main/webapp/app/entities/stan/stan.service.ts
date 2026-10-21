@@ -47,6 +47,10 @@ export default class StanService {
     });
   }
 
+  public retrieveCriteria(search: { sifra: string; prezime: string; ime: string; brojMerila: string }, paginationQuery?: any): Promise<any> {
+    return axios.post(baseApiUrl + '/criteria?' + buildPaginationQueryOpts(paginationQuery), search);
+  }
+
   public retrieveWithoutPagination(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       axios

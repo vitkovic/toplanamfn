@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface StanRepository extends JpaRepository<Stan, Long> {
+public interface StanRepository extends JpaRepository<Stan, Long>, JpaSpecificationExecutor<Stan> {
 	
 	List<Stan> findAllByPodstanicaId(Long podstanicaId);
 	Stan findBySifra(String sifra);

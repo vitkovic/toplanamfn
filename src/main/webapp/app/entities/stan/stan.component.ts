@@ -22,6 +22,7 @@ export default class Stan extends mixins(AlertMixin) {
   public totalItems = 0;
 
   public stans: IStan[] = [];
+  public search = { sifra: '', prezime: '', ime: '', brojMerila: '' };
 
   public isFetching = false;
 
@@ -34,6 +35,12 @@ export default class Stan extends mixins(AlertMixin) {
     this.retrieveAllStans();
   }
 
+  public send(): void {
+    this.page = 1;
+    this.previousPage = 1;
+    this.retrieveAllStans();
+  }
+
   public retrieveAllStans(): void {
     this.isFetching = true;
 
@@ -43,7 +50,7 @@ export default class Stan extends mixins(AlertMixin) {
       sort: this.sort(),
     };
     this.stanService()
-      .retrieve(paginationQuery)
+      .retrieveCriteria(this.search, paginationQuery)
       .then(
         res => {
           this.stans = res.data;

@@ -119,6 +119,36 @@ public class StanResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of stans in body.
      */
+    @PostMapping("/stans/criteria")
+    public ResponseEntity<List<Stan>> getStansCriteria(@RequestBody java.util.Map<String, String> search, Pageable pageable) {
+        org.springframework.data.jpa.domain.Specification<Stan> spec = (root, query, cb) -> {
+            java.util.List<javax.persistence.criteria.Predicate> predicates = new java.util.ArrayList<>();
+            String sifra = search.get("sifra");
+            String prezime = search.get("prezime");
+            String ime = search.get("ime");
+            String brojMerila = search.get("brojMerila");
+            if (sifra != null && !sifra.trim().isEmpty()) {
+                predicates.add(cb.like(cb.lower(root.get("sifra")), "%" + sifra.trim().toLowerCase(java.util.Locale.ROOT) + "%"));
+            }
+            if (brojMerila != null && !brojMerila.trim().isEmpty()) {
+                predicates.add(cb.like(cb.lower(root.get("brojMerila").as(String.class)), "%" + brojMerila.trim().toLowerCase(java.util.Locale.ROOT) + "%"));
+            }
+            if ((prezime != null && !prezime.trim().isEmpty()) || (ime != null && !ime.trim().isEmpty())) {
+                javax.persistence.criteria.Join<Object, Object> vlasnik = root.join("vlasnik", javax.persistence.criteria.JoinType.INNER);
+                if (prezime != null && !prezime.trim().isEmpty()) {
+                    predicates.add(cb.like(cb.lower(vlasnik.get("prezime")), "%" + prezime.trim().toLowerCase(java.util.Locale.ROOT) + "%"));
+                }
+                if (ime != null && !ime.trim().isEmpty()) {
+                    predicates.add(cb.like(cb.lower(vlasnik.get("ime")), "%" + ime.trim().toLowerCase(java.util.Locale.ROOT) + "%"));
+                }
+            }
+            return cb.and(predicates.toArray(new javax.persistence.criteria.Predicate[0]));
+        };
+        Page<Stan> page = stanRepository.findAll(spec, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
     @GetMapping("/stansv")
     public ResponseEntity<List<StanVlasnikDTO>> getAllStansVlasnik(Pageable pageable) {
         log.debug("REST request to get a page of Stans");

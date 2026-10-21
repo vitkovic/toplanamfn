@@ -17,6 +17,30 @@
             {{alertMessage}}
         </b-alert>
         <br/>
+        <div class="card" style="margin-bottom: 16px">
+            <div class="card-body">
+                <h5 class="card-title">Pretraga stanova</h5>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="stan-search-sifra">Šifra stana</label>
+                        <input id="stan-search-sifra" type="text" class="form-control" v-model="search.sifra" @keyup.enter="send" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="stan-search-prezime">Prezime vlasnika</label>
+                        <input id="stan-search-prezime" type="text" class="form-control" v-model="search.prezime" @keyup.enter="send" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="stan-search-ime">Ime vlasnika</label>
+                        <input id="stan-search-ime" type="text" class="form-control" v-model="search.ime" @keyup.enter="send" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="stan-search-merilo">Broj merila</label>
+                        <input id="stan-search-merilo" type="text" class="form-control" v-model="search.brojMerila" @keyup.enter="send" />
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" style="margin-top: 20px" :disabled="isFetching" @click="send">Пошаљи</button>
+            </div>
+        </div>
         <div class="alert alert-warning" v-if="!isFetching && stans && stans.length === 0">
             <span v-text="$t('toplanaApp.stan.home.notFound')">No stans found</span>
         </div>
